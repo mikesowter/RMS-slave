@@ -1,4 +1,4 @@
-#include "C:\Users\Mikes 6700K\Dropbox\sketchbook\RMS slave\src\extern.h"
+#include "extern.h"
 
 void handleMetrics() {
   htmlStr[0]='\0';
@@ -25,6 +25,8 @@ void handleMetrics() {
   addCstring(f2s2(-WiFi.RSSI()));
   addCstring( "\n" );
   server.send ( 200, "text/plain", htmlStr );
+  Vmin = 500.0;
+  Vmax = 0.0;
  }
 
 void handleNotFound() {

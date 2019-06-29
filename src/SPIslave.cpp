@@ -62,16 +62,13 @@ void unloadValues() {
   float v;
   Freq = unload2Bytes()/1000.0;
   Vrms = 0.9*Vrms + unload2Bytes()/1000.0;
-  v = unload2Bytes()/50.0;
-  Vmin = _max(Vmin,v);
-  v = unload2Bytes()/50.0;
-  Vmax = _max(Vmax,v); 
-  for (uint8_t p=0;p<6;p++) {           // bytes 9-32
-    Irms[p] = unload2Bytes()/1000.0;
+  Vmin = unload2Bytes()/50.0;
+  Vmax = unload2Bytes()/50.0;
+  for (uint8_t p=0 ; p<12 ; p++) {           // bytes 9-32
+  //  Irms[p] = unload2Bytes()/1000.0;
     Wrms[p] = unload2Bytes();
   }
-  sprintf(charBuf,"\nFreq = %0.3f Vrms=%0.1f Vmin=%0.1f Vmax=%0.1f W1=%0.1f W2=%0.1f W3=%0.1f W4=%0.1f",
-                    Freq,Vrms,Vmin,Vmax,Wrms[1],Wrms[2],Wrms[3],Wrms[4]);
+  sprintf(charBuf,"\nFreq = %0.3f Vrms=%0.1f Vmin=%0.1f Vmax=%0.1f", Freq, Vrms, Vmin, Vmax);
   Serial.print(charBuf);
 }
 
