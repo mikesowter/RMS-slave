@@ -35,11 +35,12 @@ void qtrProc();
 void watchWait(uint32_t);
 void addCstring(const char* s);
 void dirList();
+byte storeData();
 
 #define NTP_PACKET_SIZE 48
 #define TIME_ZONE 10
 #define HTML_SIZE 10000
-#define NUM_CHANNELS 7
+#define NUM_CHANNELS 7 
 
 extern WiFiUDP udp;
 extern WiFiClient client;

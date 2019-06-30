@@ -18,8 +18,8 @@ extern "C" {
 uint8_t init_OTA();
 uint32_t getTime();
 void setupSPIslave();
-char * timeStamp();
-char * dateStamp();
+char* timeStamp();
+char* dateStamp();
 char* i2sh(uint8_t b);
 void diagMess(const char*);
 void errMess(const char*);

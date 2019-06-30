@@ -6,7 +6,7 @@ void handleMetrics() {
   addCstring("\nrmsVolts ");
   addCstring(f2s2(Vrms));
   addCstring("\n# TYPE rmsVmin guage" );
-  addCstring("\nrmsVmin ");
+  addCstring("\nrmsVmin -");
   addCstring(f2s2(Vmin));
   addCstring("\n# TYPE rmsVmax guage" );
   addCstring("\nrmsVmax ");

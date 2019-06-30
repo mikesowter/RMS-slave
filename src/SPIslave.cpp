@@ -45,11 +45,11 @@ void waitForData() {
   noData = true;
   delay(10);        
   SPISlave.end(); 
-  Serial.println();
-  for (uint8_t i=0;i<32;i++) {
+  /* Serial.println();
+  for (uint8_t i=0 ; i<32 ; i++) {
     Serial.print(SPIdata[i],HEX);
     Serial.print(" ");
-  }
+  }  */
   Serial.println();
   Serial.print(timeStamp());
   Serial.printf("  waited %d ms  ",millis()-t2);

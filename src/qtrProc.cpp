@@ -17,11 +17,9 @@ void qtrProc() {
 
     // generate new file name for day
     strcpy(todayName,"/rs");
-    strcat(todayName,i2sd(year()%100));
-    strcat(todayName,i2sd(month()));
-    strcat(todayName,i2sd(day()));
+    strcat(todayName,dateStamp());
     strcat(todayName,".csv");
-//    storeData();
+    storeData();
     // update month and year
     oldYear = year();
     oldMonth = month();
@@ -29,8 +27,6 @@ void qtrProc() {
   }
   oldHour = hour();
   oldQtr = minute()/15;
-  Vmin=0;
-  Vmax=0;
   // flush fault files
   fd.flush();
   fe.flush();

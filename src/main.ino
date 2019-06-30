@@ -8,7 +8,7 @@ RMS slave handles NTP, FTP and prometheus metrics scrapes */
 void setup(void) {
   Serial.begin(115200);
   Serial.println();
-  Serial.println("RMS slave  03 Oct 2018");
+  Serial.println("RMS slave  30 June 2019");
   Serial.print("\n\nConnecting to ");
   Serial.println(ssid);
   WiFi.config(ip, gateway, subnet, dns);
@@ -48,16 +48,13 @@ void setup(void) {
   oldMonth = month();
   oldYear = year();
 
-  //if(!SPIFFS.format()||!SPIFFS.begin())     //use to format SPIFFS drive
-  if(!SPIFFS.begin())
-  {
-    Serial.println("SPIFFS.begin failed");
-  }
+  //if(!SPIFFS.format()) Serial.println("SPIFFS.format failed");
+  if(!SPIFFS.begin()) Serial.println("SPIFFS.begin failed");
   SPIFFS.info(fs_info);
-  /* Serial.print(fs_info.totalBytes);
+  Serial.print(fs_info.totalBytes);
   Serial.println(" bytes available");
   Serial.print(fs_info.usedBytes);
-  Serial.println(" bytes used:"); */
+  Serial.println(" bytes used:");
 
   fd=SPIFFS.open("/diags.txt","a");
   fe=SPIFFS.open("/errmess.txt","a");

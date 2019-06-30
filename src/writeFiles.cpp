@@ -1,4 +1,4 @@
-#include "C:\Users\Mikes 6700K\Dropbox\sketchbook\RMS slave\src\extern.h"
+#include "extern.h"
 
 byte openFile(const char* s);
 void WriteQtr();
@@ -29,11 +29,7 @@ void WriteQtr() {
   fh.print(i2sd(hour()));
   fh.print(":");
   fh.print(i2sd(minute()));
-/*  fh.print(",");
-  fh.print(avgTemp[0]);
-  fh.print(",");
-  fh.print(avgTemp[1]);
-  fh.print(",");
-  fh.print(avgTemp[2]); */
+  fh.print(" Vrms: ");
+  fh.println(Vrms);
   delay(10);
 }
