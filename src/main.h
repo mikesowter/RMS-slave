@@ -30,7 +30,7 @@ void waitForData();
 void qtrProc();
 void watchWait(uint32_t);
 
-String resetReason = ESP.getResetReason();
+String resetReason = "\nreset: " + ESP.getResetReason();
 #define NTP_PACKET_SIZE 48
 #define BUFFER_SIZE 128
 #define TIME_ZONE 10
@@ -54,7 +54,7 @@ char userText[20];
 char saveName[20];
 char dateStr[] = "yymmdd";
 char timeStr[] = "hh:mm:ss";
-char charBuf[128];
+char charBuf[256];
 char d2Str[] = "01";
 char fltStr[12];
 char htmlStr[HTML_SIZE];            // use C strings for storage efficiency
@@ -65,14 +65,14 @@ IPAddress gateway(192, 168, 1, 1);
 IPAddress subnet(255, 255, 255, 0);
 IPAddress dns(192, 168, 1, 1);
 
-uint8_t buffer[BUFFER_SIZE];
 uint8_t SPIdata[32];
-uint8_t oldMin,oldQtr,oldHour,oldDay,oldMonth;
+uint8_t buffer[BUFFER_SIZE];
+uint8_t oldMin,oldQtr,oldHour,oldDay,oldMonth,offset;
 uint16_t i,oldYear,htmlLen;
-uint16_t localPort = 2391;          //  a random local port for UDP packets
+uint16_t localPort = 2395;          //  a random local port for UDP packets
 uint32_t t0, t1, startMillis, startSeconds, midNight;
 
 float Wrms[NUM_CHANNELS];					  // Sum of sampled V*I
 float Irms[NUM_CHANNELS];					  // root sum I^2
-float Vrms=245.0,Vmin,Vmax;					// root sum V^2, -Vp, +Vp
+float Vrms=245.0,Vmin=500.0,Vmax;		// root sum V^2, -Vp, +Vp
 float Freq;                         // grid frequency to 50.000

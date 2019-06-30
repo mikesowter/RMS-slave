@@ -3,22 +3,17 @@ which has a 104us capture loop which cant be interrupted
 
 RMS slave handles NTP, FTP and prometheus metrics scrapes */
 
-#include "main.h"
+#include <main.h>
 
 void setup(void) {
   Serial.begin(115200);
   Serial.println();
-  Serial.println("RMS slave  30 June 2019");
+  Serial.println("RMS slave  01 July 2019");
   Serial.print("\n\nConnecting to ");
   Serial.println(ssid);
   WiFi.config(ip, gateway, subnet, dns);
   WiFi.begin(ssid, pass);
-
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    delay(500);
-    Serial.print(".");
-  }
+  while (WiFi.status() != WL_CONNECTED) delay(1);
   Serial.println();
   Serial.print("local IP address: ");
   localIP=WiFi.localIP();
@@ -75,8 +70,8 @@ void setup(void) {
 void loop() { 
   // wait for data from master
   waitForData();
-  //  check for change of the quarter hour
-  if ( minute()/15 != oldQtr ) qtrProc();
+  //  check for change of minute
+  // if ( minute() != oldMin ) qtrProc();
   //  check for async activity
   watchWait(1700); 
   // check for network
@@ -86,4 +81,5 @@ void loop() {
     fe.close(); 
     ESP.restart();
   } 
+  watchDog = 0;
 }

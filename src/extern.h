@@ -66,7 +66,7 @@ extern char htmlStr[];
 
 extern uint8_t buffer[];
 extern uint8_t SPIdata[];
-extern uint8_t oldMin,oldQtr,oldHour,oldDay,oldMonth;
+extern uint8_t oldMin,oldQtr,oldHour,oldDay,oldMonth,offset;
 extern uint16_t i,oldYear,htmlLen;
 extern uint16_t localPort;   
 extern uint32_t t0, t1, startMillis, startSeconds, midNight;

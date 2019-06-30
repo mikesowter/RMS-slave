@@ -27,6 +27,7 @@ void handleMetrics() {
   server.send ( 200, "text/plain", htmlStr );
   Vmin = 500.0;
   Vmax = 0.0;
+  Serial.println("    scanned");
  }
 
 void handleNotFound() {

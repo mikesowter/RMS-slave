@@ -8,7 +8,6 @@ byte storeData() {
   if ( !openFile("a") ) return 0;
   WriteQtr();
   fh.close();
-  diagMess(fileName);
   return 1;
 }
 

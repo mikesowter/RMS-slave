@@ -1,9 +1,8 @@
-#include "C:\Users\Mikes 6700K\Dropbox\sketchbook\RMS slave\src\extern.h"
+#include "extern.h"
 
 float unload2Bytes();
 void unloadValues();
 
-uint8_t o;
 
 void setupSPIslave() {
   // data has been received from the master. len is always 32 bytes
@@ -23,12 +22,12 @@ void setupSPIslave() {
   // The status register is a special register that both the slave and the master can write to and read from.
   // Can be used to exchange small data or status information
   SPISlave.onStatus([](uint32_t data) {
-    Serial.printf("Status: %u\n", data);
+    Serial.printf("Master status: %u\n", data);
   });
 
   // The master has read the status register
   SPISlave.onStatusSent([]() {
-    Serial.println("Status Sent");
+    Serial.println("Time code read\n");
   });
   // Setup SPI Slave registers and pins
   SPISlave.begin();
@@ -52,28 +51,30 @@ void waitForData() {
   }  */
   Serial.println();
   Serial.print(timeStamp());
-  Serial.printf("  waited %d ms  ",millis()-t2);
+  Serial.printf("  waited %ld ms  ",millis()-t2);
   unloadValues();
-  delay(50);
+  delay(10);
 }
 
 void unloadValues() {
-  o = 0;
+  offset = 0;
   float v;
   Freq = unload2Bytes()/1000.0;
   Vrms = 0.9*Vrms + unload2Bytes()/1000.0;
-  Vmin = unload2Bytes()/50.0;
-  Vmax = unload2Bytes()/50.0;
-  for (uint8_t p=0 ; p<12 ; p++) {           // bytes 9-32
+  v = unload2Bytes()/50.0;
+  Vmin = _min(Vmin,v);
+  v = unload2Bytes()/50.0;
+  Vmax = _max(Vmax,v);
+  for (uint8_t p=0 ; p<10 ; p++) {           // bytes 9-32
   //  Irms[p] = unload2Bytes()/1000.0;
     Wrms[p] = unload2Bytes();
   }
-  sprintf(charBuf,"\nFreq = %0.3f Vrms=%0.1f Vmin=%0.1f Vmax=%0.1f", Freq, Vrms, Vmin, Vmax);
   Serial.print(charBuf);
 }
 
 float unload2Bytes() {
-  float f = 256.0*(float)SPIdata[o++];
-  f += (float)SPIdata[o++];
+  if (offset > 30) Serial.print("illegal SPI data offset ");
+  float f = 256.0*(float)SPIdata[offset++];
+  f += (float)SPIdata[offset++];
   return f;
 }
