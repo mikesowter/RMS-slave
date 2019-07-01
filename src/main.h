@@ -65,7 +65,7 @@ IPAddress gateway(192, 168, 1, 1);
 IPAddress subnet(255, 255, 255, 0);
 IPAddress dns(192, 168, 1, 1);
 
-uint8_t SPIdata[32];
+uint8_t SPIdata[64];
 uint8_t buffer[BUFFER_SIZE];
 uint8_t oldMin,oldQtr,oldHour,oldDay,oldMonth,offset;
 uint16_t i,oldYear,htmlLen;

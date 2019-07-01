@@ -69,7 +69,7 @@ void unloadValues() {
   //  Irms[p] = unload2Bytes()/1000.0;
     Wrms[p] = unload2Bytes();
   }
-  Serial.print(charBuf);
+  Serial.printf("\nFreq = %0.3f Vrms=%0.1f Vmin=%0.1f Vmax=%0.1f", Freq, Vrms, Vmin, Vmax);
 }
 
 float unload2Bytes() {
