@@ -6,7 +6,7 @@ void handleMetrics() {
   addCstring("\nrmsVolts ");
   addCstring(f2s2(Vrms));
   addCstring("\n# TYPE rmsVmin guage" );
-  addCstring("\nrmsVmin -");
+  addCstring("\nrmsVmin ");
   addCstring(f2s2(Vmin));
   addCstring("\n# TYPE rmsVmax guage" );
   addCstring("\nrmsVmax ");
@@ -14,12 +14,20 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsFreq guage" );
   addCstring("\nrmsFreq ");
   addCstring(f2s4(Freq));
-  addCstring("\n# TYPE rmsAmps1 guage" );
-  addCstring("\nrmsAmps1 ");
-  addCstring(f2s4(Irms[1]));
+  
   addCstring("\n# TYPE rmsPwr1 guage" );
   addCstring("\nrmsPwr1 ");
   addCstring(f2s2(Wrms[1]));
+  addCstring("\n# TYPE rmsPwr2 guage" );
+  addCstring("\nrmsPwr2 ");
+  addCstring(f2s2(Wrms[2]));
+  addCstring("\n# TYPE rmsPwr3 guage" );
+  addCstring("\nrmsPwr3 ");
+  addCstring(f2s2(Wrms[3]));
+  addCstring("\n# TYPE rmsPwr4 guage" );
+  addCstring("\nrmsPwr4 ");
+  addCstring(f2s2(Wrms[4]));
+ 
   addCstring("\n# TYPE rmsWifiSignal guage" );
   addCstring("\nrmsWifiSignal ");
   addCstring(f2s2(-WiFi.RSSI()));
