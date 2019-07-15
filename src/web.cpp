@@ -27,6 +27,18 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsPwr4 guage" );
   addCstring("\nrmsPwr4 ");
   addCstring(f2s2(Wrms[4]));
+  addCstring("\n# TYPE rmsPwr5 guage" );
+  addCstring("\nrmsPwr5 ");
+  addCstring(f2s2(Wrms[5]));
+  addCstring("\n# TYPE rmsPwr6 guage" );
+  addCstring("\nrmsPwr6 ");
+  addCstring(f2s2(Wrms[6]));
+  addCstring("\n# TYPE rmsPwr7 guage" );
+  addCstring("\nrmsPwr7 ");
+  addCstring(f2s2(Wrms[7]));
+  addCstring("\n# TYPE rmsPwr8 guage" );
+  addCstring("\nrmsPwr8 ");
+  addCstring(f2s2(Wrms[8]));
  
   addCstring("\n# TYPE rmsWifiSignal guage" );
   addCstring("\nrmsWifiSignal ");
