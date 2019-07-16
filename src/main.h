@@ -72,7 +72,7 @@ uint16_t i,oldYear,htmlLen;
 uint16_t localPort = 2395;          //  a random local port for UDP packets
 uint32_t t0, t1, startMillis, startSeconds, midNight;
 
-float Wrms[NUM_CHANNELS];					  // Sum of sampled V*I
-float Irms[NUM_CHANNELS];					  // root sum I^2
+float Wrms[NUM_CHANNELS+1];					// Sum of sampled V*I
+float Irms[NUM_CHANNELS+1];					// root sum I^2
 float Vrms=245.0,Vmin=500.0,Vmax;		// root sum V^2, -Vp, +Vp
 float Freq;                         // grid frequency to 50.000

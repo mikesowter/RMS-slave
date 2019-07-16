@@ -73,7 +73,7 @@ void loop() {
   //  check for change of minute
   // if ( minute() != oldMin ) qtrProc();
   //  check for async activity
-  watchWait(1700); 
+  watchWait(2300); 
   // check for network
   if (WiFi.status() != WL_CONNECTED) {
     diagMess("disconnected from network");

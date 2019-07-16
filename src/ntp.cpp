@@ -1,4 +1,4 @@
-
+#include <arduino.h>
 #include "extern.h"
 
 void sendNTPrequest(IPAddress& address);
@@ -8,17 +8,18 @@ uint32_t getTime() {
 
   unsigned long year2030 = 1893456000UL;
   unsigned long year2017 = 1483207200UL;
+  uint32_t start = millis();
 
-  while(1) {
+  while( millis()-start < 10000) {
     while (udp.parsePacket()!= NTP_PACKET_SIZE) {
       sendNTPrequest(timeServerIP);
-      delay(1000);
+      delay(500);
     }
     startSeconds = getNTPreply();
     delay(10);
-    if (startSeconds > year2017 && startSeconds < year2030) break;
+    if (startSeconds > year2017 && startSeconds < year2030) return startSeconds;
   }
-  return startSeconds;
+  return year2017;
 }
 
 // send an NTP request to the time server at the given address
