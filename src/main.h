@@ -1,6 +1,6 @@
 
-#include "C:\Users\Mikes 6700K\.platformio\packages\framework-arduinoespressif8266\cores\esp8266\Arduino.h"
-#include "C:\Users\Mikes 6700K\Dropbox\sketchbook\RMS slave\lib\Time-master\TimeLib.h"
+#include "Arduino.h"
+#include "TimeLib.h"
 #include "secrets.h"
 #include <SPISlave.h>
 #include <ESP8266WiFi.h>
@@ -36,7 +36,7 @@ String resetReason = "\nreset: " + ESP.getResetReason();
 #define BUFFER_SIZE 128
 #define TIME_ZONE 10
 #define HTML_SIZE 10000
-#define NUM_CHANNELS 7
+#define NUM_CHANNELS 8
 
 ESP8266WebServer server( 80 );
 WiFiUDP udp;
@@ -73,6 +73,13 @@ uint16_t localPort = 2395;          //  a random local port for UDP packets
 uint32_t t0, t1, startMillis, startSeconds, midNight;
 
 float Wrms[NUM_CHANNELS+1];					// Sum of sampled V*I
+float Wrms_min[NUM_CHANNELS+1];		
+float Wrms_max[NUM_CHANNELS+1];	
 float Irms[NUM_CHANNELS+1];					// root sum I^2
 float Vrms=245.0,Vmin=500.0,Vmax;		// root sum V^2, -Vp, +Vp
 float Freq;                         // grid frequency to 50.000
+float Vrms_min = 500.0;   // max values between scans
+float Vrms_max = 0.0;
+float Vmin_15 = 500.0;
+float Vmax_15 = 0.0;
+  

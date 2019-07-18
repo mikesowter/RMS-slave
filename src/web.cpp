@@ -15,39 +15,70 @@ void handleMetrics() {
   addCstring("\nrmsFreq ");
   addCstring(f2s4(Freq));
   
-  addCstring("\n# TYPE rmsPwr1 guage" );
-  addCstring("\nrmsPwr1 ");
-  addCstring(f2s2(Wrms[1]));
-  addCstring("\n# TYPE rmsPwr2 guage" );
-  addCstring("\nrmsPwr2 ");
-  addCstring(f2s2(Wrms[2]));
-  addCstring("\n# TYPE rmsPwr3 guage" );
-  addCstring("\nrmsPwr3 ");
-  addCstring(f2s2(Wrms[3]));
-  addCstring("\n# TYPE rmsPwr4 guage" );
-  addCstring("\nrmsPwr4 ");
-  addCstring(f2s2(Wrms[4]));
-  addCstring("\n# TYPE rmsPwr5 guage" );
-  addCstring("\nrmsPwr5 ");
-  addCstring(f2s2(Wrms[5]));
-  addCstring("\n# TYPE rmsPwr6 guage" );
-  addCstring("\nrmsPwr6 ");
-  addCstring(f2s2(Wrms[6]));
-  addCstring("\n# TYPE rmsPwr7 guage" );
-  addCstring("\nrmsPwr7 ");
-  addCstring(f2s2(Wrms[7]));
-  addCstring("\n# TYPE rmsPwr8 guage" );
-  addCstring("\nrmsPwr8 ");
-  addCstring(f2s2(Wrms[8]));
+  addCstring("\n# TYPE rmsPwr_min1 guage" );
+  addCstring("\nrmsPwr_min1 ");
+  addCstring(f2s2(Wrms_min[1]));
+  addCstring("\n# TYPE rmsPwr_min2 guage" );
+  addCstring("\nrmsPwr_min2 ");
+  addCstring(f2s2(Wrms_min[2]));
+  addCstring("\n# TYPE rmsPwr_min3 guage" );
+  addCstring("\nrmsPwr_min3 ");
+  addCstring(f2s2(Wrms_min[3]));
+  addCstring("\n# TYPE rmsPwr_min4 guage" );
+  addCstring("\nrmsPwr_min4 ");
+  addCstring(f2s2(Wrms_min[4]));
+  addCstring("\n# TYPE rmsPwr_min5 guage" );
+  addCstring("\nrmsPwr_min5 ");
+  addCstring(f2s2(Wrms_min[5]));
+  addCstring("\n# TYPE rmsPwr_min6 guage" );
+  addCstring("\nrmsPwr_min6 ");
+  addCstring(f2s2(Wrms_min[6]));
+  addCstring("\n# TYPE rmsPwr_min7 guage" );
+  addCstring("\nrmsPwr_min7 ");
+  addCstring(f2s2(Wrms_min[7]));
+  addCstring("\n# TYPE rmsPwr_min8 guage" );
+  addCstring("\nrmsPwr_min8 ");
+  addCstring(f2s2(Wrms_min[8]));
+  addCstring("\n# TYPE rmsPwr_max1 guage" );
+  addCstring("\nrmsPwr_max1 ");
+  addCstring(f2s2(Wrms_max[1]));
+  addCstring("\n# TYPE rmsPwr_max2 guage" );
+  addCstring("\nrmsPwr_max2 ");
+  addCstring(f2s2(Wrms_max[2]));
+  addCstring("\n# TYPE rmsPwr_max3 guage" );
+  addCstring("\nrmsPwr_max3 ");
+  addCstring(f2s2(Wrms_max[3]));
+  addCstring("\n# TYPE rmsPwr_max4 guage" );
+  addCstring("\nrmsPwr_max4 ");
+  addCstring(f2s2(Wrms_max[4]));
+  addCstring("\n# TYPE rmsPwr_max5 guage" );
+  addCstring("\nrmsPwr_max5 ");
+  addCstring(f2s2(Wrms_max[5]));
+  addCstring("\n# TYPE rmsPwr_max6 guage" );
+  addCstring("\nrmsPwr_max6 ");
+  addCstring(f2s2(Wrms_max[6]));
+  addCstring("\n# TYPE rmsPwr_max7 guage" );
+  addCstring("\nrmsPwr_max7 ");
+  addCstring(f2s2(Wrms_max[7]));
+  addCstring("\n# TYPE rmsPwr_max8 guage" );
+  addCstring("\nrmsPwr_max8 ");
+  addCstring(f2s2(Wrms_max[8]));
  
   addCstring("\n# TYPE rmsWifiSignal guage" );
   addCstring("\nrmsWifiSignal ");
   addCstring(f2s2(-WiFi.RSSI()));
   addCstring( "\n" );
   server.send ( 200, "text/plain", htmlStr );
+  // reset max,min for scan interval
   Vmin = 500.0;
   Vmax = 0.0;
-  Serial.println("    scanned");
+  Vrms_min = 500.0;
+  Vrms_max = 0.0;
+  for (int i=1;i<9;i++) {
+    Wrms_min[i] = 5000.0;
+    Wrms_max[i] = 0.0;
+  }
+  Serial.print("  scanned");
  }
 
 void handleNotFound() {

@@ -40,7 +40,7 @@ byte storeData();
 #define NTP_PACKET_SIZE 48
 #define TIME_ZONE 10
 #define HTML_SIZE 10000
-#define NUM_CHANNELS 7 
+#define NUM_CHANNELS 8 
 
 extern WiFiUDP udp;
 extern WiFiClient client;
@@ -75,3 +75,10 @@ extern float Wrms[];					    // Sum of sampled V*I
 extern float Irms[];					    // root sum I^2
 extern float Vrms,Vmin,Vmax;			// root sum V^2, -Vp, +Vp
 extern float Freq;
+extern float Vrms_min;
+extern float Vrms_max;
+extern float Vmin_15;
+extern float Vmax_15;
+extern float Wrms_min[NUM_CHANNELS+1];		
+extern float Wrms_max[NUM_CHANNELS+1];	
+

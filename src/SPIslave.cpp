@@ -58,16 +58,23 @@ void waitForData() {
 
 void unloadValues() {
   offset = 0;
-  float v;
+  float v,w;
   Freq = unload2Bytes()/1000.0;
-  Vrms = 0.9*Vrms + unload2Bytes()/1000.0;
+  Vrms = unload2Bytes()/100.0;
+  Vrms_min = _min(Vrms_min,Vrms);
+  Vrms_max = _max(Vrms_max,Vrms);
   v = unload2Bytes()/50.0;
   Vmin = _min(Vmin,-v);
+  Vmin_15 = _min(Vmin_15,Vmin );
   v = unload2Bytes()/50.0;
   Vmax = _max(Vmax,v);
-  for (uint8_t p=1 ; p<11 ; p++) {           // bytes 9-32
-  //  Irms[p] = unload2Bytes()/1000.0;
+  Vmax_15 = _min(Vmax_15,Vmax );
+
+  for (uint8_t p=1 ; p<(NUM_CHANNELS+1) ; p++) {           // bytes 9-32
     Wrms[p] = unload2Bytes();
+    Wrms_min[p] = _min(Wrms_min[p],Wrms[p]);
+    Wrms_max[p] = _max(Wrms_max[p],Wrms[p]);
+    Serial.printf("W[%i] = %.0f,%.0f ",p,Wrms_min[p],Wrms_max[p]);
   }
   Serial.printf("\nFreq = %0.3f Vrms=%0.1f Vmin=%0.1f Vmax=%0.1f", Freq, Vrms, Vmin, Vmax);
 }
