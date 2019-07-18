@@ -31,7 +31,7 @@ void handleMetrics();
 void handleNotFound();
 void ISRwatchDog();
 void waitForData();
-void qtrProc();
+void minProc();
 void watchWait(uint32_t);
 void addCstring(const char* s);
 void dirList();

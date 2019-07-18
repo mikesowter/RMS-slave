@@ -27,16 +27,16 @@ void handleMetrics();
 void handleNotFound();
 void ISRwatchDog();
 void waitForData();
-void qtrProc();
+void minProc();
 void watchWait(uint32_t);
 
 String resetReason = "\nreset: " + ESP.getResetReason();
+#define ntpServerName "au.pool.ntp.org"
 #define NTP_PACKET_SIZE 48
 #define BUFFER_SIZE 128
 #define TIME_ZONE 10
 #define HTML_SIZE 10000
 #define NUM_CHANNELS 7
-#define ntpServerName "au.pool.ntp.org"
 
 ESP8266WebServer server( 80 );
 WiFiUDP udp;

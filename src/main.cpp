@@ -24,25 +24,18 @@ void setup(void) {
   Serial.println(" dBm"); 
   // SaveCrash.print();
   init_OTA();
-
   udp.begin(localPort);
-  // Resolve servers
+  // Resolve server
   WiFi.hostByName(ntpServerName, timeServerIP);
   // Set epoch and timers
-  getTime();
-  setTime(startSeconds);
+  setTime(getTime());
   setupSPIslave();      // with startSeconds in status register
   SPISlave.end();
-
   Serial.println(timeStamp());
-  startMillis = millis();
   oldMin = minute();
   oldQtr = oldMin/15;
   oldHour = hour();
   oldDay = day();
-  oldMonth = month();
-  oldYear = year();
-
   //if(!SPIFFS.format()) Serial.println("SPIFFS.format failed");
   if(!SPIFFS.begin()) Serial.println("SPIFFS.begin failed");
   SPIFFS.info(fs_info);
@@ -71,7 +64,7 @@ void loop() {
   // wait for data from master
   waitForData();
   //  check for change of minute
-  // if ( minute() != oldMin ) qtrProc();
+  if ( minute() != oldMin ) SPISlave.setStatus(now());
   //  check for async activity
   watchWait(2300); 
   // check for network
