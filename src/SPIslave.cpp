@@ -69,14 +69,20 @@ void unloadValues() {
   v = unload2Bytes()/50.0;
   Vmax = _max(Vmax,v);
   Vmax_15 = _min(Vmax_15,Vmax );
+  Serial.printf("Freq = %0.3f Vrms=%0.1f Vmin=%0.1f Vmax=%0.1f\n", Freq, Vrms, Vmin, Vmax);
 
   for (uint8_t p=1 ; p<(NUM_CHANNELS+1) ; p++) {           // bytes 9-32
     Wrms[p] = unload2Bytes();
     Wrms_min[p] = _min(Wrms_min[p],Wrms[p]);
     Wrms_max[p] = _max(Wrms_max[p],Wrms[p]);
     Serial.printf("W[%i] = %.0f,%.0f ",p,Wrms_min[p],Wrms_max[p]);
+    if (Wrms_max[p] > 20000) {
+      sprintf(charBuf,"Wrms_max[%i] = %.0f\n",p,Wrms_max[p]);
+      diagMess(charBuf);
+      Wrms_max[p] = 0.0;
+    }
   }
-  Serial.printf("\nFreq = %0.3f Vrms=%0.1f Vmin=%0.1f Vmax=%0.1f", Freq, Vrms, Vmin, Vmax);
+
 }
 
 float unload2Bytes() {
