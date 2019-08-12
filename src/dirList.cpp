@@ -4,7 +4,7 @@
 
 void dirList() {
   char fileSize[]="999999";
-  htmlStr[0]='\0';
+  longStr[0]='\0';
   addCstring("<!DOCTYPE html><html><body><HR>");
   Dir dir = SPIFFS.openDir("/");
   while (dir.next()) {
@@ -16,14 +16,14 @@ void dirList() {
     addCstring(fileSize);
   }
   addCstring( "<HR></body></html>" );
-  server.send ( 200, "text/html", htmlStr );
-  //Serial.println(htmlStr);
+  server.send ( 200, "text/html", longStr );
+  //Serial.println(longStr);
 }
 
 uint8_t listDiags() {
   char line[66];
   int k;
-  htmlStr[0]='\0';
+  longStr[0]='\0';
   addCstring("<!DOCTYPE html><html><body><HR>");
   fd.close();
   fd = SPIFFS.open("/diags.txt", "r");
@@ -35,14 +35,14 @@ uint8_t listDiags() {
     addCstring("<P>");
   }
   addCstring( "<HR></body></html>" );
-  //Serial.println(htmlStr);
-  server.send ( 200, "text/html", htmlStr );
+  //Serial.println(longStr);
+  server.send ( 200, "text/html", longStr );
   fd.close();
   return 1;
 }
 
 void helpPage() {
-  htmlStr[0]='\0';
+  longStr[0]='\0';
   addCstring("<!DOCTYPE html><html><body><HR>");
   addCstring("Valid options include:");
   addCstring("<P>");
@@ -67,6 +67,6 @@ void helpPage() {
   addCstring("week");
   addCstring("<HR>");
   addCstring( "<HR></body></html>" );
-  server.send ( 200, "text/html", htmlStr );
-  //Serial.println(htmlStr);
+  server.send ( 200, "text/html", longStr );
+  //Serial.println(longStr);
 }

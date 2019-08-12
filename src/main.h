@@ -24,6 +24,7 @@ char* i2sh(uint8_t b);
 void diagMess(const char*);
 void errMess(const char*);
 void handleMetrics();
+void handleWater();
 void handleNotFound();
 void ISRwatchDog();
 void waitForData();
@@ -35,7 +36,7 @@ String resetReason = "\nreset: " + ESP.getResetReason();
 #define NTP_PACKET_SIZE 48
 #define BUFFER_SIZE 128
 #define TIME_ZONE 10
-#define HTML_SIZE 10000
+#define longStrSize 10000
 #define NUM_CHANNELS 8
 
 ESP8266WebServer server( 80 );
@@ -46,7 +47,7 @@ File fh,fd,fe;
 Ticker secondTick;
 volatile uint8_t watchDog = 0;
 
-bool noData = true;
+bool noData = true, waterOn;
 
 char fileName[] = "/XXyymmdd.csv";
 char todayName[] = "/XXyymmdd.csv";
@@ -57,7 +58,7 @@ char timeStr[] = "hh:mm:ss";
 char charBuf[256];
 char d2Str[] = "01";
 char fltStr[12];
-char htmlStr[HTML_SIZE];            // use C strings for storage efficiency
+char longStr[longStrSize];            // use C strings for storage efficiency
 
 IPAddress localIP,timeServerIP,fileServerIP;
 IPAddress ip(192, 168, 1, 56);

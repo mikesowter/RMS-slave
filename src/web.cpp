@@ -1,7 +1,7 @@
 #include "extern.h"
 
 void handleMetrics() {
-  htmlStr[0]='\0';
+  longStr[0]='\0';
   addCstring("\n# TYPE rmsVolts guage" );
   addCstring("\nrmsVolts ");
   addCstring(f2s2(Vrms));
@@ -68,7 +68,7 @@ void handleMetrics() {
   addCstring("\nrmsWifiSignal ");
   addCstring(f2s2(-WiFi.RSSI()));
   addCstring( "\n" );
-  server.send ( 200, "text/plain", htmlStr );
+  server.send ( 200, "text/plain", longStr );
   // reset max,min for scan interval
   Vmin = 500.0;
   Vmax = 0.0;
@@ -80,6 +80,11 @@ void handleMetrics() {
   }
   Serial.print("  scanned");
  }
+
+void handleWater() {
+  if ( waterOn ) server.send ( 200, "text/plain", "On" );
+  else server.send ( 200, "text/plain", "Off" );
+ };
 
 void handleNotFound() {
   server.uri().toCharArray(userText, 14);
@@ -111,7 +116,7 @@ void handleNotFound() {
     server.send ( 200, "text/html", charBuf );
   }
   else if (SPIFFS.exists(userText)) {
-    strcpy(htmlStr,"File: ");
+    strcpy(longStr,"File: ");
     addCstring(userText);
     addCstring("\r\r");
     fh = SPIFFS.open(userText, "r");
@@ -123,7 +128,7 @@ void handleNotFound() {
       delay(10);
     }
     fh.close();
-    server.send ( 200, "text/plain", htmlStr );
+    server.send ( 200, "text/plain", longStr );
   }
   else if (strncmp(userText,"/favicon.ico",12)==0) {
   }
@@ -144,20 +149,20 @@ void handleNotFound() {
 }
 
 void addCstring(const char* s) {
-  // find end of htmlStr
+  // find end of longStr
   uint16_t p;
-  for (p=0;p<HTML_SIZE;p++) {
-    if ( p>HTML_SIZE-32) {
-      diagMess("HTML_SIZE exceeded");
+  for (p=0;p<longStrSize;p++) {
+    if ( p>longStrSize-32) {
+      diagMess("longStrSize exceeded");
       break;
     }
-    if (htmlStr[p]=='\0') {
+    if (longStr[p]=='\0') {
       break;    // p now points to end of old string
     }
   }
   uint16_t q=0;
-  for (;p<HTML_SIZE;p++) {
-    htmlStr[p]=s[q];
+  for (;p<longStrSize;p++) {
+    longStr[p]=s[q];
 //    if (s[q]!='\0') Serial.print(s[q]);
     if (s[q++]=='\0') break;
   }

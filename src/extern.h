@@ -28,6 +28,7 @@ void diagMess(const char*);
 void errMess(const char*);
 void helpPage();
 void handleMetrics();
+void handleWater();
 void handleNotFound();
 void ISRwatchDog();
 void waitForData();
@@ -39,7 +40,7 @@ byte storeData();
 
 #define NTP_PACKET_SIZE 48
 #define TIME_ZONE 10
-#define HTML_SIZE 10000
+#define longStrSize 10000
 #define NUM_CHANNELS 8 
 
 extern WiFiUDP udp;
@@ -50,7 +51,7 @@ extern Ticker secondTick;
 extern volatile uint8_t watchDog;
 extern IPAddress localIP,timeServerIP,fileServerIP;
 
-extern bool noData;
+extern bool noData, waterOn;
 extern ESP8266WebServer server;
 
 extern char fileName[];
@@ -62,7 +63,7 @@ extern char timeStr[];
 extern char charBuf[];
 extern char d2Str[];
 extern char fltStr[];
-extern char htmlStr[];            
+extern char longStr[];            
 
 extern uint8_t buffer[];
 extern uint8_t SPIdata[];

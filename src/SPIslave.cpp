@@ -38,7 +38,7 @@ void setupSPIslave() {
 }
 
 void waitForData() {
-  uint32_t t2 = millis();
+  // uint32_t t2 = millis();
   SPISlave.begin();
   while (noData) watchWait(10);
   noData = true;
@@ -48,10 +48,10 @@ void waitForData() {
   for (uint8_t i=0 ; i<32 ; i++) {
     Serial.print(SPIdata[i],HEX);
     Serial.print(" ");
-  }  */
+  }  
   Serial.println();
   Serial.print(timeStamp());
-  Serial.printf("  waited %ld ms  ",millis()-t2);
+  Serial.printf("  waited %ld ms  ",millis()-t2); */
   unloadValues();
   delay(10);
 }
@@ -60,6 +60,7 @@ void unloadValues() {
   offset = 0;
   float v,w;
   Freq = unload2Bytes()/1000.0;
+  if (Freq < 40.0 || Freq > 55.0 ) Freq = 50.0;   // remove freq errors from record
   Vrms = unload2Bytes()/100.0;
   Vrms_min = _min(Vrms_min,Vrms);
   Vrms_max = _max(Vrms_max,Vrms);
@@ -69,20 +70,20 @@ void unloadValues() {
   v = unload2Bytes()/50.0;
   Vmax = _max(Vmax,v);
   Vmax_15 = _min(Vmax_15,Vmax );
-  Serial.printf("Freq = %0.3f Vrms=%0.1f Vmin=%0.1f Vmax=%0.1f\n", Freq, Vrms, Vmin, Vmax);
+  // Serial.printf("Freq = %0.3f Vrms=%0.1f Vmin=%0.1f Vmax=%0.1f\n", Freq, Vrms, Vmin, Vmax);
 
-  for (uint8_t p=1 ; p<(NUM_CHANNELS+1) ; p++) {           // bytes 9-32
-    Wrms[p] = unload2Bytes();
-    Wrms_min[p] = _min(Wrms_min[p],Wrms[p]);
-    Wrms_max[p] = _max(Wrms_max[p],Wrms[p]);
-    Serial.printf("W[%i] = %.0f,%.0f ",p,Wrms_min[p],Wrms_max[p]);
-    if (Wrms_max[p] > 20000) {
-      sprintf(charBuf,"Wrms_max[%i] = %.0f\n",p,Wrms_max[p]);
-      diagMess(charBuf);
-      Wrms_max[p] = 0.0;
+  if ( Vmin > -400.0 && Vmax < 400.0) {           // remove spurious surge power from the record
+    for (uint8_t p=1 ; p<(NUM_CHANNELS+1) ; p++) { 
+      w = unload2Bytes();
+      if ( w > 15000 ) w = 9999;                  // reasonability limit
+      Wrms[p] = w;
+      Wrms_min[p] = _min( Wrms_min[p], w );
+      Wrms_max[p] = _max( Wrms_max[p], w );
+      // Serial.printf("W[%i] = %.0f,%.0f ",p,Wrms_min[p],Wrms_max[p]);
     }
   }
-
+  if ( Wrms[5] > 1000 ) waterOn = true;           // hot water is channel 5
+  else waterOn = false;
 }
 
 float unload2Bytes() {

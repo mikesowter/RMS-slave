@@ -8,7 +8,7 @@ RMS slave handles NTP, FTP and prometheus metrics scrapes */
 void setup(void) {
   Serial.begin(115200);
   Serial.println();
-  Serial.println("RMS slave  01 July 2019");
+  Serial.println("RMS slave 20190809");
   Serial.print("\n\nConnecting to ");
   Serial.println(ssid);
   WiFi.config(ip, gateway, subnet, dns);
@@ -53,6 +53,7 @@ void setup(void) {
 
   server.on ( "/", handleMetrics );
   server.on ( "/metrics", handleMetrics );
+  server.on ( "/hotwater", handleWater );
   server.onNotFound ( handleNotFound );
 	server.begin();
 	Serial.println( "HTTP server started" );
