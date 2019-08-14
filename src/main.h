@@ -33,8 +33,11 @@ void ISRwatchDog();
 void waitForData();
 void minProc();
 void watchWait(uint32_t);
+void joinNet();
 
-String resetReason = "\nreset: " + ESP.getResetReason();
+String resetReason = "Restart caused by " + ESP.getResetReason();
+String resetDetail = ESP.getResetInfo();
+
 #define ntpServerName "au.pool.ntp.org"
 #define NTP_PACKET_SIZE 48
 #define BUFFER_SIZE 128
@@ -53,8 +56,8 @@ volatile uint8_t watchDog = 0;
 
 bool noData = true, waterOn;
 
-char fileName[] = "/XXyymmdd.csv";
-char todayName[] = "/XXyymmdd.csv";
+char fileName[] = "/XXXyymmdd.csv";
+char todayName[] = "/XXXyymmdd.csv";
 char userText[20];
 char saveName[20];
 char dateStr[] = "yymmdd";
@@ -64,7 +67,8 @@ char d2Str[] = "01";
 char fltStr[12];
 char longStr[longStrSize];            // use C strings for storage efficiency
 
-IPAddress localIP,timeServerIP,fileServerIP;
+IPAddress localIP, timeServerIP;
+IPAddress localTimeServerIP(192, 168, 1, 10);
 IPAddress ip(192, 168, 1, 56);
 IPAddress gateway(192, 168, 1, 1);
 IPAddress subnet(255, 255, 255, 0);
@@ -72,10 +76,10 @@ IPAddress dns(192, 168, 1, 1);
 
 uint8_t SPIdata[64];
 uint8_t buffer[BUFFER_SIZE];
-uint8_t oldMin,oldQtr,oldHour,oldDay,oldMonth,offset;
-uint16_t i,oldYear,htmlLen;
+uint8_t oldMin, oldQtr, oldHour, oldDay, oldMonth, offset;
+uint16_t i, oldYear, htmlLen;
 uint16_t localPort = 2395;          //  a random local port for UDP packets
-uint32_t t0, t1, startMillis, startSeconds, midNight;
+uint32_t t0, t1, startMillis, startSeconds, lastScan;
 
 float Wrms[NUM_CHANNELS+1];					// Sum of sampled V*I
 float Wrms_min[NUM_CHANNELS+1];		

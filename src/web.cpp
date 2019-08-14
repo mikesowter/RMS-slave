@@ -99,6 +99,7 @@ void handleMetrics() {
     Wrms_max[i] = 0.0;
   }
   Serial.print("  scanned");
+  lastScan = millis();
  }
 
 void handleWater() {

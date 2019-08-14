@@ -7,10 +7,15 @@
   }
   else if (watchDog >= 30) {
     errMess("watchDog 30s");
-    delay(500);
+    delay(10);
     fd.close();
     fe.close();
     ESP.restart();
+  }
+  if ( millis() - lastScan > 90000UL ) {
+    errMess("no scan for 90s");
+    // rejoin local network if necessary
+	  if (WiFi.status() != WL_CONNECTED) joinNet();
   }
 }
 

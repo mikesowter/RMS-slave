@@ -28,7 +28,9 @@ void WriteQtr() {
   fh.print(i2sd(hour()));
   fh.print(":");
   fh.print(i2sd(minute()));
-  fh.print(" Vrms: ");
-  fh.println(Vrms);
+  fh.print(",");
+  fh.print(Vrms);
+  fh.print(",");
+  fh.println(Wrms[1]);
   delay(10);
 }

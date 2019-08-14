@@ -13,13 +13,13 @@ uint32_t getTime() {
   while( millis()-start < 10000) {
     while (udp.parsePacket()!= NTP_PACKET_SIZE) {
       sendNTPrequest(timeServerIP);
-      delay(500);
+      delay(1000);
     }
     startSeconds = getNTPreply();
     delay(10);
-    if (startSeconds > year2017 && startSeconds < year2030) return startSeconds;
+    if (startSeconds > year2017 && startSeconds < year2030) break;
   }
-  return year2017;
+  return startSeconds;
 }
 
 // send an NTP request to the time server at the given address

@@ -37,6 +37,7 @@ void minProc();
 void watchWait(uint32_t);
 void addCstring(const char* s);
 void dirList();
+void joinNet();
 byte storeData();
 
 #define NTP_PACKET_SIZE 48
@@ -69,10 +70,10 @@ extern char longStr[];
 
 extern uint8_t buffer[];
 extern uint8_t SPIdata[];
-extern uint8_t oldMin,oldQtr,oldHour,oldDay,oldMonth,offset;
-extern uint16_t i,oldYear,htmlLen;
+extern uint8_t oldMin, oldQtr, oldHour, oldDay, oldMonth, offset;
+extern uint16_t i, oldYear, htmlLen;
 extern uint16_t localPort;   
-extern uint32_t t0, t1, startMillis, startSeconds, midNight;
+extern uint32_t t0, t1, startMillis, startSeconds, lastScan;
 
 extern float Wrms[];					    // Sum of sampled V*I
 extern float Irms[];					    // root sum I^2
