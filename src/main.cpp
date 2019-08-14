@@ -27,6 +27,8 @@ void setup(void) {
   udp.begin(localPort);
   // Resolve server
   WiFi.hostByName(ntpServerName, timeServerIP);
+  // setup FTP server
+	ftpSrv.begin("mike","iron");
   // Set epoch and timers
   setTime(getTime());
   setupSPIslave();      // with startSeconds in status register
@@ -51,7 +53,8 @@ void setup(void) {
   Serial.println(charBuf);
 	diagMess(charBuf);       // restart message
 
-  server.on ( "/", handleMetrics );
+  server.on ( "/", handleRoot );
+  server.on ( "/dir", handleDir );
   server.on ( "/metrics", handleMetrics );
   server.on ( "/hotwater", handleWater );
   server.onNotFound ( handleNotFound );

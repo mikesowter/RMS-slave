@@ -5,6 +5,7 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
+#include <ESP8266FTPServer.h>
 #include <WiFiUdp.h>
 #include <fs.h>
 #include <ESP8266mDNS.h>
@@ -45,6 +46,7 @@ byte storeData();
 
 extern WiFiUDP udp;
 extern WiFiClient client;
+extern FtpServer ftpSrv;
 extern FSInfo fs_info;
 extern File fh,fd,fe;
 extern Ticker secondTick;

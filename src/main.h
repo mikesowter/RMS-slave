@@ -6,6 +6,7 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
+#include <ESP8266FTPServer.h>
 #include <WiFiUdp.h>
 #include <fs.h>
 #include <ESP8266mDNS.h>
@@ -23,6 +24,8 @@ char* dateStamp();
 char* i2sh(uint8_t b);
 void diagMess(const char*);
 void errMess(const char*);
+void handleRoot();
+void handleDir();
 void handleMetrics();
 void handleWater();
 void handleNotFound();
@@ -40,6 +43,7 @@ String resetReason = "\nreset: " + ESP.getResetReason();
 #define NUM_CHANNELS 8
 
 ESP8266WebServer server( 80 );
+FtpServer ftpSrv;
 WiFiUDP udp;
 WiFiClient client;
 FSInfo fs_info;

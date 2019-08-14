@@ -1,5 +1,26 @@
 #include "extern.h"
 
+void handleRoot() {
+  longStr[0]='\0';
+  addCstring("\n# TYPE rmsVolts guage" );
+  addCstring("\nrmsVolts ");
+  addCstring(f2s2(Vrms));
+  addCstring("\n# TYPE rmsVmin guage" );
+  addCstring("\nrmsVmin ");
+  addCstring(f2s2(Vmin));
+  addCstring("\n# TYPE rmsVmax guage" );
+  addCstring("\nrmsVmax ");
+  addCstring(f2s2(Vmax));
+  addCstring("\n# TYPE rmsFreq guage" );
+  addCstring("\nrmsFreq ");
+  addCstring(f2s4(Freq));
+  addCstring("\n# TYPE rmsWifiSignal guage" );
+  addCstring("\nrmsWifiSignal ");
+  addCstring(f2s2(-WiFi.RSSI()));
+  addCstring( "\n" );
+  server.send ( 200, "text/plain", longStr );
+}
+
 void handleMetrics() {
   longStr[0]='\0';
   addCstring("\n# TYPE rmsVolts guage" );
@@ -14,7 +35,6 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsFreq guage" );
   addCstring("\nrmsFreq ");
   addCstring(f2s4(Freq));
-  
   addCstring("\n# TYPE rmsPwr_min1 guage" );
   addCstring("\nrmsPwr_min1 ");
   addCstring(f2s2(Wrms_min[1]));
@@ -133,12 +153,6 @@ void handleNotFound() {
   else if (strncmp(userText,"/favicon.ico",12)==0) {
   }
   else if (strncmp(userText,"/apple",6)==0) {
-  }
-  else if (strncmp(userText,"/dir",4)==0) {
-    dirList();
-  }
-  else if (strncmp(userText,"/diags",6)==0) {
-    listDiags();
   }
   else {
     strcpy(charBuf,userText);
