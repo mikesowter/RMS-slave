@@ -21,7 +21,7 @@ void minProc() {
   if ( minute() == 0 ) return;    // waits till 00:01
   setTime( getTime() );
   // generate new file name for day
-  strcpy(todayName,"/rms");
+  strcpy(todayName,"/rm");
   strcat(todayName,dateStamp());
   strcat(todayName,".csv");
   // update month and year

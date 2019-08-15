@@ -8,7 +8,7 @@ RMS slave handles NTP, FTP and prometheus metrics scrapes */
 void setup(void) {
   Serial.begin(115200);
   Serial.println();
-  Serial.println("RMS slave 20190809");
+  Serial.println("RMS slave 201908915");
   // Join Network
   joinNet();
   // Resolve server
@@ -71,9 +71,7 @@ void loop() {
   // check for network
   if (WiFi.status() != WL_CONNECTED) {
     diagMess("disconnected from network");
-    fd.close();
-    fe.close(); 
-    ESP.restart();
+    joinNet();
   } 
   watchDog = 0;
 }
@@ -84,7 +82,7 @@ void joinNet() {
   WiFi.config(ip, gateway, subnet, dns);
   WiFi.begin(ssid, pass);
 
-  while (WiFi.status() != WL_CONNECTED) delay(1);
+  while (WiFi.status() != WL_CONNECTED) delay(100);
  
   Serial.println("\nlocal IP address: ");
   localIP = WiFi.localIP();
