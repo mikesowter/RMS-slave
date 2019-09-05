@@ -28,5 +28,9 @@ void minProc() {
   oldYear = year();
   oldMonth = month();
   oldDay = day();
+  // reset daily energy sums
+  for ( int i = 1;i<NUM_CHANNELS+1;i++ ) {
+    Energy[i] = 0.0;
+  }
   return;
 }  

@@ -8,7 +8,7 @@ RMS slave handles NTP, FTP and prometheus metrics scrapes */
 void setup(void) {
   Serial.begin(115200);
   Serial.println();
-  Serial.println("RMS slave 201908915");
+  Serial.println("RMS slave 20190905");
   // Join Network
   joinNet();
   // Resolve server

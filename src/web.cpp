@@ -11,6 +11,9 @@ void handleRoot() {
   addCstring("\n# TYPE rmsVmax guage" );
   addCstring("\nrmsVmax ");
   addCstring(f2s2(Vmax));
+  addCstring("\n# TYPE rmsEnergy1 guage" );
+  addCstring("\nrmsEnergy1 ");
+  addCstring(f2s2(Energy[1]));
   addCstring("\n# TYPE rmsFreq guage" );
   addCstring("\nrmsFreq ");
   addCstring(f2s4(Freq));
@@ -59,6 +62,7 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsPwr_min8 guage" );
   addCstring("\nrmsPwr_min8 ");
   addCstring(f2s2(Wrms_min[8]));
+
   addCstring("\n# TYPE rmsPwr_max1 guage" );
   addCstring("\nrmsPwr_max1 ");
   addCstring(f2s2(Wrms_max[1]));
@@ -83,6 +87,31 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsPwr_max8 guage" );
   addCstring("\nrmsPwr_max8 ");
   addCstring(f2s2(Wrms_max[8]));
+
+  addCstring("\n# TYPE rmsEnergy1 guage" );
+  addCstring("\nrmsEnergy1 ");
+  addCstring(f2s2(Energy[1]));
+  addCstring("\n# TYPE rmsEnergy2 guage" );
+  addCstring("\nrmsEnergy2 ");
+  addCstring(f2s2(Energy[2]));
+  addCstring("\n# TYPE rmsEnergy3 guage" );
+  addCstring("\nrmsEnergy3 ");
+  addCstring(f2s2(Energy[3]));
+  addCstring("\n# TYPE rmsEnergy4 guage" );
+  addCstring("\nrmsEnergy4 ");
+  addCstring(f2s2(Energy[4]));
+  addCstring("\n# TYPE rmsEnergy5 guage" );
+  addCstring("\nrmsEnergy5 ");
+  addCstring(f2s2(Energy[5]));
+  addCstring("\n# TYPE rmsEnergy6 guage" );
+  addCstring("\nrmsEnergy6 ");
+  addCstring(f2s2(Energy[6]));
+  addCstring("\n# TYPE rmsEnergy7 guage" );
+  addCstring("\nrmsEnergy7 ");
+  addCstring(f2s2(Energy[7]));
+  addCstring("\n# TYPE rmsEnergy8 guage" );
+  addCstring("\nrmsEnergy8 ");
+  addCstring(f2s2(Energy[8]));
  
   addCstring("\n# TYPE rmsWifiSignal guage" );
   addCstring("\nrmsWifiSignal ");

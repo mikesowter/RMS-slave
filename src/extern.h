@@ -39,6 +39,7 @@ void addCstring(const char* s);
 void dirList();
 void joinNet();
 byte storeData();
+void dailyEnergy();
 
 #define NTP_PACKET_SIZE 48
 #define TIME_ZONE 10
@@ -74,6 +75,7 @@ extern uint8_t oldMin, oldQtr, oldHour, oldDay, oldMonth, offset;
 extern uint16_t i, oldYear, htmlLen;
 extern uint16_t localPort;   
 extern uint32_t t0, t1, startMillis, startSeconds, lastScan;
+extern uint32_t t_lastData, t_scan;
 
 extern float Wrms[];					    // Sum of sampled V*I
 extern float Irms[];					    // root sum I^2
@@ -83,6 +85,7 @@ extern float Vrms_min;
 extern float Vrms_max;
 extern float Vmin_15;
 extern float Vmax_15;
-extern float Wrms_min[NUM_CHANNELS+1];		
-extern float Wrms_max[NUM_CHANNELS+1];	
+extern float Wrms_min[];		
+extern float Wrms_max[];	
+extern float Energy[];	
 

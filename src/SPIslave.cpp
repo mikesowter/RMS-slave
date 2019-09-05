@@ -53,6 +53,7 @@ void waitForData() {
   Serial.print(timeStamp());
   Serial.printf("  waited %ld ms  ",millis()-t2); */
   unloadValues();
+  dailyEnergy();
   delay(10);
 }
 
@@ -75,7 +76,7 @@ void unloadValues() {
   if ( Vmin > -400.0 && Vmax < 400.0) {           // remove spurious surge power from the record
     for (uint8_t p=1 ; p<(NUM_CHANNELS+1) ; p++) { 
       w = unload2Bytes();
-      if ( w > 15000 ) w = 9999;                  // reasonability limit
+      if ( w > 15000 ) w = 5999;                  // reasonability limit
       Wrms[p] = w;
       Wrms_min[p] = _min( Wrms_min[p], w );
       Wrms_max[p] = _max( Wrms_max[p], w );

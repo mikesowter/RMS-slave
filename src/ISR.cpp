@@ -12,7 +12,7 @@
     fe.close();
     ESP.restart();
   }
-  if ( millis() - lastScan > 90000UL ) {
+  if ( millis() - lastScan == 90000UL ) {
     diagMess("no scan for 90s");
     // rejoin local network if necessary
 	  if (WiFi.status() != WL_CONNECTED) joinNet();
