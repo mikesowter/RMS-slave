@@ -34,3 +34,17 @@ void WriteQtr() {
   fh.println(Wrms[1]);
   delay(10);
 }
+
+void updateEnergyFile() {
+  fh = SPIFFS.open("Energy.csv", "a");
+  if (!fh) {
+    diagMess("Energy.csv failed to open");
+    return;
+  }
+  // write daily energy sums
+  fh.print(dateStamp());
+  for ( int i=1; i<NUM_CHANNELS+1; i++ ) {
+    fh.printf(",%6.3f",Energy[i]);
+  }
+  fh.close();
+}

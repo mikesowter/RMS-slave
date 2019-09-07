@@ -90,28 +90,28 @@ void handleMetrics() {
 
   addCstring("\n# TYPE rmsEnergy1 guage" );
   addCstring("\nrmsEnergy1 ");
-  addCstring(f2s2(Energy[1]));
+  addCstring(f2s4(Energy[1]));
   addCstring("\n# TYPE rmsEnergy2 guage" );
   addCstring("\nrmsEnergy2 ");
-  addCstring(f2s2(Energy[2]));
+  addCstring(f2s4(Energy[2]));
   addCstring("\n# TYPE rmsEnergy3 guage" );
   addCstring("\nrmsEnergy3 ");
-  addCstring(f2s2(Energy[3]));
+  addCstring(f2s4(Energy[3]));
   addCstring("\n# TYPE rmsEnergy4 guage" );
   addCstring("\nrmsEnergy4 ");
-  addCstring(f2s2(Energy[4]));
+  addCstring(f2s4(Energy[4]));
   addCstring("\n# TYPE rmsEnergy5 guage" );
   addCstring("\nrmsEnergy5 ");
-  addCstring(f2s2(Energy[5]));
+  addCstring(f2s4(Energy[5]));
   addCstring("\n# TYPE rmsEnergy6 guage" );
   addCstring("\nrmsEnergy6 ");
-  addCstring(f2s2(Energy[6]));
+  addCstring(f2s4(Energy[6]));
   addCstring("\n# TYPE rmsEnergy7 guage" );
   addCstring("\nrmsEnergy7 ");
-  addCstring(f2s2(Energy[7]));
+  addCstring(f2s4(Energy[7]));
   addCstring("\n# TYPE rmsEnergy8 guage" );
   addCstring("\nrmsEnergy8 ");
-  addCstring(f2s2(Energy[8]));
+  addCstring(f2s4(Energy[8]));
  
   addCstring("\n# TYPE rmsWifiSignal guage" );
   addCstring("\nrmsWifiSignal ");
@@ -141,6 +141,7 @@ void handleNotFound() {
   Serial.println(userText);
   if (strncmp(userText,"/reset",6)==0) {
     errMess("User requested restart");
+    updateEnergyFile();
     fd.close();
     fe.close();
     ESP.restart();

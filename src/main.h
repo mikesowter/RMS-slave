@@ -34,6 +34,7 @@ void waitForData();
 void minProc();
 void watchWait(uint32_t);
 void joinNet();
+void updateEnergyFile();
 
 String resetReason = "Restart caused by " + ESP.getResetReason();
 String resetDetail = ESP.getResetInfo();

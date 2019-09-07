@@ -27,6 +27,8 @@ void setup(void) {
   oldQtr = oldMin/15;
   oldHour = hour();
   oldDay = day();
+  oldMonth = month();
+  oldYear = year();
   // generate new file name for day
   strcpy(todayName,"/rm");
   strcat(todayName,dateStamp());

@@ -40,6 +40,7 @@ void dirList();
 void joinNet();
 byte storeData();
 void dailyEnergy();
+void updateEnergyFile();
 
 #define NTP_PACKET_SIZE 48
 #define TIME_ZONE 10

@@ -18,9 +18,9 @@ void diagMess(const char* mess) {
 
 char* dateStamp() {
   // digital display of the date
-  strcpy(dateStr,i2sd(year()%100));
-  strcat(dateStr,i2sd(month()));
-  strcat(dateStr,i2sd(day()));
+  strcpy(dateStr,i2sd(oldYear%100));
+  strcat(dateStr,i2sd(oldMonth));
+  strcat(dateStr,i2sd(oldDay));
   return dateStr;
 }
 
