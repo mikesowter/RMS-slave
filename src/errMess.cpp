@@ -1,4 +1,4 @@
-#include "C:\Users\Mikes 6700K\Dropbox\sketchbook\RMS slave\src\extern.h"
+#include <extern.h>
 
 /*-------- display code ----------*/
 
@@ -18,9 +18,9 @@ void diagMess(const char* mess) {
 
 char* dateStamp() {
   // digital display of the date
-  strcpy(dateStr,i2sd(oldYear%100));
-  strcat(dateStr,i2sd(oldMonth));
-  strcat(dateStr,i2sd(oldDay));
+  strcpy(dateStr,i2sd(year()%100));
+  strcat(dateStr,i2sd(month()));
+  strcat(dateStr,i2sd(day()));
   return dateStr;
 }
 

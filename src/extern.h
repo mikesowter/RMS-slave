@@ -1,6 +1,6 @@
 
-#include "C:\Users\Mikes 6700K\.platformio\packages\framework-arduinoespressif8266\cores\esp8266\Arduino.h"
-#include "C:\Users\Mikes 6700K\Dropbox\sketchbook\RMS slave\lib\Time-master/TimeLib.h"
+#include "Arduino.h"
+#include "TimeLib.h"
 #include <SPISlave.h>
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
@@ -19,8 +19,8 @@ uint8_t init_OTA();
 uint8_t listDiags();
 uint32_t getTime();
 void setupSPIslave();
-char * timeStamp();
-char * dateStamp();
+char* timeStamp();
+char* dateStamp();
 char* f2s2(float f);
 char* f2s4(float f);
 char* i2sd(uint8_t b);

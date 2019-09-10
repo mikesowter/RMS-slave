@@ -88,7 +88,7 @@ void unloadValues() {
 }
 
 float unload2Bytes() {
-  if (offset > 30) Serial.print("illegal SPI data offset ");
+  if (offset > 30) diagMess("illegal SPI data offset ");
   float f = 256.0*(float)SPIdata[offset++];
   f += (float)SPIdata[offset++];
   return f;

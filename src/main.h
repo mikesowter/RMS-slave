@@ -34,6 +34,7 @@ void waitForData();
 void minProc();
 void watchWait(uint32_t);
 void joinNet();
+void setupTime();
 void updateEnergyFile();
 
 String resetReason = "Restart caused by " + ESP.getResetReason();
@@ -62,15 +63,14 @@ char todayName[] = "/XXXyymmdd.csv";
 char userText[20];
 char saveName[20];
 char dateStr[] = "yymmdd";
-char timeStr[] = "hh:mm:ss";
+char timeStr[] = "hh:mm:ss ";
 char charBuf[256];
 char d2Str[] = "01";
 char fltStr[12];
 char longStr[longStrSize];            // use C strings for storage efficiency
 
 IPAddress localIP, timeServerIP;
-IPAddress localTimeServerIP(192, 168, 1, 10);
-IPAddress ip(192, 168, 1, 56);
+IPAddress ip(192, 168, 1, 70); //56
 IPAddress gateway(192, 168, 1, 1);
 IPAddress subnet(255, 255, 255, 0);
 IPAddress dns(192, 168, 1, 1);

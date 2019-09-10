@@ -8,7 +8,7 @@ RMS slave handles NTP, FTP and prometheus metrics scrapes */
 void setup(void) {
   Serial.begin(115200);
   Serial.println();
-  Serial.println("RMS slave 20190905");
+  Serial.println("RMS slave 20190910");
   // Join Network
   joinNet();
   // Resolve server
@@ -17,41 +17,19 @@ void setup(void) {
   init_OTA();
   // setup FTP server
 	ftpSrv.begin("mike","iron");
-  // Set epoch and timers
-  udp.begin(localPort);
-  setTime(getTime());
-  setupSPIslave();      // with startSeconds in status register
-  SPISlave.end();
-  Serial.println(timeStamp());
-  oldMin = minute();
-  oldQtr = oldMin/15;
-  oldHour = hour();
-  oldDay = day();
-  oldMonth = month();
-  oldYear = year();
-  // generate new file name for day
-  strcpy(todayName,"/rm");
-  strcat(todayName,dateStamp());
-  strcat(todayName,".csv");
+  // set time related
+  setupTime();
   //if(!SPIFFS.format()) Serial.println("SPIFFS.format failed");
   if(!SPIFFS.begin()) Serial.println("SPIFFS.begin failed");
-
-  SPIFFS.info(fs_info);
-  Serial.print(fs_info.totalBytes);
-  Serial.println(" bytes available");
-  Serial.print(fs_info.usedBytes);
-  Serial.println(" bytes used:");
-
+  // open diagnostic files
   fd = SPIFFS.open("/diags.txt","a");
   fe = SPIFFS.open("/errmess.txt","a");
-
+  // explain restart
   resetReason.toCharArray(charBuf,resetReason.length()+1);
-	diagMess(charBuf);       // restart message
+	diagMess(charBuf);       
 	resetDetail.toCharArray(charBuf,resetDetail.length()+1);
-	if ( charBuf[16] != '0' )	{				// if fatal exception
-		diagMess(charBuf); 
-	}
-
+	if ( charBuf[16] != '0' ) diagMess(charBuf); 				// if fatal exception
+  // setup server
   server.on ( "/", handleRoot );
   server.on ( "/dir", handleDir );
   server.on ( "/metrics", handleMetrics );
@@ -59,7 +37,7 @@ void setup(void) {
   server.onNotFound ( handleNotFound );
 	server.begin();
 	Serial.println( "HTTP server started" );
-
+  // start watchdog
   secondTick.attach(1,ISRwatchDog);
 }
 
@@ -97,4 +75,23 @@ void joinNet() {
   udp.begin(localPort);
   // Resolve servers
   WiFi.hostByName(ntpServerName, timeServerIP);
+}
+
+void setupTime() {
+  // Set epoch and timers
+  udp.begin(localPort);
+  setTime(getTime());
+  setupSPIslave();      // with startSeconds in status register
+  SPISlave.end();
+  oldMin = minute();
+  oldQtr = oldMin/15;
+  oldHour = hour();
+  oldDay = day();
+  oldMonth = month();
+  oldYear = year();
+  Serial.printf("\nDate:%s Time:%s\n",dateStamp(),timeStamp());
+  // generate new file name for day
+  strcpy(todayName,"/rm");
+  strcat(todayName,dateStamp());
+  strcat(todayName,".csv");
 }

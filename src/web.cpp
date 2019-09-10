@@ -159,7 +159,7 @@ void handleNotFound() {
     strcpy(charBuf,"<!DOCTYPE html><html><head><HR>Diags deleted<HR></head></html>");
     server.send ( 200, "text/html", charBuf );
   }
-  else if (strncmp(userText,"/delerrs",9)==0) {
+  else if (strncmp(userText,"/delerrs",8)==0) {
     SPIFFS.remove("/errmess.txt");
     fe = SPIFFS.open("/errmess.txt", "a");
     dateStamp();
