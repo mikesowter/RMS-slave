@@ -11,8 +11,6 @@ void setup(void) {
   Serial.println("RMS slave 20190910");
   // Join Network
   joinNet();
-  // Resolve server
-  WiFi.hostByName(ntpServerName, timeServerIP);
   // start OTA
   init_OTA();
   // setup FTP server
@@ -49,10 +47,8 @@ void loop() {
   //  check for async activity
   watchWait(2300); 
   // check for network
-  if (WiFi.status() != WL_CONNECTED) {
-    diagMess("disconnected from network");
-    joinNet();
-  } 
+  checkConnect();
+  // feed the dog
   watchDog = 0;
 }
 
@@ -73,13 +69,10 @@ void joinNet() {
   Serial.println(" dBm");
 
   udp.begin(localPort);
-  // Resolve servers
-  WiFi.hostByName(ntpServerName, timeServerIP);
 }
 
 void setupTime() {
   // Set epoch and timers
-  udp.begin(localPort);
   setTime(getTime());
   setupSPIslave();      // with startSeconds in status register
   SPISlave.end();
@@ -94,4 +87,22 @@ void setupTime() {
   strcpy(todayName,"/rm");
   strcat(todayName,dateStamp());
   strcat(todayName,".csv");
+}
+
+void checkConnect() {
+  uint32_t t2 = millis();
+  bool connected = false;
+
+  if (WiFi.status() != WL_CONNECTED) {
+    while( millis() - t2 < 5000) {
+      if (WiFi.status() == WL_CONNECTED) {
+        connected = true;
+        break;
+      }
+    }
+    if (!connected) {
+      diagMess("disconnected from network");
+      joinNet();
+    }
+  } 
 }

@@ -41,6 +41,7 @@ void joinNet();
 byte storeData();
 void dailyEnergy();
 void updateEnergyFile();
+void setupTime();
 
 #define NTP_PACKET_SIZE 48
 #define TIME_ZONE 10
@@ -67,6 +68,7 @@ extern char dateStr[];
 extern char timeStr[];
 extern char charBuf[];
 extern char d2Str[];
+extern char d8Str[];
 extern char fltStr[];
 extern char longStr[];            
 

@@ -9,8 +9,9 @@ unsigned long getNTPreply();
 void diagMess(const char* mess);
 char* dateStamp();
 char* timeStamp();
+char* f2s6(float f);
 
-uint32_t Trefsec, Trxsec, Ttxsec, Trefusec, Trxusec, Ttxusec, ausSeconds; 
+uint32_t Tref_sec, Trx_sec, Ttx_sec, Tref_usec, Trx_usec, Ttx_usec, ausSeconds; 
 
 extern WiFiUDP udp;
 
@@ -44,24 +45,22 @@ unsigned long getTime() {
     sendNTPrequest(ausTimeServerIP);
     delay(2000);
     uint32_t len = udp.parsePacket();
-    Serial.printf("Aus NTP server ------------------ \n\npacket size: %i\n",len);
+  //  Serial.printf("Aus NTP server ------------------ \n\npacket size: %i\n",len);
     if (len > 40 ) break;
   }
   ausSeconds = getNTPreply();
-  setTime(Trefsec);
-  char usecs[] = ".00000000";
-  double two32 = (float)0XFFFFFFFF/1.0e6;
-  dtostrf((double)Trefusec/two32, 6, 0, usecs);
-  Serial.printf("\n reference time: %s %s %sµs\n", dateStamp(), timeStamp(),usecs);
-  setTime(Trxsec);
-  dtostrf((double)Trxusec/two32, 6, 0, usecs);
-  Serial.printf("\n received time:  %s %s %sµs\n", dateStamp(), timeStamp(),usecs);
-  setTime(Ttxsec);
-  dtostrf((double)Ttxusec/two32, 6, 0, usecs);
-  Serial.printf("\n transmit time:  %s %s %sµs\n", dateStamp(), timeStamp(),usecs); 
-//  
+  /*
+  double two32 = (double)0XFFFFFFFF;
+  setTime(Tref_sec);
+  Serial.printf("\n reference time: %s %s %sµs\n", dateStamp(), timeStamp(),f2s6((double)Tref_usec/two32));
+  setTime(Trx_sec);
+  Serial.printf("\n received time:  %s %s %sµs\n", dateStamp(), timeStamp(),f2s6((double)Trx_usec/two32));
+  setTime(Ttx_sec);
+  Serial.printf("\n transmit time:  %s %s %sµs\n\n", dateStamp(), timeStamp(),f2s6((double)Ttx_usec/two32));
+  */
+  /*  
 //    local NTP
-/*
+//
   if ( true ) {
     setTime(ausSeconds);
     Serial.printf("time: %s %s\n\n", dateStamp(),timeStamp());
@@ -81,7 +80,7 @@ unsigned long getTime() {
     Serial.printf("time: %s %s\n", dateStamp(),timeStamp());
     return ausSeconds;
   } */
-  return Ttxsec;
+  return Ttx_sec;
 }
 
 // send an NTP request to the time server at the given address
@@ -107,27 +106,28 @@ void sendNTPrequest(IPAddress& address)
 
 unsigned long getNTPreply() {
   udp.read(byteBuf, NTP_PACKET_SIZE); 
+/*
   Serial.println("\nNTP reply: ");
   for (int p=0; p<NTP_PACKET_SIZE; p=p+4) {
-    Serial.printf("word %0i: %0X,%0X,%0X,%0X\n",p/4, byteBuf[p], byteBuf[p+1], byteBuf[p+2], byteBuf[p+3]);
+    Serial.printf("word %i: %X,%X,%X,%X\n",p/4, byteBuf[p], byteBuf[p+1], byteBuf[p+2], byteBuf[p+3]);
   } 
 // get Reference time:
   from_1900 = (byteBuf[16]<<24) + (byteBuf[17]<<16) + (byteBuf[18]<<8) + byteBuf[19];   
   GMT = from_1900 - TO_1970;        
-  Trefsec = GMT + TIME_ZONE*3600;
-  Trefusec = usec2ntp( (byteBuf[20]<<24) + (byteBuf[21]<<16) + (byteBuf[22]<<8) + byteBuf[23] );
+  Tref_sec = GMT + TIME_ZONE*3600;
+  Tref_usec = usec2ntp( (byteBuf[20]<<24) + (byteBuf[21]<<16) + (byteBuf[22]<<8) + byteBuf[23] );
 
 // get Receive time:
   from_1900 = (byteBuf[32]<<24) + (byteBuf[33]<<16) + (byteBuf[34]<<8) + byteBuf[35]; 
   GMT = from_1900 - TO_1970;        
-  Trxsec = GMT + TIME_ZONE*3600;
-  Trxusec = usec2ntp( (byteBuf[36]<<24) + (byteBuf[37]<<16) + (byteBuf[38]<<8) + byteBuf[39] );
-
+  Trx_sec = GMT + TIME_ZONE*3600;
+  Trx_usec = usec2ntp( (byteBuf[36]<<24) + (byteBuf[37]<<16) + (byteBuf[38]<<8) + byteBuf[39] );
+*/
 // get Transmit time:   
   from_1900 = (byteBuf[40]<<24) + (byteBuf[41]<<16) + (byteBuf[42]<<8) + byteBuf[43]; 
   GMT = from_1900 - TO_1970;        
-  Ttxsec = GMT + TIME_ZONE*3600;
-  Ttxusec = usec2ntp( (byteBuf[44]<<24) + (byteBuf[45]<<16) + (byteBuf[46]<<8) + byteBuf[47] ); 
+  Ttx_sec = GMT + TIME_ZONE*3600;
+  Ttx_usec = usec2ntp( (byteBuf[44]<<24) + (byteBuf[45]<<16) + (byteBuf[46]<<8) + byteBuf[47] ); 
 
-  return Ttxsec;
+  return Ttx_sec;
 }
