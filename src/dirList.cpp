@@ -1,10 +1,11 @@
-#include "C:\Users\Mikes 6700K\Dropbox\sketchbook\RMS slave\src\extern.h"
+#include "extern.h"
 
 // add a web page with a listing of the SPIFFS "/" folder
 
 void handleDir() {
   char fileSizeStr[10];
   longStr[0]='\0';
+  SPIFFS.info(fs_info);
   ltoa(fs_info.usedBytes,fileSizeStr,10);
   addCstring(ltoa(fs_info.usedBytes,fileSizeStr,10));
 	addCstring(" bytes used:\n");

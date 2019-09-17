@@ -74,7 +74,7 @@ void joinNet() {
 void setupTime() {
   // Set epoch and timers
   setTime(getTime());
-  setupSPIslave();      // with startSeconds in status register
+  setupSPIslave();      // tell Master the time
   SPISlave.end();
   oldMin = minute();
   oldQtr = oldMin/15;
@@ -83,7 +83,7 @@ void setupTime() {
   oldMonth = month();
   oldYear = year();
   Serial.printf("\nDate:%s Time:%s\n",dateStamp(),timeStamp());
-  // generate new file name for day
+  // generate file name for day
   strcpy(todayName,"/rm");
   strcat(todayName,dateStamp());
   strcat(todayName,".csv");
@@ -99,6 +99,7 @@ void checkConnect() {
         connected = true;
         break;
       }
+      yield();
     }
     if (!connected) {
       diagMess("disconnected from network");
