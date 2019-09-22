@@ -2,6 +2,7 @@
 
 float unload2Bytes();
 void unloadValues();
+const float AMPS_CORRECTION_FACTOR = 1.021; // low currents < 4A on 20190922
 
 
 void setupSPIslave() {
@@ -77,7 +78,7 @@ void unloadValues() {
     for (uint8_t p=1 ; p<(NUM_CHANNELS+1) ; p++) { 
       w = unload2Bytes();
       if ( w > 15000 ) w = 5999;                  // reasonability limit
-      Wrms[p] = w;
+      Wrms[p] = (float)w * AMPS_CORRECTION_FACTOR;    // will be done in RMS master in future
       Wrms_min[p] = _min( Wrms_min[p], w );
       Wrms_max[p] = _max( Wrms_max[p], w );
       // Serial.printf("W[%i] = %.0f,%.0f ",p,Wrms_min[p],Wrms_max[p]);
