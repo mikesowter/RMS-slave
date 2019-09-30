@@ -11,7 +11,7 @@ void getLastScan() {
   WiFiClient client;
   char buff[1024];
   uint16_t buffPtr, cct, numPtr;
-  uint32_t t = now();
+  uint32_t t = now()-36000;   // back to zulu time
   
   char Str1[] = "GET /api/v1/query_range?query=rmsEnergy";
   char Str2[] = "1&start=";   // Str2[0]='0'+cct;
@@ -23,7 +23,7 @@ void getLastScan() {
   for (cct = 1; cct<9; cct++) {
     strcpy(buff,Str1);
     strcat(buff,Str2);
-    dtostrf((double)t-300, 0, 0, Str3);
+    dtostrf((double)(t-300), 0, 0, Str3);
     strcat(buff,Str3);
     strcat(buff,Str4);
     dtostrf((double)t, 0, 0, Str5);
@@ -54,4 +54,6 @@ void getLastScan() {
       delay(100);
     }
   }
+  sprintf(buff,"Energy: %f %f",Energy[1],Energy[2]);
+  diagMess(buff);
 }

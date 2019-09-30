@@ -22,8 +22,8 @@ void minProc() {
   setupTime();
   // write days energy totals
   updateEnergyFile();
-  // reset daily energy sums
-  if( hour() == 0) {
+  // reset daily energy sums at midnight
+  if ( hour() == 0) {
     for ( int i = 1;i<NUM_CHANNELS+1;i++ ) Energy[i] = 0.0;
   }
   return;
