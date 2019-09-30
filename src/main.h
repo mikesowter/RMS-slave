@@ -7,7 +7,7 @@
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266FTPServer.h>
-#include <WiFiUdp.h>
+#include <WiFiudp.h>
 #include <fs.h>
 #include <ESP8266mDNS.h>
 #include <Ticker.h>
@@ -37,6 +37,7 @@ void joinNet();
 void setupTime();
 void updateEnergyFile();
 void checkConnect();
+void getLastScan();
 
 String resetReason = "Restart caused by " + ESP.getResetReason();
 String resetDetail = ESP.getResetInfo();
@@ -81,7 +82,7 @@ uint8_t SPIdata[64];
 uint8_t buffer[BUFFER_SIZE];
 uint8_t oldMin, oldQtr, oldHour, oldDay, oldMonth, offset;
 uint16_t i, oldYear, htmlLen;
-uint16_t localPort = 2395;          //  a random local port for UDP packets
+uint16_t localPort = 4210;          //  must match port assigned in "pulse"
 uint32_t t0, t1, startMillis, startSeconds, lastScan;
 uint32_t t_lastData, t_scan;
 

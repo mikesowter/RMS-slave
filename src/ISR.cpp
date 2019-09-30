@@ -24,8 +24,9 @@ void watchWait(uint32_t timer) {
   uint32_t waitStart = millis();
   while (millis()-waitStart < timer) {  // wait for timeout
     if (waitStart > millis()) waitStart = millis(); // check for wrap around
-    delay(10);
-    //  check for web requests
+    // check for hotwater query
+    if ( udp.parsePacket() ) handleWater();
+    // check for web requests
     server.handleClient();
     // check for OTA
     ArduinoOTA.handle();

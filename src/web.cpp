@@ -132,8 +132,16 @@ void handleMetrics() {
  }
 
 void handleWater() {
-  if ( waterOn ) server.send ( 200, "text/plain", "On" );
-  else server.send ( 200, "text/plain", "Off" );
+  char incomingPacket[32], replyPacket[9];
+  if ( waterOn ) strcpy(replyPacket,"It's on ");
+  else strcpy(replyPacket,"It's off");
+  // receive incoming UDP packets
+  int len = udp.read(incomingPacket, 32);
+  if (len > 0) incomingPacket[len] = 0;
+  // send back a reply, to the IP address and port we got the packet from
+  udp.beginPacket(udp.remoteIP(), udp.remotePort());
+  udp.write(replyPacket);
+  udp.endPacket();
  };
 
 void handleNotFound() {

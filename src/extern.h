@@ -6,7 +6,7 @@
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266FTPServer.h>
-#include <WiFiUdp.h>
+#include <WiFiudp.h>
 #include <fs.h>
 #include <ESP8266mDNS.h>
 #include <Ticker.h>

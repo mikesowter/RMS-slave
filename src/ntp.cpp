@@ -2,7 +2,7 @@
 #include <WiFiClient.h>
 #include <ESP8266WiFi.h>
 #include <TimeLib.h>
-#include <WiFiUdp.h>
+#include <WiFiudp.h>
 
 void sendNTPrequest(IPAddress& address);
 unsigned long getNTPreply();

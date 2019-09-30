@@ -87,7 +87,7 @@ illustrating how the library can be used with various time sources:
   and prints (to the serial port) the time of an event and the time period since the previous event.
   
 - TimeNTP uses the Arduino Ethernet shield to access time using the internet NTP time service.
-  The NTP protocol uses UDP and the UdpBytewise library is required, see:
+  The NTP protocol uses UDP and the udpBytewise library is required, see:
   http://bitbucket.org/bjoern/arduino_osc/src/14667490521f/libraries/Ethernet/
 
 - TimeGPS gets time from a GPS

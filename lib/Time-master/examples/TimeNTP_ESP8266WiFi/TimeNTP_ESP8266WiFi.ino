@@ -7,7 +7,7 @@
  
 #include <TimeLib.h> 
 #include <ESP8266WiFi.h>
-#include <WiFiUdp.h>
+#include <WiFiudp.h>
 
 const char ssid[] = "*************";  //  your network SSID (name)
 const char pass[] = "********";       // your network password
@@ -25,7 +25,7 @@ const int timeZone = 1;     // Central European Time
 //const int timeZone = -7;  // Pacific Daylight Time (USA)
 
 
-WiFiUDP Udp;
+WiFiUDP udp;
 unsigned int localPort = 8888;  // local port to listen for UDP packets
 
 void setup() 
@@ -47,9 +47,9 @@ void setup()
   Serial.print("IP number assigned by DHCP is ");
   Serial.println(WiFi.localIP());
   Serial.println("Starting UDP");
-  Udp.begin(localPort);
+  udp.begin(localPort);
   Serial.print("Local port: ");
-  Serial.println(Udp.localPort());
+  Serial.println(udp.localPort());
   Serial.println("waiting for sync");
   setSyncProvider(getNtpTime);
 }
@@ -97,15 +97,15 @@ byte packetBuffer[NTP_PACKET_SIZE]; //buffer to hold incoming & outgoing packets
 
 time_t getNtpTime()
 {
-  while (Udp.parsePacket() > 0) ; // discard any previously received packets
+  while (udp.parsePacket() > 0) ; // discard any previously received packets
   Serial.println("Transmit NTP Request");
   sendNTPpacket(timeServer);
   uint32_t beginWait = millis();
   while (millis() - beginWait < 1500) {
-    int size = Udp.parsePacket();
+    int size = udp.parsePacket();
     if (size >= NTP_PACKET_SIZE) {
       Serial.println("Receive NTP Response");
-      Udp.read(packetBuffer, NTP_PACKET_SIZE);  // read packet into the buffer
+      udp.read(packetBuffer, NTP_PACKET_SIZE);  // read packet into the buffer
       unsigned long secsSince1900;
       // convert four bytes starting at location 40 to a long integer
       secsSince1900 =  (unsigned long)packetBuffer[40] << 24;
@@ -137,7 +137,7 @@ void sendNTPpacket(IPAddress &address)
   packetBuffer[15]  = 52;
   // all NTP fields have been given values, now
   // you can send a packet requesting a timestamp:                 
-  Udp.beginPacket(address, 123); //NTP requests are to port 123
-  Udp.write(packetBuffer, NTP_PACKET_SIZE);
-  Udp.endPacket();
+  udp.beginPacket(address, 123); //NTP requests are to port 123
+  udp.write(packetBuffer, NTP_PACKET_SIZE);
+  udp.endPacket();
 }
