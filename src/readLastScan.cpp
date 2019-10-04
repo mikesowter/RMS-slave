@@ -54,6 +54,4 @@ void getLastScan() {
       delay(100);
     }
   }
-  sprintf(buff,"Energy: %f %f",Energy[1],Energy[2]);
-  diagMess(buff);
 }

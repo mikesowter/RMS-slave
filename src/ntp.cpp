@@ -1,133 +1,57 @@
 #include <arduino.h>
-#include <WiFiClient.h>
-#include <ESP8266WiFi.h>
-#include <TimeLib.h>
-#include <WiFiudp.h>
+#include "extern.h"
 
 void sendNTPrequest(IPAddress& address);
 unsigned long getNTPreply();
-void diagMess(const char* mess);
-char* dateStamp();
-char* timeStamp();
-char* f2s6(float f);
 
-uint32_t Tref_sec, Trx_sec, Ttx_sec, Tref_usec, Trx_usec, Ttx_usec, ausSeconds; 
+uint32_t getTime() {
 
-extern WiFiUDP udp;
+  unsigned long year2030 = 1893456000UL;
+  unsigned long year2017 = 1483207200UL;
+  uint32_t start = millis();
 
-const uint8_t NTP_PACKET_SIZE = 48;
-const uint8_t BUFFER_SIZE = 100;
-uint8_t len;
-uint8_t byteBuf[BUFFER_SIZE];
-IPAddress ausTimeServerIP,localTimeServerIP={192,168,1,6};
-const char* ntpServerName = "au.pool.ntp.org";
-const uint8_t TIME_ZONE = 10;
-const uint32_t TO_1970 = 2208988800UL;
-unsigned long from_1900, GMT;   
+  WiFi.hostByName("au.pool.ntp.org", timeServerIP);
 
-/* convert microseconds to fraction of second * 2^32 (i.e., the lsw of
-   a 64-bit ntp timestamp).  This routine uses the factorization:
-    n microseconds = n*(4096 + 256 - 1825/32)/2^32 seconds
-   which results in a max conversion error of 0.34us */
-
-unsigned int usec2ntp(unsigned int usec) {
-  unsigned int t = (usec * 1825) >> 5;
-  return ((usec << 12) + (usec << 8) - t);
-}
-
-unsigned long getTime() {
-  //
-  //   Aus pool server
-  //
-  WiFi.hostByName(ntpServerName, ausTimeServerIP);
-  uint32_t ms = millis();
-  while ( millis() - ms < 5000 ) {
-    sendNTPrequest(ausTimeServerIP);
-    delay(2000);
-    uint32_t len = udp.parsePacket();
-  //  Serial.printf("Aus NTP server ------------------ \n\npacket size: %i\n",len);
-    if (len > 40 ) break;
+  while( millis()-start < 10000) {
+    while (udp.parsePacket()!= NTP_PACKET_SIZE) {
+      sendNTPrequest(timeServerIP);
+      delay(1000);
+    }
+    startSeconds = getNTPreply();
+    delay(10);
+    if (startSeconds > year2017 && startSeconds < year2030) break;
+    Serial.printf("\nNTP reply bad: %u",startSeconds);
   }
-  ausSeconds = getNTPreply();
-  /*
-  double two32 = (double)0XFFFFFFFF;
-  setTime(Tref_sec);
-  Serial.printf("\n reference time: %s %s %sµs\n", dateStamp(), timeStamp(),f2s6((double)Tref_usec/two32));
-  setTime(Trx_sec);
-  Serial.printf("\n received time:  %s %s %sµs\n", dateStamp(), timeStamp(),f2s6((double)Trx_usec/two32));
-  setTime(Ttx_sec);
-  Serial.printf("\n transmit time:  %s %s %sµs\n\n", dateStamp(), timeStamp(),f2s6((double)Ttx_usec/two32));
-  */
-  /*  
-//    local NTP
-//
-  if ( true ) {
-    setTime(ausSeconds);
-    Serial.printf("time: %s %s\n\n", dateStamp(),timeStamp());
-  } 
-
-  ms = millis();
-  while ( millis() - ms < 300 ) {
-    sendNTPrequest(localTimeServerIP);
-    delay(1000);
-    uint32_t len = udp.parsePacket();
-    Serial.printf("local NTP server --------------- \n\npacket size: %i\n",len);
-    if (len > 40 ) break;
-  }
-  startSeconds = getNTPreply();
-  if ( true ) {
-    setTime(startSeconds);
-    Serial.printf("time: %s %s\n", dateStamp(),timeStamp());
-    return ausSeconds;
-  } */
-  return Ttx_sec;
+  return startSeconds;
 }
 
 // send an NTP request to the time server at the given address
 void sendNTPrequest(IPAddress& address)
 {
-  memset(byteBuf, 0, BUFFER_SIZE);
+  memset(buffer, 0, NTP_PACKET_SIZE);
   // Initialize values needed to form NTP request
-  byteBuf[0] = 0b11100011;   // LI, Version, Mode
-  byteBuf[1] = 0;     // Stratum, or type of clock
-  byteBuf[2] = 6;     // Polling Interval (2^6s)
-  byteBuf[3] = 0xEC;  // Peer Clock Precision (2^-19s)
-  // 8 bytes of zero for Root Delay & Root Dispersion, then ID:
-  byteBuf[12]  = 'M';
-  byteBuf[13]  = 'J';
-  byteBuf[14]  = 'S';
-  byteBuf[15]  = '!';
-  // 32 bytes of zero because our time doesnt matter here
-
-  udp.beginPacket(address, 123); 
-  udp.write(byteBuf, NTP_PACKET_SIZE);
+  buffer[0] = 0b11100011;   // LI, Version, Mode
+  buffer[1] = 0;     // Stratum, or type of clock
+  buffer[2] = 6;     // Polling Interval
+  buffer[3] = 0xEC;  // Peer Clock Precision
+  // 8 bytes of zero for Root Delay & Root Dispersion
+  buffer[12]  = 49;
+  buffer[13]  = 0x4E;
+  buffer[14]  = 49;
+  buffer[15]  = 52;
+  udp.beginPacket(address, 123); //NTP requests are to port 123
+  udp.write(buffer, NTP_PACKET_SIZE);
   udp.endPacket();
 }
 
-unsigned long getNTPreply() {
-  udp.read(byteBuf, NTP_PACKET_SIZE); 
-/*
-  Serial.println("\nNTP reply: ");
-  for (int p=0; p<NTP_PACKET_SIZE; p=p+4) {
-    Serial.printf("word %i: %X,%X,%X,%X\n",p/4, byteBuf[p], byteBuf[p+1], byteBuf[p+2], byteBuf[p+3]);
-  } 
-// get Reference time:
-  from_1900 = (byteBuf[16]<<24) + (byteBuf[17]<<16) + (byteBuf[18]<<8) + byteBuf[19];   
-  GMT = from_1900 - TO_1970;        
-  Tref_sec = GMT + TIME_ZONE*3600;
-  Tref_usec = usec2ntp( (byteBuf[20]<<24) + (byteBuf[21]<<16) + (byteBuf[22]<<8) + byteBuf[23] );
-
-// get Receive time:
-  from_1900 = (byteBuf[32]<<24) + (byteBuf[33]<<16) + (byteBuf[34]<<8) + byteBuf[35]; 
-  GMT = from_1900 - TO_1970;        
-  Trx_sec = GMT + TIME_ZONE*3600;
-  Trx_usec = usec2ntp( (byteBuf[36]<<24) + (byteBuf[37]<<16) + (byteBuf[38]<<8) + byteBuf[39] );
-*/
-// get Transmit time:   
-  from_1900 = (byteBuf[40]<<24) + (byteBuf[41]<<16) + (byteBuf[42]<<8) + byteBuf[43]; 
-  GMT = from_1900 - TO_1970;        
-  Ttx_sec = GMT + TIME_ZONE*3600;
-  Ttx_usec = usec2ntp( (byteBuf[44]<<24) + (byteBuf[45]<<16) + (byteBuf[46]<<8) + byteBuf[47] ); 
-
-  return Ttx_sec;
+unsigned long getNTPreply(){
+  udp.read(buffer, NTP_PACKET_SIZE); 
+  unsigned long highWord = word(buffer[40], buffer[41]);
+  unsigned long lowWord = word(buffer[42], buffer[43]);
+  // this is NTP time :
+  unsigned long secsSince1900 = highWord << 16 | lowWord;   // seconds since Jan 1 1900
+  // now convert NTP time into Unix time:
+  unsigned long GMT = secsSince1900 - 2208988800UL;         // seconds since Jan 1 1970
+  //add TIME_ZONE offset and return
+  return GMT + TIME_ZONE*3600;
 }

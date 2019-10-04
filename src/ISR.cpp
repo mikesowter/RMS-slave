@@ -7,7 +7,6 @@
   }
   else if (watchDog >= 30) {
     errMess("watchDog 30s timeout");
-    updateEnergyFile();
     delay(10);
     fd.close();
     fe.close();

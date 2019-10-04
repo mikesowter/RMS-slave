@@ -26,7 +26,9 @@ void setup(void) {
   resetReason.toCharArray(charBuf,resetReason.length()+1);
 	diagMess(charBuf);       
 	resetDetail.toCharArray(charBuf,resetDetail.length()+1);
-	if ( charBuf[16] != '0' ) diagMess(charBuf); 				// if fatal exception
+  diagMess(charBuf); 
+	//if ( charBuf[16] != '0' ) diagMess(charBuf); 				// if fatal exception
+
   // recover previous values from prometheus
   getLastScan();
   // setup server

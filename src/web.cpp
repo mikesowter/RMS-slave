@@ -149,7 +149,6 @@ void handleNotFound() {
   Serial.println(userText);
   if (strncmp(userText,"/reset",6)==0) {
     errMess("User requested restart");
-    updateEnergyFile();
     fd.close();
     fe.close();
     ESP.restart();
