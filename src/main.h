@@ -88,6 +88,7 @@ uint32_t t_lastData, t_scan;
 
 float Wrms[NUM_CHANNELS+1];					// Sum of sampled V*I
 float Energy[NUM_CHANNELS+1];	
+float costEnergy[NUM_CHANNELS+1];
 float Wrms_min[NUM_CHANNELS+1];		
 float Wrms_max[NUM_CHANNELS+1];	
 float Irms[NUM_CHANNELS+1];					// root sum I^2

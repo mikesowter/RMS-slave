@@ -91,4 +91,5 @@ extern float Vmax_15;
 extern float Wrms_min[];		
 extern float Wrms_max[];	
 extern float Energy[];	
+extern float costEnergy[];
 

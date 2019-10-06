@@ -5,15 +5,12 @@ void handleRoot() {
   addCstring("\n# TYPE rmsVolts guage" );
   addCstring("\nrmsVolts ");
   addCstring(f2s2(Vrms));
-  addCstring("\n# TYPE rmsVmin guage" );
-  addCstring("\nrmsVmin ");
-  addCstring(f2s2(Vmin));
-  addCstring("\n# TYPE rmsVmax guage" );
-  addCstring("\nrmsVmax ");
-  addCstring(f2s2(Vmax));
   addCstring("\n# TYPE rmsEnergy1 guage" );
   addCstring("\nrmsEnergy1 ");
   addCstring(f2s2(Energy[1]));
+  addCstring("\n# TYPE rmsCost1 guage" );
+  addCstring("\nrmsCost1 ");
+  addCstring(f2s2(costEnergy[1]));
   addCstring("\n# TYPE rmsFreq guage" );
   addCstring("\nrmsFreq ");
   addCstring(f2s4(Freq));
@@ -112,6 +109,31 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsEnergy8 guage" );
   addCstring("\nrmsEnergy8 ");
   addCstring(f2s4(Energy[8]));
+
+  addCstring("\n# TYPE rmsCost1 guage" );
+  addCstring("\nrmsCost1 ");
+  addCstring(f2s2(costEnergy[1]));
+  addCstring("\n# TYPE rmsCost2 guage" );
+  addCstring("\nrmsCost2 ");
+  addCstring(f2s2(costEnergy[2]));
+  addCstring("\n# TYPE rmsCost3 guage" );
+  addCstring("\nrmsCost3 ");
+  addCstring(f2s2(costEnergy[3]));
+  addCstring("\n# TYPE rmsCost4 guage" );
+  addCstring("\nrmsCost4 ");
+  addCstring(f2s2(costEnergy[4]));
+  addCstring("\n# TYPE rmsCost5 guage" );
+  addCstring("\nrmsCost5 ");
+  addCstring(f2s2(costEnergy[5]));
+  addCstring("\n# TYPE rmsCost6 guage" );
+  addCstring("\nrmsCost6 ");
+  addCstring(f2s2(costEnergy[6]));
+  addCstring("\n# TYPE rmsCost7 guage" );
+  addCstring("\nrmsCost7 ");
+  addCstring(f2s2(costEnergy[7]));
+  addCstring("\n# TYPE rmsCost8 guage" );
+  addCstring("\nrmsCost8 ");
+  addCstring(f2s2(costEnergy[8]));
  
   addCstring("\n# TYPE rmsWifiSignal guage" );
   addCstring("\nrmsWifiSignal ");
@@ -160,9 +182,10 @@ void handleNotFound() {
     server.send ( 200, "text/html", charBuf );
   }
   else if (strncmp(userText,"/deldiags",9)==0) {
+    fd.close();
     SPIFFS.remove("/diags.txt");
     fd = SPIFFS.open("/diags.txt", "a");
-    dateStamp();
+    diagMess("diags deleted");
     strcpy(charBuf,"<!DOCTYPE html><html><head><HR>Diags deleted<HR></head></html>");
     server.send ( 200, "text/html", charBuf );
   }
