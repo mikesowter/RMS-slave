@@ -135,6 +135,9 @@ void handleMetrics() {
   addCstring("\nrmsCost8 ");
   addCstring(f2s2(costEnergy[8]));
  
+  addCstring("\n# TYPE rmsWaiting guage" );
+  addCstring("\nrmsWaiting ");
+  addCstring(f2s2((float)waiting));
   addCstring("\n# TYPE rmsWifiSignal guage" );
   addCstring("\nrmsWifiSignal ");
   addCstring(f2s2(-WiFi.RSSI()));

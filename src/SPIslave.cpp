@@ -39,11 +39,12 @@ void setupSPIslave() {
 }
 
 void waitForData() {
-  // uint32_t t2 = millis();
+  uint32_t w = millis();
   SPISlave.begin();
   while (noData) watchWait(10);
+  waiting = millis() - w;
   noData = true;
-  delay(10);        
+  watchWait(10);        
   SPISlave.end(); 
   /* Serial.println();
   for (uint8_t i=0 ; i<32 ; i++) {

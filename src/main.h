@@ -84,11 +84,12 @@ uint8_t oldMin, oldQtr, oldHour, oldDay, oldMonth, offset;
 uint16_t i, oldYear, htmlLen;
 uint16_t localPort = 4210;          //  must match port assigned in "pulse"
 uint32_t t0, t1, startMillis, startSeconds, lastScan;
-uint32_t t_lastData, t_scan;
+uint32_t t_lastData, t_scan, waiting;
 
 float Wrms[NUM_CHANNELS+1];					// Sum of sampled V*I
 float Energy[NUM_CHANNELS+1];	
-float costEnergy[NUM_CHANNELS+1];
+float incEnergy[NUM_CHANNELS+1];
+float costEnergy[NUM_CHANNELS+1];   // channel 1 is cost of unmetered
 float Wrms_min[NUM_CHANNELS+1];		
 float Wrms_max[NUM_CHANNELS+1];	
 float Irms[NUM_CHANNELS+1];					// root sum I^2

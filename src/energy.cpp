@@ -8,48 +8,44 @@ const float NOISE = 8.0;
 // Energy sums are reset at midnight in minProc
 
 void dailyEnergy() {
-  float incEnergy[NUM_CHANNELS+1];
+
   float goodLoads, badLoads, loads, solar, spareSolar, split, rate;
 
   t_scan = millis() - t_lastData;
   t_lastData = millis();
   goodLoads = 0.0;
   for ( int i = 1;i<NUM_CHANNELS+1;i++ ) {
-    if ( Wrms[i] > NOISE ) {                          // eliminate noise
-      incEnergy[i] = (float)t_scan/3.6e9;             // kWh units
+    if ( Wrms[i] > NOISE ) {                            // eliminate noise
+      incEnergy[i] = Wrms[i]*(float)t_scan/3.6e9;       // kWh units
       Energy[i] += incEnergy[i];
-      if ( i!=4 && i!=7 ) goodLoads += incEnergy[i];    // 4=water 7=solar
+      if ( i!=1 && i!=5 && i!=7 ) goodLoads += incEnergy[i];    // 5=water 7=solar
     }
   }
   loads = incEnergy[1];     // define for readability
   solar = incEnergy[7];
 
-  for ( int i = 1;i<NUM_CHANNELS+1;i++ ) {
-    if ( i == 4 ) {
+  for ( int i = 2;i<NUM_CHANNELS+1;i++ ) {
+    if ( i == 5 ) {
       costEnergy[i] += T31 * incEnergy[i];          // hotwater tariff
     }
     else if ( i == 7 ) {
-      costEnergy[i] += FIT * max((float)0,solar-loads);    // exported solar
+      costEnergy[i] += FIT * max(0.0F,solar-loads);    // exported solar
     }
     else if ( solar > loads ) {                     // if all provided by solar
       costEnergy[i] += FIT * incEnergy[i];
     }
-    else if ( solar < NOISE ) {
+    else if ( solar == 0.0 ) {
       costEnergy[i] += T11 * incEnergy[i];          // none provided by solar
     }
     else {
-      if ( i != 1 ) {
-        split = min((float)1,solar/goodLoads);      // loads metered separately
-        rate = FIT * split + T11 * (1.0 - split);   // are essential
-        costEnergy[i] += rate * incEnergy[i];       // get first portion of solar
-      }
-      else {
-        badLoads = loads - goodLoads;                 // loads not metered separately
-        spareSolar = max((float)0,(solar-goodLoads)); // are non-essential
-        split = min((float)1,spareSolar/badLoads);    // get next portion of solar
-        rate = FIT * split + T11 * (1.0 - split);
-        costEnergy[i] += rate * badLoads;          
-      }
+      split = min(1.0F,solar/goodLoads);          // loads metered separately
+      rate = FIT * split + T11 * (1.0 - split);   // are essential
+      costEnergy[i] += rate * incEnergy[i];       // use first portion of solar
     }
   }
+  badLoads = loads - goodLoads;                   // loads not metered separately
+  spareSolar = max(0.0F,(solar-goodLoads));       // are non-essential
+  split = min(1.0F,spareSolar/badLoads);          // use next portion of solar
+  rate = FIT * split + T11 * (1.0 - split);
+  costEnergy[1] += rate * badLoads;       
 }
