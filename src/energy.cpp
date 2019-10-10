@@ -43,7 +43,7 @@ void dailyEnergy() {
       costEnergy[i] += rate * incEnergy[i];       // use first portion of solar
     }
   }
-  badLoads = loads - goodLoads;                   // loads not metered separately
+  badLoads = max(0.0F,loads - goodLoads);         // loads not metered separately
   spareSolar = max(0.0F,(solar-goodLoads));       // are non-essential
   split = min(1.0F,spareSolar/badLoads);          // use next portion of solar
   rate = FIT * split + T11 * (1.0 - split);
