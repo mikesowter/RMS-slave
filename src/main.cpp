@@ -49,7 +49,7 @@ void loop() {
   //  check for change of minute
   if ( minute() != oldMin ) minProc();
   //  check for async activity
-  watchWait(2300); 
+  watchWait(2400); 
   // check for network
   checkConnect();
   // feed the dog
@@ -98,7 +98,7 @@ void checkConnect() {
   bool connected = false;
 
   if (WiFi.status() != WL_CONNECTED) {
-    while( millis() - t2 < 5000) {
+    while( millis() - t2 < 1000UL) {
       if (WiFi.status() == WL_CONNECTED) {
         connected = true;
         break;

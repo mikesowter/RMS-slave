@@ -23,7 +23,7 @@ void getLastScan() {
   dtostrf((double)t, 0, 0, Str5);
   char Str6[] = "&step=60&timeout=10s HTTP/1.1\r\nHost: ";
   char Str7[] = "\r\nConnection: close\r\n\r\n";
-// read up to 5 prior energies
+// read up to 5 most recent energies
   for (cct = 1; cct<9; cct++) {
     strcpy(buff,Str1a);
     strcat(buff,Str2);
@@ -58,7 +58,7 @@ void getLastScan() {
       delay(100);
     }
   }
-// read up to 5 prior costs
+// read up to 5 most recent costs
   for (cct = 1; cct<9; cct++) {
     strcpy(buff,Str1b);
     strcat(buff,Str2);

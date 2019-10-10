@@ -9,7 +9,7 @@ void setupSPIslave() {
   // data has been received from the master. len is always 32 bytes
   SPISlave.onData([](uint8_t * data, size_t len) {
     SPISlave.setData(data,32);
-    for (uint8_t i=0;i<32;i++) SPIdata[i] = data[i];
+    for (uint8_t i=0; i<32; i++) SPIdata[i] = data[i];
     noData = false;
   });
 
@@ -41,22 +41,15 @@ void setupSPIslave() {
 void waitForData() {
   uint32_t w = millis();
   SPISlave.begin();
-  while (noData) watchWait(10);
+  while (noData) watchWait(5);
   waiting = millis() - w;
+  if ( waiting < WDmin) WDmin = waiting;
+  if ( waiting > WDmax) WDmax = waiting;
   noData = true;
-  watchWait(10);        
   SPISlave.end(); 
-  /* Serial.println();
-  for (uint8_t i=0 ; i<32 ; i++) {
-    Serial.print(SPIdata[i],HEX);
-    Serial.print(" ");
-  }  
-  Serial.println();
-  Serial.print(timeStamp());
-  Serial.printf("  waited %ld ms  ",millis()-t2); */
   unloadValues();
   dailyEnergy();
-  delay(10);
+  yield();            
 }
 
 void unloadValues() {

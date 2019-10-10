@@ -81,10 +81,11 @@ IPAddress dns(192, 168, 1, 1);
 uint8_t SPIdata[64];
 uint8_t buffer[BUFFER_SIZE];
 uint8_t oldMin, oldQtr, oldHour, oldDay, oldMonth, offset;
+uint8_t scanSec;
 uint16_t i, oldYear, htmlLen;
 uint16_t localPort = 4210;          //  must match port assigned in "pulse"
 uint32_t t0, t1, startMillis, startSeconds, lastScan;
-uint32_t t_lastData, t_scan, waiting;
+uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
 
 float Wrms[NUM_CHANNELS+1];					// Sum of sampled V*I
 float Energy[NUM_CHANNELS+1];	

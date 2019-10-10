@@ -12,8 +12,9 @@
     fe.close();
     ESP.restart();
   }
-  if ( millis() - lastScan == 90000UL ) {
+  if ( millis() - lastScan > 90000UL ) {
     diagMess("no scan for 90s");
+    lastScan = millis();
     // rejoin local network if necessary
 	  if (WiFi.status() != WL_CONNECTED) joinNet();
   }
@@ -21,18 +22,24 @@
 
 void watchWait(uint32_t timer) {
   uint32_t waitStart = millis();
-  while (millis()-waitStart < timer) {  // wait for timeout
-    if (waitStart > millis()) waitStart = millis(); // check for wrap around
+  while ( millis()-waitStart < timer) {  // wait for timeout
+    uint32_t start = micros();    
     // check for hotwater query
-    if ( udp.parsePacket() ) handleWater();
+    if ( udp.parsePacket() ) handleWater();      // 600us max
     // check for web requests
-    server.handleClient();
+    server.handleClient();                       // 30ms for metrics
     // check for OTA
     ArduinoOTA.handle();
     // check for FTP request
-	  ftpSrv.handleFTP();
+	  ftpSrv.handleFTP();                          // 300ms minimum
     // reset watch dog
     watchDog = 0;
+    // do background
+    yield();
+    // statistics
+    uint32_t ww = micros() - start;
+    if ( ww < WWmin) WWmin = ww;
+    if ( ww > WWmax) WWmax = ww;
   }
 }
   

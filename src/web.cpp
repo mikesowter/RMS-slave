@@ -35,6 +35,7 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsFreq guage" );
   addCstring("\nrmsFreq ");
   addCstring(f2s4(Freq));
+  
   addCstring("\n# TYPE rmsPwr_min1 guage" );
   addCstring("\nrmsPwr_min1 ");
   addCstring(f2s2(Wrms_min[1]));
@@ -83,8 +84,8 @@ void handleMetrics() {
   addCstring(f2s2(Wrms_max[7]));
   addCstring("\n# TYPE rmsPwr_max8 guage" );
   addCstring("\nrmsPwr_max8 ");
-  addCstring(f2s2(Wrms_max[8]));
-
+  addCstring(f2s2(Wrms_max[8]));            
+// energy
   addCstring("\n# TYPE rmsEnergy1 guage" );
   addCstring("\nrmsEnergy1 ");
   addCstring(f2s4(Energy[1]));
@@ -109,7 +110,7 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsEnergy8 guage" );
   addCstring("\nrmsEnergy8 ");
   addCstring(f2s4(Energy[8]));
-
+// costs
   addCstring("\n# TYPE rmsCost1 guage" );
   addCstring("\nrmsCost1 ");
   addCstring(f2s2(costEnergy[1]));
@@ -134,10 +135,25 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsCost8 guage" );
   addCstring("\nrmsCost8 ");
   addCstring(f2s2(costEnergy[8]));
- 
+ // loop analysis
   addCstring("\n# TYPE rmsWaiting guage" );
   addCstring("\nrmsWaiting ");
   addCstring(f2s2((float)waiting));
+  addCstring("\n# TYPE rmsScanSec guage" );
+  addCstring("\nrmsScanSec ");
+  addCstring(f2s2((float)scanSec));
+  addCstring("\n# TYPE rmsWWmin guage" );
+  addCstring("\nrmsWWmin ");
+  addCstring(f2s2((float)WWmin));
+  addCstring("\n# TYPE rmsWWmax guage" );
+  addCstring("\nrmsWWmax ");
+  addCstring(f2s2((float)WWmax));
+  addCstring("\n# TYPE rmsWDmin guage" );
+  addCstring("\nrmsWDmin ");
+  addCstring(f2s2((float)WDmin));
+  addCstring("\n# TYPE rmsWDmax guage" );
+  addCstring("\nrmsWDmax ");
+  addCstring(f2s2((float)WDmax));
   addCstring("\n# TYPE rmsWifiSignal guage" );
   addCstring("\nrmsWifiSignal ");
   addCstring(f2s2(-WiFi.RSSI()));
@@ -154,6 +170,11 @@ void handleMetrics() {
   }
   Serial.print("  scanned");
   lastScan = millis();
+  scanSec = second();
+  WWmin = 9999;
+  WWmax = 0;
+  WDmin = 9999;
+  WDmax = 0;
  }
 
 void handleWater() {
@@ -206,7 +227,7 @@ void handleNotFound() {
     fh = SPIFFS.open(userText, "r");
 
     while (fh.available()) {
-      int k=fh.readBytesUntil('\r',charBuf,80);
+      int k=fh.readBytesUntil('\r',charBuf,160);
       charBuf[k]='\0';
       addCstring(charBuf);
       delay(10);
@@ -229,20 +250,19 @@ void handleNotFound() {
 void addCstring(const char* s) {
   // find end of longStr
   uint16_t p;
-  for (p=0;p<longStrSize;p++) {
-    if ( p>longStrSize-32) {
+  for (p=0; p<longStrSize; p++) {
+    if ( p > longStrSize-32) {
       diagMess("longStrSize exceeded");
       break;
     }
-    if (longStr[p]=='\0') {
+    if ( longStr[p] == '\0' ) {
       break;    // p now points to end of old string
     }
   }
-  uint16_t q=0;
-  for (;p<longStrSize;p++) {
-    longStr[p]=s[q];
-//    if (s[q]!='\0') Serial.print(s[q]);
-    if (s[q++]=='\0') break;
+  uint16_t q = 0;
+  for ( ; p<longStrSize; p++ ) {
+    longStr[p] = s[q];
+    if ( s[q++] == '\0' ) break;
   }
   htmlLen = p;
 }
