@@ -43,6 +43,8 @@ void setup(void) {
   secondTick.attach(1,ISRwatchDog);
 }
 
+
+
 void loop() { 
   // wait for data from master
   waitForData();
@@ -50,10 +52,19 @@ void loop() {
   if ( minute() != oldMin ) minProc();
   //  check for async activity
   watchWait(2400); 
-  // check for network
-  checkConnect();
+  // check the network
+  checkScan();
   // feed the dog
   watchDog = 0;
+}
+
+void checkScan() {
+  if ( millis() - lastScan > 90000UL ) {
+    diagMess("no scan for 90s");
+    lastScan = millis();
+    // rejoin local network if necessary
+	  if ( WiFi.status() != WL_CONNECTED ) joinNet();
+  }
 }
 
 void joinNet() {
@@ -93,21 +104,3 @@ void setupTime() {
   strcat(todayName,".csv");
 }
 
-void checkConnect() {
-  uint32_t t2 = millis();
-  bool connected = false;
-
-  if (WiFi.status() != WL_CONNECTED) {
-    while( millis() - t2 < 1000UL) {
-      if (WiFi.status() == WL_CONNECTED) {
-        connected = true;
-        break;
-      }
-      yield();
-    }
-    if (!connected) {
-      diagMess("disconnected from network");
-      joinNet();
-    }
-  } 
-}

@@ -36,7 +36,7 @@ void watchWait(uint32_t);
 void joinNet();
 void setupTime();
 void updateEnergyFile();
-void checkConnect();
+void checkScan();
 void getLastScan();
 
 String resetReason = "Restart caused by " + ESP.getResetReason();

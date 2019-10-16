@@ -35,7 +35,7 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsFreq guage" );
   addCstring("\nrmsFreq ");
   addCstring(f2s4(Freq));
-  
+
   addCstring("\n# TYPE rmsPwr_min1 guage" );
   addCstring("\nrmsPwr_min1 ");
   addCstring(f2s2(Wrms_min[1]));
@@ -221,11 +221,12 @@ void handleNotFound() {
     server.send ( 200, "text/html", charBuf );
   }
   else if (SPIFFS.exists(userText)) {
+    
     strcpy(longStr,"File: ");
     addCstring(userText);
     addCstring("\r\r");
     fh = SPIFFS.open(userText, "r");
-
+    if ( fh.size() > 2000 ) fd.seek(-2000,SeekEnd);
     while (fh.available()) {
       int k=fh.readBytesUntil('\r',charBuf,160);
       charBuf[k]='\0';

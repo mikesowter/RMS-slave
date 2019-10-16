@@ -44,7 +44,7 @@ void dailyEnergy() {
     }
   }
   badLoads = loads - goodLoads;                   // bad loads are non-essential
-  if (badLoads < 300.0) badLoads = 0.0;           // remove noise from subtraction
+  if (badLoads < 2.5E-4) badLoads = 0.0;          // remove noise from subtraction
   spareSolar = max(0.0F,(solar-goodLoads));      
   split = min(1.0F,spareSolar/badLoads);          // use next portion of solar
   rate = FIT * split + T11 * (1.0 - split);

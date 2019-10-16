@@ -41,13 +41,14 @@ void setupSPIslave() {
 void waitForData() {
   uint32_t w = millis();
   SPISlave.begin();
-  while (noData) watchWait(5);
+  while (noData) watchWait(1);
   waiting = millis() - w;
   if ( waiting < WDmin) WDmin = waiting;
   if ( waiting > WDmax) WDmax = waiting;
   noData = true;
   SPISlave.end(); 
   unloadValues();
+  yield();
   dailyEnergy();
   yield();            
 }

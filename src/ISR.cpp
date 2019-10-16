@@ -2,21 +2,15 @@
  
  void ISRwatchDog () {
   watchDog++;
-  if (watchDog == 10) {
+/*  if (watchDog == 10) {
     diagMess("watchDog 10s alert");
   }
-  else if (watchDog >= 30) {
+  else */if (watchDog >= 30) {
     errMess("watchDog 30s timeout");
     delay(10);
     fd.close();
     fe.close();
     ESP.restart();
-  }
-  if ( millis() - lastScan > 90000UL ) {
-    diagMess("no scan for 90s");
-    lastScan = millis();
-    // rejoin local network if necessary
-	  if (WiFi.status() != WL_CONNECTED) joinNet();
   }
 }
 
