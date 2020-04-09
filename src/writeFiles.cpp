@@ -31,7 +31,9 @@ void WriteQtr() {
   fh.print(",");
   fh.print(Vrms);
   fh.print(",");
-  fh.println(Wrms[1]);
+  fh.print(Energy[1]);
+  fh.print(",");
+  fh.println(T11_kWh);
   delay(10);
 }
 
@@ -45,6 +47,8 @@ void updateEnergyFile() {
   fh.printf("\n%s,%s",dateStamp(),timeStamp());
   for ( int i=1; i<NUM_CHANNELS+1; i++ ) {
     fh.printf(",%7.4f",Energy[i]);
+    fh.printf(",$%0.2f",costEnergy[i]);
   }
+  fh.printf(",%0.2f",T11_kWh);
   fh.close();
 }

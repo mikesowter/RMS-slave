@@ -94,4 +94,5 @@ extern float Wrms_max[];
 extern float Energy[];	
 extern float incEnergy[];
 extern float costEnergy[];
+extern float T11_kWh;
 

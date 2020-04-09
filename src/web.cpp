@@ -110,6 +110,9 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsEnergy8 guage" );
   addCstring("\nrmsEnergy8 ");
   addCstring(f2s4(Energy[8]));
+  addCstring("\n# TYPE T11_kWh guage" );
+  addCstring("\nT11_kWh ");
+  addCstring(f2s4(T11_kWh));
 // costs
   addCstring("\n# TYPE rmsCost1 guage" );
   addCstring("\nrmsCost1 ");

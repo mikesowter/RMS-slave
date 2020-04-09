@@ -9,7 +9,8 @@ const float NOISE = 8.0;
 
 void dailyEnergy() {
 
-  float goodLoads, badLoads, loads, solar, spareSolar, split, rate;
+  float goodLoads, badLoads, loads, solar, spareSolar, split, rate, T11_inc;
+  extern float T11_kWh;
 
   t_scan = millis() - t_lastData;
   t_lastData = millis();
@@ -23,6 +24,9 @@ void dailyEnergy() {
   }
   loads = incEnergy[1];     // define for readability
   solar = incEnergy[7];
+  if ( loads > solar ) T11_inc = loads-solar;
+  else T11_inc = 0.0;
+  T11_kWh += T11_inc;
 
   for ( int i = 2;i<NUM_CHANNELS+1;i++ ) {
     if ( i == 5 ) {

@@ -27,5 +27,6 @@ void minProc() {
     Energy[i] = 0.0;
     costEnergy[i] = 0.0;
   }
+  T11_kWh = 0.0;
   return;
 }  
