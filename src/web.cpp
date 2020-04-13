@@ -2,20 +2,17 @@
 
 void handleRoot() {
   longStr[0]='\0';
-  addCstring("\n# TYPE rmsVolts guage" );
-  addCstring("\nrmsVolts ");
+  addCstring("\nVolts ");
   addCstring(f2s2(Vrms));
-  addCstring("\n# TYPE rmsEnergy1 guage" );
-  addCstring("\nrmsEnergy1 ");
-  addCstring(f2s2(Energy[1]));
-  addCstring("\n# TYPE rmsCost1 guage" );
-  addCstring("\nrmsCost1 ");
-  addCstring(f2s2(costEnergy[1]));
-  addCstring("\n# TYPE rmsFreq guage" );
-  addCstring("\nrmsFreq ");
-  addCstring(f2s4(Freq));
-  addCstring("\n# TYPE rmsWifiSignal guage" );
-  addCstring("\nrmsWifiSignal ");
+  addCstring("\nUsed_kWh ");
+  addCstring(f2s4(Energy[1]));
+  addCstring("\nT11_kWh ");
+  addCstring(f2s4(T11_kWh));
+  addCstring("\nT31_kWh ");
+  addCstring(f2s4(Energy[5]));
+  addCstring("\nsolar_kWh ");
+  addCstring(f2s4(Energy[7]));
+  addCstring("\nWifiSignal ");
   addCstring(f2s2(-WiFi.RSSI()));
   addCstring( "\n" );
   server.send ( 200, "text/plain", longStr );
@@ -110,8 +107,8 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsEnergy8 guage" );
   addCstring("\nrmsEnergy8 ");
   addCstring(f2s4(Energy[8]));
-  addCstring("\n# TYPE T11_kWh guage" );
-  addCstring("\nT11_kWh ");
+  addCstring("\n# TYPE rmsT11_kWh guage" );
+  addCstring("\nrmsT11_kWh ");
   addCstring(f2s4(T11_kWh));
 // costs
   addCstring("\n# TYPE rmsCost1 guage" );

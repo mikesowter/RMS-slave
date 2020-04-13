@@ -101,4 +101,5 @@ float Vrms_max = 0.0;
 float Vmin_15 = 500.0;
 float Vmax_15 = 0.0;
 float T11_kWh = 0.0;
+float T11_inc;
   

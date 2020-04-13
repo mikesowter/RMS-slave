@@ -5,6 +5,7 @@
 char host[] = "192.168.1.20";   // RPi-1 prometheus and influx server
 #define NUM_CHANNELS 8
 extern float Energy[NUM_CHANNELS+1], costEnergy[NUM_CHANNELS+1];	
+extern char longStr[];
 void diagMess(const char* mess);
  
 void getLastScan() {
@@ -17,7 +18,7 @@ void getLastScan() {
   char Str1b[] = "GET /api/v1/query_range?query=rmsCost";
   char Str2[] = "1&start=";   // Str2[0]='0'+cct;
   char Str3[12];
-  dtostrf((double)(t-300), 0, 0, Str3);
+  dtostrf((double)(t-600), 0, 0, Str3);
   char Str4[] = "&end=";
   char Str5[12];
   dtostrf((double)t, 0, 0, Str5);
@@ -48,7 +49,7 @@ void getLastScan() {
         }
       }
       buff[buffPtr] = '\0';
-      Serial.printf("\n%d bytes: \n%s\n",buffPtr,buff);
+//      sprintf(longStr,"\n%d bytes: \n%s\n",buffPtr,buff);
       for (numPtr = buffPtr-8; numPtr>buffPtr-18; numPtr-- ) {
         if (buff[numPtr] == '\"') {
           Energy[cct] = atof(buff+numPtr+1);
