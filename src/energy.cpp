@@ -26,7 +26,6 @@ void dailyEnergy() {
   solar = incEnergy[7];
   
   if ( solar < 0.00001 ) solar = 0.0;
-  if ( loads > solar ) T11_kWh += loads-solar;
 
   for ( int i = 2;i<NUM_CHANNELS+1;i++ ) {
     if ( i == 5 ) {
@@ -52,11 +51,14 @@ void dailyEnergy() {
   spareSolar = max(0.0F,(solar-goodLoads));      
   split = min(1.0F,spareSolar/badLoads);          // use next portion of solar
   rate = FIT * split + T11 * (1.0 - split);
-  costEnergy[1] += rate * badLoads;       
-  T11_inc = loads-(solar-spareSolar);
-  T11_kWh += T11_inc;
-  if (T11_inc > 0.0 ) {
-    sprintf(longStr,"loads: %f,solar: %f,Feed In: %f,T11_inc: %f,T11_kWh: %f",loads,solar,spareSolar,T11_inc,T11_kWh);
-    diagMess(longStr);
+  costEnergy[1] += rate * badLoads;
+         
+  if ( exporting ) T11_inc = 0.0;
+  else T11_inc = max(0.0F,loads-solar);
+  
+  if ( !exporting ) {   
+    T11_kWh += T11_inc;
+  //  sprintf(longStr,"loads: %f,solar: %f,Feed In: %f,T11_inc: %f,T11_kWh: %f",loads,solar,spareSolar,T11_inc,T11_kWh);
+  //  diagMess(longStr);
   }
 }

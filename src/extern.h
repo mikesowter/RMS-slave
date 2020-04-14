@@ -57,7 +57,7 @@ extern Ticker secondTick;
 extern volatile uint8_t watchDog;
 extern IPAddress localIP,timeServerIP,fileServerIP;
 
-extern bool noData, waterOn;
+extern bool noData, waterOn, exporting;
 extern ESP8266WebServer server;
 
 extern char fileName[];

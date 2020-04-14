@@ -79,8 +79,8 @@ void unloadValues() {
       // Serial.printf("W[%i] = %.0f,%.0f ",p,Wrms_min[p],Wrms_max[p]);
     }
   }
-  if ( Wrms[5] > 1000 ) waterOn = true;           // hot water is channel 5
-  else waterOn = false;
+  waterOn = ( Wrms[5] > 1000 );           // hot water is channel 5
+  exporting = ( Wrms[7] > Wrms[1] );      // solar > usage
 }
 
 float unload2Bytes() {

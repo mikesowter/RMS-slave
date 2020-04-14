@@ -131,11 +131,11 @@ void handleMetrics() {
   addCstring(f2s2(costEnergy[6]));
   addCstring("\n# TYPE rmsCost7 guage" );
   addCstring("\nrmsCost7 ");
-  addCstring(f2s2(costEnergy[7]));
+  addCstring(f2s4(costEnergy[7]));
   addCstring("\n# TYPE rmsCost8 guage" );
   addCstring("\nrmsCost8 ");
   addCstring(f2s2(costEnergy[8]));
- // loop analysis
+ /* loop analysis
   addCstring("\n# TYPE rmsWaiting guage" );
   addCstring("\nrmsWaiting ");
   addCstring(f2s2((float)waiting));
@@ -153,7 +153,7 @@ void handleMetrics() {
   addCstring(f2s2((float)WDmin));
   addCstring("\n# TYPE rmsWDmax guage" );
   addCstring("\nrmsWDmax ");
-  addCstring(f2s2((float)WDmax));
+  addCstring(f2s2((float)WDmax)); */
   addCstring("\n# TYPE rmsWifiSignal guage" );
   addCstring("\nrmsWifiSignal ");
   addCstring(f2s2(-WiFi.RSSI()));
