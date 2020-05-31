@@ -46,7 +46,7 @@ void setupTime();
 #define NTP_PACKET_SIZE 48
 #define TIME_ZONE 10
 #define longStrSize 10000
-#define NUM_CHANNELS 8 
+#define NUM_CIRCUITS 8 
 
 extern WiFiUDP udp;
 extern WiFiClient client;
@@ -95,4 +95,6 @@ extern float Energy[];
 extern float incEnergy[];
 extern float costEnergy[];
 extern float T11_kWh;
+extern float Vbat;
+
 

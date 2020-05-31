@@ -3,8 +3,8 @@
 #include <time.h>
  
 char host[] = "192.168.1.20";   // RPi-1 prometheus and influx server
-#define NUM_CHANNELS 8
-extern float Energy[NUM_CHANNELS+1], costEnergy[NUM_CHANNELS+1];	
+#define NUM_CIRCUITS 8
+extern float Energy[NUM_CIRCUITS+1], costEnergy[NUM_CIRCUITS+1];	
 extern char longStr[];
 void diagMess(const char* mess);
  

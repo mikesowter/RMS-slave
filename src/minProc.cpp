@@ -23,7 +23,7 @@ void minProc() {
   // write days energy totals
   updateEnergyFile();
   // reset daily energy sums at midnight
-  for ( int i = 1; i<NUM_CHANNELS+1; i++ ) {
+  for ( int i = 1; i<NUM_CIRCUITS+1; i++ ) {
     Energy[i] = 0.0;
     costEnergy[i] = 0.0;
   }

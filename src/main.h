@@ -47,7 +47,7 @@ String resetDetail = ESP.getResetInfo();
 #define BUFFER_SIZE 128
 #define TIME_ZONE 10
 #define longStrSize 10000
-#define NUM_CHANNELS 8
+#define NUM_CIRCUITS 8
 
 ESP8266WebServer server( 80 );
 FtpServer ftpSrv;
@@ -87,13 +87,13 @@ uint16_t localPort = 4210;          //  must match port assigned in "pulse"
 uint32_t t0, t1, startMillis, startSeconds, lastScan;
 uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
 
-float Wrms[NUM_CHANNELS+1];					// Sum of sampled V*I
-float Energy[NUM_CHANNELS+1];	
-float incEnergy[NUM_CHANNELS+1];
-float costEnergy[NUM_CHANNELS+1];   // channel 1 is cost of unmetered
-float Wrms_min[NUM_CHANNELS+1];		
-float Wrms_max[NUM_CHANNELS+1];	
-float Irms[NUM_CHANNELS+1];					// root sum I^2
+float Wrms[NUM_CIRCUITS+1];					// Sum of sampled V*I
+float Energy[NUM_CIRCUITS+1];	
+float incEnergy[NUM_CIRCUITS+1];
+float costEnergy[NUM_CIRCUITS+1];   // channel 1 is cost of unmetered
+float Wrms_min[NUM_CIRCUITS+1];		
+float Wrms_max[NUM_CIRCUITS+1];	
+float Irms[NUM_CIRCUITS+1];					// root sum I^2
 float Vrms=245.0,Vmin=500.0,Vmax;		// root sum V^2, -Vp, +Vp
 float Freq;                         // grid frequency to 50.000
 float Vrms_min = 500.0;   // max values between scans
@@ -102,4 +102,6 @@ float Vmin_15 = 500.0;
 float Vmax_15 = 0.0;
 float T11_kWh = 0.0;
 float T11_inc;
+float Vbat;
+
   

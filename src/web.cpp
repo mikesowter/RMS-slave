@@ -14,6 +14,8 @@ void handleRoot() {
   addCstring(f2s4(Energy[7]));
   addCstring("\nWifiSignal ");
   addCstring(f2s2(-WiFi.RSSI()));
+  addCstring("\nVbattery ");
+  addCstring(f2s2(Vbat));
   addCstring( "\n" );
   server.send ( 200, "text/plain", longStr );
 }
@@ -32,6 +34,9 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsFreq guage" );
   addCstring("\nrmsFreq ");
   addCstring(f2s4(Freq));
+  addCstring("\n# TYPE Vbattery guage" );
+  addCstring("\nVbattery ");
+  addCstring(f2s2(Vbat));
 
   addCstring("\n# TYPE rmsPwr_min1 guage" );
   addCstring("\nrmsPwr_min1 ");
