@@ -1,4 +1,4 @@
-/* RMS slave unloads any async behaviour from RMS master
+ /* RMS slave unloads any async behaviour from RMS master
 which has a 104us capture loop which cant be interrupted
 
 RMS slave handles NTP, FTP and prometheus metrics scrapes */
@@ -8,7 +8,7 @@ RMS slave handles NTP, FTP and prometheus metrics scrapes */
 void setup(void) {
   Serial.begin(115200);
   Serial.println();
-  Serial.println("RMS slave 20190910");
+  Serial.println("RMS slave 20200601");
   // Join Network
   joinNet();
   // start OTA

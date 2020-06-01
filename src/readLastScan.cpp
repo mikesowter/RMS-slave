@@ -4,7 +4,7 @@
  
 char host[] = "192.168.1.20";   // RPi-1 prometheus and influx server
 #define NUM_CIRCUITS 8
-extern float Energy[NUM_CIRCUITS+1], costEnergy[NUM_CIRCUITS+1];	
+extern float Energy[NUM_CIRCUITS+1], costEnergy[NUM_CIRCUITS+1], T11_kWh;	
 extern char longStr[];
 void diagMess(const char* mess);
  
@@ -16,6 +16,7 @@ void getLastScan() {
   
   char Str1a[] = "GET /api/v1/query_range?query=rmsEnergy";
   char Str1b[] = "GET /api/v1/query_range?query=rmsCost";
+  char Str1c[] = "GET /api/v1/query_range?query=rmsT11_kWh&start=";
   char Str2[] = "1&start=";   // Str2[0]='0'+cct;
   char Str3[12];
   dtostrf((double)(t-600), 0, 0, Str3);
@@ -87,11 +88,44 @@ void getLastScan() {
       Serial.printf("\n%d bytes: \n%s\n",buffPtr,buff);
       for (numPtr = buffPtr-8; numPtr>buffPtr-18; numPtr-- ) {
         if (buff[numPtr] == '\"') {
-          costEnergy[cct] = atof(buff+numPtr+1);
+          T11_kWh = atof(buff+numPtr+1);
         }
       }
       client.stop();
       delay(100);
     }
+  }
+  // read up to 5 most recent T11 energy estimate
+
+  strcpy(buff,Str1c);
+
+  strcat(buff,Str3);
+  strcat(buff,Str4);
+  strcat(buff,Str5);
+  strcat(buff,Str6);
+  strcat(buff,host);
+  strcat(buff,Str7);
+
+  if (client.connect(host, 9090)) {
+    client.write(buff,strlen(buff));
+    buffPtr = 0;
+    while (client.connected() || client.available()) {
+      if (client.available()) {
+        buff[buffPtr++] = client.read();
+        if ( buffPtr > 1000 ) {
+          diagMess("prometheus reply > 1000 bytes");
+          break;
+        }
+      }
+    }
+    buff[buffPtr] = '\0';
+    Serial.printf("\n%d bytes: \n%s\n",buffPtr,buff);
+    for (numPtr = buffPtr-8; numPtr>buffPtr-18; numPtr-- ) {
+      if (buff[numPtr] == '\"') {
+        costEnergy[cct] = atof(buff+numPtr+1);
+      }
+    }
+    client.stop();
+    delay(100);
   }
 }
