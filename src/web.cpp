@@ -27,15 +27,21 @@ void handleMetrics() {
   addCstring(f2s2(Vrms));
   addCstring("\n# TYPE rmsVmin guage" );
   addCstring("\nrmsVmin ");
-  addCstring(f2s2(Vmin));
+  addCstring(f2s2(Vrms_min));
   addCstring("\n# TYPE rmsVmax guage" );
   addCstring("\nrmsVmax ");
+  addCstring(f2s2(Vrms_max));
+  addCstring("\n# TYPE rmsVpmin guage" );
+  addCstring("\nrmsVpmin ");
+  addCstring(f2s2(Vmin));
+  addCstring("\n# TYPE rmsVpmax guage" );
+  addCstring("\nrmsVpmax ");
   addCstring(f2s2(Vmax));
   addCstring("\n# TYPE rmsFreq guage" );
   addCstring("\nrmsFreq ");
   addCstring(f2s4(Freq));
-  addCstring("\n# TYPE Vbattery guage" );
-  addCstring("\nVbattery ");
+  addCstring("\n# TYPE rmsVbat guage" );
+  addCstring("\nrmsVbattery ");
   addCstring(f2s2(Vbat));
 
   addCstring("\n# TYPE rmsPwr_min1 guage" );

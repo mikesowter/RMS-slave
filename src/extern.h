@@ -83,12 +83,12 @@ extern uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
 
 extern float Wrms[];					    // Sum of sampled V*I
 extern float Irms[];					    // root sum I^2
-extern float Vrms,Vmin,Vmax;			// root sum V^2, -Vp, +Vp
+extern float Vrms,Vpk_neg,Vpk_pos;			// root sum V^2, -Vp, +Vp
 extern float Freq;
 extern float Vrms_min;
 extern float Vrms_max;
-extern float Vmin_15;
-extern float Vmax_15;
+extern float Vmin;
+extern float Vmax;
 extern float Wrms_min[];		
 extern float Wrms_max[];	
 extern float Energy[];	

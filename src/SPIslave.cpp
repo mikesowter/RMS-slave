@@ -61,12 +61,12 @@ void unloadValues() {
   Vrms = unload2Bytes()/100.0;                
   Vrms_min = _min(Vrms_min,Vrms);
   Vrms_max = _max(Vrms_max,Vrms);
-  v = unload2Bytes()/50.0;
-  Vmin = _min(Vmin,-v);
-  Vmin_15 = _min(Vmin_15,Vmin );
-  v = unload2Bytes()/50.0;
+  v = unload2Bytes()/50.0;    // peak from negative half cycle
+  Vmin = _min(Vmin,v);
   Vmax = _max(Vmax,v);
-  Vmax_15 = _min(Vmax_15,Vmax );
+  v = unload2Bytes()/50.0;    // peak from positive half cycle
+  Vmin = _min(Vmin,v);
+  Vmax = _max(Vmax,v);
   // Serial.printf("Freq = %0.3f Vrms=%0.1f Vmin=%0.1f Vmax=%0.1f\n", Freq, Vrms, Vmin, Vmax);
 
   if ( Vmin > -400.0 && Vmax < 400.0) {           // remove spurious surge power from the record

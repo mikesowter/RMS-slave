@@ -88,7 +88,7 @@ void getLastScan() {
       Serial.printf("\n%d bytes: \n%s\n",buffPtr,buff);
       for (numPtr = buffPtr-8; numPtr>buffPtr-18; numPtr-- ) {
         if (buff[numPtr] == '\"') {
-          T11_kWh = atof(buff+numPtr+1);
+          costEnergy[cct] = atof(buff+numPtr+1);
         }
       }
       client.stop();
@@ -122,7 +122,7 @@ void getLastScan() {
     Serial.printf("\n%d bytes: \n%s\n",buffPtr,buff);
     for (numPtr = buffPtr-8; numPtr>buffPtr-18; numPtr-- ) {
       if (buff[numPtr] == '\"') {
-        costEnergy[cct] = atof(buff+numPtr+1);
+        T11_kWh = atof(buff+numPtr+1);
       }
     }
     client.stop();

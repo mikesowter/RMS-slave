@@ -94,12 +94,12 @@ float costEnergy[NUM_CIRCUITS+1];   // channel 1 is cost of unmetered
 float Wrms_min[NUM_CIRCUITS+1];		
 float Wrms_max[NUM_CIRCUITS+1];	
 float Irms[NUM_CIRCUITS+1];					// root sum I^2
-float Vrms=245.0,Vmin=500.0,Vmax;		// root sum V^2, -Vp, +Vp
+float Vrms=245.0,Vpk_min=500.0,Vpk_max;		// root sum V^2, -Vp, +Vp
 float Freq;                         // grid frequency to 50.000
 float Vrms_min = 500.0;   // max values between scans
 float Vrms_max = 0.0;
-float Vmin_15 = 500.0;
-float Vmax_15 = 0.0;
+float Vmin = 500.0;
+float Vmax = 0.0;
 float T11_kWh = 0.0;
 float T11_inc;
 float Vbat;
