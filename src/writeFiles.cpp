@@ -14,7 +14,7 @@ byte storeData() {
 //----------------- open file for reading or appending
 
 byte openFile(const char* s) {
-  fh = SPIFFS.open(fileName, s);
+  fh = LittleFS.open(fileName, s);
   if (!fh) {
     strcpy(charBuf,fileName);
     strcat(charBuf," failed to open");
@@ -38,7 +38,7 @@ void WriteQtr() {
 }
 
 void updateEnergyFile() {
-  fh = SPIFFS.open("/Energy.csv", "a");
+  fh = LittleFS.open("/Energy.csv", "a");
   if (!fh) {
     diagMess("Energy.csv failed to open");
     return;

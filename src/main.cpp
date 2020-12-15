@@ -17,11 +17,11 @@ void setup(void) {
 	ftpSrv.begin("mike","iron");
   // set time related
   setupTime();
-  //if(!SPIFFS.format()) Serial.println("SPIFFS.format failed");
-  if(!SPIFFS.begin()) Serial.println("SPIFFS.begin failed");
+  //if(!LittleFS.format()) Serial.println("LittleFS.format failed");
+  if(!LittleFS.begin()) Serial.println("LittleFS.begin failed");
   // open diagnostic files
-  fd = SPIFFS.open("/diags.txt","a");
-  fe = SPIFFS.open("/errmess.txt","a");
+  fd = LittleFS.open("/diags.txt","a");
+  fe = LittleFS.open("/errmess.txt","a");
   // explain restart
   resetReason.toCharArray(charBuf,resetReason.length()+1);
 	diagMess(charBuf);       

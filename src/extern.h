@@ -7,7 +7,7 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266FTPServer.h>
 #include <WiFiudp.h>
-#include <fs.h>
+#include <LittleFS.h>
 #include <ESP8266mDNS.h>
 #include <Ticker.h>
 #include <ArduinoOTA.h>

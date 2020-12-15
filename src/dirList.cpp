@@ -1,15 +1,15 @@
 #include "extern.h"
 
-// add a web page with a listing of the SPIFFS "/" folder
+// add a web page with a listing of the LittleFS "/" folder
 
 void handleDir() {
   char fileSizeStr[10];
   longStr[0]='\0';
-  SPIFFS.info(fs_info);
+  LittleFS.info(fs_info);
   ltoa(fs_info.usedBytes,fileSizeStr,10);
   addCstring(ltoa(fs_info.usedBytes,fileSizeStr,10));
 	addCstring(" bytes used:\n");
-  Dir dir = SPIFFS.openDir("/");
+  Dir dir = LittleFS.openDir("/");
   while (dir.next()) {
     dir.fileName().toCharArray(fileName, 14);
     addCstring("\n");
