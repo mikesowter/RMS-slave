@@ -8,7 +8,7 @@ RMS slave handles NTP, FTP and prometheus metrics scrapes */
 void setup(void) {
   Serial.begin(115200);
   Serial.println();
-  Serial.println("RMS slave 20200601");
+  Serial.println("RMS slave 20210112");
   // Join Network
   joinNet();
   // start OTA
@@ -16,6 +16,7 @@ void setup(void) {
   // setup FTP server
 	ftpSrv.begin("mike","iron");
   // set time related
+  //setTime(23,59,30,30,11,2016);
   setupTime();
   //if(!LittleFS.format()) Serial.println("LittleFS.format failed");
   if(!LittleFS.begin()) Serial.println("LittleFS.begin failed");

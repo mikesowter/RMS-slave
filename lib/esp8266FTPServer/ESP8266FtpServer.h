@@ -32,7 +32,7 @@
 #define FTP_SERVERESP_H
 
 //#include "Streaming.h"
-#include <FS.h>
+#include <LittleFS.h>
 #include <WiFiClient.h>
 
 #define FTP_SERVER_VERSION "FTP-2017-10-18"
