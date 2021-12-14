@@ -54,11 +54,11 @@ void dailyEnergy() {
   costEnergy[1] += rate * badLoads;
          
   if ( exporting ) T11_inc = 0.0;
-  else T11_inc = max(0.0F,loads-solar);
-  
-  if ( !exporting ) {   
+  else {
+    T11_inc = max(0.0F,loads-solar);
     T11_kWh += T11_inc;
+  }
+  
   //  sprintf(longStr,"loads: %f,solar: %f,Feed In: %f,T11_inc: %f,T11_kWh: %f",loads,solar,spareSolar,T11_inc,T11_kWh);
   //  diagMess(longStr);
-  }
 }
