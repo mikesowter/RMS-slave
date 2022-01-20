@@ -25,7 +25,7 @@ void watchWait(uint32_t timer) {
     // check for OTA
     ArduinoOTA.handle();
     // check for FTP request
-	  ftpSrv.handleFTP();                          // 300ms minimum
+	  ftpSrv.handleFTP(FS_ID);                          // 300ms minimum
     // reset watch dog
     watchDog = 0;
     // do background

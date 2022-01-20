@@ -5,7 +5,7 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
-#include <ESP8266FTPServer.h>
+#include <ESPFTPServer.h>
 #include <WiFiudp.h>
 #include <LittleFS.h>
 #include <ESP8266mDNS.h>
@@ -47,6 +47,7 @@ void setupTime();
 #define TIME_ZONE 10
 #define longStrSize 10000
 #define NUM_CIRCUITS 8 
+#define FS_ID LittleFS
 
 extern WiFiUDP udp;
 extern WiFiClient client;

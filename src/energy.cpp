@@ -2,8 +2,8 @@
 
 const float T31 = 0.1327;
 const float T11 = 0.2018;
-const float FIT = 0.08;   // updated 20211128
-const float NOISE = 5.0;  // updated 20200525
+const float FIT = 0.08;    // updated 20211128
+const float NOISE = 10.0;  // updated 20220119
 
 // Energy sums are reset at midnight in minProc
 

@@ -3,6 +3,7 @@
 /*-------- display code ----------*/
 
 void errMess(const char* mess) {
+  Serial.println(mess);
   fe.print(dateStamp());
   fe.print(" ");
   fe.print(timeStamp());
@@ -10,6 +11,7 @@ void errMess(const char* mess) {
 }
 
 void diagMess(const char* mess) {
+  Serial.println(mess);
   fd.print(dateStamp());
   fd.print(" ");
   fd.print(timeStamp());

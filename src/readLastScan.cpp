@@ -9,6 +9,7 @@ extern char longStr[];
 void diagMess(const char* mess);
  
 void getLastScan() {
+  Serial.println("reading last good values");
   WiFiClient client;
   char buff[1024];
   uint16_t buffPtr, cct, numPtr;

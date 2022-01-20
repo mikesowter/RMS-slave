@@ -6,7 +6,7 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
-#include <ESP8266FTPServer.h>
+#include <ESPFTPServer.h>
 #include <WiFiudp.h>
 #include <LittleFS.h>
 #include <ESP8266mDNS.h>
@@ -38,6 +38,7 @@ void setupTime();
 void updateEnergyFile();
 void checkScan();
 void getLastScan();
+void setupFS();
 
 String resetReason = "Restart caused by " + ESP.getResetReason();
 String resetDetail = ESP.getResetInfo();

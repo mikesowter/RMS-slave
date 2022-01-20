@@ -8,7 +8,7 @@ RMS slave handles NTP, FTP and prometheus metrics scrapes */
 void setup(void) {
   Serial.begin(115200);
   Serial.println();
-  Serial.println("RMS slave 20211213");
+  Serial.println("RMS slave 20220120");
   // Join Network
   joinNet();
   // start OTA
@@ -16,22 +16,17 @@ void setup(void) {
   // setup FTP server
 	ftpSrv.begin("mike","iron");
   // set time related
-  //setTime(23,59,30,30,11,2016);
   setupTime();
-  //if(!LittleFS.format()) Serial.println("LittleFS.format failed");
-  if(!LittleFS.begin()) Serial.println("LittleFS.begin failed");
-  // open diagnostic files
-  fd = LittleFS.open("/diags.txt","a");
-  fe = LittleFS.open("/errmess.txt","a");
+  // setup file system
+  setupFS();
   // explain restart
   resetReason.toCharArray(charBuf,resetReason.length()+1);
 	diagMess(charBuf);       
 	resetDetail.toCharArray(charBuf,resetDetail.length()+1);
-  diagMess(charBuf); 
-	//if ( charBuf[16] != '0' ) diagMess(charBuf); 				// if fatal exception
+	if ( charBuf[16] != '0' ) diagMess(charBuf); 				// if fatal exception
 
   // recover previous values from prometheus
-  getLastScan();
+  // getLastScan();   // need to review why taking so long
   // setup server
   server.on ( "/", handleRoot );
   server.on ( "/dir", handleDir );
