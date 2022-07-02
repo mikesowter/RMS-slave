@@ -14,8 +14,7 @@ void setupFS () {
 //  else Serial.println("LittleFS formatted");
 
   if ( !LittleFS.begin() ) {
-  //  if ( !LittleFS.format() ) Serial.println("LittleFS.format failed");
-    Serial.println("LittleFS.begin failed");
+      Serial.println("LittleFS.begin failed");
   }
  
   LittleFS.info(fs_info);

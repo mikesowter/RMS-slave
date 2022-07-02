@@ -2,14 +2,14 @@
 #include <ESP8266WiFi.h>
 #include <time.h>
  
-char host[] = "192.168.1.20";   // RPi-1 prometheus and influx server
+char host[] = "192.168.1.24";   // RPi-2 prometheus and influx server
 #define NUM_CIRCUITS 8
 extern float Energy[NUM_CIRCUITS+1], costEnergy[NUM_CIRCUITS+1], T11_kWh;	
 extern char longStr[];
 void diagMess(const char* mess);
  
 void getLastScan() {
-  Serial.println("reading last good values");
+  Serial.println("reading last good RMS energy and cost values");
   WiFiClient client;
   char buff[1024];
   uint16_t buffPtr, cct, numPtr;
