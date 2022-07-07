@@ -1414,7 +1414,7 @@ Discarded input sections
  .text._ZN5Print5writeEPKcj$isra$0
                 0x0000000000000000       0x13 .pio\build\d1_mini\src\readLastScan.cpp.o
  .rodata._Z11getLastScanv.str1.1
-                0x0000000000000000      0x112 .pio\build\d1_mini\src\readLastScan.cpp.o
+                0x0000000000000000      0x126 .pio\build\d1_mini\src\readLastScan.cpp.o
  .text._Z11getLastScanv
                 0x0000000000000000      0x6d9 .pio\build\d1_mini\src\readLastScan.cpp.o
  .data.host     0x0000000000000000        0xd .pio\build\d1_mini\src\readLastScan.cpp.o

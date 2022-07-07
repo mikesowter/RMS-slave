@@ -18,7 +18,7 @@ uint32_t getTime() {
       delay(1000);
     }
     startSeconds = getNTPreply();
-    delay(10);
+    delay(100);
     if (startSeconds > year2017 && startSeconds < year2030) break;
     Serial.printf("\nNTP reply bad: %u",startSeconds);
   }

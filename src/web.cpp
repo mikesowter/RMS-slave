@@ -179,7 +179,6 @@ void handleMetrics() {
     Wrms_min[i] = 5000.0;
     Wrms_max[i] = 0.0;
   }
-  Serial.print("  scanned");
   lastScan = millis();
   scanSec = second();
   WWmin = 9999;

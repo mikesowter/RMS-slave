@@ -8,7 +8,7 @@ RMS slave handles NTP, FTP and prometheus metrics scrapes */
 void setup(void) {
   Serial.begin(115200);
   Serial.println();
-  Serial.println("RMS slave 20220120");
+  Serial.println("RMS slave 20220707");
   // Join Network
   joinNet();
   // start OTA
@@ -23,10 +23,10 @@ void setup(void) {
   resetReason.toCharArray(charBuf,resetReason.length()+1);
 	diagMess(charBuf);       
 	resetDetail.toCharArray(charBuf,resetDetail.length()+1);
-	if ( charBuf[16] != '0' ) diagMess(charBuf); 				// if fatal exception
+	if ( charBuf[16] == '2' ) diagMess(charBuf); 				// if fatal exception
 
   // recover previous values from prometheus
-  // getLastScan();   // need to review why taking so long
+  getLastScan();   
   // setup server
   server.on ( "/", handleRoot );
   server.on ( "/dir", handleDir );
@@ -55,11 +55,19 @@ void loop() {
 }
 
 void checkScan() {
-  if ( millis() - lastScan > 90000UL ) {
-    diagMess("no scan for 90s");
-    lastScan = millis();
+  if ( millis() - lastScan > 30000UL ) {
+    if (!scanFail) {
+      diagMess("no scan for 30s");
+      scanFail = true;
+    }
     // rejoin local network if necessary
 	  if ( WiFi.status() != WL_CONNECTED ) joinNet();
+  }
+  else {
+    if (scanFail) {
+      scanFail = false;
+      diagMess("scan restored");
+    }
   }
 }
 

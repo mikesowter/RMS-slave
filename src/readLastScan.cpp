@@ -14,6 +14,7 @@ void getLastScan() {
   char buff[1024];
   uint16_t buffPtr, cct, numPtr;
   uint32_t t = now()-36000;   // back to zulu time
+  uint32_t querystart = millis();
   
   char Str1a[] = "GET /api/v1/query_range?query=rmsEnergy";
   char Str1b[] = "GET /api/v1/query_range?query=rmsCost";
@@ -129,4 +130,5 @@ void getLastScan() {
     client.stop();
     delay(100);
   }
+  Serial.printf("\n\n query took %li ms\n",millis()-querystart);
 }
