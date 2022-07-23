@@ -72,7 +72,7 @@ void unloadValues() {
   if ( Vmin > -400.0 && Vmax < 400.0) {           // remove spurious surge power from the record
     for (uint8_t p=1 ; p<(NUM_CIRCUITS+1) ; p++) { 
       w = unload2Bytes();
-      if ( w > 15000 ) w = 5999;                  // reasonability limit
+      if ( w > 15000 ) w = 4999;                  // reasonability limit
       else if ( w < 5 ) w = 0.0;                  // remove low end noise
       Wrms[p] = (float)w;    
       Wrms_min[p] = _min( Wrms_min[p], w );

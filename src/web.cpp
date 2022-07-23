@@ -21,6 +21,10 @@ void handleRoot() {
 }
 
 void handleMetrics() {
+  if (Vrms_min == 500.0) {
+    diagMess("early scrape");
+    return;
+  }
   longStr[0]='\0';
   addCstring("\n# TYPE rmsVolts guage" );
   addCstring("\nrmsVolts ");
@@ -202,7 +206,7 @@ void handleWater() {
 
 void handleNotFound() {
   server.uri().toCharArray(userText, 14);
-  Serial.println(userText);
+//  Serial.println(userText);
   if (strncmp(userText,"/reset",6)==0) {
     errMess("User requested restart");
     fd.close();
