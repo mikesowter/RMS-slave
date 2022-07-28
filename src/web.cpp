@@ -48,28 +48,28 @@ void handleMetrics() {
   addCstring("\nrmsVbattery ");
   addCstring(f2s2(Vbat));
 
-  addCstring("\n# TYPE rmsPwr_min1 guage" );
+  addCstring("\n# TYPE rmsPwr_min1 guage" ); //total import
   addCstring("\nrmsPwr_min1 ");
   addCstring(f2s2(Wrms_min[1]));
-  addCstring("\n# TYPE rmsPwr_min2 guage" );
+  addCstring("\n# TYPE rmsPwr_min2 guage" ); //cct1 bedrooms 1&2
   addCstring("\nrmsPwr_min2 ");
   addCstring(f2s2(Wrms_min[2]));
-  addCstring("\n# TYPE rmsPwr_min3 guage" );
+  addCstring("\n# TYPE rmsPwr_min3 guage" ); //cct2 kitchen lounge
   addCstring("\nrmsPwr_min3 ");
   addCstring(f2s2(Wrms_min[3]));
-  addCstring("\n# TYPE rmsPwr_min4 guage" );
+  addCstring("\n# TYPE rmsPwr_min4 guage" ); //cct3 downstairs
   addCstring("\nrmsPwr_min4 ");
   addCstring(f2s2(Wrms_min[4]));
-  addCstring("\n# TYPE rmsPwr_min5 guage" );
+  addCstring("\n# TYPE rmsPwr_min5 guage" ); //hotwater
   addCstring("\nrmsPwr_min5 ");
   addCstring(f2s2(Wrms_min[5]));
-  addCstring("\n# TYPE rmsPwr_min6 guage" );
+  addCstring("\n# TYPE rmsPwr_min6 guage" ); //oven
   addCstring("\nrmsPwr_min6 ");
   addCstring(f2s2(Wrms_min[6]));
-  addCstring("\n# TYPE rmsPwr_min7 guage" );
+  addCstring("\n# TYPE rmsPwr_min7 guage" ); //solar
   addCstring("\nrmsPwr_min7 ");
   addCstring(f2s2(Wrms_min[7]));
-  addCstring("\n# TYPE rmsPwr_min8 guage" );
+  addCstring("\n# TYPE rmsPwr_min8 guage" ); //lights
   addCstring("\nrmsPwr_min8 ");
   addCstring(f2s2(Wrms_min[8]));
 
@@ -126,7 +126,7 @@ void handleMetrics() {
   addCstring("\nrmsT11_kWh ");
   addCstring(f2s4(T11_kWh));
 // costs
-  addCstring("\n# TYPE rmsCost1 guage" );
+  addCstring("\n# TYPE rmsCost1 guage" ); //heat pumps
   addCstring("\nrmsCost1 ");
   addCstring(f2s2(costEnergy[1]));
   addCstring("\n# TYPE rmsCost2 guage" );
@@ -144,7 +144,7 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsCost6 guage" );
   addCstring("\nrmsCost6 ");
   addCstring(f2s2(costEnergy[6]));
-  addCstring("\n# TYPE rmsCost7 guage" );
+  addCstring("\n# TYPE rmsCost7 guage" ); //FIT
   addCstring("\nrmsCost7 ");
   addCstring(f2s4(costEnergy[7]));
   addCstring("\n# TYPE rmsCost8 guage" );

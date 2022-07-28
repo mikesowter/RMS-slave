@@ -72,7 +72,7 @@ void unloadValues() {
   if ( Vmin > -400.0 && Vmax < 400.0) {           // remove spurious surge power from the record
     for (uint8_t p=1 ; p<(NUM_CIRCUITS+1) ; p++) { 
       w = unload2Bytes();
-      if ( w > 15000 ) w = 4999;                  // reasonability limit
+      if ( w > 15000 ) w = 9999;                  // reasonability limit
       else if ( w < 5 ) w = 0.0;                  // remove low end noise
       Wrms[p] = (float)w;    
       Wrms_min[p] = _min( Wrms_min[p], w );
@@ -80,10 +80,10 @@ void unloadValues() {
       // Serial.printf("W[%i] = %.0f,%.0f ",p,Wrms_min[p],Wrms_max[p]);
     }
   }
-//  waterOn = ( Wrms[5] > 1000 );           // hot water is channel 5
+//  waterOn = ( Wrms[5] > 1000 );         // why not?
   waterOn = false;
   if ( Wrms[5] > 1000 ) waterOn = true;
-  exporting = ( Wrms[7] > Wrms[1] );      // solar > usage
+  exporting = ( Wrms[7] > Wrms[1] );      // solar > local usage
 
   offset = 30;
   Vbat = unload2Bytes()/1437.7;
