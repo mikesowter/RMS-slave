@@ -3,7 +3,7 @@
 const float T31 = 0.1327;
 const float T11 = 0.2018;
 const float FIT = 0.08;    // updated 20211128
-float NOISE[] = {5,5,5,5,5,5,50,5,5};  // updated 20220725 to handle oven(6) noise
+float NOISE[] = {5,5,5,5,5,5,50,10,5};  // updated 20220725 to handle oven(6) noise
 
 // Energy sums are reset at midnight in minProc
 
