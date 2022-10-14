@@ -224,13 +224,15 @@ void handleNotFound() {
     LittleFS.remove("/diags.txt");
     fd = LittleFS.open("/diags.txt", "a");
     diagMess("diags deleted");
+    fd.flush();
     strcpy(charBuf,"<!DOCTYPE html><html><head><HR>Diags deleted<HR></head></html>");
     server.send ( 200, "text/html", charBuf );
   }
   else if (strncmp(userText,"/delerrs",8)==0) {
     LittleFS.remove("/errmess.txt");
     fe = LittleFS.open("/errmess.txt", "a");
-    dateStamp();
+    errMess("errors deleted");
+    fe.flush();
     strcpy(charBuf,"<!DOCTYPE html><html><head><HR>Errors deleted<HR></head></html>");
     server.send ( 200, "text/html", charBuf );
   }
@@ -240,7 +242,7 @@ void handleNotFound() {
     addCstring(userText);
     addCstring("\r\r");
     fh = LittleFS.open(userText, "r");
-    if ( fh.size() > 2000 ) fd.seek(-2000,SeekEnd);
+  //  if ( fh.size() > 2000 ) fd.seek(-2000,SeekEnd);
     while (fh.available()) {
       int k=fh.readBytesUntil('\r',charBuf,160);
       charBuf[k]='\0';
