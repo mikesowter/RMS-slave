@@ -91,6 +91,7 @@ uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
 float Wrms[NUM_CIRCUITS+1];					// Sum of sampled V*I
 float Energy[NUM_CIRCUITS+1];	
 float incEnergy[NUM_CIRCUITS+1];
+float battEnergy, battExport;
 float costEnergy[NUM_CIRCUITS+1];   // channel 1 is cost of unmetered
 float Wrms_min[NUM_CIRCUITS+1];		
 float Wrms_max[NUM_CIRCUITS+1];	
@@ -101,8 +102,9 @@ float Vrms_min = 500.0;   // max values between scans
 float Vrms_max = 0.0;
 float Vmin = 500.0;
 float Vmax = 0.0;
-float T11_kWh = 0.0;
+float T11_kWh = 0.0;        // supplied by grid
 float T11_inc;
+float T11_batt = 0.0;       // supplied by battery
 float Vbat;
 
   

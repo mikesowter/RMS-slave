@@ -150,6 +150,17 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsCost8 guage" );
   addCstring("\nrmsCost8 ");
   addCstring(f2s2(costEnergy[8]));
+// battery simulation
+  extern float T11_batt, battExport, battEnergy ;
+  addCstring("\n# TYPE rmsBattery Charge" );
+  addCstring("\nrmsBattery Charge ");
+  addCstring(f2s2(battEnergy));
+  addCstring("\n# TYPE rmsBattery Overflow" );
+  addCstring("\nrmsBattery Overflow ");
+  addCstring(f2s2(battExport));
+  addCstring("\n# TYPE rmsT11 reduction" );
+  addCstring("\nrmsT11 reduction ");
+  addCstring(f2s2(T11_batt));
  /* loop analysis
   addCstring("\n# TYPE rmsWaiting guage" );
   addCstring("\nrmsWaiting ");

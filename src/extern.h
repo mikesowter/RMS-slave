@@ -40,6 +40,7 @@ void dirList();
 void joinNet();
 byte storeData();
 void dailyEnergy();
+void batteryEnergy();
 void updateEnergyFile();
 void setupTime();
 
@@ -95,6 +96,7 @@ extern float Wrms_max[];
 extern float Energy[];	
 extern float incEnergy[];
 extern float costEnergy[];
+extern float battEnergy;
 extern float T11_kWh;
 extern float Vbat;
 
