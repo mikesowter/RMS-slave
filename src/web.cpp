@@ -151,16 +151,22 @@ void handleMetrics() {
   addCstring("\nrmsCost8 ");
   addCstring(f2s2(costEnergy[8]));
 // battery simulation
-  extern float T11_batt, battExport, battEnergy ;
-  addCstring("\n# TYPE rmsBattery Charge" );
-  addCstring("\nrmsBattery Charge ");
-  addCstring(f2s2(battEnergy));
-  addCstring("\n# TYPE rmsBattery Overflow" );
-  addCstring("\nrmsBattery Overflow ");
-  addCstring(f2s2(battExport));
-  addCstring("\n# TYPE rmsT11 reduction" );
-  addCstring("\nrmsT11 reduction ");
-  addCstring(f2s2(T11_batt));
+  extern float batt_tohouse, batt_togrid, batt_charge;
+  addCstring("\n# TYPE rmsBatteryFlow guage" );
+  addCstring("\nrmsBatteryFlow ");
+  addCstring(f2s4(solar-loads));
+  addCstring("\n# TYPE rmsBatteryCharge guage" );
+  addCstring("\nrmsBatteryCharge ");
+  addCstring(f2s2(batt_charge));
+  addCstring("\n# TYPE rmsBatteryOverflow guage" );
+  addCstring("\nrmsBatteryOverflow ");
+  addCstring(f2s2(batt_togrid));
+  addCstring("\n# TYPE rmsT11reduction guage" );
+  addCstring("\nrmsT11reduction ");
+  addCstring(f2s2(batt_tohouse));
+  addCstring("\n# TYPE rmsBatterySaving guage" );
+  addCstring("\nrmsBatterySaving ");
+  addCstring(f2s2(batt_savings));
  /* loop analysis
   addCstring("\n# TYPE rmsWaiting guage" );
   addCstring("\nrmsWaiting ");
@@ -216,7 +222,7 @@ void handleWater() {
  };
 
 void handleNotFound() {
-  server.uri().toCharArray(userText, 14);
+  server.uri().toCharArray(userText, 30);
 //  Serial.println(userText);
   if (strncmp(userText,"/reset",6)==0) {
     errMess("User requested restart");
@@ -266,6 +272,21 @@ void handleNotFound() {
   else if (strncmp(userText,"/favicon.ico",12)==0) {
   }
   else if (strncmp(userText,"/apple",6)==0) {
+  }
+  else if (strncmp(userText,"/battCGH",8)==0) {
+    char* tok;
+    tok = strtok(userText,",");
+    tok = strtok(NULL,",");
+    batt_charge = (float)atof(tok);
+    tok = strtok(NULL,",");
+    batt_togrid = (float)atof(tok);
+    tok = strtok(NULL," ");
+    batt_tohouse = (float)atof(tok);
+    sprintf(charBuf,"batt_charge %f, batt_togrid %f, batt_tohouse %f\n",
+            batt_charge,batt_togrid,batt_tohouse);
+    diagMess(charBuf);  
+    strcpy(charBuf,"<!DOCTYPE html><html><head><HR>battery data updated<HR></head></html>");
+    server.send ( 200, "text/html", charBuf );
   }
   else {
     strcpy(charBuf,userText);

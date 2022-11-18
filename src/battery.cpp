@@ -12,34 +12,25 @@ extern float NOISE[];  // 20220725 for oven(6) noise
 
 void batteryEnergy() {
 
-  float spareSolar, split, rate;
-  extern float T11_kWh, T11_inc, T11_batt, battExport, battEnergy ;
+  extern float batt_tohouse, batt_togrid, batt_charge, batt_savings ;
+  float batteryFlow = solar-loads;  
 
-  t_scan = millis() - t_lastData;
-  t_lastData = millis();
-
-   for ( int i = 1;i<NUM_CIRCUITS+1;i++ ) {
-    if ( Wrms[i] < NOISE[i] ) Wrms[i] = 0.0;    // eliminate noise
-    incEnergy[i] = Wrms[i]*(float)t_scan/3.6e9; // kWh units
-   }
-
-  spareSolar = incEnergy[7] - incEnergy[1];
-
-  if (spareSolar > 0.0) {    
-    if (battEnergy < battCap) {
-      battEnergy += spareSolar;   // add to battery
+  if (batteryFlow > 0.0) {         // +ive is charging
+    if (batt_charge < battCap) {
+      batt_charge += batteryFlow;   // add to battery
     }
     else {
-      battExport += spareSolar;   // dump to grid
+      batt_togrid += batteryFlow;   // dump to grid
     }
   }
-  else {      // spareSolar is negative
-    if (battEnergy + spareSolar > battMin) { // enough battery
-      battEnergy += spareSolar;
-      T11_batt -= spareSolar; 
+  else {                           // -ive is discharging
+    if (batt_charge + batteryFlow > battMin) { // enough battery
+      batt_charge += batteryFlow;
+      batt_tohouse -= batteryFlow; 
+      batt_savings = batt_tohouse*(T11-FIT);
     }
     else {    // not enough battery
-      battEnergy = battMin;
+      batt_charge = battMin;
     }
   }
 }

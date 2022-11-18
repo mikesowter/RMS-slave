@@ -56,6 +56,7 @@ char* f2s4(float f) {
   return fltStr;
 }
 
+
 // convert integer into a 2 Hex string dd
 char* i2sh(uint8_t b) {
   int hi=b/16;

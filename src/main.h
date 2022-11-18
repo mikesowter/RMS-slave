@@ -63,7 +63,7 @@ bool noData = true, waterOn, exporting, scanFail;
 
 char fileName[] = "/XXXyymmdd.csv";
 char todayName[] = "/XXXyymmdd.csv";
-char userText[20];
+char userText[30];
 char saveName[20];
 char dateStr[] = "yymmdd";
 char timeStr[] = "hh:mm:ss ";
@@ -89,22 +89,32 @@ uint32_t t0, t1, startMillis, startSeconds, lastScan;
 uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
 
 float Wrms[NUM_CIRCUITS+1];					// Sum of sampled V*I
+/*  scan Wrms[] load
+    cct0 1  total import to house
+    cct1 2  bedrooms 1&2
+    cct2 3  kitchen lounge
+    cct3 4  downstairs
+    cct4 5  hotwater
+    cct5 6  oven
+    cct6 7  solar
+    cct7 8  lights    */
 float Energy[NUM_CIRCUITS+1];	
 float incEnergy[NUM_CIRCUITS+1];
-float battEnergy, battExport;
-float costEnergy[NUM_CIRCUITS+1];   // channel 1 is cost of unmetered
+float batt_charge = 5.0, batt_togrid = 0.0;
+float costEnergy[NUM_CIRCUITS+1];   // costEnergy[1] is cost of unmetered
 float Wrms_min[NUM_CIRCUITS+1];		
 float Wrms_max[NUM_CIRCUITS+1];	
 float Irms[NUM_CIRCUITS+1];					// root sum I^2
 float Vrms=245.0,Vpk_min=500.0,Vpk_max;		// root sum V^2, -Vp, +Vp
 float Freq;                         // grid frequency to 50.000
-float Vrms_min = 500.0;   // max values between scans
+float Vrms_min = 500.0;             // max values between scans
 float Vrms_max = 0.0;
 float Vmin = 500.0;
 float Vmax = 0.0;
-float T11_kWh = 0.0;        // supplied by grid
-float T11_inc;
-float T11_batt = 0.0;       // supplied by battery
+float T11_kWh = 0.0;        // daily sum from grid
+float T11_inc;              // increment from grid
+float batt_tohouse = 0.0;       // daily sum from battery
+float loads, solar, batteryFlow, batt_savings;
 float Vbat;
 
   

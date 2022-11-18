@@ -1,7 +1,7 @@
 
 #include "extern.h"
 
-// end of quarter processing
+// scheduled processing
 
 void minProc() {
   // update master time
@@ -28,5 +28,7 @@ void minProc() {
     costEnergy[i] = 0.0;
   }
   T11_kWh = 0.0;
+  batt_tohouse = 0.0;
+  batt_togrid = 0.0;
   return;
 }  

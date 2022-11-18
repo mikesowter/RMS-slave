@@ -9,8 +9,8 @@ float NOISE[] = {5,5,5,5,5,5,50,15,5};  // updated 20220725 to handle oven(6) no
 
 void dailyEnergy() {
 
-  float goodLoads, badLoads, loads, solar, spareSolar, split, rate;
-  extern float T11_kWh,T11_inc;
+  float goodLoads, badLoads, split, rate;
+  extern float T11_kWh, T11_inc, loads, solar;
 
   t_scan = millis() - t_lastData;
   t_lastData = millis();
@@ -24,8 +24,7 @@ void dailyEnergy() {
   }
   loads = incEnergy[1];     // T11 incoming to dist panel
   solar = incEnergy[7];     // inverter incoming to dist panel
-  
-  if ( solar < 0.00001 ) solar = 0.0;
+  float spareSolar = solar - loads; 
 
   for ( int i = 2;i<NUM_CIRCUITS+1;i++ ) {
     if ( i == 5 && waterOn ) {
@@ -42,7 +41,7 @@ void dailyEnergy() {
     }
     else {
       split = min(1.0F,solar/goodLoads);          // loads metered separately
-      rate = FIT * split + T11 * (1.0 - split);   // (2,3,4,6,8) are essential
+      rate = FIT * split + T11 * (1.0F - split);   // (2,3,4,6,8) are essential
       costEnergy[i] += rate * incEnergy[i];       // use first portion of solar
     }
   }

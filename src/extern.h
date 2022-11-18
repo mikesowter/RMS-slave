@@ -96,7 +96,10 @@ extern float Wrms_max[];
 extern float Energy[];	
 extern float incEnergy[];
 extern float costEnergy[];
-extern float battEnergy;
+extern float batt_charge;
+extern float batt_tohouse, batt_togrid;
+extern float batt_savings;
+extern float loads, solar;
 extern float T11_kWh;
 extern float Vbat;
 
