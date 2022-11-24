@@ -85,6 +85,7 @@ void unloadValues() {
   waterOn = false;
   if ( Wrms[5] > 1000 ) waterOn = true;
   exporting = ( Wrms[7] > Wrms[1] );      // solar > local usage
+  avSparekW = 0.99*avSparekW + 0.01*( Wrms[7] - Wrms[1] );
 
   offset = 30;
   Vbat = unload2Bytes()/1437.7;

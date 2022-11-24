@@ -167,6 +167,10 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsBatterySaving guage" );
   addCstring("\nrmsBatterySaving ");
   addCstring(f2s2(batt_savings));
+
+  addCstring("\n# TYPE rmsSpareSolar guage" );
+  addCstring("\nrmsSpareSolar ");
+  addCstring(f2s2(avSparekW));
  /* loop analysis
   addCstring("\n# TYPE rmsWaiting guage" );
   addCstring("\nrmsWaiting ");
@@ -288,7 +292,17 @@ void handleNotFound() {
     strcpy(charBuf,"<!DOCTYPE html><html><head><HR>battery data updated<HR></head></html>");
     server.send ( 200, "text/html", charBuf );
   }
-  else {
+  else if (strncmp(userText,"/spareSol",8)==0) {
+    longStr[0]='\0';
+    addCstring("\n# TYPE rmsSpareSolar guage" );
+    addCstring("\nrmsSpareSolar ");
+    addCstring(f2s2(avSparekW));
+    addCstring( "\n" );
+    server.send ( 200, "text/plain", longStr );
+}
+    
+    
+    else {
     strcpy(charBuf,userText);
     strcat(charBuf," is not a valid option");
     errMess(charBuf);

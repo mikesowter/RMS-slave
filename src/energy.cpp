@@ -10,7 +10,7 @@ float NOISE[] = {5,5,5,5,5,5,50,15,5};  // updated 20220725 to handle oven(6) no
 void dailyEnergy() {
 
   float goodLoads, badLoads, split, rate;
-  extern float T11_kWh, T11_inc, loads, solar;
+//  extern float T11_kWh, T11_inc, loads, solar;
 
   t_scan = millis() - t_lastData;
   t_lastData = millis();

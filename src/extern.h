@@ -99,8 +99,8 @@ extern float costEnergy[];
 extern float batt_charge;
 extern float batt_tohouse, batt_togrid;
 extern float batt_savings;
-extern float loads, solar;
-extern float T11_kWh;
+extern float loads, solar, avSparekW;
+extern float T11_kWh, T11_inc;
 extern float Vbat;
 
 
