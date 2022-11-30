@@ -100,7 +100,7 @@ float Wrms[NUM_CIRCUITS+1];					// Sum of sampled V*I
     cct7 8  lights    */
 float Energy[NUM_CIRCUITS+1];	
 float incEnergy[NUM_CIRCUITS+1];
-float batt_charge = 5.0, batt_togrid = 0.0;
+float batt_charge = 1.0, batt_togrid = 0.0;
 float costEnergy[NUM_CIRCUITS+1];   // costEnergy[1] is cost of unmetered
 float Wrms_min[NUM_CIRCUITS+1];		
 float Wrms_max[NUM_CIRCUITS+1];	

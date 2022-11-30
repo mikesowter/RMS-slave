@@ -15,6 +15,11 @@ void minProc() {
   storeData();                    // write day file every 15mins
   oldHour = hour();
   oldQtr = minute()/15;
+  // check for 06:00 (for battery T31 charge)
+  if ( minute() == 360 ) {
+    batt_savings -= (10.0F - batt_charge)*0.08F;
+    batt_charge = 10.0F;
+  }
   // check for end of day
   if ( day() == oldDay ) return;
   // update time at 00:00:02

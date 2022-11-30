@@ -1,8 +1,8 @@
 #include <extern.h>
 
-const float T31 = 0.166;   // updated 20220901
-const float T11 = 0.241;   // updated 20220901
-const float FIT = 0.08;    // updated 20211128
+const float T31 = 0.166F;   // updated 20220901
+const float T11 = 0.241F;   // updated 20220901
+const float FIT = 0.08F;    // updated 20211128
 float NOISE[] = {5,5,5,5,5,5,50,15,5};  // updated 20220725 to handle oven(6) noise
 
 // Energy sums are reset at midnight in minProc
