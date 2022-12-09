@@ -23,7 +23,8 @@ void setup(void) {
   resetReason.toCharArray(charBuf,resetReason.length()+1);
 	diagMess(charBuf);       
 	resetDetail.toCharArray(charBuf,resetDetail.length()+1);
-	if ( charBuf[16] == '2' ) diagMess(charBuf); 				// if fatal exception
+	//if ( charBuf[16] == '2' ) 
+  diagMess(charBuf); 				// if fatal exception
 
   // recover previous values from prometheus
   getLastScan();   

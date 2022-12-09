@@ -41,6 +41,7 @@ void joinNet();
 byte storeData();
 void dailyEnergy();
 void batteryEnergy();
+void t31check();
 void updateEnergyFile();
 void setupTime();
 
@@ -59,7 +60,8 @@ extern Ticker secondTick;
 extern volatile uint8_t watchDog;
 extern IPAddress localIP,timeServerIP,fileServerIP;
 
-extern bool noData, waterOn, exporting;
+
+extern bool noData, waterOn, exporting, T31charging;
 extern ESP8266WebServer server;
 
 extern char fileName[];

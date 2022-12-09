@@ -39,25 +39,23 @@ void dailyEnergy() {
     else if ( solar == 0.0 ) {
       costEnergy[i] += T11 * incEnergy[i];        // none provided by solar
     }
-    else {
+    else if ( goodLoads > 0.0F ) {
       split = min(1.0F,solar/goodLoads);          // loads metered separately
-      rate = FIT * split + T11 * (1.0F - split);   // (2,3,4,6,8) are essential
+      rate = FIT * split + T11 * (1.0F - split);  // (2,3,4,6,8) are essential
       costEnergy[i] += rate * incEnergy[i];       // use first portion of solar
     }
   }
   badLoads = loads - goodLoads;                   // non-essential
-  if (badLoads < 2.5E-4) badLoads = 0.0;          // remove noise from subtraction
-  spareSolar = max(0.0F,(solar-goodLoads));      
-  split = min(1.0F,spareSolar/badLoads);          // use next portion of solar
-  rate = FIT * split + T11 * (1.0 - split);
-  costEnergy[1] += rate * badLoads;
+  if (badLoads > 2.5E-4) {                        // remove noise from subtraction
+    spareSolar = max(0.0F,(solar-goodLoads));      
+    split = min(1.0F,spareSolar/badLoads);        // use next portion of solar
+    rate = FIT * split + T11 * (1.0 - split);
+    costEnergy[1] += rate * badLoads;
+  }
          
   if ( exporting ) T11_inc = 0.0;   // just for clarity
   else {
     T11_inc = max(0.0F,loads-solar);
     T11_kWh += T11_inc;
   }
-  
-  //  sprintf(longStr,"loads: %f,solar: %f,Feed In: %f,T11_inc: %f,T11_kWh: %f",loads,solar,spareSolar,T11_inc,T11_kWh);
-  //  diagMess(longStr);
 }

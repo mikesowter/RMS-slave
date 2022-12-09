@@ -286,8 +286,7 @@ void handleNotFound() {
     batt_togrid = (float)atof(tok);
     tok = strtok(NULL," ");
     batt_tohouse = (float)atof(tok);
-    sprintf(charBuf,"batt_charge %f, batt_togrid %f, batt_tohouse %f\n",
-            batt_charge,batt_togrid,batt_tohouse);
+    sprintf(charBuf,"battery charge: %s",f2s2(batt_charge));
     diagMess(charBuf);  
     strcpy(charBuf,"<!DOCTYPE html><html><head><HR>battery data updated<HR></head></html>");
     server.send ( 200, "text/html", charBuf );

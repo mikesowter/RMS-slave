@@ -34,3 +34,25 @@ void batteryEnergy() {
     }
   }
 }
+
+void t31check() {
+  const float T31on  = 7.0F; 
+  const float T31off = 9.0F; 
+
+  // check battery charge when T31 available (01:00 to 09:00)
+  if ( hour() >= 1 && hour() <= 7 ) {
+    if ( !T31charging && batt_charge < T31on) {   
+      T31charging = true;
+      // changeover relay from hotwater to battery charger
+    }
+    if (T31charging) {            // assume 3.6kW charging
+      batt_savings -= 0.0048F;    // T31 cost per minute
+      batt_charge += 0.06F;       // kWh charge per minute
+      if (batt_charge > T31off) {
+        T31charging = false;
+        // changeover relay from charger to hotwater
+      }
+    }
+  }
+  // else changeover relay from charger to hotwater? every minute?
+}
