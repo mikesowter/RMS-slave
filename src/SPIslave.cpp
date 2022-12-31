@@ -55,38 +55,56 @@ void waitForData() {
 }
 
 void unloadValues() {
-  offset = 0;
-  float v,w;
-  Freq = unload2Bytes()/1000.0;
-  if (Freq < 40.0 || Freq > 55.0 ) Freq = 50.0;   // remove freq errors from record
-  Vrms = unload2Bytes()/100.0;                
-  Vrms_min = _min(Vrms_min,Vrms);
-  Vrms_max = _max(Vrms_max,Vrms);
-  v = unload2Bytes()/50.0;    // peak from negative half cycle
-  Vmin = _min(Vmin,v);
-  Vmax = _max(Vmax,v);
-  v = unload2Bytes()/50.0;    // peak from positive half cycle
-  Vmin = _min(Vmin,v);
-  Vmax = _max(Vmax,v);
-  // Serial.printf("Freq = %0.3f Vrms=%0.1f Vmin=%0.1f Vmax=%0.1f\n", Freq, Vrms, Vmin, Vmax);
-
-  if ( Vmin > -400.0 && Vmax < 400.0) {           // remove spurious surge power from the record
-    for (uint8_t p=1 ; p<(NUM_CIRCUITS+1) ; p++) { 
-      w = unload2Bytes();
-      if ( w > 15000 ) w = 9999;                  // reasonability limit
-      else if ( w < 5 ) w = 0.0;                  // remove low end noise
-      Wrms[p] = (float)w;    
-      Wrms_min[p] = _min( Wrms_min[p], w );
-      Wrms_max[p] = _max( Wrms_max[p], w );
-      // Serial.printf("W[%i] = %.0f,%.0f ",p,Wrms_min[p],Wrms_max[p]);
+  if ( SPIdata[0] == 0xFF && SPIdata[1] == 0xFF) {
+    if ( !pwrOutage ) {
+      pwrOutage = true;
+      diagMess("power outage start");
     }
+    Freq = 0.0;
+    Vrms = 0.0;           
+    Vrms_min = 0.0;      
+    Vrms_max = 0.0;      
+    Vmin_n = 0.0;      
+    Vmax_n = 0.0;      
+    Vmin_p = 0.0;      
+    Vmax_p = 0.0; 
   }
-//  waterOn = ( Wrms[5] > 1000 );         // why not?
-  waterOn = false;
-  if ( Wrms[5] > 1000 ) waterOn = true;
-  exporting = ( Wrms[7] > Wrms[1] );      // solar > local usage
-  avSparekW = 0.99*avSparekW + 0.01*( Wrms[7] - Wrms[1] );
+  else {
+    if ( pwrOutage ) {
+      pwrOutage = false;
+      diagMess("power restored");
+    }
+    offset = 0;
+    float v,w;
+    Freq = unload2Bytes()/1000.0;
+    if (Freq < 40.0 || Freq > 55.0 ) Freq = 50.0;   // remove freq errors from record
+    Vrms = unload2Bytes()/100.0;                
+    Vrms_min = _min(Vrms_min,Vrms);
+    Vrms_max = _max(Vrms_max,Vrms);
+    v = unload2Bytes()/50.0;    // peak from negative half cycle
+    Vmin_n = _min(Vmin_n,v);
+    Vmax_n = _max(Vmax_n,v);
+    v = unload2Bytes()/50.0;    // peak from positive half cycle
+    Vmin_p = _min(Vmin_p,v);
+    Vmax_p = _max(Vmax_p,v);
+    // Serial.printf("Freq = %0.3f Vrms=%0.1f Vmin=%0.1f Vmax=%0.1f\n", Freq, Vrms, Vmin, Vmax);
 
+    if ( Vmin_n > -400.0 && Vmax_n < 400.0) {       // remove spurious surge power from the record
+      for (uint8_t p=1 ; p<(NUM_CIRCUITS+1) ; p++) { 
+        w = unload2Bytes();
+        if ( w > 15000 ) w = 9999;                  // reasonability limit
+        else if ( w < 5 ) w = 0.0;                  // remove low end noise
+        Wrms[p] = (float)w;    
+        Wrms_min[p] = _min( Wrms_min[p], w );
+        Wrms_max[p] = _max( Wrms_max[p], w );
+        // Serial.printf("W[%i] = %.0f,%.0f ",p,Wrms_min[p],Wrms_max[p]);
+      }
+    }
+    waterOn = false;
+    if ( Wrms[5] > 1000 ) waterOn = true;
+    exporting = ( Wrms[7] > Wrms[1] );      // solar > local usage
+    avSparekW = 0.99*avSparekW + 0.01*( Wrms[7] - Wrms[1] );
+  }
   offset = 30;
   Vbat = unload2Bytes()/1437.7;
 }

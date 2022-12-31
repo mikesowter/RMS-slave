@@ -59,9 +59,7 @@ extern File fh,fd,fe;
 extern Ticker secondTick;
 extern volatile uint8_t watchDog;
 extern IPAddress localIP,timeServerIP,fileServerIP;
-
-
-extern bool noData, waterOn, exporting, T31charging;
+extern bool noData, waterOn, exporting, T31charging, pwrOutage;
 extern ESP8266WebServer server;
 
 extern char fileName[];
@@ -80,19 +78,22 @@ extern uint8_t buffer[];
 extern uint8_t scanSec;
 extern uint8_t SPIdata[];
 extern uint8_t oldMin, oldQtr, oldHour, oldDay, oldMonth, offset;
-extern uint16_t i, oldYear, htmlLen;
+extern uint16_t i, oldYear, htmlLen, CstringPtr;
 extern uint16_t localPort;   
 extern uint32_t t0, t1, startMillis, startSeconds, lastScan;
 extern uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
 
+extern float T31;
+extern float T11;
+extern float FIT;
 extern float Wrms[];					    // Sum of sampled V*I
 extern float Irms[];					    // root sum I^2
 extern float Vrms,Vpk_neg,Vpk_pos;			// root sum V^2, -Vp, +Vp
 extern float Freq;
 extern float Vrms_min;
 extern float Vrms_max;
-extern float Vmin;
-extern float Vmax;
+extern float Vmin_n, Vmin_p;
+extern float Vmax_n, Vmax_p;
 extern float Wrms_min[];		
 extern float Wrms_max[];	
 extern float Energy[];	
@@ -100,9 +101,7 @@ extern float incEnergy[];
 extern float costEnergy[];
 extern float batt_charge;
 extern float batt_tohouse, batt_togrid;
-extern float batt_savings;
+extern float batt_savings, batt_costs;
 extern float loads, solar, avSparekW;
 extern float T11_kWh, T11_inc;
 extern float Vbat;
-
-

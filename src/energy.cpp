@@ -1,8 +1,5 @@
 #include <extern.h>
 
-const float T31 = 0.166F;   // updated 20220901
-const float T11 = 0.241F;   // updated 20220901
-const float FIT = 0.08F;    // updated 20211128
 float NOISE[] = {5,5,5,5,5,5,50,15,5};  // updated 20220725 to handle oven(6) noise
 
 // Energy sums are reset at midnight in minProc
@@ -10,8 +7,6 @@ float NOISE[] = {5,5,5,5,5,5,50,15,5};  // updated 20220725 to handle oven(6) no
 void dailyEnergy() {
 
   float goodLoads, badLoads, split, rate;
-//  extern float T11_kWh, T11_inc, loads, solar;
-
   t_scan = millis() - t_lastData;
   t_lastData = millis();
   goodLoads = 0.0;
@@ -20,7 +15,6 @@ void dailyEnergy() {
     incEnergy[i] = Wrms[i]*(float)t_scan/3.6e9;       // kWh units
     Energy[i] += incEnergy[i];
     if ( i!=1 && i!=5 && i!=7 ) goodLoads += incEnergy[i]; // water&solar
-
   }
   loads = incEnergy[1];     // T11 incoming to dist panel
   solar = incEnergy[7];     // inverter incoming to dist panel

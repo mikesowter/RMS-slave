@@ -33,5 +33,6 @@ void minProc() {
   T11_kWh = 0.0;
   batt_tohouse = 0.0;
   batt_togrid = 0.0;
+  batt_costs = 0.0;
   return;
 }  

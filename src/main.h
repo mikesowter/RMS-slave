@@ -59,7 +59,7 @@ File fh,fd,fe;
 Ticker secondTick;
 volatile uint8_t watchDog = 0;
 
-bool noData = true, waterOn, exporting, scanFail, T31charging;
+bool noData = true, waterOn, exporting, scanFail, T31charging, pwrOutage;
 
 char fileName[] = "/XXXyymmdd.csv";
 char todayName[] = "/XXXyymmdd.csv";
@@ -83,10 +83,14 @@ uint8_t SPIdata[64];
 uint8_t buffer[BUFFER_SIZE];
 uint8_t oldMin, oldQtr, oldHour, oldDay, oldMonth, offset;
 uint8_t scanSec;
-uint16_t i, oldYear, htmlLen;
+uint16_t i, oldYear, htmlLen, CstringPtr;
 uint16_t localPort = 4210;          //  must match port assigned in "pulse"
 uint32_t t0, t1, startMillis, startSeconds, lastScan;
 uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
+
+float T31 = 0.166;    // updated 20220901
+float T11 = 0.241;    // updated 20220901
+float FIT = 0.08;     // updated 20211128
 
 float Wrms[NUM_CIRCUITS+1];					// Sum of sampled V*I
 /*  scan Wrms[] load
@@ -109,12 +113,12 @@ float Vrms, Vpk_min, Vpk_max;		    // root sum V^2, -Vp, +Vp
 float Freq;                         // grid frequency to 50.000
 float Vrms_min = 500.0;             // max values between scans
 float Vrms_max = 0.0;
-float Vmin = 500.0;
-float Vmax = 0.0;
+float Vmin_n = 500.0, Vmin_p = 500.0;
+float Vmax_n = 0.0, Vmax_p = 0.0;
 float T11_kWh = 0.0;        // daily sum from grid
 float T11_inc;              // increment from grid
 float batt_tohouse = 0.0;   // daily sum from battery
-float loads, solar, batteryFlow, batt_savings;
+float loads, solar, batteryFlow, batt_savings, batt_costs;
 float avSparekW;            // smoothed solar-loads
 float Vbat;
 
