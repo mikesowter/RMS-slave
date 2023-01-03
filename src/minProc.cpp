@@ -9,13 +9,9 @@ void minProc() {
   oldMin = minute();
   // check battery charge level at night
   t31check();
-  // flush fault files
-  fd.flush();
-  fe.flush();
-
   // check for new quarter hour
   if ( oldQtr == minute()/15 ) return;
-  storeData();                    // write day file every 15mins
+  storeData();                          // write day file every 15mins
   oldHour = hour();
   oldQtr = minute()/15;
   // check for end of day
@@ -33,6 +29,7 @@ void minProc() {
   T11_kWh = 0.0;
   batt_tohouse = 0.0;
   batt_togrid = 0.0;
+  batt_savings = 0.0;
   batt_costs = 0.0;
   return;
 }  

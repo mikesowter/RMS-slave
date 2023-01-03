@@ -20,9 +20,9 @@ void handleRoot() {
 
 void handleMetrics() {
   longStr[0]='\0';
+  addCstring("\n# TYPE Vbattery guage" );
   addCstring("\nVbattery ");
   addCstring(f2s2(Vbat));
-  addCstring( "\n" );
   addCstring("\n# TYPE rmsWifiSignal guage" );
   addCstring("\nrmsWifiSignal ");
   addCstring(f2s2(-WiFi.RSSI()));
@@ -51,9 +51,6 @@ void handleMetrics() {
     addCstring("\n# TYPE rmsFreq guage" );
     addCstring("\nrmsFreq ");
     addCstring(f2s4(Freq));
-    addCstring("\n# TYPE rmsVbat guage" );
-    addCstring("\nrmsVbattery ");
-    addCstring(f2s2(Vbat));
 
     addCstring("\n# TYPE rmsPwr_min1 guage" ); //total import
     addCstring("\nrmsPwr_min1 ");
@@ -174,11 +171,10 @@ void handleMetrics() {
     addCstring("\n# TYPE rmsBatterySaving guage" );
     addCstring("\nrmsBatterySaving ");
     addCstring(f2s2(batt_savings - batt_costs));
-
     addCstring("\n# TYPE rmsSpareSolar guage" );
     addCstring("\nrmsSpareSolar ");
     addCstring(f2s2(avSparekW));
-  // loop analysis
+  /* loop analysis
     addCstring("\n# TYPE rmsWaiting guage" );
     addCstring("\nrmsWaiting ");
     addCstring(f2s2((float)waiting));
@@ -196,7 +192,7 @@ void handleMetrics() {
     addCstring(f2s2((float)WDmin));
     addCstring("\n# TYPE rmsWDmax guage" );
     addCstring("\nrmsWDmax ");
-    addCstring(f2s2((float)WDmax)); 
+    addCstring(f2s2((float)WDmax)); */
   }
   addCstring( "\n" );
   server.send ( 200, "text/plain", longStr );
@@ -293,21 +289,24 @@ void handleNotFound() {
     batt_togrid = (float)atof(tok);
     tok = strtok(NULL," ");
     batt_tohouse = (float)atof(tok);
-    sprintf(charBuf,"battery charge: %s",f2s2(batt_charge));
+    sprintf(charBuf,"sim battery charge: %s",f2s2(batt_charge));
     diagMess(charBuf);  
     strcpy(charBuf,"<!DOCTYPE html><html><head><HR>battery data updated<HR></head></html>");
     server.send ( 200, "text/html", charBuf );
   }
-  else if (strncmp(userText,"/spareSol",9)==0) {
-    longStr[0]='\0';
+   else if (strncmp(userText,"/spareSol",9)==0) {
+  /*  C[0]='\0';
     addCstring("\n# TYPE rmsSpareSolar guage" );
     addCstring("\nrmsSpareSolar ");
     addCstring(f2s2(avSparekW));
     addCstring( "\n" );
-    server.send ( 200, "text/plain", longStr );
+    server.send ( 200, "text/plain", longStr ); */
+    strcpy(longStr,"\n# TYPE rmsSpareSolar guage");
+    strcat(longStr,"\nrmsSpareSolar ");
+    strcat(longStr,f2s2(avSparekW));
+    strcat(longStr,"\n" );
+    server.send ( 200, "text/plain", longStr ); 
 }
-    
-    
     else {
     strcpy(charBuf,userText);
     strcat(charBuf," is not a valid option");
@@ -334,7 +333,7 @@ void addCstring(const char* s) {
   }
   htmlLen = p;
 } 
-/*
+/*  why doesnt this work?
 void addCstring(const char* s) {
   if ( CstringPtr > longStrSize-strlen(s) ) {
     diagMess("longStrSize exceeded");
@@ -344,5 +343,6 @@ void addCstring(const char* s) {
     longStr[CstringPtr++] = s[q];
   }
   longStr[CstringPtr] = '\0'; 
-  strcat( longStr, s );        // is leaky? 
+***********************************************************  or just: 
+  strcat( longStr, s );        // is it leaky? 
   */

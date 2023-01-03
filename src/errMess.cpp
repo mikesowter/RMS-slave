@@ -8,6 +8,7 @@ void errMess(const char* mess) {
   fe.print(" ");
   fe.print(timeStamp());
   fe.println(mess);
+  fe.flush();
 }
 
 void diagMess(const char* mess) {
@@ -16,6 +17,7 @@ void diagMess(const char* mess) {
   fd.print(" ");
   fd.print(timeStamp());
   fd.println(mess);
+  fd.flush();
 }
 
 char* dateStamp() {
