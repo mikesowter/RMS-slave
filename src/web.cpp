@@ -20,8 +20,8 @@ void handleRoot() {
 
 void handleMetrics() {
   longStr[0]='\0';
-  addCstring("\n# TYPE Vbattery guage" );
-  addCstring("\nVbattery ");
+  addCstring("\n# TYPE rmsVbattery guage" );
+  addCstring("\nrmsVbattery ");
   addCstring(f2s2(Vbat));
   addCstring("\n# TYPE rmsWifiSignal guage" );
   addCstring("\nrmsWifiSignal ");
