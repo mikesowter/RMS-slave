@@ -12,7 +12,7 @@ extern float batt_tohouse, batt_togrid;
 extern float batt_savings, batt_costs;
  
 void getLastScan() {
-  Serial.println("reading last good RMS energy and cost values");
+  Serial.println("reading last values from prometheus");
   WiFiClient client;
   char buff[1024];
   uint16_t buffPtr, cct, numPtr;
@@ -22,18 +22,18 @@ void getLastScan() {
   char Str1[] = "GET /api/v1/query_range?query=";
   char Str2[] = "&start=";   // Str2[-1]='0'+cct;
   char Str3[12];
-  dtostrf((double)(t-600), 0, 0, Str3);
+  dtostrf((double)(t-600), 0, 0, Str3);  // start 600s before now
   char Str4[] = "&end=";
   char Str5[12];
   dtostrf((double)t, 0, 0, Str5);
   char Str6[] = "&step=60&timeout=10s HTTP/1.1\r\nHost: ";
   char Str7[] = "\r\nConnection: close\r\n\r\n";
 
-// read most recent rmsEnergy[8] values
+// read most recent rmsEnergy# values
 
   strcpy(buff,Str1);
-  strcat(buff,"rmsEnergy ");
-  uint8_t cctPtr = strlen(buff); // point to location of cct index
+  strcat(buff,"rmsEnergy#");
+  uint8_t cctPtr = strlen(buff)-1; // point to location of cct index
   strcat(buff,Str2);
   strcat(buff,Str3);
   strcat(buff,Str4);
@@ -41,9 +41,10 @@ void getLastScan() {
   strcat(buff,Str6);
   strcat(buff,host);
   strcat(buff,Str7);
-
+  
   for (cct = 1; cct<9; cct++) {
     buff[cctPtr] = '0' + cct;      //rmsEnergy(1->8)
+    Serial.println(buff);
     if (client.connect(host, 9090)) {
       client.write(buff,strlen(buff));
       buffPtr = 0;
@@ -56,8 +57,8 @@ void getLastScan() {
           }
         }
       }
+      Serial.printf("\n%d bytes: \n%s\n",buffPtr,buff);
       buff[buffPtr] = '\0';
-//      sprintf(longStr,"\n%d bytes: \n%s\n",buffPtr,buff);
       for (numPtr = buffPtr-8; numPtr>buffPtr-18; numPtr-- ) {
         if (buff[numPtr] == '\"') {
           Energy[cct] = atof(buff+numPtr+1);
@@ -67,11 +68,11 @@ void getLastScan() {
       delay(100);
     }
   }
-// read up to 5 most recent rmsCosts[]
+// read up to 10 most recent rmsCosts#
 
   strcpy(buff,Str1);
-  strcat(buff,"rmsCost ");
-  cctPtr = strlen(buff);      // point to location of cct index
+  strcat(buff,"rmsCost#");
+  cctPtr = strlen(buff)-1;      // point to location of cct index
   strcat(buff,Str2);
   strcat(buff,Str3);
   strcat(buff,Str4);
@@ -95,7 +96,7 @@ void getLastScan() {
         }
       }
       buff[buffPtr] = '\0';
-//      sprintf(longStr,"\n%d bytes: \n%s\n",buffPtr,buff);
+      sprintf(longStr,"\n%d bytes: \n%s\n",buffPtr,buff);
       for (numPtr = buffPtr-8; numPtr>buffPtr-18; numPtr-- ) {
         if (buff[numPtr] == '\"') {
           costEnergy[cct] = atof(buff+numPtr+1);
