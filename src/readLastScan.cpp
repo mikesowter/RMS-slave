@@ -14,8 +14,8 @@ extern float batt_savings, batt_costs;
 void getLastScan() {
   Serial.println("reading last values from prometheus");
   WiFiClient client;
-  char buff[1024];
-  uint16_t buffPtr, cct, numPtr;
+  char reply[1024];
+  uint16_t replyPtr, cct, numPtr;
   uint32_t t = now()-36000;   // back to zulu time
   uint32_t querystart = millis();
   
@@ -28,84 +28,97 @@ void getLastScan() {
   dtostrf((double)t, 0, 0, Str5);
   char Str6[] = "&step=60&timeout=10s HTTP/1.1\r\nHost: ";
   char Str7[] = "\r\nConnection: close\r\n\r\n";
+  char query[200];
 
 // read most recent rmsEnergy# values
 
-  strcpy(buff,Str1);
-  strcat(buff,"rmsEnergy#");
-  uint8_t cctPtr = strlen(buff)-1; // point to location of cct index
-  strcat(buff,Str2);
-  strcat(buff,Str3);
-  strcat(buff,Str4);
-  strcat(buff,Str5);
-  strcat(buff,Str6);
-  strcat(buff,host);
-  strcat(buff,Str7);
+  strcpy(query,Str1);
+  strcat(query,"rmsEnergy#");
+  uint8_t cctPtr = strlen(query)-1; // location of cct index in query
+  strcat(query,Str2);
+  strcat(query,Str3);
+  strcat(query,Str4);
+  strcat(query,Str5);
+  strcat(query,Str6);
+  strcat(query,host);
+  strcat(query,Str7);
   
   for (cct = 1; cct<9; cct++) {
-    buff[cctPtr] = '0' + cct;      //rmsEnergy(1->8)
-    Serial.println(buff);
+    query[cctPtr] = '0' + cct;      //rmsEnergy(1->8)
+    replyPtr = 0;
+    Serial.println(query);
     if (client.connect(host, 9090)) {
-      client.write(buff,strlen(buff));
-      buffPtr = 0;
+      client.write(query,strlen(query));
       while (client.connected() || client.available()) {
         if (client.available()) {
-          buff[buffPtr++] = client.read();
-          if ( buffPtr > 1000 ) {
+          reply[replyPtr++] = client.read();
+          reply[replyPtr] = '\0';
+          if ( replyPtr > 1000 ) {
             diagMess("prometheus reply1 > 1000 bytes");
             break;
           }
         }
       }
-      Serial.printf("\n%d bytes: \n%s\n",buffPtr,buff);
-      buff[buffPtr] = '\0';
-      for (numPtr = buffPtr-8; numPtr>buffPtr-18; numPtr-- ) {
-        if (buff[numPtr] == '\"') {
-          Energy[cct] = atof(buff+numPtr+1);
+//      Serial.printf("\n%d last byte: %c\n",replyPtr,reply[replyPtr-1]);
+    }
+    if (replyPtr > 20) {
+      for (numPtr = replyPtr-8; numPtr>replyPtr-18; numPtr-- ) {
+        if (reply[numPtr] == '\"') {
+          Energy[cct] = atof(reply+numPtr+1);
+          Serial.printf("Energy[%d]:%.3f\n\n",cct,Energy[cct]);
+          numPtr = 0;
+          break;
         }
       }
-      client.stop();
-      delay(100);
     }
-  }
+    client.stop();
+    delay(10);
+  }  
+
 // read up to 10 most recent rmsCosts#
 
-  strcpy(buff,Str1);
-  strcat(buff,"rmsCost#");
-  cctPtr = strlen(buff)-1;      // point to location of cct index
-  strcat(buff,Str2);
-  strcat(buff,Str3);
-  strcat(buff,Str4);
-  strcat(buff,Str5);
-  strcat(buff,Str6);
-  strcat(buff,host);
-  strcat(buff,Str7);
-
+  strcpy(query,Str1);
+  strcat(query,"rmsCost#");
+  cctPtr = strlen(query)-1; // location of cct index in query
+  strcat(query,Str2);
+  strcat(query,Str3);
+  strcat(query,Str4);
+  strcat(query,Str5);
+  strcat(query,Str6);
+  strcat(query,host);
+  strcat(query,Str7);
+  
   for (cct = 1; cct<9; cct++) {
-    buff[cctPtr] = '0' + cct;      //rmsCost(1->8)
+    query[cctPtr] = '0' + cct;      
+    replyPtr = 0;
+    Serial.println(query);
     if (client.connect(host, 9090)) {
-      client.write(buff,strlen(buff));
-      buffPtr = 0;
+      client.write(query,strlen(query));
       while (client.connected() || client.available()) {
         if (client.available()) {
-          buff[buffPtr++] = client.read();
-          if ( buffPtr > 1000 ) {
-            diagMess("prometheus reply2 > 1000 bytes");
+          reply[replyPtr++] = client.read();
+          reply[replyPtr] = '\0';
+          if ( replyPtr > 1000 ) {
+            diagMess("prometheus reply1 > 1000 bytes");
             break;
           }
         }
       }
-      buff[buffPtr] = '\0';
-      sprintf(longStr,"\n%d bytes: \n%s\n",buffPtr,buff);
-      for (numPtr = buffPtr-8; numPtr>buffPtr-18; numPtr-- ) {
-        if (buff[numPtr] == '\"') {
-          costEnergy[cct] = atof(buff+numPtr+1);
+//      Serial.printf("\n%d last byte: %c\n",replyPtr,reply[replyPtr-1]);
+    }
+    if (replyPtr > 20) {
+      for (numPtr = replyPtr-8; numPtr>replyPtr-18; numPtr-- ) {
+        if (reply[numPtr] == '\"') {
+          costEnergy[cct] = atof(reply+numPtr+1);
+          Serial.printf("costEnergy[%d]:%.3f\n\n",cct,costEnergy[cct]);
+          numPtr = 0;
+          break;
         }
       }
-      client.stop();
-      delay(100);
     }
-  }
+    client.stop();
+    delay(10);
+  } /*
   // read up to 5 most recent T11 energy estimate
 
   strcpy(buff,Str1);
@@ -246,6 +259,6 @@ void getLastScan() {
     client.stop();
     delay(100);
   }
-
+*/
   Serial.printf("\n\n query took %li ms\n",millis()-querystart);
 }
