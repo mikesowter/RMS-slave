@@ -21,7 +21,7 @@ void setupFS () {
   Serial.print(fs_info.totalBytes);
   Serial.println(" bytes available");
   Serial.print(fs_info.usedBytes);
-  Serial.println(" bytes used:");
+  Serial.println(" bytes used\n");
 
   LittleFS.setTimeCallback(myTimeCallback);
 
