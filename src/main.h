@@ -105,6 +105,7 @@ float Wrms[NUM_CIRCUITS+1];					// Sum of sampled V*I
 float Energy[NUM_CIRCUITS+1];	
 float incEnergy[NUM_CIRCUITS+1];
 float batt_charge = 1.0, batt_togrid = 0.0;
+float batt_charge75 = 1.0, batt_togrid75 = 0.0;
 float costEnergy[NUM_CIRCUITS+1];   // costEnergy[1] is cost of unmetered
 float Wrms_min[NUM_CIRCUITS+1];		
 float Wrms_max[NUM_CIRCUITS+1];	
@@ -118,7 +119,10 @@ float Vmax_n = 0.0, Vmax_p = 0.0;
 float T11_kWh = 0.0;        // daily sum from grid
 float T11_inc;              // increment from grid
 float batt_tohouse = 0.0;   // daily sum from battery
-float loads, solar, batteryFlow, batt_savings, batt_costs;
+float batt_tohouse75 = 0.0;   // daily sum from battery
+float loads, solar;
+float batteryFlow, batt_savings, batt_costs;
+float batteryFlow75, batt_savings75, batt_costs75;
 float avSparekW;            // smoothed solar-loads
 float Vbat;
 
