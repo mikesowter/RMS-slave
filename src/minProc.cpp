@@ -21,6 +21,8 @@ void minProc() {
   setupTime();
   // write days energy totals
   updateEnergyFile();
+  // battery simulation totals
+  updateBatteryFile();
   // reset daily energy sums at midnight
   for ( int i = 1; i<NUM_CIRCUITS+1; i++ ) {
     Energy[i] = 0.0;
@@ -30,6 +32,10 @@ void minProc() {
   batt_tohouse = 0.0;
   batt_togrid = 0.0;
   batt_savings = 0.0;
+  batt_costs = 0.0;
+  batt_tohouse75 = 0.0;
+  batt_togrid75 = 0.0;
+  batt_savings75 = 0.0;
   batt_costs = 0.0;
   return;
 }  

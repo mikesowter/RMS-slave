@@ -43,6 +43,7 @@ void dailyEnergy();
 void batteryEnergy();
 void t31check();
 void updateEnergyFile();
+void updateBatteryFile();
 void setupTime();
 
 #define NTP_PACKET_SIZE 48

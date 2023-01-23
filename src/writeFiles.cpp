@@ -47,8 +47,22 @@ void updateEnergyFile() {
   fh.printf("\n%s,%s",dateStamp(),timeStamp());
   for ( int i=1; i<NUM_CIRCUITS+1; i++ ) {
     fh.printf(",%7.4f",Energy[i]);
-    fh.printf(",$%0.2f",costEnergy[i]);
+    fh.printf(",$%.2f",costEnergy[i]);
   }
-  fh.printf(",%0.2f",T11_kWh);
+  fh.printf(",%.2f",T11_kWh);
+  fh.close();
+}
+
+void updateBatteryFile() {
+  fh = LittleFS.open("/Battery.csv", "a");
+  if (!fh) {
+    diagMess("Battery.csv failed to open");
+    return;
+  }
+  // write daily battery simulation results
+  fh.printf("\n%s,%s",dateStamp(),timeStamp());
+  fh.printf("%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f",
+             batt_charge, batt_tohouse, batt_togrid, batt_savings, batt_costs,
+             batt_charge75,batt_tohouse75,batt_togrid75,batt_savings75,batt_costs75);
   fh.close();
 }

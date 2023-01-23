@@ -9,6 +9,9 @@ void diagMess(const char* mess);
 extern float batt_charge;
 extern float batt_tohouse, batt_togrid;
 extern float batt_savings, batt_costs;
+extern float batt_charge75;
+extern float batt_tohouse75, batt_togrid75;
+extern float batt_savings75, batt_costs75;
 float readProm(char* unit);
  
 void getLastScan() {
@@ -42,6 +45,9 @@ void getLastScan() {
   batt_charge = readProm("rmsBatteryCharge");
   batt_tohouse = readProm("rmsT11reduction");
   batt_togrid = readProm("rmsBatteryOverflow");
+  batt_charge75 = readProm("rmsBatteryCharge75");
+  batt_tohouse75 = readProm("rmsT11reduction75");
+  batt_togrid75 = readProm("rmsBatteryOverflow75");
 
   Serial.printf("query took %li ms\n",millis()-querystart);
 }
