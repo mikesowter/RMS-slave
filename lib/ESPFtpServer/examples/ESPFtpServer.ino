@@ -11,7 +11,7 @@
 #include <ESP8266WiFi.h>
 #endif
 #include <WiFiClient.h>
-#include <time.h>
+#include <TimeLib.h>
 #include "ESPFtpServer.h"
 
 #if defined(FS_LITTLEFS)

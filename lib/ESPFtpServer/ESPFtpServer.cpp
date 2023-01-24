@@ -28,7 +28,7 @@
 #ifdef ESP32
 #include <WiFi.h>
 #endif
-#include <time.h>
+#include <TimeLib.h>
 
 
 WiFiServer ftpServer (FTP_CTRL_PORT);

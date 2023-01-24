@@ -57,8 +57,8 @@ void t31check() {
   const float T31on  = 3.0F;      // should be based on season
   const float T31off = 5.0F; 
 
-  // check battery charge when T31 available (01:00 to 09:00)
-  if ( hour() >= 1 && hour() <= 7 ) {
+  // check battery charge when T31 available (01:00 to 08:00)
+  if ( hour() >= 1 && hour() < 8 ) {
     if ( !T31charging && batt_charge < T31on) {   
       T31charging = true;
       // changeover relay from hotwater to battery charger
@@ -72,5 +72,5 @@ void t31check() {
       }
     }
   }
-  // else changeover relay from charger to hotwater? every minute?
+  // else changeover relay from charger to hotwater? if hour==8 && minute==0?
 }

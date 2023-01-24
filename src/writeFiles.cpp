@@ -60,9 +60,9 @@ void updateBatteryFile() {
     return;
   }
   // write daily battery simulation results
-  fh.printf("\n%s,%s",dateStamp(),timeStamp());
-  fh.printf("%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f",
+  fh.printf("%s,",dateStamp());
+  fh.printf("%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f",
              batt_charge, batt_tohouse, batt_togrid, batt_savings, batt_costs,
-             batt_charge75,batt_tohouse75,batt_togrid75,batt_savings75,batt_costs75);
+             batt_charge75,batt_tohouse75,batt_togrid75,batt_savings75);
   fh.close();
 }
