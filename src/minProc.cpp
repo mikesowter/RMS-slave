@@ -25,17 +25,18 @@ void minProc() {
   updateBatteryFile();
   // reset daily energy sums at midnight
   for ( int i = 1; i<NUM_CIRCUITS+1; i++ ) {
-    Energy[i] = 0.0;
-    costEnergy[i] = 0.0;
+    Energy[i] = 0.0F;
+    costEnergy[i] = 0.0F;
   }
-  T11_kWh = 0.0;
-  batt_tohouse = 0.0;
-  batt_togrid = 0.0;
-  batt_savings = 0.0;
-  batt_costs = 0.0;
-  batt_tohouse75 = 0.0;
-  batt_togrid75 = 0.0;
-  batt_savings75 = 0.0;
-  batt_costs = 0.0;
+  T11_kWh = 0.0F;
+  T11_kWh75 = 0.0F;
+  batt_tohouse = 0.0F;
+  batt_togrid = 0.0F;
+  batt_savings = 0.0F;
+  batt_costs = 0.0F;
+  batt_tohouse75 = 0.0F;
+  batt_togrid75 = 0.0F;
+  batt_savings75 = 0.0F;
+  batt_costs = 0.0F;
   return;
 }  

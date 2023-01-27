@@ -3,7 +3,7 @@
 #include <TimeLib.h>
  
 #define NUM_CIRCUITS 8
-extern float Energy[NUM_CIRCUITS+1], costEnergy[NUM_CIRCUITS+1], T11_kWh;	
+extern float Energy[NUM_CIRCUITS+1], costEnergy[NUM_CIRCUITS+1], T11_kWh, T11_kWh75;	
 extern char longStr[];
 void diagMess(const char* mess);
 extern float batt_charge;
@@ -42,6 +42,7 @@ void getLastScan() {
 // read miscellaneous recent values
 
   T11_kWh = readProm("rmsT11_kWh");
+  T11_kWh75 = readProm("rmsT11_kWh75");
   batt_charge = readProm("rmsBatteryCharge");
   batt_tohouse = readProm("rmsT11reduction");
   batt_togrid = readProm("rmsBatteryOverflow");

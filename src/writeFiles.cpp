@@ -44,12 +44,12 @@ void updateEnergyFile() {
     return;
   }
   // write daily energy sums
-  fh.printf("\n%s,%s",dateStamp(),timeStamp());
+  fh.printf("\n%2d/%2d/%2d,",day(),month(),year());
   for ( int i=1; i<NUM_CIRCUITS+1; i++ ) {
-    fh.printf(",%7.4f",Energy[i]);
+    fh.printf(",%7.2f",Energy[i]);
     fh.printf(",$%.2f",costEnergy[i]);
   }
-  fh.printf(",%.2f",T11_kWh);
+  fh.printf(",%.2f,%.2f",T11_kWh,T11_kWh75);
   fh.close();
 }
 
@@ -60,9 +60,10 @@ void updateBatteryFile() {
     return;
   }
   // write daily battery simulation results
-  fh.printf("%s,",dateStamp());
-  fh.printf("%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f",
+  fh.printf("\n%2d/%2d/%2d,",day(),month(),year());
+  fh.printf("%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f",
              batt_charge, batt_tohouse, batt_togrid, batt_savings, batt_costs,
-             batt_charge75,batt_tohouse75,batt_togrid75,batt_savings75);
+             batt_charge75,batt_tohouse75,batt_togrid75,batt_savings75,
+             T11_kWh,T11_kWh75);
   fh.close();
 }

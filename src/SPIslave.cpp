@@ -102,11 +102,14 @@ void unloadValues() {
     }
     waterOn = false;
     if ( Wrms[5] > 1000 ) waterOn = true;
-    exporting = ( Wrms[7] > Wrms[1] );      // solar > local usage
-    avSparekW = 0.99*avSparekW + 0.01*( Wrms[7] - Wrms[1] );
+    exporting = ( Wrms[7] > Wrms[1] );             // solar > local usage
+    exporting75 = ( Wrms[7]*1.5F > Wrms[1] );      // sim solar > local usage
+    // for big load queries (time to start/stop the pool heater?)
+    avSparekW = 0.99*avSparekW + 0.01*( Wrms[7] - Wrms[1] );  
+
   }
   offset = 30;
-  Vbat = unload2Bytes()/1437.7;
+  Vbat = unload2Bytes()/1437.7F;
 }
 
 float unload2Bytes() {

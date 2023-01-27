@@ -59,7 +59,7 @@ File fh,fd,fe;
 Ticker secondTick;
 volatile uint8_t watchDog = 0;
 
-bool noData = true, waterOn, exporting, scanFail, T31charging, pwrOutage;
+bool noData = true, waterOn, exporting, exporting75, scanFail, T31charging, pwrOutage;
 
 char fileName[] = "/XXXyymmdd.csv";
 char todayName[] = "/XXXyymmdd.csv";
@@ -118,6 +118,8 @@ float Vmin_n = 500.0, Vmin_p = 500.0;
 float Vmax_n = 0.0, Vmax_p = 0.0;
 float T11_kWh = 0.0;        // daily sum from grid
 float T11_inc;              // increment from grid
+float T11_kWh75 = 0.0;      // daily sum from grid with 7.5kW panels
+float T11_inc75;            // increment from grid with 7.5kW panels
 float batt_tohouse = 0.0;   // daily sum from battery
 float batt_tohouse75 = 0.0;   // daily sum from battery
 float loads, solar;

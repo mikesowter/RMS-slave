@@ -129,6 +129,10 @@ void handleMetrics() {
     addCstring("\n# TYPE rmsT11_kWh guage" );
     addCstring("\nrmsT11_kWh ");
     addCstring(f2s4(T11_kWh));
+    addCstring("\n# TYPE rmsT11_kWh75 guage" );
+    addCstring("\nrmsT11_kWh75 ");
+    addCstring(f2s4(T11_kWh75));
+    
   // costs
     addCstring("\n# TYPE rmsCost1 guage" ); //heat pumps
     addCstring("\nrmsCost1 ");

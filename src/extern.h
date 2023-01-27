@@ -60,7 +60,7 @@ extern File fh,fd,fe;
 extern Ticker secondTick;
 extern volatile uint8_t watchDog;
 extern IPAddress localIP,timeServerIP,fileServerIP;
-extern bool noData, waterOn, exporting, T31charging, pwrOutage;
+extern bool noData, waterOn, exporting, exporting75, T31charging, pwrOutage;
 extern ESP8266WebServer server;
 
 extern char fileName[];
@@ -107,5 +107,5 @@ extern float batt_charge75;
 extern float batt_tohouse75, batt_togrid75;
 extern float batt_savings75, batt_costs75;
 extern float loads, solar, avSparekW;
-extern float T11_kWh, T11_inc;
+extern float T11_kWh, T11_inc, T11_kWh75, T11_inc75;
 extern float Vbat;
