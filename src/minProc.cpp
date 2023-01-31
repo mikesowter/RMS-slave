@@ -37,6 +37,5 @@ void minProc() {
   batt_tohouse75 = 0.0F;
   batt_togrid75 = 0.0F;
   batt_savings75 = 0.0F;
-  batt_costs = 0.0F;
   return;
 }  
