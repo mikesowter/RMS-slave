@@ -50,9 +50,9 @@ void loop() {
 }
 
 void checkScan() {
-  if ( millis() - lastScan > 30000UL ) {
+  if ( millis() - lastScan > 60000UL ) {
     if (!scanFail) {
-      diagMess("no scan for 30s");
+      diagMess("no scan for 60s");
       scanFail = true;
     }
     // rejoin local network if necessary

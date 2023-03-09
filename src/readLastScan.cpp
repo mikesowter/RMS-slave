@@ -46,6 +46,8 @@ void getLastScan() {
   batt_charge = readProm("rmsBatteryCharge");
   batt_tohouse = readProm("rmsT11reduction");
   batt_togrid = readProm("rmsBatteryOverflow");
+  batt_savings = readProm("rmsBatterySaving");
+  batt_costs = readProm("rmsT31costs");
   batt_charge75 = readProm("rmsBatteryCharge75");
   batt_tohouse75 = readProm("rmsT11reduction75");
   batt_togrid75 = readProm("rmsBatteryOverflow75");

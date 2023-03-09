@@ -96,8 +96,7 @@ void unloadValues() {
         else if ( w < 5 ) w = 0.0;                  // remove low end noise
         Wrms[p] = (float)w;    
         Wrms_min[p] = _min( Wrms_min[p], w );
-        Wrms_max[p] = _max( Wrms_max[p], w );
-        // Serial.printf("W[%i] = %.0f,%.0f ",p,Wrms_min[p],Wrms_max[p]);
+        Wrms_max[p] = _max( Wrms_max[p], w ); 
       }
     }
     waterOn = false;

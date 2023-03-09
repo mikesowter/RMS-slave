@@ -174,7 +174,10 @@ void handleMetrics() {
     addCstring(f2s2(batt_tohouse));
     addCstring("\n# TYPE rmsBatterySaving guage" );
     addCstring("\nrmsBatterySaving ");
-    addCstring(f2s2(batt_savings - batt_costs));
+    addCstring(f2s2(batt_savings));
+    addCstring("\n# TYPE rmsT31costs guage" );
+    addCstring("\nrmsT31costs ");
+    addCstring(f2s2(batt_costs));
     extern float batt_tohouse75, batt_togrid75, batt_charge75;
     addCstring("\n# TYPE rmsBatteryFlow75 guage" );
     addCstring("\nrmsBatteryFlow75 ");
