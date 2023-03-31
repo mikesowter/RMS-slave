@@ -11,7 +11,8 @@ extern float NOISE[];  // 20220725 for oven(6)
 void batteryEnergy() {
 
   float batteryFlow = solar-loads;  
-  float batteryFlow7_5 = 1.5*solar-loads;  
+  float batteryFlow7_5 = 1.5F*solar-loads;  
+  float batteryFlow10 = 2.0F*solar-loads;  
 
 // first with existing 5kW panels
   if (batteryFlow > 0.0) {         // +ive is charging
@@ -51,8 +52,28 @@ void batteryEnergy() {
       batt_charge7_5 = battMin;
     }
   }
+  // next with hypothetical 10kW panels
+  if (batteryFlow10 > 0.0) {            // +ive is charging
+    if (batt_charge10 < battCap) {
+      batt_charge10 += batteryFlow10;   // add to battery
+    }
+    else {
+      batt_togrid10 += batteryFlow10;   // dump to grid
+    }
+  }
+  else {                                // -ive is discharging
+    if (batt_charge10 + batteryFlow10 > battMin) { 
+      batt_charge10 += batteryFlow10;
+      batt_tohouse10 -= batteryFlow10; 
+      batt_savings10 = batt_tohouse10*(T11-FIT);
+    }
+    else {    // not enough battery
+      batt_charge10 = battMin;
+    }
+  }
 }
 
+/*
 void t31check() {
   const float T31on  = 3.0F;      // should be based on season
   const float T31off = 5.0F; 
@@ -73,4 +94,4 @@ void t31check() {
     }
   }
   // else changeover relay from charger to hotwater? if hour==8 && minute==0?
-}
+}  */

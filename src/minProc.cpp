@@ -8,7 +8,7 @@ void minProc() {
   SPISlave.setStatus(now());
   oldMin = minute();
   // check battery charge level at night
-  t31check();
+  // t31check();
   // check for new quarter hour
   if ( oldQtr == minute()/15 ) return;
   storeData();                          // write day file every 15mins

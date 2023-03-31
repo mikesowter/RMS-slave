@@ -41,7 +41,7 @@ void joinNet();
 byte storeData();
 void dailyEnergy();
 void batteryEnergy();
-void t31check();
+// void t31check();
 void updateEnergyFile();
 void updateBatteryFile();
 void setupTime();
