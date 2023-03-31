@@ -59,7 +59,7 @@ File fh,fd,fe;
 Ticker secondTick;
 volatile uint8_t watchDog = 0;
 
-bool noData = true, waterOn, exporting, exporting75, scanFail, T31charging, pwrOutage;
+bool noData = true, waterOn, exporting, exporting7_5, scanFail, T31charging, pwrOutage;
 
 char fileName[] = "/XXXyymmdd.csv";
 char todayName[] = "/XXXyymmdd.csv";
@@ -105,7 +105,6 @@ float Wrms[NUM_CIRCUITS+1];					// Sum of sampled V*I
 float Energy[NUM_CIRCUITS+1];	
 float incEnergy[NUM_CIRCUITS+1];
 float batt_charge = 1.0, batt_togrid = 0.0;
-float batt_charge75 = 1.0, batt_togrid75 = 0.0;
 float costEnergy[NUM_CIRCUITS+1];   // costEnergy[1] is cost of unmetered
 float Wrms_min[NUM_CIRCUITS+1];		
 float Wrms_max[NUM_CIRCUITS+1];	
@@ -118,14 +117,24 @@ float Vmin_n = 500.0, Vmin_p = 500.0;
 float Vmax_n = 0.0, Vmax_p = 0.0;
 float T11_kWh = 0.0;        // daily sum from grid
 float T11_inc;              // increment from grid
-float T11_kWh75 = 0.0;      // daily sum from grid with 7.5kW panels
-float T11_inc75;            // increment from grid with 7.5kW panels
 float batt_tohouse = 0.0;   // daily sum from battery
-float batt_tohouse75 = 0.0;   // daily sum from battery
 float loads, solar;
 float batteryFlow, batt_savings, batt_costs;
-float batteryFlow75, batt_savings75, batt_costs75;
 float avSparekW;            // smoothed solar-loads
 float Vbat;
+// 7.5kW simulation
+float batteryFlow7_5, batt_savings7_5, batt_costs7_5;
+float T11_kWh7_5 = 0.0;       // daily sum from grid with 7.5kW panels
+float batt_tohouse7_5 = 0.0;  // daily sum from battery
+float batt_charge7_5 = 1.0; 
+float batt_togrid7_5 = 0.0;
+float T11_inc7_5;             // increment from grid with 7.5kW panels
+// 10kW simulation
+float batteryFlow10, batt_savings10, batt_costs10;
+float T11_kWh10 = 0.0;       
+float batt_tohouse10 = 0.0;  
+float batt_charge10 = 1.0;
+float batt_togrid10 = 0.0;
+float T11_inc10;             
 
-  
+

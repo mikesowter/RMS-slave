@@ -129,9 +129,9 @@ void handleMetrics() {
     addCstring("\n# TYPE rmsT11_kWh guage" );
     addCstring("\nrmsT11_kWh ");
     addCstring(f2s4(T11_kWh));
-    addCstring("\n# TYPE rmsT11_kWh75 guage" );
-    addCstring("\nrmsT11_kWh75 ");
-    addCstring(f2s4(T11_kWh75));
+    addCstring("\n# TYPE rmsT11_kWh10 guage" );
+    addCstring("\nrmsT11_kWh10 ");
+    addCstring(f2s4(T11_kWh10));
     
   // costs
     addCstring("\n# TYPE rmsCost1 guage" ); //heat pumps
@@ -178,23 +178,38 @@ void handleMetrics() {
     addCstring("\n# TYPE rmsT31costs guage" );
     addCstring("\nrmsT31costs ");
     addCstring(f2s2(batt_costs));
-    extern float batt_tohouse75, batt_togrid75, batt_charge75;
+    extern float batt_tohouse7_5, batt_togrid7_5, batt_charge7_5;
     addCstring("\n# TYPE rmsBatteryFlow75 guage" );
     addCstring("\nrmsBatteryFlow75 ");
     addCstring(f2s4(1.5*solar-loads));
     addCstring("\n# TYPE rmsBatteryCharge75 guage" );
     addCstring("\nrmsBatteryCharge75 ");
-    addCstring(f2s2(batt_charge75));
+    addCstring(f2s2(batt_charge7_5));
     addCstring("\n# TYPE rmsBatteryOverflow75 guage" );
     addCstring("\nrmsBatteryOverflow75 ");
-    addCstring(f2s2(batt_togrid75));
+    addCstring(f2s2(batt_togrid7_5));
     addCstring("\n# TYPE rmsT11reduction75 guage" );
     addCstring("\nrmsT11reduction75 ");
-    addCstring(f2s2(batt_tohouse75));
+    addCstring(f2s2(batt_tohouse7_5));
     addCstring("\n# TYPE rmsBatterySaving75 guage" );
     addCstring("\nrmsBatterySaving75 ");
-    addCstring(f2s2(batt_savings75));
-    addCstring("\n# TYPE rmsSpareSolar guage" );
+    addCstring(f2s2(batt_savings7_5));
+    extern float batt_tohouse10, batt_togrid10, batt_charge10;
+    addCstring("\n# TYPE rmsBatteryFlow10 guage" );
+    addCstring("\nrmsBatteryFlow10 ");
+    addCstring(f2s4(1.5*solar-loads));
+    addCstring("\n# TYPE rmsBatteryCharge10 guage" );
+    addCstring("\nrmsBatteryCharge10 ");
+    addCstring(f2s2(batt_charge10));
+    addCstring("\n# TYPE rmsBatteryOverflow10 guage" );
+    addCstring("\nrmsBatteryOverflow10 ");
+    addCstring(f2s2(batt_togrid10));
+    addCstring("\n# TYPE rmsT11reduction10 guage" );
+    addCstring("\nrmsT11reduction10 ");
+    addCstring(f2s2(batt_tohouse10));
+    addCstring("\n# TYPE rmsBatterySaving10 guage" );
+    addCstring("\nrmsBatterySaving10 ");
+    addCstring(f2s2(batt_savings10));    addCstring("\n# TYPE rmsSpareSolar guage" );
     addCstring("\nrmsSpareSolar ");
     addCstring(f2s2(avSparekW));
   /* loop analysis
@@ -318,12 +333,6 @@ void handleNotFound() {
     server.send ( 200, "text/html", charBuf );
   }
    else if (strncmp(userText,"/spareSol",9)==0) {
-  /*  C[0]='\0';
-    addCstring("\n# TYPE rmsSpareSolar guage" );
-    addCstring("\nrmsSpareSolar ");
-    addCstring(f2s2(avSparekW));
-    addCstring( "\n" );
-    server.send ( 200, "text/plain", longStr ); */
     strcpy(longStr,"\n# TYPE rmsSpareSolar guage");
     strcat(longStr,"\nrmsSpareSolar ");
     strcat(longStr,f2s2(avSparekW));

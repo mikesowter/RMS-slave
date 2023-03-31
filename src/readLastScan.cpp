@@ -3,15 +3,15 @@
 #include <TimeLib.h>
  
 #define NUM_CIRCUITS 8
-extern float Energy[NUM_CIRCUITS+1], costEnergy[NUM_CIRCUITS+1], T11_kWh, T11_kWh75;	
+extern float Energy[NUM_CIRCUITS+1], costEnergy[NUM_CIRCUITS+1], T11_kWh, T11_kWh7_5;	
 extern char longStr[];
 void diagMess(const char* mess);
 extern float batt_charge;
 extern float batt_tohouse, batt_togrid;
 extern float batt_savings, batt_costs;
-extern float batt_charge75;
-extern float batt_tohouse75, batt_togrid75;
-extern float batt_savings75, batt_costs75;
+extern float batt_charge7_5;
+extern float batt_tohouse7_5, batt_togrid7_5;
+extern float batt_savings7_5, batt_costs7_5;
 float readProm(char* unit);
  
 void getLastScan() {
@@ -42,15 +42,15 @@ void getLastScan() {
 // read miscellaneous recent values
 
   T11_kWh = readProm("rmsT11_kWh");
-  T11_kWh75 = readProm("rmsT11_kWh75");
+  T11_kWh7_5 = readProm("rmsT11_kWh7_5");
   batt_charge = readProm("rmsBatteryCharge");
   batt_tohouse = readProm("rmsT11reduction");
   batt_togrid = readProm("rmsBatteryOverflow");
   batt_savings = readProm("rmsBatterySaving");
   batt_costs = readProm("rmsT31costs");
-  batt_charge75 = readProm("rmsBatteryCharge75");
-  batt_tohouse75 = readProm("rmsT11reduction75");
-  batt_togrid75 = readProm("rmsBatteryOverflow75");
+  batt_charge7_5 = readProm("rmsBatteryCharge75");
+  batt_tohouse7_5 = readProm("rmsT11reduction75");
+  batt_togrid7_5 = readProm("rmsBatteryOverflow75");
 
   Serial.printf("query took %li ms\n",millis()-querystart);
 }

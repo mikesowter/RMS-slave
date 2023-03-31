@@ -89,7 +89,7 @@ void unloadValues() {
     Vmax_p = _max(Vmax_p,v);
     // Serial.printf("Freq = %0.3f Vrms=%0.1f Vmin=%0.1f Vmax=%0.1f\n", Freq, Vrms, Vmin, Vmax);
 
-    if ( Vmin_n > -400.0 && Vmax_n < 400.0) {       // remove spurious surge power from the record
+    if ( Vmin_n > -400.0 && Vmax_p < 400.0) {       // remove spurious surge power from the record
       for (uint8_t p=1 ; p<(NUM_CIRCUITS+1) ; p++) { 
         w = unload2Bytes();
         if ( w > 15000 ) w = 9999;                  // reasonability limit
@@ -102,7 +102,7 @@ void unloadValues() {
     waterOn = false;
     if ( Wrms[5] > 1000 ) waterOn = true;
     exporting = ( Wrms[7] > Wrms[1] );             // solar > local usage
-    exporting75 = ( Wrms[7]*1.5F > Wrms[1] );      // sim solar > local usage
+    exporting7_5 = ( Wrms[7]*1.5F > Wrms[1] );      // sim solar > local usage
     // for big load queries (time to start/stop the pool heater?)
     avSparekW = 0.99*avSparekW + 0.01*( Wrms[7] - Wrms[1] );  
 
