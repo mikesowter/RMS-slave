@@ -59,7 +59,7 @@ File fh,fd,fe;
 Ticker secondTick;
 volatile uint8_t watchDog = 0;
 
-bool noData = true, waterOn, exporting, exporting7_5, scanFail, T31charging, pwrOutage;
+bool noData = true, waterOn, exporting, exporting7_5, exporting10, scanFail, T31charging, pwrOutage;
 
 char fileName[] = "/XXXyymmdd.csv";
 char todayName[] = "/XXXyymmdd.csv";

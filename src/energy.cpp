@@ -58,4 +58,10 @@ void dailyEnergy() {
     T11_inc7_5 = max(0.0F,loads-solar*1.5F);
     T11_kWh7_5 += T11_inc7_5;
   }
+
+  if ( exporting10 ) T11_inc10 = 0.0;   // imaginery panels
+  else {
+    T11_inc10 = max(0.0F,loads-solar*2.0F);
+    T11_kWh10 += T11_inc10;
+  }
 }

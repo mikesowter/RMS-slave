@@ -102,7 +102,8 @@ void unloadValues() {
     waterOn = false;
     if ( Wrms[5] > 1000 ) waterOn = true;
     exporting = ( Wrms[7] > Wrms[1] );             // solar > local usage
-    exporting7_5 = ( Wrms[7]*1.5F > Wrms[1] );      // sim solar > local usage
+    exporting7_5 = ( Wrms[7]*1.5F > Wrms[1] );     // sim solar > local usage
+    exporting10 = ( Wrms[7]*2.0F > Wrms[1] );      // sim solar > local usage
     // for big load queries (time to start/stop the pool heater?)
     avSparekW = 0.99*avSparekW + 0.01*( Wrms[7] - Wrms[1] );  
 
