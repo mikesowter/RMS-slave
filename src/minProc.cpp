@@ -29,13 +29,17 @@ void minProc() {
     costEnergy[i] = 0.0F;
   }
   T11_kWh = 0.0F;
-  T11_kWh7_5 = 0.0F;
   batt_tohouse = 0.0F;
   batt_togrid = 0.0F;
   batt_savings = 0.0F;
   batt_costs = 0.0F;
+  T11_kWh7_5 = 0.0F;
   batt_tohouse7_5 = 0.0F;
   batt_togrid7_5 = 0.0F;
   batt_savings7_5 = 0.0F;
+  T11_kWh10 = 0.0F;
+  batt_tohouse10 = 0.0F;
+  batt_togrid10 = 0.0F;
+  batt_savings10 = 0.0F;
   return;
 }  
