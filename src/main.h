@@ -59,8 +59,9 @@ File fh,fd,fe;
 Ticker secondTick;
 volatile uint8_t watchDog = 0;
 
-bool noData = true, waterOn, exporting, exporting7_5, exporting10, scanFail, T31charging, pwrOutage;
-
+bool noData = true;     // wait for data in SPI slave loop
+bool noDataYet = true;  // no data from RMS master yet, values false
+bool waterOn, exporting, exporting7_5, exporting10, scanFail, T31charging, pwrOutage;
 char fileName[] = "/XXXyymmdd.csv";
 char todayName[] = "/XXXyymmdd.csv";
 char userText[30];

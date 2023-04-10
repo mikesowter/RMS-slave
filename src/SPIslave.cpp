@@ -51,7 +51,8 @@ void waitForData() {
   yield();
   dailyEnergy();
   yield(); 
-  batteryEnergy();         
+  batteryEnergy();      
+  noDataYet = false;   
 }
 
 void unloadValues() {

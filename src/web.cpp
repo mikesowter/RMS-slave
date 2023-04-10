@@ -19,6 +19,7 @@ void handleRoot() {
 }
 
 void handleMetrics() {
+  if ( noDataYet ) return;
   longStr[0]='\0';
   addCstring("\n# TYPE rmsVbattery guage" );
   addCstring("\nrmsVbattery ");
@@ -237,16 +238,17 @@ void handleMetrics() {
   }
   addCstring( "\n" );
   server.send ( 200, "text/plain", longStr );
-  // reset max,min for scan interval
-  Vmin_n = 500.0;
-  Vmax_n = 0.0;
-  Vmin_p = 500.0;
-  Vmax_p = 0.0;
-  Vrms_min = 500.0;
-  Vrms_max = 0.0;
+  // reset max,min for prometheus scan interval
+  noDataYet = true;
+  Vmin_n = 500.0F;
+  Vmax_n = 0.0F;
+  Vmin_p = 500.0F;
+  Vmax_p = 0.0F;
+  Vrms_min = 500.0F;
+  Vrms_max = 0.0F;
   for (int i=1;i<9;i++) {
-    Wrms_min[i] = 4999.0;
-    Wrms_max[i] = 0.0;
+    Wrms_min[i] = 9999.0F;
+    Wrms_max[i] = 0.0F;
   }
   lastScan = millis();
   scanSec = second();

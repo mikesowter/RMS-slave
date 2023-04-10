@@ -60,7 +60,9 @@ extern File fh,fd,fe;
 extern Ticker secondTick;
 extern volatile uint8_t watchDog;
 extern IPAddress localIP,timeServerIP,fileServerIP;
-extern bool noData, waterOn, exporting, exporting7_5, exporting10, T31charging, pwrOutage;
+extern bool noData, waterOn;
+extern bool exporting, exporting7_5, exporting10, T31charging, pwrOutage;
+extern bool noDataYet;
 extern ESP8266WebServer server;
 
 extern char fileName[];

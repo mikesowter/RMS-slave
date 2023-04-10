@@ -52,10 +52,12 @@ void getLastScan() {
   batt_tohouse = readProm("rmsT11reduction");
   batt_togrid = readProm("rmsBatteryOverflow");
   batt_savings = readProm("rmsBatterySaving");
-  batt_costs = readProm("rmsT31costs");
   batt_charge7_5 = readProm("rmsBatteryCharge75");
   batt_tohouse7_5 = readProm("rmsT11reduction75");
   batt_togrid7_5 = readProm("rmsBatteryOverflow75");
+  batt_charge10 = readProm("rmsBatteryCharge10");
+  batt_tohouse10 = readProm("rmsT11reduction10");
+  batt_togrid10 = readProm("rmsBatteryOverflow10");
 
   Serial.printf("query took %li ms\n",millis()-querystart);
 }
