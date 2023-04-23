@@ -69,6 +69,8 @@ void unloadValues() {
     Vmax_n = 0.0;      
     Vmin_p = 0.0;      
     Vmax_p = 0.0; 
+    offset = 30;
+    Vbat = unload2Bytes()/1437.7F;
   }
   else {
     if ( pwrOutage ) {

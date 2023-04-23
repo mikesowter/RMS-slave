@@ -19,7 +19,12 @@ void handleRoot() {
 }
 
 void handleMetrics() {
-  if ( noDataYet ) return;
+  if ( noDataYet )  {
+    diagMess("no Data Yet");
+    delay(1000);
+    noDataYet = false;
+    return;
+  }
   longStr[0]='\0';
   addCstring("\n# TYPE rmsVbattery guage" );
   addCstring("\nrmsVbattery ");
