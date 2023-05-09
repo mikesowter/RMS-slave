@@ -10,7 +10,7 @@ void setupSPIslave() {
   SPISlave.onData([](uint8_t * data, size_t len) {
     SPISlave.setData(data,32);
     for (uint8_t i=0; i<32; i++) SPIdata[i] = data[i];
-    noData = false;
+    SPIwait = false;
   });
 
   // The master has read out outgoing data buffer
@@ -39,13 +39,9 @@ void setupSPIslave() {
 }
 
 void waitForData() {
-  uint32_t w = millis();
   SPISlave.begin();
-  while (noData) watchWait(1);
-  waiting = millis() - w;
-  if ( waiting < WDmin) WDmin = waiting;
-  if ( waiting > WDmax) WDmax = waiting;
-  noData = true;
+  while (SPIwait) watchWait(1);
+  SPIwait = true;
   SPISlave.end(); 
   unloadValues();
   yield();

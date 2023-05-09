@@ -13332,8 +13332,8 @@ END GROUP
  .data.fileName
                 0x000000003ffe8631        0xf .pio\build\d1_mini\src\main.cpp.o
                 0x000000003ffe8631                fileName
- .data.noData   0x000000003ffe8640        0x1 .pio\build\d1_mini\src\main.cpp.o
-                0x000000003ffe8640                noData
+ .data.SPIwait   0x000000003ffe8640        0x1 .pio\build\d1_mini\src\main.cpp.o
+                0x000000003ffe8640                SPIwait
  .data.pass     0x000000003ffe8641        0xd .pio\build\d1_mini\src\main.cpp.o
                 0x000000003ffe8641                pass
  .data.ssid     0x000000003ffe864e        0xe .pio\build\d1_mini\src\main.cpp.o

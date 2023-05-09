@@ -19,6 +19,7 @@ void handleRoot() {
 }
 
 void handleMetrics() {
+  if ( Wrms_min[1] == 9999.0F ) noDataYet = true;
   if ( noDataYet )  {
     diagMess("no Data Yet");
     delay(1000);
@@ -221,25 +222,6 @@ void handleMetrics() {
     addCstring(f2s2(batt_savings10));    addCstring("\n# TYPE rmsSpareSolar guage" );
     addCstring("\nrmsSpareSolar ");
     addCstring(f2s2(avSparekW));
-  /* loop analysis
-    addCstring("\n# TYPE rmsWaiting guage" );
-    addCstring("\nrmsWaiting ");
-    addCstring(f2s2((float)waiting));
-    addCstring("\n# TYPE rmsScanSec guage" );
-    addCstring("\nrmsScanSec ");
-    addCstring(f2s2((float)scanSec));
-    addCstring("\n# TYPE rmsWWmin guage" );
-    addCstring("\nrmsWWmin ");
-    addCstring(f2s2((float)WWmin));
-    addCstring("\n# TYPE rmsWWmax guage" );
-    addCstring("\nrmsWWmax ");
-    addCstring(f2s2((float)WWmax));
-    addCstring("\n# TYPE rmsWDmin guage" );
-    addCstring("\nrmsWDmin ");
-    addCstring(f2s2((float)WDmin));
-    addCstring("\n# TYPE rmsWDmax guage" );
-    addCstring("\nrmsWDmax ");
-    addCstring(f2s2((float)WDmax)); */
   }
   addCstring( "\n" );
   server.send ( 200, "text/plain", longStr );
