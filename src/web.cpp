@@ -22,9 +22,7 @@ void handleMetrics() {
   if ( Wrms_min[1] == 9999.0F ) noDataYet = true;
   if ( noDataYet )  {
     diagMess("no Data Yet");
-    delay(1000);
-    noDataYet = false;
-    return;
+    waitForData();
   }
   longStr[0]='\0';
   addCstring("\n# TYPE rmsVbattery guage" );
@@ -262,7 +260,7 @@ void handleNotFound() {
   server.uri().toCharArray(userText, 30);
 //  Serial.println(userText);
   if (strncmp(userText,"/reset",6)==0) {
-    errMess("User requested restart");
+    errMess("User requested reset");
     fd.close();
     fe.close();
     ESP.restart();
