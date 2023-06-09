@@ -1,9 +1,9 @@
 #include "extern.h"
 
 float unload2Bytes();
-void unloadValues();
+bool unloadValues();
 const float AMPS_CORRECTION_FACTOR = 1.021; // low currents < 4A on 20190922
-
+uint16_t checkSum;
 
 void setupSPIslave() {
   // data has been received from the master. len is always 32 bytes
@@ -39,11 +39,12 @@ void setupSPIslave() {
 }
 
 void waitForData() {
-  SPISlave.begin();
-  while (SPIwait) watchWait(1);
-  SPIwait = true;
-  SPISlave.end(); 
-  unloadValues();
+  do {
+    SPISlave.begin();
+    while (SPIwait) watchWait(1);
+    SPIwait = true;
+    SPISlave.end(); 
+  } while (unloadValues() != true); // bad checksum
   yield();
   dailyEnergy();
   yield(); 
@@ -51,7 +52,7 @@ void waitForData() {
   noDataYet = false;   
 }
 
-void unloadValues() {
+bool unloadValues() {
   if ( SPIdata[0] == 0xFF && SPIdata[1] == 0xFF) {
     if ( !pwrOutage ) {
       pwrOutage = true;
@@ -65,7 +66,7 @@ void unloadValues() {
     Vmax_n = 0.0;      
     Vmin_p = 0.0;      
     Vmax_p = 0.0; 
-    offset = 30;
+    offset = 28;
     Vbat = unload2Bytes()/1437.7F;
   }
   else {
@@ -74,6 +75,7 @@ void unloadValues() {
       diagMess("power restored");
     }
     offset = 0;
+    checkSum = 0;
     float v,w;
     Freq = unload2Bytes()/1000.0;
     if (Freq < 40.0 || Freq > 55.0 ) Freq = 50.0;   // remove freq errors from record
@@ -107,13 +109,25 @@ void unloadValues() {
     avSparekW = 0.99*avSparekW + 0.01*( Wrms[7] - Wrms[1] );  
 
   }
-  offset = 30;
+  offset = 28;
   Vbat = unload2Bytes()/1437.7F;
+  uint16_t rxSum = checkSum;
+  uint16_t txSum = (uint16_t)unload2Bytes();
+  if (rxSum != txSum) {
+    sprintf(charBuf,"BAD checksum: %X cf %X", rxSum, txSum);
+    diagMess(charBuf);
+    return false;
+  }  
+  return true;
 }
 
 float unload2Bytes() {
-  if (offset > 31) diagMess("illegal SPI data offset ");
-  float f = 256.0*(float)SPIdata[offset++];
-  f += (float)SPIdata[offset++];
-  return f;
+  if (offset > 31) {
+    diagMess("illegal SPI data offset ");
+    return 0.0;
+  }
+  uint16_t val = 256.0*SPIdata[offset++];
+  val += SPIdata[offset++];
+  checkSum += val;
+  return (float)val;
 }
