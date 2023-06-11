@@ -39,12 +39,17 @@ void setupSPIslave() {
 }
 
 void waitForData() {
+  wfdStart = millis();
   do {
     SPISlave.begin();
-    while (SPIwait) watchWait(1);
+    while (SPIwait) watchWait(100);
     SPIwait = true;
     SPISlave.end(); 
   } while (unloadValues() != true); // bad checksum
+  // measure WFD times
+  wfdTime = millis()-wfdStart;
+  WFDmin = _min(WFDmin,wfdTime);
+  WFDmax = _max(WFDmax,wfdTime);
   yield();
   dailyEnergy();
   yield(); 

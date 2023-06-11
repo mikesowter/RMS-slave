@@ -19,9 +19,8 @@ void handleRoot() {
 }
 
 void handleMetrics() {
-  if ( Wrms_min[1] == 9999.0F ) noDataYet = true;
   if ( noDataYet )  {
-    diagMess("no Data Yet");
+  //  diagMess("no Data Yet");
     waitForData();
   }
   longStr[0]='\0';
@@ -217,9 +216,23 @@ void handleMetrics() {
     addCstring(f2s2(batt_tohouse10));
     addCstring("\n# TYPE rmsBatterySaving10 guage" );
     addCstring("\nrmsBatterySaving10 ");
-    addCstring(f2s2(batt_savings10));    addCstring("\n# TYPE rmsSpareSolar guage" );
+    addCstring(f2s2(batt_savings10));    
+    addCstring("\n# TYPE rmsSpareSolar guage" );
     addCstring("\nrmsSpareSolar ");
     addCstring(f2s2(avSparekW));
+    // housekeeping
+    addCstring("\n# TYPE rmsLoopTimeMin guage" );
+    addCstring("\nrmsLoopTimeMin ");
+    addCstring(f2s2((float)LTmin));
+    addCstring("\n# TYPE rmsLoopTimeMax guage" );
+    addCstring("\nrmsLoopTimeMax ");
+    addCstring(f2s2((float)LTmax));
+    addCstring("\n# TYPE rmsWfdTimeMin guage" );
+    addCstring("\nrmsWfdTimeMin ");
+    addCstring(f2s2((float)WFDmin));
+    addCstring("\n# TYPE rmsWfdTimeMax guage" );
+    addCstring("\nrmsWfdTimeMax ");
+    addCstring(f2s2((float)WFDmax));
   }
   addCstring( "\n" );
   server.send ( 200, "text/plain", longStr );
@@ -239,8 +252,10 @@ void handleMetrics() {
   scanSec = second();
   WWmin = 9999;
   WWmax = 0;
-  WDmin = 9999;
-  WDmax = 0;
+  LTmin = 9999;
+  LTmax = 0;
+  WFDmin = 9999;
+  WFDmax = 0;
  }
 
 void handleWater() {

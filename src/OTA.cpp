@@ -1,4 +1,4 @@
-#include "C:\Users\Mikes 6700K\Dropbox\sketchbook\RMS slave\src\extern.h"
+#include "extern.h"
 
 uint8_t init_OTA() {
   // Hostname defaults to esp8266-[ChipID]

@@ -88,6 +88,9 @@ uint16_t i, oldYear, htmlLen, CstringPtr;
 uint16_t localPort = 4210;          //  must match port assigned in "pulse"
 uint32_t t0, t1, startMillis, startSeconds, lastScan;
 uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
+uint32_t loopStart, loopTime, LTmin, LTmax;
+uint32_t wfdStart, wfdTime, WFDmin, WFDmax;
+
 
 float T31 = 0.166;    // updated 20220901
 float T11 = 0.241;    // updated 20220901
