@@ -51,6 +51,7 @@ void setupTime();
 #define longStrSize 10000
 #define NUM_CIRCUITS 8 
 #define FS_ID LittleFS
+#define LED_PIN D4
 
 extern WiFiUDP udp;
 extern WiFiClient client;

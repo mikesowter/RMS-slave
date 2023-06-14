@@ -39,6 +39,7 @@ void updateEnergyFile();
 void checkScan();
 void getLastScan();
 void setupFS();
+void sync2Master();
 
 String resetReason = "Restart caused by " + ESP.getResetReason();
 String resetDetail = ESP.getResetInfo();
@@ -49,6 +50,7 @@ String resetDetail = ESP.getResetInfo();
 #define TIME_ZONE 10
 #define longStrSize 10000
 #define NUM_CIRCUITS 8
+#define LED_PIN D4
 
 ESP8266WebServer server( 80 );
 FtpServer ftpSrv;
@@ -84,7 +86,7 @@ uint8_t SPIdata[64];
 uint8_t buffer[BUFFER_SIZE];
 uint8_t oldMin, oldQtr, oldHour, oldDay, oldMonth, offset;
 uint8_t scanSec;
-uint16_t i, oldYear, htmlLen, CstringPtr;
+uint16_t i, oldYear, htmlLen, CstringPtr, syncDelay = 800;
 uint16_t localPort = 4210;          //  must match port assigned in "pulse"
 uint32_t t0, t1, startMillis, startSeconds, lastScan;
 uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;

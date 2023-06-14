@@ -7,8 +7,8 @@ RMS slave handles NTP, FTP and prometheus metrics scrapes */
 
 void setup(void) {
   Serial.begin(115200);
-  Serial.println();
-  Serial.println("RMS slave 20230610");
+  Serial.println("\nRMS slave 20230614");
+  pinMode(LED_PIN, OUTPUT);
   // Join Network
   joinNet();
   // start OTA
@@ -42,17 +42,18 @@ void loop() {
   waitForData();
   //  check for change of minute
   if ( minute() != oldMin ) minProc();
-  //  check for async activity
-  watchWait(400); 
   // check the network
   checkScan();
-  // feed the dog
-  watchDog = 0;
-  // measure loop times
-  loopTime = millis()-loopStart;
-  LTmin = _min(LTmin,loopTime);
-  LTmax = _max(LTmax,loopTime);
-  Serial.printf("loopTime: %i, Wait for data: %i\n",loopTime,wfdTime);
+  // synchronise with master
+  sync2Master();
+}
+
+void sync2Master() {
+  syncDelay = 0.9*syncDelay+0.1*(1000 - wfdTime%1000);
+  syncDelay += (wfdTime - 100) /20;
+  syncDelay = syncDelay>900?300:syncDelay;
+  Serial.printf("syncDelay: %i, Wait for data: %i, ms:%i\n",syncDelay,wfdTime,(int)(millis()%1000));
+  watchWait(syncDelay);
 }
 
 void checkScan() {

@@ -15,9 +15,7 @@ void setupSPIslave() {
 
   // The master has read out outgoing data buffer
   // that buffer can be set with SPISlave.setData
-  SPISlave.onDataSent([]() {
-    Serial.println(" *");
-   });
+  SPISlave.onDataSent([]() {  });
 
   // status has been received from the master.
   // The status register is a special register that both the slave and the master can write to and read from.
@@ -39,10 +37,11 @@ void setupSPIslave() {
 }
 
 void waitForData() {
+  digitalWrite(LED_PIN,0);
   wfdStart = millis();
   do {
     SPISlave.begin();
-    while (SPIwait) watchWait(100);
+    while (SPIwait) watchWait(10);
     SPIwait = true;
     SPISlave.end(); 
   } while (unloadValues() != true); // bad checksum
@@ -55,6 +54,7 @@ void waitForData() {
   yield(); 
   batteryEnergy();      
   noDataYet = false;   
+  digitalWrite(LED_PIN,1);
 }
 
 bool unloadValues() {
