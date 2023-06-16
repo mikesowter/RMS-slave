@@ -88,6 +88,7 @@ uint8_t oldMin, oldQtr, oldHour, oldDay, oldMonth, offset;
 uint8_t scanSec;
 uint16_t i, oldYear, htmlLen, CstringPtr, syncDelay = 800;
 uint16_t localPort = 4210;          //  must match port assigned in "pulse"
+uint16_t missedCycle = 0;
 uint32_t t0, t1, startMillis, startSeconds, lastScan;
 uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
 uint32_t loopStart, loopTime, LTmin, LTmax;

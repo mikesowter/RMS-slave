@@ -221,18 +221,15 @@ void handleMetrics() {
     addCstring("\nrmsSpareSolar ");
     addCstring(f2s2(avSparekW));
     // housekeeping
-    addCstring("\n# TYPE rmsLoopTimeMin guage" );
-    addCstring("\nrmsLoopTimeMin ");
-    addCstring(f2s2((float)LTmin));
-    addCstring("\n# TYPE rmsLoopTimeMax guage" );
-    addCstring("\nrmsLoopTimeMax ");
-    addCstring(f2s2((float)LTmax));
     addCstring("\n# TYPE rmsWfdTimeMin guage" );
     addCstring("\nrmsWfdTimeMin ");
     addCstring(f2s2((float)WFDmin));
     addCstring("\n# TYPE rmsWfdTimeMax guage" );
     addCstring("\nrmsWfdTimeMax ");
     addCstring(f2s2((float)WFDmax));
+    addCstring("\n# TYPE rmsMissedCycles guage" );
+    addCstring("\nrmsMissedCycles ");
+    addCstring(f2s2((float)missedCycle));
   }
   addCstring( "\n" );
   server.send ( 200, "text/plain", longStr );

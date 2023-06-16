@@ -47,6 +47,7 @@ void waitForData() {
   } while (unloadValues() != true); // bad checksum
   // measure WFD times
   wfdTime = millis()-wfdStart;
+  missedCycle += (uint16_t) (wfdTime/1000);  
   WFDmin = _min(WFDmin,wfdTime);
   WFDmax = _max(WFDmax,wfdTime);
   yield();
@@ -73,6 +74,7 @@ bool unloadValues() {
     Vmax_p = 0.0; 
     offset = 28;
     Vbat = unload2Bytes()/1437.7F;
+    checkSum = 0xFE;
   }
   else {
     if ( pwrOutage ) {

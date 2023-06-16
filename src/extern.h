@@ -83,7 +83,7 @@ extern uint8_t scanSec;
 extern uint8_t SPIdata[];
 extern uint8_t oldMin, oldQtr, oldHour, oldDay, oldMonth, offset;
 extern uint16_t i, oldYear, htmlLen, CstringPtr;
-extern uint16_t localPort;   
+extern uint16_t localPort, missedCycle;   
 extern uint32_t t0, t1, startMillis, startSeconds, lastScan;
 extern uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
 extern uint32_t loopStart, loopTime, LTmin, LTmax;

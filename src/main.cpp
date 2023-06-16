@@ -49,10 +49,10 @@ void loop() {
 }
 
 void sync2Master() {
-  syncDelay = 0.9*syncDelay+0.1*(1000 - wfdTime%1000);
-  syncDelay += (wfdTime - 100) /20;
-  syncDelay = syncDelay>900?300:syncDelay;
-  Serial.printf("syncDelay: %i, Wait for data: %i, ms:%i\n",syncDelay,wfdTime,(int)(millis()%1000));
+  syncDelay = 0.5*syncDelay + 0.5*(1000 - wfdTime%1000);
+  syncDelay += (wfdTime%1000 - 200) /5;
+  syncDelay = syncDelay>900?500:syncDelay;
+  Serial.printf("%s sync: %i, wfd: %i\n",timeStamp(),syncDelay,wfdTime);
   watchWait(syncDelay);
 }
 
