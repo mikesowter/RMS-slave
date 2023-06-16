@@ -49,9 +49,10 @@ void loop() {
 }
 
 void sync2Master() {
-  syncDelay = 0.5*syncDelay + 0.5*(1000 - wfdTime%1000);
-  syncDelay += (wfdTime%1000 - 200) /5;
-  syncDelay = syncDelay>900?500:syncDelay;
+  missedCycle += (uint16_t) (wfdTime/1000);  
+  syncDelay = 1000 - wfdTime%1000;
+  syncDelay += (wfdTime%1000 - 250) /10;
+  syncDelay = syncDelay>800?750:syncDelay;
   Serial.printf("%s sync: %i, wfd: %i\n",timeStamp(),syncDelay,wfdTime);
   watchWait(syncDelay);
 }

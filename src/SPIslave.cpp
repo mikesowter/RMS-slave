@@ -38,6 +38,7 @@ void setupSPIslave() {
 
 void waitForData() {
   digitalWrite(LED_PIN,0);
+  wfdPrev = wfdTime;
   wfdStart = millis();
   do {
     SPISlave.begin();
@@ -47,7 +48,6 @@ void waitForData() {
   } while (unloadValues() != true); // bad checksum
   // measure WFD times
   wfdTime = millis()-wfdStart;
-  missedCycle += (uint16_t) (wfdTime/1000);  
   WFDmin = _min(WFDmin,wfdTime);
   WFDmax = _max(WFDmax,wfdTime);
   yield();

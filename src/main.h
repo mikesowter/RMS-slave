@@ -92,7 +92,7 @@ uint16_t missedCycle = 0;
 uint32_t t0, t1, startMillis, startSeconds, lastScan;
 uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
 uint32_t loopStart, loopTime, LTmin, LTmax;
-uint32_t wfdStart, wfdTime, WFDmin, WFDmax;
+uint32_t wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
 
 
 float T31 = 0.166;    // updated 20220901

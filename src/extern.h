@@ -87,7 +87,7 @@ extern uint16_t localPort, missedCycle;
 extern uint32_t t0, t1, startMillis, startSeconds, lastScan;
 extern uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
 extern uint32_t loopStart, loopTime, LTmin, LTmax;
-extern uint32_t wfdStart, wfdTime, WFDmin, WFDmax;
+extern uint32_t wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
 
 extern float T31;
 extern float T11;
