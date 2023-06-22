@@ -38,6 +38,7 @@ void setupSPIslave() {
 
 void waitForData() {
   digitalWrite(LED_PIN,0);
+  noDataYet = true;
   wfdPrev = wfdTime;
   wfdStart = millis();
   do {

@@ -19,10 +19,6 @@ void handleRoot() {
 }
 
 void handleMetrics() {
-  if ( noDataYet )  {
-  //  diagMess("no Data Yet");
-    waitForData();
-  }
   longStr[0]='\0';
   addCstring("\n# TYPE rmsVbattery guage" );
   addCstring("\nrmsVbattery ");
@@ -30,7 +26,7 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsWifiSignal guage" );
   addCstring("\nrmsWifiSignal ");
   addCstring(f2s2(-WiFi.RSSI()));
-  if ( !pwrOutage ) {
+  if ( !pwrOutage && !noDataYet ) {
     addCstring("\n# TYPE rmsVolts guage" );
     addCstring("\nrmsVolts ");
     addCstring(f2s2(Vrms));
@@ -234,7 +230,6 @@ void handleMetrics() {
   addCstring( "\n" );
   server.send ( 200, "text/plain", longStr );
   // reset max,min for prometheus scan interval
-  noDataYet = true;
   Vmin_n = 500.0F;
   Vmax_n = 0.0F;
   Vmin_p = 500.0F;

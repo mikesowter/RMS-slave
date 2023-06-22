@@ -3,3 +3,4 @@
 .gcc-flags.json
 .vscode
 src/secrets.h
+src/*.txt
