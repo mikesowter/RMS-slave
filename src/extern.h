@@ -45,6 +45,7 @@ void batteryEnergy();
 void updateEnergyFile();
 void updateBatteryFile();
 void setupTime();
+bool calcCheckSum();
 
 #define NTP_PACKET_SIZE 48
 #define TIME_ZONE 10

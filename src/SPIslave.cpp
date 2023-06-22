@@ -38,7 +38,6 @@ void setupSPIslave() {
 
 void waitForData() {
   digitalWrite(LED_PIN,0);
-  noDataYet = true;
   wfdPrev = wfdTime;
   wfdStart = millis();
   do {
@@ -46,12 +45,13 @@ void waitForData() {
     while (SPIwait) watchWait(10);
     SPIwait = true;
     SPISlave.end(); 
-  } while (unloadValues() != true); // bad checksum
+  } while (calcCheckSum() == false); // bad checksum
+
   // measure WFD times
   wfdTime = millis()-wfdStart;
   WFDmin = _min(WFDmin,wfdTime);
   WFDmax = _max(WFDmax,wfdTime);
-  yield();
+  unloadValues();
   dailyEnergy();
   yield(); 
   batteryEnergy();      
@@ -82,8 +82,8 @@ bool unloadValues() {
       pwrOutage = false;
       diagMess("power restored");
     }
+    if (calcCheckSum() == false) return false;
     offset = 0;
-    checkSum = 0;
     float v,w;
     Freq = unload2Bytes()/1000.0;
     if (Freq < 40.0 || Freq > 55.0 ) Freq = 50.0;   // remove freq errors from record
@@ -119,18 +119,11 @@ bool unloadValues() {
   }
   offset = 28;
   Vbat = unload2Bytes()/1437.7F;
-  uint16_t rxSum = checkSum;
-  uint16_t txSum = (uint16_t)unload2Bytes();
-  if (rxSum != txSum) {
-    sprintf(charBuf,"BAD checksum: %X cf %X", rxSum, txSum);
-    diagMess(charBuf);
-    return false;
-  }  
   return true;
 }
 
 float unload2Bytes() {
-  if (offset > 31) {
+  if (offset > 30) {
     diagMess("illegal SPI data offset ");
     return 0.0;
   }
@@ -138,4 +131,20 @@ float unload2Bytes() {
   val += SPIdata[offset++];
   checkSum += val;
   return (float)val;
+}
+
+bool calcCheckSum() {
+  checkSum = 0;
+  offset = 0;
+  while (offset<29) {
+    uint32_t byte = (uint16_t) unload2Bytes();  
+  }
+  uint16_t rxSum = checkSum;    // checksum in bytes 30/31
+  uint16_t txSum = (uint16_t) unload2Bytes();
+  if (rxSum != txSum) {
+    sprintf(charBuf,"BAD checksum: %X cf %X", rxSum, txSum);
+    diagMess(charBuf);
+    return false;
+  }  
+  return true;
 }

@@ -26,7 +26,7 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsWifiSignal guage" );
   addCstring("\nrmsWifiSignal ");
   addCstring(f2s2(-WiFi.RSSI()));
-  if ( !pwrOutage && !noDataYet ) {
+  if ( !pwrOutage ) {
     addCstring("\n# TYPE rmsVolts guage" );
     addCstring("\nrmsVolts ");
     addCstring(f2s2(Vrms));
@@ -240,6 +240,7 @@ void handleMetrics() {
     Wrms_min[i] = 9999.0F;
     Wrms_max[i] = 0.0F;
   }
+  noDataYet = true;
   lastScan = millis();
   scanSec = second();
   WWmin = 9999;
