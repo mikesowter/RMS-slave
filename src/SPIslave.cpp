@@ -63,7 +63,7 @@ bool unloadValues() {
   if ( SPIdata[0] == 0xFF && SPIdata[1] == 0xFF) {
     if ( !pwrOutage ) {
       pwrOutage = true;
-      diagMess("power outage start");
+      diagMess("power outage");
     }
     Freq = 0.0;
     Vrms = 0.0;           
@@ -73,9 +73,13 @@ bool unloadValues() {
     Vmax_n = 0.0;      
     Vmin_p = 0.0;      
     Vmax_p = 0.0; 
+    for (int i=1;i<9;i++) {
+      Wrms_min[i] = 0.0F;
+      Wrms_max[i] = 0.0F;
+    }
+    noDataYet = false;   
     offset = 28;
-    Vbat = unload2Bytes()/1437.7F;
-    checkSum = 0xFE;
+    Vbat = unload2Bytes()/2070.0F*4.2/4.6;  // droop in supply voltage to master
   }
   else {
     if ( pwrOutage ) {
@@ -115,10 +119,10 @@ bool unloadValues() {
     exporting10 = ( Wrms[7]*2.0F > Wrms[1] );      // sim solar > local usage
     // for big load queries (time to start/stop the pool heater?)
     avSparekW = 0.99*avSparekW + 0.01*( Wrms[7] - Wrms[1] );  
-
+    offset = 28;
+    Vbat = unload2Bytes()/2070.0F;
   }
-  offset = 28;
-  Vbat = unload2Bytes()/1437.7F;
+
   return true;
 }
 
@@ -136,15 +140,17 @@ float unload2Bytes() {
 bool calcCheckSum() {
   checkSum = 0;
   offset = 0;
-  while (offset<29) {
-    uint32_t byte = (uint16_t) unload2Bytes();  
-  }
+  while (offset<29) unload2Bytes();  
+  
   uint16_t rxSum = checkSum;    // checksum in bytes 30/31
   uint16_t txSum = (uint16_t) unload2Bytes();
   if (rxSum != txSum) {
     sprintf(charBuf,"BAD checksum: %X cf %X", rxSum, txSum);
     diagMess(charBuf);
-    return false;
+    if ( badSumCount <= 8 ) return false;
+    sprintf(charBuf,"BAD checksum count >= 8, rebooting");
+    diagMess(charBuf);
+    ESP.restart();
   }  
   return true;
 }

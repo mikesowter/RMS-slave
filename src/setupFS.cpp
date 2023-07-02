@@ -21,10 +21,11 @@ void setupFS () {
   Serial.print(fs_info.totalBytes);
   Serial.println(" bytes available");
   Serial.print(fs_info.usedBytes);
-  Serial.println(" bytes used\n");
+  Serial.println(" bytes used");
+  Serial.print(fs_info.blockSize);
+  Serial.println(" blocksize");
+  Serial.print(fs_info.pageSize);
+  Serial.println(" pagesize\n");
 
   LittleFS.setTimeCallback(myTimeCallback);
-
-  fd = LittleFS.open("/diags.txt","a");
-  fe = LittleFS.open("/errmess.txt","a");
 }

@@ -3,21 +3,23 @@
 /*-------- display code ----------*/
 
 void errMess(const char* mess) {
+  fe = LittleFS.open("/diags.txt","a");
   Serial.println(mess);
   fe.print(dateStamp());
   fe.print(" ");
   fe.print(timeStamp());
   fe.println(mess);
-  fe.flush();
+  fe.close();
 }
 
 void diagMess(const char* mess) {
+  fd = LittleFS.open("/diags.txt","a");
   Serial.println(mess);
   fd.print(dateStamp());
   fd.print(" ");
   fd.print(timeStamp());
   fd.println(mess);
-  fd.flush();
+  fd.close();
 }
 
 char* dateStamp() {

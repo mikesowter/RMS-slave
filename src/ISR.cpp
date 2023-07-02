@@ -2,11 +2,8 @@
  
  void ISRwatchDog () {
   watchDog++;
-  if (watchDog >= 10) {
-    errMess("watchDog 10s timeout");
-    delay(10);
-    fd.close();
-    fe.close();
+  if (watchDog >= 20) {
+    errMess("watchDog 20s timeout");
     ESP.restart();
   }
 }

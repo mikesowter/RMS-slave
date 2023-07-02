@@ -26,7 +26,7 @@ void handleMetrics() {
   addCstring("\n# TYPE rmsWifiSignal guage" );
   addCstring("\nrmsWifiSignal ");
   addCstring(f2s2(-WiFi.RSSI()));
-  if ( !pwrOutage ) {
+  if ( !pwrOutage && Wrms_min[1] != 9999.0F ) {
     addCstring("\n# TYPE rmsVolts guage" );
     addCstring("\nrmsVolts ");
     addCstring(f2s2(Vrms));
@@ -223,6 +223,12 @@ void handleMetrics() {
     addCstring("\n# TYPE rmsWfdTimeMax guage" );
     addCstring("\nrmsWfdTimeMax ");
     addCstring(f2s2((float)WFDmax));
+    addCstring("\n# TYPE rmsWaitWatchMin guage" );
+    addCstring("\nrmsWaitWatchMin ");
+    addCstring(f2s2((float)WWmin));
+    addCstring("\n# TYPE rmsWaitWatchMax guage" );
+    addCstring("\nrmsWaitWatchMax ");
+    addCstring(f2s2((float)WWmax));
     addCstring("\n# TYPE rmsMissedCycles guage" );
     addCstring("\nrmsMissedCycles ");
     addCstring(f2s2((float)missedCycle));
@@ -269,8 +275,6 @@ void handleNotFound() {
 //  Serial.println(userText);
   if (strncmp(userText,"/reset",6)==0) {
     errMess("User requested reset");
-    fd.close();
-    fe.close();
     ESP.restart();
   }
   else if (strncmp(userText,"/shutdown",9)==0) {
@@ -280,11 +284,10 @@ void handleNotFound() {
     server.send ( 200, "text/html", charBuf );
   }
   else if (strncmp(userText,"/deldiags",9)==0) {
-    fd.close();
     LittleFS.remove("/diags.txt");
     fd = LittleFS.open("/diags.txt", "a");
     diagMess("diags deleted");
-    fd.flush();
+    fd.close();
     strcpy(charBuf,"<!DOCTYPE html><html><head><HR>Diags deleted<HR></head></html>");
     server.send ( 200, "text/html", charBuf );
   }
@@ -292,22 +295,20 @@ void handleNotFound() {
     LittleFS.remove("/errmess.txt");
     fe = LittleFS.open("/errmess.txt", "a");
     errMess("errors deleted");
-    fe.flush();
+    fe.close();
     strcpy(charBuf,"<!DOCTYPE html><html><head><HR>Errors deleted<HR></head></html>");
     server.send ( 200, "text/html", charBuf );
   }
   else if (LittleFS.exists(userText)) {
-    
     strcpy(longStr,"File: ");
     addCstring(userText);
     addCstring("\r\r");
     fh = LittleFS.open(userText, "r");
-  //  if ( fh.size() > 2000 ) fd.seek(-2000,SeekEnd);
+    if ( fh.size() > 2000 ) fd.seek(2000,SeekEnd);
     while (fh.available()) {
       int k=fh.readBytesUntil('\r',charBuf,160);
       charBuf[k]='\0';
       addCstring(charBuf);
-      delay(10);
     }
     fh.close();
     server.send ( 200, "text/plain", longStr );

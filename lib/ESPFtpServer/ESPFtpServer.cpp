@@ -25,9 +25,6 @@
 #ifdef ESP8266
 #include <ESP8266WiFi.h>
 #endif
-#ifdef ESP32
-#include <WiFi.h>
-#endif
 #include <TimeLib.h>
 
 
@@ -73,7 +70,7 @@ void FtpServer::handleFTP (fs::FS &fs) {
     Serial.println ("-> disconnecting client");
     #endif  
     client.stop ();
-    client = ftpServer.available ();
+    client = ftpServer.accept();
   }
   
   if (cmdStatus == 0) {
@@ -485,7 +482,6 @@ boolean FtpServer::processCommand (fs::FS &fs) {
       uint16_t nm = 0;
       #ifdef ESP8266
       Dir dir = fs.openDir (cwdName);
-      char dtStr[15];
       while (dir.next ()) {
         String fn, fs;
         fn = dir.fileName ();
@@ -730,7 +726,6 @@ boolean FtpServer::processCommand (fs::FS &fs) {
   //
   else if (!strcmp (command, "RNTO")) {  
     char path[FTP_CWD_SIZE];
-    char dir[FTP_FIL_SIZE];
     if (strlen (buf ) == 0 || ! rnfrCmd) {
       client.println ("503 Need RNFR before RNTO");
     }
@@ -826,7 +821,7 @@ boolean FtpServer::dataConnect () {
       #ifdef FTP_DEBUG
       Serial.println ("-> client disconnected from dataserver");
       #endif
-      data = dataServer.available ();
+      data = dataServer.accept ();
       #ifdef FTP_DEBUG
       Serial.println ("-> client connected to dataserver");
       #endif
