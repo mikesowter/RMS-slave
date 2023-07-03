@@ -79,7 +79,7 @@ bool unloadValues() {
     }
     noDataYet = false;   
     offset = 28;
-    Vbat = unload2Bytes()/2070.0F*4.2/4.6;  // droop in supply voltage to master
+    Vbat = unload2Bytes()/1775.0F;  // droop in battery voltage during pwrOutage
   }
   else {
     if ( pwrOutage ) {
@@ -147,8 +147,8 @@ bool calcCheckSum() {
   if (rxSum != txSum) {
     sprintf(charBuf,"BAD checksum: %X cf %X", rxSum, txSum);
     diagMess(charBuf);
-    if ( badSumCount <= 8 ) return false;
-    sprintf(charBuf,"BAD checksum count >= 8, rebooting");
+    if ( badSumCount <= 3 ) return false;
+    sprintf(charBuf,"BAD checksum count > 3, rebooting");
     diagMess(charBuf);
     ESP.restart();
   }  

@@ -14,6 +14,7 @@ void minProc() {
   storeData();                          // write day file every 15mins
   oldHour = hour();
   oldQtr = minute()/15;
+  badSumCount = 0;
   // check for end of day
   if ( day() == oldDay ) return;
   // update time at 00:00:02

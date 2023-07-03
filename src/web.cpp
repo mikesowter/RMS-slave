@@ -351,6 +351,7 @@ void addCstring(const char* s) {
   for (p=0; p<longStrSize; p++) {
     if ( p > longStrSize-32) {
       diagMess("longStrSize exceeded");
+      p = 0;
       break;
     }
     if ( longStr[p] == '\0' ) {
