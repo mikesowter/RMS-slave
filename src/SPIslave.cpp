@@ -147,10 +147,10 @@ bool calcCheckSum() {
   if (rxSum != txSum) {
     sprintf(charBuf,"BAD checksum: %X cf %X", rxSum, txSum);
     diagMess(charBuf);
-    if ( badSumCount <= 3 ) return false;
-    sprintf(charBuf,"BAD checksum count > 3, rebooting");
-    diagMess(charBuf);
-    ESP.restart();
+    watchWait(2000);
+    return false;
+//    if ( badSumCount++ <= 3 ) return false;
+//    sprintf(charBuf,"BAD checksum count > 3, rebooting");
   }  
   return true;
 }

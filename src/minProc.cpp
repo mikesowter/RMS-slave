@@ -1,5 +1,6 @@
 
 #include "extern.h"
+extern float T11_kWh[3];
 
 // scheduled processing
 
@@ -29,18 +30,15 @@ void minProc() {
     Energy[i] = 0.0F;
     costEnergy[i] = 0.0F;
   }
-  T11_kWh = 0.0F;
-  batt_tohouse = 0.0F;
-  batt_togrid = 0.0F;
-  batt_savings = 0.0F;
-  batt_costs = 0.0F;
-  T11_kWh7_5 = 0.0F;
-  batt_tohouse7_5 = 0.0F;
-  batt_togrid7_5 = 0.0F;
-  batt_savings7_5 = 0.0F;
-  T11_kWh10 = 0.0F;
-  batt_tohouse10 = 0.0F;
-  batt_togrid10 = 0.0F;
-  batt_savings10 = 0.0F;
+
+  for (uint8_t ps = 0;ps<3;ps++) {
+  // then through battery size (bs)
+    for (uint8_t bs = 0;bs<3;bs++) {
+      batt_tohouse[ps][bs] = 0.0F;
+      dump_togrid[ps][bs] = 0.0F;
+      batt_savings[ps][bs] = 0.0F;
+    }
+    T11_kWh[ps] = 0.0F;
+  }
   return;
 }  

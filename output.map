@@ -26960,12 +26960,12 @@ END GROUP
  .bss.costEnergy
                 0x000000003ffefff0       0x24 .pio\build\d1_mini\src\main.cpp.o
                 0x000000003ffefff0                costEnergy
- .bss.batt_togrid7_5
+ .bss.dump_togrid7_5
                 0x000000003fff0014        0x4 .pio\build\d1_mini\src\main.cpp.o
-                0x000000003fff0014                batt_togrid7_5
- .bss.batt_togrid
+                0x000000003fff0014                dump_togrid7_5
+ .bss.dump_togrid
                 0x000000003fff0018        0x4 .pio\build\d1_mini\src\main.cpp.o
-                0x000000003fff0018                batt_togrid
+                0x000000003fff0018                dump_togrid
  .bss.incEnergy
                 0x000000003fff001c       0x24 .pio\build\d1_mini\src\main.cpp.o
                 0x000000003fff001c                incEnergy

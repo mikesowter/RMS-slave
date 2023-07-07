@@ -1,5 +1,12 @@
 #include <extern.h>
 
+#define T31 0.2138    // updated 20230701
+#define T11 0.3267    // updated 20230701
+#define FIT 0.08      // updated 20211128
+
+float T11_kWh[3];           // daily sum from grid with each panel size
+float T11_inc[3];           // increment from grid
+
 float NOISE[] = {5,5,5,5,5,5,50,15,5};  // updated 20220725 to handle oven(6) noise
 
 // Energy sums are reset at midnight in minProc
@@ -46,22 +53,11 @@ void dailyEnergy() {
     rate = FIT * split + T11 * (1.0 - split);
     costEnergy[1] += rate * badLoads;
   }
-         
-  if ( exporting ) T11_inc = 0.0;   // just for clarity
-  else {
-    T11_inc = max(0.0F,loads-solar);
-    T11_kWh += T11_inc;
-  }
 
-  if ( exporting7_5 ) T11_inc7_5 = 0.0;   // imaginery panels
-  else {
-    T11_inc7_5 = max(0.0F,loads-solar*1.5F);
-    T11_kWh7_5 += T11_inc7_5;
-  }
-
-  if ( exporting10 ) T11_inc10 = 0.0;   // imaginery panels
-  else {
-    T11_inc10 = max(0.0F,loads-solar*2.0F);
-    T11_kWh10 += T11_inc10;
+  float fact = 1.0F;
+  for (uint8_t ps=0;ps<3;ps++) {      
+    T11_inc[ps] = max(0.0F,loads-(solar*fact));
+    T11_kWh[ps] += T11_inc[ps];
+    fact += 0.5F;
   }
 }

@@ -1,4 +1,5 @@
 #include "extern.h"
+extern float T11_kWh[], T11_inc[];
 
 void handleRoot() {
   longStr[0]='\0';
@@ -7,7 +8,7 @@ void handleRoot() {
   addCstring("\nUsed_kWh ");
   addCstring(f2s4(Energy[1]));
   addCstring("\nT11_kWh ");
-  addCstring(f2s4(T11_kWh));
+  addCstring(f2s4(T11_kWh[0]));
   addCstring("\nT31_kWh ");
   addCstring(f2s4(Energy[5]));
   addCstring("\nsolar_kWh ");
@@ -128,13 +129,13 @@ void handleMetrics() {
     addCstring(f2s4(Energy[8]));
     addCstring("\n# TYPE rmsT11_kWh guage" );
     addCstring("\nrmsT11_kWh ");
-    addCstring(f2s4(T11_kWh));
+    addCstring(f2s4(T11_kWh[0]));
     addCstring("\n# TYPE rmsT11_kWh75 guage" );
     addCstring("\nrmsT11_kWh75 ");
-    addCstring(f2s4(T11_kWh7_5));
+    addCstring(f2s4(T11_kWh[1]));
     addCstring("\n# TYPE rmsT11_kWh10 guage" );
     addCstring("\nrmsT11_kWh10 ");
-    addCstring(f2s4(T11_kWh10));
+    addCstring(f2s4(T11_kWh[2]));
     
   // costs
     addCstring("\n# TYPE rmsCost1 guage" ); //heat pumps
@@ -162,57 +163,54 @@ void handleMetrics() {
     addCstring("\nrmsCost8 ");
     addCstring(f2s2(costEnergy[8]));
   // battery simulation
-    extern float batt_tohouse, batt_togrid, batt_charge;
+    extern float batt_tohouse[3][3], dump_togrid[3][3], batt_charge[3][3];
     addCstring("\n# TYPE rmsBatteryFlow guage" );
     addCstring("\nrmsBatteryFlow ");
     addCstring(f2s4(solar-loads));
     addCstring("\n# TYPE rmsBatteryCharge guage" );
     addCstring("\nrmsBatteryCharge ");
-    addCstring(f2s2(batt_charge));
+    addCstring(f2s2(batt_charge[0][0]));
     addCstring("\n# TYPE rmsBatteryOverflow guage" );
     addCstring("\nrmsBatteryOverflow ");
-    addCstring(f2s2(batt_togrid));
+    addCstring(f2s2(dump_togrid[0][0]));
     addCstring("\n# TYPE rmsT11reduction guage" );
     addCstring("\nrmsT11reduction ");
-    addCstring(f2s2(batt_tohouse));
+    addCstring(f2s2(batt_tohouse[0][0]));
     addCstring("\n# TYPE rmsBatterySaving guage" );
     addCstring("\nrmsBatterySaving ");
-    addCstring(f2s2(batt_savings));
-    addCstring("\n# TYPE rmsT31costs guage" );
-    addCstring("\nrmsT31costs ");
-    addCstring(f2s2(batt_costs));
-    extern float batt_tohouse7_5, batt_togrid7_5, batt_charge7_5;
+    addCstring(f2s2(batt_savings[0][0]));
+
     addCstring("\n# TYPE rmsBatteryFlow75 guage" );
     addCstring("\nrmsBatteryFlow75 ");
     addCstring(f2s4(1.5*solar-loads));
     addCstring("\n# TYPE rmsBatteryCharge75 guage" );
     addCstring("\nrmsBatteryCharge75 ");
-    addCstring(f2s2(batt_charge7_5));
+    addCstring(f2s2(batt_charge[1][0]));
     addCstring("\n# TYPE rmsBatteryOverflow75 guage" );
     addCstring("\nrmsBatteryOverflow75 ");
-    addCstring(f2s2(batt_togrid7_5));
+    addCstring(f2s2(dump_togrid[1][0]));
     addCstring("\n# TYPE rmsT11reduction75 guage" );
     addCstring("\nrmsT11reduction75 ");
-    addCstring(f2s2(batt_tohouse7_5));
+    addCstring(f2s2(batt_tohouse[1][0]));
     addCstring("\n# TYPE rmsBatterySaving75 guage" );
     addCstring("\nrmsBatterySaving75 ");
-    addCstring(f2s2(batt_savings7_5));
-    extern float batt_tohouse10, batt_togrid10, batt_charge10;
+    addCstring(f2s2(batt_savings[1][0]));
+
     addCstring("\n# TYPE rmsBatteryFlow10 guage" );
     addCstring("\nrmsBatteryFlow10 ");
     addCstring(f2s4(2.0*solar-loads));
     addCstring("\n# TYPE rmsBatteryCharge10 guage" );
     addCstring("\nrmsBatteryCharge10 ");
-    addCstring(f2s2(batt_charge10));
+    addCstring(f2s2(batt_charge[2][0]));
     addCstring("\n# TYPE rmsBatteryOverflow10 guage" );
     addCstring("\nrmsBatteryOverflow10 ");
-    addCstring(f2s2(batt_togrid10));
+    addCstring(f2s2(dump_togrid[2][0]));
     addCstring("\n# TYPE rmsT11reduction10 guage" );
     addCstring("\nrmsT11reduction10 ");
-    addCstring(f2s2(batt_tohouse10));
+    addCstring(f2s2(batt_tohouse[2][0]));
     addCstring("\n# TYPE rmsBatterySaving10 guage" );
     addCstring("\nrmsBatterySaving10 ");
-    addCstring(f2s2(batt_savings10));    
+    addCstring(f2s2(batt_savings[2][0]));    
     addCstring("\n# TYPE rmsSpareSolar guage" );
     addCstring("\nrmsSpareSolar ");
     addCstring(f2s2(avSparekW));
@@ -317,21 +315,7 @@ void handleNotFound() {
   }
   else if (strncmp(userText,"/apple",6)==0) {
   }
-  else if (strncmp(userText,"/battCGH",8)==0) {
-    char* tok;
-    tok = strtok(userText,",");
-    tok = strtok(NULL,",");
-    batt_charge = (float)atof(tok);
-    tok = strtok(NULL,",");
-    batt_togrid = (float)atof(tok);
-    tok = strtok(NULL," ");
-    batt_tohouse = (float)atof(tok);
-    sprintf(charBuf,"sim battery charge: %s",f2s2(batt_charge));
-    diagMess(charBuf);  
-    strcpy(charBuf,"<!DOCTYPE html><html><head><HR>battery data updated<HR></head></html>");
-    server.send ( 200, "text/html", charBuf );
-  }
-   else if (strncmp(userText,"/spareSol",9)==0) {
+  else if (strncmp(userText,"/spareSol",9)==0) {
     strcpy(longStr,"\n# TYPE rmsSpareSolar guage");
     strcat(longStr,"\nrmsSpareSolar ");
     strcat(longStr,f2s2(avSparekW));

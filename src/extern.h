@@ -90,9 +90,6 @@ extern uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
 extern uint32_t loopStart, loopTime, LTmin, LTmax;
 extern uint32_t wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
 
-extern float T31;
-extern float T11;
-extern float FIT;
 extern float Wrms[];					    // Sum of sampled V*I
 extern float Irms[];					    // root sum I^2
 extern float Vrms,Vpk_neg,Vpk_pos;			// root sum V^2, -Vp, +Vp
@@ -104,18 +101,12 @@ extern float Vmax_n, Vmax_p;
 extern float Wrms_min[];		
 extern float Wrms_max[];	
 extern float Energy[];	
-extern float incEnergy[];
-extern float costEnergy[];
-extern float batt_charge;
-extern float batt_tohouse, batt_togrid;
-extern float batt_savings, batt_costs;
-extern float batt_charge7_5;
-extern float batt_tohouse7_5, batt_togrid7_5;
-extern float batt_savings7_5, batt_costs7_5;
-extern float batt_charge10;
-extern float batt_tohouse10, batt_togrid10;
-extern float batt_savings10, batt_costs10;
+extern float incEnergy[], costEnergy[];
+
+extern float panelCap[];
+extern float BattCap[];
+extern float excessSolar[], batt_savings[3][3];    // first index is solar, 2nd is battery size
+extern float batt_tohouse[3][3], batt_charge[3][3], dump_togrid[3][3];
 
 extern float loads, solar, avSparekW;
-extern float T11_kWh, T11_inc, T11_kWh7_5, T11_inc7_5, T11_kWh10, T11_inc10;
 extern float Vbat;
