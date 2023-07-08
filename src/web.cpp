@@ -1,4 +1,5 @@
 #include "extern.h"
+char promName[15];
 extern float T11_kWh[], T11_inc[];
 
 void handleRoot() {
@@ -162,7 +163,54 @@ void handleMetrics() {
     addCstring("\n# TYPE rmsCost8 guage" );
     addCstring("\nrmsCost8 ");
     addCstring(f2s2(costEnergy[8]));
-  // battery simulation
+    // battery simulation
+    for (uint8_t ps = 0;ps<3;ps++) {
+      strcpy(promName,"rmsExcessP0 ");
+      promName[10] = ps + '0';
+      addCstring("\n# TYPE ");
+      addCstring(promName);
+      addCstring("guage\n" );
+      addCstring(promName);
+      addCstring(f2s2(excessSolar[ps]));
+      for (uint8_t bs = 0;bs<3;bs++) {
+        strcpy(promName,"rmsChargeP0B0 ");
+        promName[10] = ps + '0';
+        promName[12] = bs + '0';
+        addCstring("\n# TYPE ");
+        addCstring(promName);
+        addCstring("guage\n" );
+        addCstring(promName);
+        addCstring(f2s2(batt_charge[ps][bs]));
+
+        strcpy(promName,"rmsToGridP0B0 ");
+        promName[10] = ps + '0';
+        promName[12] = bs + '0';
+        addCstring("\n# TYPE ");
+        addCstring(promName);
+        addCstring("guage\n" );
+        addCstring(promName);
+        addCstring(f2s2(dump_togrid[ps][bs]));
+
+        strcpy(promName,"rmsToHousP0B0 ");
+        promName[10] = ps + '0';
+        promName[12] = bs + '0';
+        addCstring("\n# TYPE ");
+        addCstring(promName);
+        addCstring("guage\n" );
+        addCstring(promName);
+        addCstring(f2s2(batt_tohouse[ps][bs]));
+
+        strcpy(promName,"rmsSavingP0B0 ");
+        promName[10] = ps + '0';
+        promName[12] = bs + '0';
+        addCstring("\n# TYPE ");
+        addCstring(promName);
+        addCstring("guage\n" );
+        addCstring(promName);
+        addCstring(f2s2(batt_savings[ps][bs]));
+      }
+    }
+
     extern float batt_tohouse[3][3], dump_togrid[3][3], batt_charge[3][3];
     addCstring("\n# TYPE rmsBatteryFlow guage" );
     addCstring("\nrmsBatteryFlow ");
