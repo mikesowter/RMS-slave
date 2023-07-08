@@ -1,6 +1,7 @@
 #include "extern.h"
 char promName[15];
 extern float T11_kWh[], T11_inc[];
+extern float batt_tohouse[3][3], dump_togrid[3][3], batt_charge[3][3];
 
 void handleRoot() {
   longStr[0]='\0';
@@ -210,55 +211,6 @@ void handleMetrics() {
         addCstring(f2s2(batt_savings[ps][bs]));
       }
     }
-
-    extern float batt_tohouse[3][3], dump_togrid[3][3], batt_charge[3][3];
-    addCstring("\n# TYPE rmsBatteryFlow guage" );
-    addCstring("\nrmsBatteryFlow ");
-    addCstring(f2s4(solar-loads));
-    addCstring("\n# TYPE rmsBatteryCharge guage" );
-    addCstring("\nrmsBatteryCharge ");
-    addCstring(f2s2(batt_charge[0][0]));
-    addCstring("\n# TYPE rmsBatteryOverflow guage" );
-    addCstring("\nrmsBatteryOverflow ");
-    addCstring(f2s2(dump_togrid[0][0]));
-    addCstring("\n# TYPE rmsT11reduction guage" );
-    addCstring("\nrmsT11reduction ");
-    addCstring(f2s2(batt_tohouse[0][0]));
-    addCstring("\n# TYPE rmsBatterySaving guage" );
-    addCstring("\nrmsBatterySaving ");
-    addCstring(f2s2(batt_savings[0][0]));
-
-    addCstring("\n# TYPE rmsBatteryFlow75 guage" );
-    addCstring("\nrmsBatteryFlow75 ");
-    addCstring(f2s4(1.5*solar-loads));
-    addCstring("\n# TYPE rmsBatteryCharge75 guage" );
-    addCstring("\nrmsBatteryCharge75 ");
-    addCstring(f2s2(batt_charge[1][0]));
-    addCstring("\n# TYPE rmsBatteryOverflow75 guage" );
-    addCstring("\nrmsBatteryOverflow75 ");
-    addCstring(f2s2(dump_togrid[1][0]));
-    addCstring("\n# TYPE rmsT11reduction75 guage" );
-    addCstring("\nrmsT11reduction75 ");
-    addCstring(f2s2(batt_tohouse[1][0]));
-    addCstring("\n# TYPE rmsBatterySaving75 guage" );
-    addCstring("\nrmsBatterySaving75 ");
-    addCstring(f2s2(batt_savings[1][0]));
-
-    addCstring("\n# TYPE rmsBatteryFlow10 guage" );
-    addCstring("\nrmsBatteryFlow10 ");
-    addCstring(f2s4(2.0*solar-loads));
-    addCstring("\n# TYPE rmsBatteryCharge10 guage" );
-    addCstring("\nrmsBatteryCharge10 ");
-    addCstring(f2s2(batt_charge[2][0]));
-    addCstring("\n# TYPE rmsBatteryOverflow10 guage" );
-    addCstring("\nrmsBatteryOverflow10 ");
-    addCstring(f2s2(dump_togrid[2][0]));
-    addCstring("\n# TYPE rmsT11reduction10 guage" );
-    addCstring("\nrmsT11reduction10 ");
-    addCstring(f2s2(batt_tohouse[2][0]));
-    addCstring("\n# TYPE rmsBatterySaving10 guage" );
-    addCstring("\nrmsBatterySaving10 ");
-    addCstring(f2s2(batt_savings[2][0]));    
     addCstring("\n# TYPE rmsSpareSolar guage" );
     addCstring("\nrmsSpareSolar ");
     addCstring(f2s2(avSparekW));

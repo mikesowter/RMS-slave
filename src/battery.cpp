@@ -31,7 +31,7 @@ void batteryEnergy() {
         if (batt_charge[ps][bs] < battCap[bs]) {
           batt_charge[ps][bs] += excessSolar[ps];   // add to battery
           if ( batt_charge[ps][bs] > battCap[bs]) {
-            dump_togrid[ps][bs] -= (batt_charge[ps][bs] - battCap[bs]);
+            dump_togrid[ps][bs] += (batt_charge[ps][bs] - battCap[bs]);
             batt_charge[ps][bs] = battCap[bs];
           }
         }
@@ -43,12 +43,12 @@ void batteryEnergy() {
         if (batt_charge[ps][bs] > battCap[bs]/50.0) { // battery > 2% batcap
           batt_charge[ps][bs] += excessSolar[ps];
           batt_tohouse[ps][bs] -= excessSolar[ps]; 
-          batt_savings[ps][bs] = batt_tohouse[ps][bs]*(T11-FIT);
         }
         else {    // not enough battery
           batt_charge[ps][bs] = battCap[bs]/50.0;
         }
       }
+      batt_savings[ps][bs] = batt_tohouse[ps][bs]*(T11-FIT);
     }
   }
 }

@@ -32,7 +32,7 @@ void dailyEnergy() {
       costEnergy[i] += T31 * incEnergy[i];        // hotwater tariff
     }
     else if ( i == 7 ) {
-      costEnergy[i] += FIT * max(0.0F,solar-loads); // exported solar
+      costEnergy[i] += FIT * max(0.0F,spareSolar); // exported solar
     }
     else if ( solar > loads ) {                   // all provided by solar
       costEnergy[i] += FIT * incEnergy[i];
@@ -53,6 +53,8 @@ void dailyEnergy() {
     rate = FIT * split + T11 * (1.0 - split);
     costEnergy[1] += rate * badLoads;
   }
+
+// all above is calc'ed on real values, 5kW and no battery. The next calc's the impact of simulated extra panels on T11
 
   float fact = 1.0F;
   for (uint8_t ps=0;ps<3;ps++) {      
