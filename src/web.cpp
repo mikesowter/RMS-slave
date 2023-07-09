@@ -302,7 +302,7 @@ void handleNotFound() {
     addCstring(userText);
     addCstring("\r\r");
     fh = LittleFS.open(userText, "r");
-    if ( fh.size() > 2000 ) fd.seek(2000,SeekEnd);
+    if ( fh.size() > 2000 ) fd.seek(-2000,SeekEnd);
     while (fh.available()) {
       int k=fh.readBytesUntil('\r',charBuf,160);
       charBuf[k]='\0';

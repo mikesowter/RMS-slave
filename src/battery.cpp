@@ -48,7 +48,8 @@ void batteryEnergy() {
           batt_charge[ps][bs] = battCap[bs]/50.0;
         }
       }
-      batt_savings[ps][bs] = batt_tohouse[ps][bs]*(T11-FIT);
+      batt_savings[ps][bs] = batt_tohouse[ps][bs]*T11;                
+      batt_savings[ps][bs] += dump_togrid[ps][bs]*FIT-costEnergy[7];  // model-actual feedins
     }
   }
 }

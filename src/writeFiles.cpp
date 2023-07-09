@@ -65,9 +65,10 @@ void updateBatteryFile() {
   fh.printf("\n%02d/%02d/%4d,",day(),month(),year());
   for (uint8_t ps = 0;ps<3;ps++) {
     for (uint8_t bs = 0;bs<3;bs++) {
-      fh.printf("%.2f,%.2f,%.2f,%.2f",
+      fh.printf(",%.2f,%.2f,%.2f,%.2f",
              batt_charge[ps][bs], batt_tohouse[ps][bs], dump_togrid[ps][bs], batt_savings[ps][bs]); 
     }
   }
+  fh.printf("\n");
   fh.close();
 }

@@ -1,13 +1,12 @@
- /* RMS slave unloads any async behaviour from RMS master
-which has a 104us capture loop which cant be interrupted
-
-RMS slave handles NTP, FTP and prometheus metrics scrapes */
+ /* RMS slave offloads any async behaviour from RMS master
+which has a 104us capture loop which can't be interrupted
+ */
 
 #include <main.h>
 
 void setup(void) {
   Serial.begin(115200);
-  Serial.println("\nRMS slave 20230625");
+  Serial.println("\nRMS slave 20230709");
   pinMode(LED_PIN, OUTPUT);
   // Join Network
   joinNet();
