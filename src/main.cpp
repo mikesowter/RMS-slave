@@ -7,6 +7,8 @@ which has a 104us capture loop which can't be interrupted
 void setup(void) {
   Serial.begin(115200);
   Serial.println("\nRMS slave 20230709");
+  digitalWrite(MASTER_RESET,1);
+  pinMode(MASTER_RESET, OUTPUT);
   pinMode(LED_PIN, OUTPUT);
   // Join Network
   joinNet();
@@ -22,7 +24,7 @@ void setup(void) {
 	resetDetail.toCharArray(charBuf,resetDetail.length()+1);
   diagMess(charBuf); 				// only give detail
   // recover previous values from prometheus
-   getLastScan();   
+  getLastScan();   
   // setup server
   server.on ( "/", handleRoot );
   server.on ( "/dir", handleDir );

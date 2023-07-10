@@ -172,7 +172,7 @@ void handleMetrics() {
       addCstring(promName);
       addCstring("guage\n" );
       addCstring(promName);
-      addCstring(f2s2(excessSolar[ps]));
+      addCstring(f2s5(excessSolar[ps]));
       for (uint8_t bs = 0;bs<3;bs++) {
         strcpy(promName,"rmsChargeP0B0 ");
         promName[10] = ps + '0';
@@ -332,9 +332,9 @@ void handleNotFound() {
 void addCstring(const char* s) {
   // find end of longStr
   uint16_t p;
-  for (p=0; p<longStrSize; p++) {
-    if ( p > longStrSize-32) {
-      diagMess("longStrSize exceeded");
+  for (p=0; p<LONG_STR_SIZE; p++) {
+    if ( p > LONG_STR_SIZE-32) {
+      diagMess("LONG_STR_SIZE exceeded");
       p = 0;
       break;
     }
@@ -343,7 +343,7 @@ void addCstring(const char* s) {
     }
   }
   uint16_t q = 0;
-  for ( ; p<longStrSize; p++ ) {
+  for ( ; p<LONG_STR_SIZE; p++ ) {
     longStr[p] = s[q];
     if ( s[q++] == '\0' ) break;
   }
@@ -351,8 +351,8 @@ void addCstring(const char* s) {
 } 
 /*  why doesnt this work?
 void addCstring(const char* s) {
-  if ( CstringPtr > longStrSize-strlen(s) ) {
-    diagMess("longStrSize exceeded");
+  if ( CstringPtr > LONG_STR_SIZE-strlen(s) ) {
+    diagMess("LONG_STR_SIZE exceeded");
     return;
   }  
   for ( uint16_t q = 0; strlen(s); q++ ) {

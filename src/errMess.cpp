@@ -60,6 +60,12 @@ char* f2s4(float f) {
   return fltStr;
 }
 
+// convert float into char string ddddd.dddd
+char* f2s5(float f) {
+  dtostrf((double)f, 0, 5, fltStr);
+  return fltStr;
+}
+
 
 // convert integer into a 2 Hex string dd
 char* i2sh(uint8_t b) {

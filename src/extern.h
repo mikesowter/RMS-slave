@@ -23,6 +23,7 @@ char* timeStamp();
 char* dateStamp();
 char* f2s2(float f);
 char* f2s4(float f);
+char* f2s5(float f);
 char* i2sd(uint8_t b);
 char* i2sh(uint8_t b);
 void diagMess(const char*);
@@ -49,9 +50,10 @@ bool calcCheckSum();
 
 #define NTP_PACKET_SIZE 48
 #define TIME_ZONE 10
-#define longStrSize 10000
+#define LONG_STR_SIZE 10000
 #define NUM_CIRCUITS 8 
 #define FS_ID LittleFS
+#define MASTER_RESET D3
 #define LED_PIN D4
 
 extern WiFiUDP udp;

@@ -13,11 +13,11 @@ const char ssid[] = "*************";  //  your network SSID (name)
 const char pass[] = "********";       // your network password
 
 // NTP Servers:
-static const char ntpServerName[] = "us.pool.ntp.org";
-//static const char ntpServerName[] = "time.nist.gov";
-//static const char ntpServerName[] = "time-a.timefreq.bldrdoc.gov";
-//static const char ntpServerName[] = "time-b.timefreq.bldrdoc.gov";
-//static const char ntpServerName[] = "time-c.timefreq.bldrdoc.gov";
+static const char NTP_SERVER_NAME[] = "us.pool.ntp.org";
+//static const char NTP_SERVER_NAME[] = "time.nist.gov";
+//static const char NTP_SERVER_NAME[] = "time-a.timefreq.bldrdoc.gov";
+//static const char NTP_SERVER_NAME[] = "time-b.timefreq.bldrdoc.gov";
+//static const char NTP_SERVER_NAME[] = "time-c.timefreq.bldrdoc.gov";
 
 const int timeZone = 1;     // Central European Time
 //const int timeZone = -5;  // Eastern Standard Time (USA)
@@ -108,8 +108,8 @@ time_t getNtpTime()
   while (Udp.parsePacket() > 0) ; // discard any previously received packets
   Serial.println("Transmit NTP Request");
   // get a random server from the pool
-  WiFi.hostByName(ntpServerName, ntpServerIP);
-  Serial.print(ntpServerName);
+  WiFi.hostByName(NTP_SERVER_NAME, ntpServerIP);
+  Serial.print(NTP_SERVER_NAME);
   Serial.print(": ");
   Serial.println(ntpServerIP);
   sendNTPpacket(ntpServerIP);

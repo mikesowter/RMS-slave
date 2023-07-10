@@ -27,7 +27,7 @@ void batteryEnergy() {
   for (uint8_t ps = 0;ps<3;ps++) {
   // then through battery size (bs)
     for (uint8_t bs = 0;bs<3;bs++) {
-      if (excessSolar[ps] > 0.0) {         // +ive is charging
+      if (excessSolar[ps] > 0.0) {                  // +ive is charging
         if (batt_charge[ps][bs] < battCap[bs]) {
           batt_charge[ps][bs] += excessSolar[ps];   // add to battery
           if ( batt_charge[ps][bs] > battCap[bs]) {
@@ -39,9 +39,13 @@ void batteryEnergy() {
           dump_togrid[ps][bs] += excessSolar[ps];   // dump to grid
         }
       }
-      else {                           // -ive is discharging
+      else {                                          // -ive is discharging
         if (batt_charge[ps][bs] > battCap[bs]/50.0) { // battery > 2% batcap
           batt_charge[ps][bs] += excessSolar[ps];
+          if ( batt_charge[ps][bs] < battCap[bs]/50.0) {                // marginally too low
+          batt_tohouse[ps][bs] += (batt_charge[ps][bs] - battCap[bs]/50.0);  // less to house 
+          batt_charge[ps][bs] = battCap[bs]/50.0;                       // battery at minimum
+          }
           batt_tohouse[ps][bs] -= excessSolar[ps]; 
         }
         else {    // not enough battery

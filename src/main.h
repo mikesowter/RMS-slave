@@ -45,13 +45,15 @@ bool calcCheckSum();
 String resetReason = "Restart caused by " + ESP.getResetReason();
 String resetDetail = ESP.getResetInfo();
 
-#define ntpServerName "au.pool.ntp.org"
+#define NTP_SERVER_NAME "au.pool.ntp.org"
 #define NTP_PACKET_SIZE 48
 #define BUFFER_SIZE 128
 #define TIME_ZONE 10
-#define longStrSize 10000
+#define LONG_STR_SIZE 10000
 #define NUM_CIRCUITS 8
+#define MASTER_RESET D3
 #define LED_PIN D4
+
 
 ESP8266WebServer server( 80 );
 FtpServer ftpSrv;
@@ -75,7 +77,7 @@ char charBuf[256];
 char d2Str[] = "01";
 char d8Str[8];
 char fltStr[12];
-char longStr[longStrSize];  
+char longStr[LONG_STR_SIZE];  
 
 IPAddress localIP, timeServerIP;
 IPAddress ip(192, 168, 1, 56); 

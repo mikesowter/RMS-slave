@@ -20,7 +20,7 @@ const uint8_t BUFFER_SIZE = 100;
 uint8_t len;
 uint8_t byteBuf[BUFFER_SIZE];
 IPAddress ausTimeServerIP,localTimeServerIP={192,168,1,6};
-const char* ntpServerName = "au.pool.ntp.org";
+const char* NTP_SERVER_NAME = "au.pool.ntp.org";
 const uint8_t TIME_ZONE = 10;
 const uint32_t TO_1970 = 2208988800UL;
 unsigned long from_1900, GMT;   
@@ -39,7 +39,7 @@ unsigned long getTime() {
   //
   //   Aus pool server
   //
-  WiFi.hostByName(ntpServerName, ausTimeServerIP);
+  WiFi.hostByName(NTP_SERVER_NAME, ausTimeServerIP);
   uint32_t ms = millis();
   while ( millis() - ms < 5000 ) {
     sendNTPrequest(ausTimeServerIP);

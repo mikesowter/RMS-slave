@@ -144,10 +144,13 @@ bool calcCheckSum() {
   if (rxSum != txSum) {
     sprintf(charBuf,"BAD checksum: %X cf %X", rxSum, txSum);
     diagMess(charBuf);
-    watchWait(2000);
-    return false;
-//    if ( badSumCount++ <= 3 ) return false;
-//    sprintf(charBuf,"BAD checksum count > 3, rebooting");
+    if ( ++badSumCount < 4 ) return false;
+    sprintf(charBuf,"rebooting master");
+    diagMess(charBuf);
+    digitalWrite(MASTER_RESET,0);
+    delayMicroseconds(5);
+    digitalWrite(MASTER_RESET,1);
+    delay(100);
   }  
   return true;
 }
