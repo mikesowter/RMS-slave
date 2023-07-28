@@ -45,7 +45,7 @@ void waitForData() {
     while (SPIwait) watchWait(10);
     SPIwait = true;
     SPISlave.end(); 
-  } while (calcCheckSum() == false); // bad checksum
+  } while ( !checkSumOk() ); // bad checksum
 
   // measure WFD times
   wfdTime = millis()-wfdStart;
@@ -86,7 +86,7 @@ bool unloadValues() {
       pwrOutage = false;
       diagMess("power restored");
     }
-    if (calcCheckSum() == false) return false;
+    if ( !checkSumOk() ) return false;
     offset = 0;
     float v,w;
     Freq = unload2Bytes()/1000.0;
@@ -134,23 +134,27 @@ float unload2Bytes() {
   return (float)val;
 }
 
-bool calcCheckSum() {
+bool checkSumOk() {
   checkSum = 0;
   offset = 0;
   while (offset<29) unload2Bytes();  
   
-  uint16_t rxSum = checkSum;    // checksum in bytes 30/31
-  uint16_t txSum = (uint16_t) unload2Bytes();
-  if (rxSum != txSum) {
-    sprintf(charBuf,"BAD checksum: %X cf %X", rxSum, txSum);
-    diagMess(charBuf);
-    if ( ++badSumCount < 4 ) return false;
-    sprintf(charBuf,"rebooting master");
-    diagMess(charBuf);
-    digitalWrite(MASTER_RESET,0);
-    delayMicroseconds(5);
-    digitalWrite(MASTER_RESET,1);
-    delay(100);
-  }  
-  return true;
+  uint16_t rxSum = checkSum;                   // sum of bytes 0-29 calc'd by receiver
+  uint16_t txSum = (uint16_t) unload2Bytes();  // sum of bytes 0-29 calc'd by transmitter
+  if (rxSum == txSum) return true;
+
+  sprintf(charBuf,"checksum");
+  diagMess(charBuf);
+  if ( ++badSumCount < 3 ) return false;
+
+  sprintf(charBuf,"rebooting master");
+  diagMess(charBuf);
+  digitalWrite(MASTER_RESET,0);
+  delayMicroseconds(100);
+  digitalWrite(MASTER_RESET,1);
+  sprintf(charBuf,"rebooting slave");
+  diagMess(charBuf);
+
+  ESP.restart();
+  return true;   // needed for compiler
 }

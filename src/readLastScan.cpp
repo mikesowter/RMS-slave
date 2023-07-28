@@ -3,6 +3,8 @@
 #include <TimeLib.h>
  
 #define NUM_CIRCUITS 8
+#define LONG_STR_SIZE 10000
+
 extern float Energy[NUM_CIRCUITS+1], costEnergy[NUM_CIRCUITS+1];
 extern float T11_kWh[3];	
 extern char longStr[];
@@ -88,7 +90,6 @@ void getLastScan() {
 float readProm(char* unit) {
   #include <ESP8266WiFi.h>
   WiFiClient client;
-  char reply[1024];
   uint16_t replyPtr, numPtr;
   uint32_t t = now()-36000;   // back to zulu time
 
@@ -96,7 +97,7 @@ float readProm(char* unit) {
   char Str1[] = "GET /api/v1/query_range?query=";
   char Str2[] = "&start=";   
   char Str3[12];
-  dtostrf((double)(t-600), 0, 0, Str3);  // start 600s before now
+  dtostrf((double)(t-1800), 0, 0, Str3);  // start 30m before now
   char Str4[] = "&end=";
   char Str5[12];
   dtostrf((double)t, 0, 0, Str5);
@@ -121,17 +122,17 @@ float readProm(char* unit) {
     Serial.print(query);
     while (client.connected() || client.available()) {
       if (client.available()) {
-        reply[replyPtr++] = client.read();
-        if ( replyPtr > 1000 ) {
-          diagMess("prometheus reply > 1000 bytes");
+        longStr[replyPtr++] = client.read();
+        if ( replyPtr > LONG_STR_SIZE ) {
+          diagMess("prometheus reply > LONG_STR_SIZE");
           return 0.0;
         }
       }
     }
     if (replyPtr > 20) {
       for (numPtr = replyPtr-8; numPtr>replyPtr-18; numPtr-- ) {
-        if (reply[numPtr] == '\"') {
-          value = atof(reply+numPtr+1);
+        if (longStr[numPtr] == '\"') {
+          value = atof(longStr+numPtr+1);
           Serial.printf("%s:%.3f\n\n",unit,value);
           numPtr = 0;
           break;

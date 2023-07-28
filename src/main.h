@@ -40,7 +40,7 @@ void checkScan();
 void getLastScan();
 void setupFS();
 void sync2Master();
-bool calcCheckSum();
+bool checkSumOk();
 
 String resetReason = "Restart caused by " + ESP.getResetReason();
 String resetDetail = ESP.getResetInfo();

@@ -40,20 +40,21 @@ void batteryEnergy() {
         }
       }
       else {                                          // -ive is discharging
-        if (batt_charge[ps][bs] > battCap[bs]/50.0) { // battery > 2% batcap
+        float battMin = battCap[bs]/50.0F;
+        if (batt_charge[ps][bs] > battMin) { // battery > 2% batcap
           batt_charge[ps][bs] += excessSolar[ps];
-          if ( batt_charge[ps][bs] < battCap[bs]/50.0) {                // marginally too low
-          batt_tohouse[ps][bs] += (batt_charge[ps][bs] - battCap[bs]/50.0);  // less to house 
-          batt_charge[ps][bs] = battCap[bs]/50.0;                       // battery at minimum
+          if ( batt_charge[ps][bs] < battMin) {                // marginally too low
+          batt_tohouse[ps][bs] += (batt_charge[ps][bs] - battMin);  // less to house 
+          batt_charge[ps][bs] = battMin;                       // battery at minimum
           }
-          batt_tohouse[ps][bs] -= excessSolar[ps]; 
+          else batt_tohouse[ps][bs] -= excessSolar[ps]; 
         }
         else {    // not enough battery
-          batt_charge[ps][bs] = battCap[bs]/50.0;
+          batt_charge[ps][bs] = battMin;
         }
       }
       batt_savings[ps][bs] = batt_tohouse[ps][bs]*T11;                
-      batt_savings[ps][bs] += dump_togrid[ps][bs]*FIT-costEnergy[7];  // model-actual feedins
+      batt_savings[ps][bs] += dump_togrid[ps][bs]*FIT-costEnergy[7];  // model-actual feedin
     }
   }
 }
