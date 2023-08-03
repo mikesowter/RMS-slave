@@ -37,12 +37,16 @@ void helpPage() {
   addCstring("<P>");
   addCstring("dir");
   addCstring("<P>");
+  addCstring("goback24");
+  addCstring("<P>");
   addCstring("metrics");
   addCstring("<P>");
   addCstring("reset");
   addCstring("<P>");
   addCstring("shutdown");
   addCstring("<HR>");
+  addCstring("spareSol");
+  addCstring("<P>");
   addCstring( "<HR></body></html>" );
   server.send ( 200, "text/html", longStr );
   //Serial.println(longStr);

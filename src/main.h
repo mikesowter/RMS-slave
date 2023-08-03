@@ -64,9 +64,10 @@ File fh,fd,fe;
 Ticker secondTick;
 volatile uint8_t watchDog = 0;
 
-bool SPIwait = true;     // wait for data in SPI slave loop
-bool noDataYet = true;  // no data from RMS master yet, values false
+bool SPIwait = true;     // wait for data in SPI slave loop?
+bool noDataYet = true;   // no data from RMS master yet?
 bool waterOn, exporting, exporting7_5, exporting10, scanFail, T31charging, pwrOutage;
+bool back24 = false;     // get scan data from same time testerday?
 char fileName[] = "/XXXyymmdd.csv";
 char todayName[] = "/XXXyymmdd.csv";
 char userText[30];

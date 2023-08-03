@@ -150,8 +150,9 @@ bool checkSumOk() {
   sprintf(charBuf,"rebooting master");
   diagMess(charBuf);
   digitalWrite(MASTER_RESET,0);
-  delayMicroseconds(100);
+  delayMicroseconds(10);
   digitalWrite(MASTER_RESET,1);
+  delay(1000);
   sprintf(charBuf,"rebooting slave");
   diagMess(charBuf);
 

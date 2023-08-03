@@ -2,6 +2,7 @@
 char promName[15];
 extern float T11_kWh[], T11_inc[];
 extern float batt_tohouse[3][3], dump_togrid[3][3], batt_charge[3][3];
+extern bool back24;
 
 void handleRoot() {
   longStr[0]='\0';
@@ -321,8 +322,14 @@ void handleNotFound() {
     strcat(longStr,f2s2(avSparekW));
     strcat(longStr,"\n" );
     server.send ( 200, "text/plain", longStr ); 
-}
-    else {
+  }
+  else if (strncmp(userText,"/goback24",9)==0) {
+    back24 = true;
+    getLastScan();
+    back24 = false;
+    errMess("data recovered from yesterday");
+  }
+  else {
     strcpy(charBuf,userText);
     strcat(charBuf," is not a valid option");
     errMess(charBuf);

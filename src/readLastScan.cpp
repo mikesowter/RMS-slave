@@ -11,6 +11,7 @@ extern char longStr[];
 void diagMess(const char* mess);
 extern float batt_savings[3][3];    // first index is solar, 2nd is battery size
 extern float batt_tohouse[3][3], batt_charge[3][3], dump_togrid[3][3];
+extern bool back24;
 
 float readProm(char* unit);
  
@@ -92,6 +93,7 @@ float readProm(char* unit) {
   WiFiClient client;
   uint16_t replyPtr, numPtr;
   uint32_t t = now()-36000;   // back to zulu time
+  if ( back24 ) t -= 24*3600; // same time yesterday
 
   char host[] = "192.168.1.24";   // RPi-2 prometheus and influx server
   char Str1[] = "GET /api/v1/query_range?query=";
