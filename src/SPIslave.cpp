@@ -146,16 +146,16 @@ bool checkSumOk() {
   sprintf(charBuf,"checksum");
   diagMess(charBuf);
   if ( ++badSumCount < 3 ) return false;
-
+  badSumCount = 0;
   sprintf(charBuf,"rebooting master");
   diagMess(charBuf);
   digitalWrite(MASTER_RESET,0);
   delayMicroseconds(10);
   digitalWrite(MASTER_RESET,1);
   delay(1000);
-  sprintf(charBuf,"rebooting slave");
-  diagMess(charBuf);
+//  sprintf(charBuf,"rebooting slave");
+//  diagMess(charBuf);
 
-  ESP.restart();
+//  ESP.restart();
   return true;   // needed for compiler
 }
