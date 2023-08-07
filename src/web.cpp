@@ -2,7 +2,7 @@
 char promName[15];
 extern float T11_kWh[], T11_inc[];
 extern float batt_tohouse[3][3], dump_togrid[3][3], batt_charge[3][3];
-extern bool back24;
+extern uint8_t gobackhrs;
 
 void handleRoot() {
   longStr[0]='\0';
@@ -324,9 +324,15 @@ void handleNotFound() {
     server.send ( 200, "text/plain", longStr ); 
   }
   else if (strncmp(userText,"/goback24",9)==0) {
-    back24 = true;
+    gobackhrs = 24;
     getLastScan();
-    back24 = false;
+    gobackhrs = 0;
+    errMess("data recovered from yesterday");
+  }
+  else if (strncmp(userText,"/goback8",8)==0) {
+    gobackhrs = 8;
+    getLastScan();
+    gobackhrs = 0;
     errMess("data recovered from yesterday");
   }
   else {

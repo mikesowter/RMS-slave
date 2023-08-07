@@ -37,7 +37,7 @@ void helpPage() {
   addCstring("<P>");
   addCstring("dir");
   addCstring("<P>");
-  addCstring("goback24");
+  addCstring("goback:nn");
   addCstring("<P>");
   addCstring("metrics");
   addCstring("<P>");
