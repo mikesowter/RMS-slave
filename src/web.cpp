@@ -328,12 +328,16 @@ void handleNotFound() {
     getLastScan();
     gobackhrs = 0;
     errMess("data recovered from yesterday");
+    strcpy(charBuf,"<!DOCTYPE html><html><head><HR>back 24hrs<HR></head></html>");
+    server.send ( 200, "text/html", charBuf );
   }
-  else if (strncmp(userText,"/goback8",8)==0) {
-    gobackhrs = 8;
+  else if (strncmp(userText,"/goback48",9)==0) {
+    gobackhrs = 48;
     getLastScan();
     gobackhrs = 0;
-    errMess("data recovered from yesterday");
+    errMess("data recovered from 2 days back");
+    strcpy(charBuf,"<!DOCTYPE html><html><head><HR>back 48hrs<HR></head></html>");
+    server.send ( 200, "text/html", charBuf );
   }
   else {
     strcpy(charBuf,userText);
