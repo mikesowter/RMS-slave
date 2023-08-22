@@ -78,8 +78,6 @@ bool unloadValues() {
       Wrms_max[i] = 0.0F;
     }
     noDataYet = false;   
-    offset = 28;
-    Vbat = unload2Bytes()/1775.0F;  // droop in battery voltage during pwrOutage
   }
   else {
     if ( pwrOutage ) {
@@ -116,10 +114,10 @@ bool unloadValues() {
     if ( Wrms[5] > 1000 ) waterOn = true;
     // for big load queries (time to start/stop the pool heater?)
     avSparekW = 0.99*avSparekW + 0.01*( Wrms[7] - Wrms[1] );  
-    offset = 28;
-    Vbat = unload2Bytes()/2070.0F;
-  }
 
+  }
+  offset = 28;
+  Vbat = unload2Bytes()/2070.0F;
   return true;
 }
 
@@ -150,7 +148,7 @@ bool checkSumOk() {
   sprintf(charBuf,"rebooting master");
   diagMess(charBuf);
   digitalWrite(MASTER_RESET,0);
-  delayMicroseconds(10);
+  delayMicroseconds(100);
   digitalWrite(MASTER_RESET,1);
   delay(1000);
 //  sprintf(charBuf,"rebooting slave");

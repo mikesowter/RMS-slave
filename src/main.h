@@ -50,10 +50,17 @@ String resetDetail = ESP.getResetInfo();
 #define BUFFER_SIZE 128
 #define TIME_ZONE 10
 #define LONG_STR_SIZE 10000
-#define NUM_CIRCUITS 8
-#define MASTER_RESET D3
-#define LED_PIN D4
 
+#define RMS8 8
+#ifdef RMS8
+    #define NUM_CIRCUITS 7
+    #define MASTER_RESET D3
+    #define LED_PIN D4
+#else
+    #define NUM_CIRCUITS 8
+    #define MASTER_RESET D3
+    #define LED_PIN D4
+#endif
 
 ESP8266WebServer server( 80 );
 FtpServer ftpSrv;
@@ -81,7 +88,11 @@ char fltStr[12];
 char longStr[LONG_STR_SIZE];  
 
 IPAddress localIP, timeServerIP;
-IPAddress ip(192, 168, 1, 56); 
+#ifdef RMS8
+    IPAddress ip(192, 168, 1, 62); 
+#else
+    IPAddress ip(192, 168, 1, 56); 
+#endif
 IPAddress gateway(192, 168, 1, 1);
 IPAddress subnet(255, 255, 255, 0);
 IPAddress dns(192, 168, 1, 1);
@@ -99,7 +110,8 @@ uint32_t loopStart, loopTime, LTmin, LTmax;
 uint32_t wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
 
 float Wrms[NUM_CIRCUITS+1];					// Sum of sampled V*I
-/*  scan Wrms[] load
+/*  RMS16:
+    scan Wrms[] load
     cct0 1  total import to house
     cct1 2  bedrooms 1&2
     cct2 3  kitchen lounge

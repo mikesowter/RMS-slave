@@ -22,39 +22,42 @@ void handleRoot() {
   server.send ( 200, "text/plain", longStr );
 }
 
+void promform(const char* pname,float lval, uint8_t res) {
+  char fltStr[12];
+  dtostrf((double)lval, 0, res, fltStr);
+  sprintf(charBuf,"\n# TYPE %s guage\n%s %s",pname, pname, fltStr);
+  strcat(longStr,charBuf);
+}
+
 void handleMetrics() {
-  longStr[0]='\0';
-  addCstring("\n# TYPE rmsVbattery guage" );
-  addCstring("\nrmsVbattery ");
-  addCstring(f2s2(Vbat));
-  addCstring("\n# TYPE rmsWifiSignal guage" );
-  addCstring("\nrmsWifiSignal ");
-  addCstring(f2s2(-WiFi.RSSI()));
+  longStr[0] = '\0';
+#ifdef RMS8
+  promform("rms8Vbattery", Vbat, 2);
+  promform("rms8WifiSignal", -WiFi.RSSI(), 0);
+  promform("rms8Vbattery", Vbat, 2);
+  promform("rms8WifiSignal", -WiFi.RSSI(), 0);
+  promform("rms8Volts", Vrms, 2);
+  promform("rms8Vmin", Vrms_min, 2);
+  promform("rms8Vmax", Vrms_max, 2);
+  promform("rms8Vpmin_p", Vmin_p, 2);
+  promform("rms8Vpmax_p", Vmax_p, 2);
+  promform("rms8Vpmin_n", Vmin_n, 2);
+  promform("rms8Vpmax_n", Vmax_n, 2);
+  promform("rms8Freq", Freq, 4);
+#else
+  promform("rmsVbattery", Vbat, 2);
+  promform("rmsWifiSignal", -WiFi.RSSI(), 0);
+  promform("rmsVolts", Vrms, 2);
+  promform("rmsVmin", Vrms_min, 2);
+  promform("rmsVmax", Vrms_max, 2);
+  promform("rmsVpmin_p", Vmin_p, 2);
+  promform("rmsVpmax_p", Vmax_p, 2);
+  promform("rmsVpmin_n", Vmin_n, 2);
+  promform("rmsVpmax_n", Vmax_n, 2);
+  promform("rmsFreq", Freq, 4);
+#endif
+/*
   if ( !pwrOutage && Wrms_min[1] != 9999.0F ) {
-    addCstring("\n# TYPE rmsVolts guage" );
-    addCstring("\nrmsVolts ");
-    addCstring(f2s2(Vrms));
-    addCstring("\n# TYPE rmsVmin guage" );
-    addCstring("\nrmsVmin ");
-    addCstring(f2s2(Vrms_min));
-    addCstring("\n# TYPE rmsVmax guage" );
-    addCstring("\nrmsVmax ");
-    addCstring(f2s2(Vrms_max));
-    addCstring("\n# TYPE rmsVpmin_p guage" );
-    addCstring("\nrmsVpmin_p ");
-    addCstring(f2s2(Vmin_p));
-    addCstring("\n# TYPE rmsVpmax_p guage" );
-    addCstring("\nrmsVpmax_p ");
-    addCstring(f2s2(Vmax_n));
-    addCstring("\n# TYPE rmsVpmin_n guage" );
-    addCstring("\nrmsVpmin_n ");
-    addCstring(f2s2(Vmin_n));
-    addCstring("\n# TYPE rmsVpmax_n guage" );
-    addCstring("\nrmsVpmax_n ");
-    addCstring(f2s2(Vmax_n));
-    addCstring("\n# TYPE rmsFreq guage" );
-    addCstring("\nrmsFreq ");
-    addCstring(f2s4(Freq));
 
     addCstring("\n# TYPE rmsPwr_min1 guage" ); //total import
     addCstring("\nrmsPwr_min1 ");
@@ -232,7 +235,7 @@ void handleMetrics() {
     addCstring("\nrmsMissedCycles ");
     addCstring(f2s2((float)missedCycle));
   }
-  addCstring( "\n" );
+  addCstring( "\n" ); */
   server.send ( 200, "text/plain", longStr );
   // reset max,min for prometheus scan interval
   Vmin_n = 500.0F;

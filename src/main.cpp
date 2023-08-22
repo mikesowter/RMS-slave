@@ -4,9 +4,14 @@ which has a 104us capture loop which can't be interrupted
 
 #include <main.h>
 
+
 void setup(void) {
   Serial.begin(115200);
-  Serial.println("\nRMS slave 20230719");
+  #ifdef RMS8
+    Serial.println("\nRMS8 slave 20230822");
+  #else
+    Serial.println("\nRMS16 slave 20230822");
+  #endif
   digitalWrite(MASTER_RESET,1);
   pinMode(MASTER_RESET, OUTPUT);
   pinMode(LED_PIN, OUTPUT);

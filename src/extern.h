@@ -56,6 +56,7 @@ bool checkSumOk();
 #define FS_ID LittleFS
 #define MASTER_RESET D3
 #define LED_PIN D4
+#define RMS8 8
 
 extern WiFiUDP udp;
 extern WiFiClient client;

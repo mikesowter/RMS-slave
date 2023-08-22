@@ -1,7 +1,7 @@
 #include <arduino.h>
 #include <ESP8266WiFi.h>
 #include <TimeLib.h>
- 
+#define RMS8
 #define NUM_CIRCUITS 8
 #define LONG_STR_SIZE 10000
 
@@ -16,6 +16,10 @@ extern uint8_t gobackhrs;
 float readProm(char* unit);
  
 void getLastScan() {
+  #ifdef RMS8
+    return;
+  #endif
+
   Serial.println("reading last values from prometheus");
   uint32_t querystart = millis();
   char unit[20];
