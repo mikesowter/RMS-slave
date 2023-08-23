@@ -54,7 +54,9 @@ void waitForData() {
   unloadValues();
   dailyEnergy();
   yield(); 
+#ifndef RMS8
   batteryEnergy();      
+#endif
   noDataYet = false;   
   digitalWrite(LED_PIN,1);
 }

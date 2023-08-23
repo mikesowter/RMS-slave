@@ -4,6 +4,13 @@ extern float T11_kWh[], T11_inc[];
 extern float batt_tohouse[3][3], dump_togrid[3][3], batt_charge[3][3];
 extern uint8_t gobackhrs;
 
+void promform(const char* pname,float lval, uint8_t res) {
+  char fltStr[12];
+  dtostrf((double)lval, 0, res, fltStr);
+  sprintf(charBuf,"\n# TYPE %s guage\n%s %s",pname, pname, fltStr);
+  strcat(longStr,charBuf);
+}
+
 void handleRoot() {
   longStr[0]='\0';
   addCstring("\nVolts ");
@@ -18,22 +25,13 @@ void handleRoot() {
   addCstring(f2s4(Energy[7]));
   addCstring("\nWifiSignal ");
   addCstring(f2s2(-WiFi.RSSI()));
-
   server.send ( 200, "text/plain", longStr );
 }
 
-void promform(const char* pname,float lval, uint8_t res) {
-  char fltStr[12];
-  dtostrf((double)lval, 0, res, fltStr);
-  sprintf(charBuf,"\n# TYPE %s guage\n%s %s",pname, pname, fltStr);
-  strcat(longStr,charBuf);
-}
 
 void handleMetrics() {
   longStr[0] = '\0';
 #ifdef RMS8
-  promform("rms8Vbattery", Vbat, 2);
-  promform("rms8WifiSignal", -WiFi.RSSI(), 0);
   promform("rms8Vbattery", Vbat, 2);
   promform("rms8WifiSignal", -WiFi.RSSI(), 0);
   promform("rms8Volts", Vrms, 2);
@@ -56,127 +54,62 @@ void handleMetrics() {
   promform("rmsVpmax_n", Vmax_n, 2);
   promform("rmsFreq", Freq, 4);
 #endif
-/*
+
   if ( !pwrOutage && Wrms_min[1] != 9999.0F ) {
+// power
+    promform("rmsPwr_min1", Wrms_min[1], 2);
+    promform("rmsPwr_min2", Wrms_min[2], 2);
+    promform("rmsPwr_min3", Wrms_min[3], 2);
+    promform("rmsPwr_min4", Wrms_min[4], 2);
+    promform("rmsPwr_min5", Wrms_min[5], 2);
+    promform("rmsPwr_min6", Wrms_min[6], 2);
+    promform("rmsPwr_min7", Wrms_min[7], 2);
+    promform("rmsPwr_min8", Wrms_min[8], 2);
 
-    addCstring("\n# TYPE rmsPwr_min1 guage" ); //total import
-    addCstring("\nrmsPwr_min1 ");
-    addCstring(f2s2(Wrms_min[1]));
-    addCstring("\n# TYPE rmsPwr_min2 guage" ); //cct1 bedrooms 1&2
-    addCstring("\nrmsPwr_min2 ");
-    addCstring(f2s2(Wrms_min[2]));
-    addCstring("\n# TYPE rmsPwr_min3 guage" ); //cct2 kitchen lounge
-    addCstring("\nrmsPwr_min3 ");
-    addCstring(f2s2(Wrms_min[3]));
-    addCstring("\n# TYPE rmsPwr_min4 guage" ); //cct3 downstairs
-    addCstring("\nrmsPwr_min4 ");
-    addCstring(f2s2(Wrms_min[4]));
-    addCstring("\n# TYPE rmsPwr_min5 guage" ); //hotwater
-    addCstring("\nrmsPwr_min5 ");
-    addCstring(f2s2(Wrms_min[5]));
-    addCstring("\n# TYPE rmsPwr_min6 guage" ); //oven
-    addCstring("\nrmsPwr_min6 ");
-    addCstring(f2s2(Wrms_min[6]));
-    addCstring("\n# TYPE rmsPwr_min7 guage" ); //solar
-    addCstring("\nrmsPwr_min7 ");
-    addCstring(f2s2(Wrms_min[7]));
-    addCstring("\n# TYPE rmsPwr_min8 guage" ); //lights
-    addCstring("\nrmsPwr_min8 ");
-    addCstring(f2s2(Wrms_min[8]));
-
-    addCstring("\n# TYPE rmsPwr_max1 guage" );
-    addCstring("\nrmsPwr_max1 ");
-    addCstring(f2s2(Wrms_max[1]));
-    addCstring("\n# TYPE rmsPwr_max2 guage" );
-    addCstring("\nrmsPwr_max2 ");
-    addCstring(f2s2(Wrms_max[2]));
-    addCstring("\n# TYPE rmsPwr_max3 guage" );
-    addCstring("\nrmsPwr_max3 ");
-    addCstring(f2s2(Wrms_max[3]));
-    addCstring("\n# TYPE rmsPwr_max4 guage" );
-    addCstring("\nrmsPwr_max4 ");
-    addCstring(f2s2(Wrms_max[4]));
-    addCstring("\n# TYPE rmsPwr_max5 guage" );
-    addCstring("\nrmsPwr_max5 ");
-    addCstring(f2s2(Wrms_max[5]));
-    addCstring("\n# TYPE rmsPwr_max6 guage" );
-    addCstring("\nrmsPwr_max6 ");
-    addCstring(f2s2(Wrms_max[6]));
-    addCstring("\n# TYPE rmsPwr_max7 guage" );
-    addCstring("\nrmsPwr_max7 ");
-    addCstring(f2s2(Wrms_max[7]));
-    addCstring("\n# TYPE rmsPwr_max8 guage" );
-    addCstring("\nrmsPwr_max8 ");
-    addCstring(f2s2(Wrms_max[8]));            
-  // energy
-    addCstring("\n# TYPE rmsEnergy1 guage" );
-    addCstring("\nrmsEnergy1 ");
-    addCstring(f2s4(Energy[1]));
-    addCstring("\n# TYPE rmsEnergy2 guage" );
-    addCstring("\nrmsEnergy2 ");
-    addCstring(f2s4(Energy[2]));
-    addCstring("\n# TYPE rmsEnergy3 guage" );
-    addCstring("\nrmsEnergy3 ");
-    addCstring(f2s4(Energy[3]));
-    addCstring("\n# TYPE rmsEnergy4 guage" );
-    addCstring("\nrmsEnergy4 ");
-    addCstring(f2s4(Energy[4]));
-    addCstring("\n# TYPE rmsEnergy5 guage" );
-    addCstring("\nrmsEnergy5 ");
-    addCstring(f2s4(Energy[5]));
-    addCstring("\n# TYPE rmsEnergy6 guage" );
-    addCstring("\nrmsEnergy6 ");
-    addCstring(f2s4(Energy[6]));
-    addCstring("\n# TYPE rmsEnergy7 guage" );
-    addCstring("\nrmsEnergy7 ");
-    addCstring(f2s4(Energy[7]));
-    addCstring("\n# TYPE rmsEnergy8 guage" );
-    addCstring("\nrmsEnergy8 ");
-    addCstring(f2s4(Energy[8]));
-    addCstring("\n# TYPE rmsT11_kWh guage" );
-    addCstring("\nrmsT11_kWh ");
-    addCstring(f2s4(T11_kWh[0]));
-    addCstring("\n# TYPE rmsT11_kWh75 guage" );
-    addCstring("\nrmsT11_kWh75 ");
-    addCstring(f2s4(T11_kWh[1]));
-    addCstring("\n# TYPE rmsT11_kWh10 guage" );
-    addCstring("\nrmsT11_kWh10 ");
-    addCstring(f2s4(T11_kWh[2]));
-    
-  // costs
-    addCstring("\n# TYPE rmsCost1 guage" ); //heat pumps
-    addCstring("\nrmsCost1 ");
-    addCstring(f2s2(costEnergy[1]));
-    addCstring("\n# TYPE rmsCost2 guage" );
-    addCstring("\nrmsCost2 ");
-    addCstring(f2s2(costEnergy[2]));
-    addCstring("\n# TYPE rmsCost3 guage" );
-    addCstring("\nrmsCost3 ");
-    addCstring(f2s2(costEnergy[3]));
-    addCstring("\n# TYPE rmsCost4 guage" );
-    addCstring("\nrmsCost4 ");
-    addCstring(f2s2(costEnergy[4]));
-    addCstring("\n# TYPE rmsCost5 guage" );
-    addCstring("\nrmsCost5 ");
-    addCstring(f2s2(costEnergy[5]));
-    addCstring("\n# TYPE rmsCost6 guage" );
-    addCstring("\nrmsCost6 ");
-    addCstring(f2s2(costEnergy[6]));
-    addCstring("\n# TYPE rmsCost7 guage" ); //FIT
-    addCstring("\nrmsCost7 ");
-    addCstring(f2s4(costEnergy[7]));
-    addCstring("\n# TYPE rmsCost8 guage" );
-    addCstring("\nrmsCost8 ");
-    addCstring(f2s2(costEnergy[8]));
-    // battery simulation
+    promform("rmsPwr_max1", Wrms_max[1], 2);
+    promform("rmsPwr_max2", Wrms_max[2], 2);
+    promform("rmsPwr_max3", Wrms_max[3], 2);
+    promform("rmsPwr_max4", Wrms_max[4], 2);
+    promform("rmsPwr_max5", Wrms_max[5], 2);
+    promform("rmsPwr_max6", Wrms_max[6], 2);
+    promform("rmsPwr_max7", Wrms_max[7], 2);
+    promform("rmsPwr_max8", Wrms_max[8], 2);
+// energy
+    promform("rmsEnergy1", Energy[1], 2);
+    promform("rmsEnergy2", Energy[2], 2);
+    promform("rmsEnergy3", Energy[3], 2);
+    promform("rmsEnergy4", Energy[4], 2);
+    promform("rmsEnergy5", Energy[5], 2);
+    promform("rmsEnergy6", Energy[6], 2);
+    promform("rmsEnergy7", Energy[7], 2);
+    promform("rmsEnergy8", Energy[8], 2);
+#ifndef RMS8
+    promform("rmsT11_kWh", T11_kWh[0], 4);
+    promform("rmsT11_kWh75", T11_kWh[1], 4);
+    promform("rmsT11_kWh10", T11_kWh[2], 4);
+#endif
+// costs
+    promform("rmsCost1", costEnergy[1], 2);
+    promform("rmsCost2", costEnergy[2], 2);
+    promform("rmsCost3", costEnergy[3], 2);
+    promform("rmsCost4", costEnergy[4], 2);
+    promform("rmsCost5", costEnergy[5], 2);
+    promform("rmsCost6", costEnergy[6], 2);
+    promform("rmsCost7", costEnergy[7], 2);
+    promform("rmsCost8", costEnergy[8], 2);
+#ifndef RMS8
+// battery simulation
     for (uint8_t ps = 0;ps<3;ps++) {
       strcpy(promName,"rmsExcessP0 ");
       promName[10] = ps + '0';
-      addCstring("\n# TYPE ");
-      addCstring(promName);
-      addCstring("guage\n" );
-      addCstring(promName);
-      addCstring(f2s5(excessSolar[ps]));
+      promform(promName,excessSolar[ps],5);
+
+            addCstring("\n# TYPE ");
+            addCstring(promName);
+            addCstring("guage\n" );
+            addCstring(promName);
+            addCstring(f2s5(excessSolar[ps]));
+
       for (uint8_t bs = 0;bs<3;bs++) {
         strcpy(promName,"rmsChargeP0B0 ");
         promName[10] = ps + '0';
@@ -215,27 +148,15 @@ void handleMetrics() {
         addCstring(f2s2(batt_savings[ps][bs]));
       }
     }
-    addCstring("\n# TYPE rmsSpareSolar guage" );
-    addCstring("\nrmsSpareSolar ");
-    addCstring(f2s2(avSparekW));
+#endif
+    promform("rmsSpareSolar", avSparekW, 2);
     // housekeeping
-    addCstring("\n# TYPE rmsWfdTimeMin guage" );
-    addCstring("\nrmsWfdTimeMin ");
-    addCstring(f2s2((float)WFDmin));
-    addCstring("\n# TYPE rmsWfdTimeMax guage" );
-    addCstring("\nrmsWfdTimeMax ");
-    addCstring(f2s2((float)WFDmax));
-    addCstring("\n# TYPE rmsWaitWatchMin guage" );
-    addCstring("\nrmsWaitWatchMin ");
-    addCstring(f2s2((float)WWmin));
-    addCstring("\n# TYPE rmsWaitWatchMax guage" );
-    addCstring("\nrmsWaitWatchMax ");
-    addCstring(f2s2((float)WWmax));
-    addCstring("\n# TYPE rmsMissedCycles guage" );
-    addCstring("\nrmsMissedCycles ");
-    addCstring(f2s2((float)missedCycle));
+    promform("rmsWfdTimeMin", (float)WFDmin, 0);
+    promform("rmsWfdTimeMax", (float)WFDmax, 0);
+    promform("rmsWaitWatchMin", (float)WWmin, 0);
+    promform("rmsWaitWatchMax", (float)WWmax, 0);
+    promform("rmsMissedCycles", (float)missedCycle, 0);
   }
-  addCstring( "\n" ); */
   server.send ( 200, "text/plain", longStr );
   // reset max,min for prometheus scan interval
   Vmin_n = 500.0F;
@@ -369,16 +290,3 @@ void addCstring(const char* s) {
   }
   htmlLen = p;
 } 
-/*  why doesnt this work?
-void addCstring(const char* s) {
-  if ( CstringPtr > LONG_STR_SIZE-strlen(s) ) {
-    diagMess("LONG_STR_SIZE exceeded");
-    return;
-  }  
-  for ( uint16_t q = 0; strlen(s); q++ ) {
-    longStr[CstringPtr++] = s[q];
-  }
-  longStr[CstringPtr] = '\0'; 
-***********************************************************  or just: 
-  strcat( longStr, s );        // is it leaky? 
-  */
