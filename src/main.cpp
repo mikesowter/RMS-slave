@@ -112,7 +112,7 @@ void setupTime() {
   oldYear = year();
   Serial.printf("\nDate:%s Time:%s\n",dateStamp(),timeStamp());
   // generate file name for day
-  strcpy(todayName,"/rm");
+  strcpy(todayName,"/RM");
   strcat(todayName,dateStamp());
   strcat(todayName,".csv");
 }

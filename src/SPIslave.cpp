@@ -45,8 +45,8 @@ void waitForData() {
     while (SPIwait) watchWait(10);
     SPIwait = true;
     SPISlave.end(); 
-  } while ( !checkSumOk() ); // bad checksum
-
+    if (millis() > wfdStart + 30000) break;  // for minProc
+  } while ( !checkSumOk() ); // bad checksum 
   // measure WFD times
   wfdTime = millis()-wfdStart;
   WFDmin = _min(WFDmin,wfdTime);
@@ -55,7 +55,7 @@ void waitForData() {
   dailyEnergy();
   yield(); 
 #ifndef RMS8
-  batteryEnergy();      
+  batteryEnergy();   // battery simulation only useful on original meter
 #endif
   noDataYet = false;   
   digitalWrite(LED_PIN,1);
