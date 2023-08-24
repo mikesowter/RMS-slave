@@ -13,18 +13,18 @@ void promform(const char* pname,float lval, uint8_t res) {
 
 void handleRoot() {
   longStr[0]='\0';
-  addCstring("\nVolts ");
-  addCstring(f2s2(Vrms));
-  addCstring("\nUsed_kWh ");
-  addCstring(f2s4(Energy[1]));
-  addCstring("\nT11_kWh ");
-  addCstring(f2s4(T11_kWh[0]));
-  addCstring("\nT31_kWh ");
-  addCstring(f2s4(Energy[5]));
-  addCstring("\nsolar_kWh ");
-  addCstring(f2s4(Energy[7]));
-  addCstring("\nWifiSignal ");
-  addCstring(f2s2(-WiFi.RSSI()));
+  strcat(longStr,"\nVolts ");
+  strcat(longStr,f2s2(Vrms));
+  strcat(longStr,"\nUsed_kWh ");
+  strcat(longStr,f2s4(Energy[1]));
+  strcat(longStr,"\nT11_kWh ");
+  strcat(longStr,f2s4(T11_kWh[0]));
+  strcat(longStr,"\nT31_kWh ");
+  strcat(longStr,f2s4(Energy[5]));
+  strcat(longStr,"\nsolar_kWh ");
+  strcat(longStr,f2s4(Energy[7]));
+  strcat(longStr,"\nWifiSignal ");
+  strcat(longStr,f2s2(-WiFi.RSSI()));
   server.send ( 200, "text/plain", longStr );
 }
 
@@ -104,52 +104,36 @@ void handleMetrics() {
       promName[10] = ps + '0';
       promform(promName,excessSolar[ps],5);
 
-            addCstring("\n# TYPE ");
-            addCstring(promName);
-            addCstring("guage\n" );
-            addCstring(promName);
-            addCstring(f2s5(excessSolar[ps]));
-
       for (uint8_t bs = 0;bs<3;bs++) {
         strcpy(promName,"rmsChargeP0B0 ");
         promName[10] = ps + '0';
         promName[12] = bs + '0';
-        addCstring("\n# TYPE ");
-        addCstring(promName);
-        addCstring("guage\n" );
-        addCstring(promName);
-        addCstring(f2s2(batt_charge[ps][bs]));
+        promform(promName,batt_charge[ps][bs],2);
+      }
 
+      for (uint8_t bs = 0;bs<3;bs++) {
         strcpy(promName,"rmsToGridP0B0 ");
         promName[10] = ps + '0';
         promName[12] = bs + '0';
-        addCstring("\n# TYPE ");
-        addCstring(promName);
-        addCstring("guage\n" );
-        addCstring(promName);
-        addCstring(f2s2(dump_togrid[ps][bs]));
+        promform(promName,dump_togrid[ps][bs],2);
+      }
 
+      for (uint8_t bs = 0;bs<3;bs++) {
         strcpy(promName,"rmsToHousP0B0 ");
         promName[10] = ps + '0';
         promName[12] = bs + '0';
-        addCstring("\n# TYPE ");
-        addCstring(promName);
-        addCstring("guage\n" );
-        addCstring(promName);
-        addCstring(f2s2(batt_tohouse[ps][bs]));
+        promform(promName,batt_tohouse[ps][bs],2);
+      }
 
+      for (uint8_t bs = 0;bs<3;bs++) {
         strcpy(promName,"rmsSavingP0B0 ");
         promName[10] = ps + '0';
         promName[12] = bs + '0';
-        addCstring("\n# TYPE ");
-        addCstring(promName);
-        addCstring("guage\n" );
-        addCstring(promName);
-        addCstring(f2s2(batt_savings[ps][bs]));
+        promform(promName,batt_savings[ps][bs],2);
       }
     }
-#endif
     promform("rmsSpareSolar", avSparekW, 2);
+  #endif
     // housekeeping
     promform("rmsWfdTimeMin", (float)WFDmin, 0);
     promform("rmsWfdTimeMax", (float)WFDmax, 0);
@@ -224,14 +208,14 @@ void handleNotFound() {
   }
   else if (LittleFS.exists(userText)) {
     strcpy(longStr,"File: ");
-    addCstring(userText);
-    addCstring("\r\r");
+    strcat(longStr,userText);
+    strcat(longStr,"\r\r");
     fh = LittleFS.open(userText, "r");
     if ( fh.size() > 2000 ) fd.seek(-2000,SeekEnd);
     while (fh.available()) {
       int k=fh.readBytesUntil('\r',charBuf,160);
       charBuf[k]='\0';
-      addCstring(charBuf);
+      strcat(longStr,charBuf);
     }
     fh.close();
     server.send ( 200, "text/plain", longStr );
@@ -270,23 +254,4 @@ void handleNotFound() {
     helpPage();
   }
 }
-void addCstring(const char* s) {
-  // find end of longStr
-  uint16_t p;
-  for (p=0; p<LONG_STR_SIZE; p++) {
-    if ( p > LONG_STR_SIZE-32) {
-      diagMess("LONG_STR_SIZE exceeded");
-      p = 0;
-      break;
-    }
-    if ( longStr[p] == '\0' ) {
-      break;    // p now points to end of old string
-    }
-  }
-  uint16_t q = 0;
-  for ( ; p<LONG_STR_SIZE; p++ ) {
-    longStr[p] = s[q];
-    if ( s[q++] == '\0' ) break;
-  }
-  htmlLen = p;
-} 
+

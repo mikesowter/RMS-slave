@@ -36,7 +36,6 @@ void ISRwatchDog();
 void waitForData();
 void minProc();
 void watchWait(uint32_t);
-void addCstring(const char* s);
 void dirList();
 void joinNet();
 byte storeData();

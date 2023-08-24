@@ -105,15 +105,15 @@ bool unloadValues() {
     if ( Vmin_n > -400.0 && Vmax_p < 400.0) {       // remove spurious surge power from the record
       for (uint8_t p=1 ; p<(NUM_CIRCUITS+1) ; p++) { 
         w = unload2Bytes();
-        if ( w > 15000 ) w = 9999;                  // reasonability limit
-        else if ( w < 5 ) w = 0.0;                  // remove low end noise
-        Wrms[p] = (float)w;    
+        if ( w > 15000.0F ) w = 9999.0F;                // reasonability limit
+        else if ( w < 5.0F ) w = 0.0F;                  // remove low end noise
+        Wrms[p] = w;    
         Wrms_min[p] = _min( Wrms_min[p], w );
         Wrms_max[p] = _max( Wrms_max[p], w ); 
       }
     }
     waterOn = false;
-    if ( Wrms[5] > 1000 ) waterOn = true;
+    if ( Wrms[5] > 1000.0F ) waterOn = true;
     // for big load queries (time to start/stop the pool heater?)
     avSparekW = 0.99*avSparekW + 0.01*( Wrms[7] - Wrms[1] );  
 
@@ -155,7 +155,6 @@ bool checkSumOk() {
   delay(1000);
 //  sprintf(charBuf,"rebooting slave");
 //  diagMess(charBuf);
-
 //  ESP.restart();
   return true;   // needed for compiler
 }
