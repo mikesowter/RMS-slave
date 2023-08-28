@@ -1,15 +1,13 @@
 
 #include "extern.h"
-extern float T11_kWh[3];
 
 // scheduled processing
 
 void minProc() {
   // update master time
+  Serial.print(",minproc");
   SPISlave.setStatus(now());
   oldMin = minute();
-  // check battery charge level at night
-  // t31check();
   // check for new quarter hour
   if ( oldQtr == minute()/15 ) return;
   storeData();                          // write day file every 15mins
@@ -26,10 +24,12 @@ void minProc() {
   // battery simulation totals
   updateBatteryFile();
   // reset daily energy sums at midnight
-  for ( int i = 1; i<NUM_CIRCUITS+1; i++ ) {
+  for ( int i = 1; i<NUM_CCTS+1; i++ ) {
     Energy[i] = 0.0F;
     costEnergy[i] = 0.0F;
   }
+#ifndef RMS8
+extern float T11_kWh[3];
 
   for (uint8_t ps = 0;ps<3;ps++) {
   // then through battery size (bs)
@@ -40,5 +40,6 @@ void minProc() {
     }
     T11_kWh[ps] = 0.0F;
   }
+  #endif
   return;
 }  

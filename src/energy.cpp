@@ -17,7 +17,7 @@ void dailyEnergy() {
   t_scan = millis() - t_lastData;
   t_lastData = millis();
   goodLoads = 0.0;
-  for ( int i = 1;i<NUM_CIRCUITS+1;i++ ) {
+  for ( int i = 1;i<NUM_CCTS+1;i++ ) {
     if ( Wrms[i] < NOISE[i] ) Wrms[i] = 0.0;          // eliminate noise
     incEnergy[i] = Wrms[i]*(float)t_scan/3.6e9;       // kWh units
     Energy[i] += incEnergy[i];
@@ -27,7 +27,7 @@ void dailyEnergy() {
   solar = incEnergy[7];     // inverter incoming to dist panel
   float spareSolar = solar - loads; 
 
-  for ( int i = 2;i<NUM_CIRCUITS+1;i++ ) {
+  for ( int i = 2;i<NUM_CCTS+1;i++ ) {
     if ( i == 5 && waterOn ) {
       costEnergy[i] += T31 * incEnergy[i];        // hotwater tariff
     }

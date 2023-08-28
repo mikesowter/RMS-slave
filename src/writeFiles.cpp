@@ -47,7 +47,7 @@ void updateEnergyFile() {
   }
   // write daily energy sums
   fh.printf("\n%02d/%02d/%4d",day(),month(),year());
-  for ( int i=1; i<NUM_CIRCUITS+1; i++ ) {
+  for ( int i=1; i<NUM_CCTS+1; i++ ) {
     fh.printf(",%.2f",Energy[i]);
     fh.printf(",$%.2f",costEnergy[i]);
   }

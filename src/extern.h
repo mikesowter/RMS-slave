@@ -51,7 +51,7 @@ bool checkSumOk();
 #define NTP_PACKET_SIZE 48
 #define TIME_ZONE 10
 #define LONG_STR_SIZE 10000
-#define NUM_CIRCUITS 8 
+#define NUM_CCTS 8 
 #define FS_ID LittleFS
 #define MASTER_RESET D3
 #define LED_PIN D4

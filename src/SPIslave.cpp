@@ -13,13 +13,12 @@ void setupSPIslave() {
     SPIwait = false;
   });
 
-  // The master has read out outgoing data buffer
+  // The master has read outgoing data buffer
   // that buffer can be set with SPISlave.setData
   SPISlave.onDataSent([]() {  });
 
   // status has been received from the master.
   // The status register is a special register that both the slave and the master can write to and read from.
-  // Can be used to exchange small data or status information
   SPISlave.onStatus([](uint32_t data) {
     Serial.printf("Master status: %u\n", data);
   });
@@ -103,7 +102,7 @@ bool unloadValues() {
     // Serial.printf("Freq = %0.3f Vrms=%0.1f Vmin=%0.1f Vmax=%0.1f\n", Freq, Vrms, Vmin, Vmax);
 
     if ( Vmin_n > -400.0 && Vmax_p < 400.0) {       // remove spurious surge power from the record
-      for (uint8_t p=1 ; p<(NUM_CIRCUITS+1) ; p++) { 
+      for (uint8_t p=1 ; p<(NUM_CCTS+1) ; p++) { 
         w = unload2Bytes();
         if ( w > 15000.0F ) w = 9999.0F;                // reasonability limit
         else if ( w < 5.0F ) w = 0.0F;                  // remove low end noise
@@ -130,6 +129,10 @@ float unload2Bytes() {
   }
   uint16_t val = 256.0*SPIdata[offset++];
   val += SPIdata[offset++];
+#ifdef RMS8
+  Serial.printf(" %d:%0X",offset-2,val);
+  if (offset > 31) Serial.printf("  ");
+#endif
   checkSum += val;
   return (float)val;
 }

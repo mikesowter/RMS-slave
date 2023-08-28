@@ -2,10 +2,10 @@
 #include <ESP8266WiFi.h>
 #include <TimeLib.h>
 #define RMS8
-#define NUM_CIRCUITS 8
+#define NUM_CCTS 8
 #define LONG_STR_SIZE 10000
 
-extern float Energy[NUM_CIRCUITS+1], costEnergy[NUM_CIRCUITS+1];
+extern float Energy[NUM_CCTS+1], costEnergy[NUM_CCTS+1];
 extern float T11_kWh[3];	
 extern char longStr[];
 void diagMess(const char* mess);
