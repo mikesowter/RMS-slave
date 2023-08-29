@@ -5,7 +5,7 @@
 
 void minProc() {
   // update master time
-  Serial.print(",minproc");
+  Serial.print(" m ");
   SPISlave.setStatus(now());
   oldMin = minute();
   // check for new quarter hour
@@ -16,20 +16,22 @@ void minProc() {
   badSumCount = 0;
   // check for end of day
   if ( day() == oldDay ) return;
-  // update time at 00:00:02
-  delay(2000);
+  // update time at 00:00:05
+  delay(5000);
   setupTime();
   // write days energy totals
   updateEnergyFile();
+#ifndef RMS8
   // battery simulation totals
   updateBatteryFile();
+#endif
   // reset daily energy sums at midnight
   for ( int i = 1; i<NUM_CCTS+1; i++ ) {
     Energy[i] = 0.0F;
     costEnergy[i] = 0.0F;
   }
 #ifndef RMS8
-extern float T11_kWh[3];
+  extern float T11_kWh[3];
 
   for (uint8_t ps = 0;ps<3;ps++) {
   // then through battery size (bs)
@@ -40,6 +42,6 @@ extern float T11_kWh[3];
     }
     T11_kWh[ps] = 0.0F;
   }
-  #endif
+#endif
   return;
 }  
