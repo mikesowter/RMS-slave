@@ -1,7 +1,7 @@
 #include <arduino.h>
 #include <ESP8266WiFi.h>
 #include <TimeLib.h>
-#define RMS8
+//#define RMS8
 #define NUM_CCTS 8
 #define LONG_STR_SIZE 10000
 

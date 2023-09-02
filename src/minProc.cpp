@@ -5,7 +5,6 @@
 
 void minProc() {
   // update master time
-  Serial.print(" m ");
   SPISlave.setStatus(now());
   oldMin = minute();
   // check for new quarter hour

@@ -117,8 +117,7 @@ bool unloadValues() {
     avSparekW = 0.99*avSparekW + 0.01*( Wrms[7] - Wrms[1] );  
 
   }
-  offset = 28;
-  Vbat = unload2Bytes()/2070.0F;
+  Vbat = analogRead(A0) * 0.005927;
   return true;
 }
 

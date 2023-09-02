@@ -55,7 +55,7 @@ bool checkSumOk();
 #define FS_ID LittleFS
 #define MASTER_RESET D3
 #define LED_PIN D4
-#define RMS8 8
+//#define RMS8 8
 
 extern WiFiUDP udp;
 extern WiFiClient client;
@@ -95,7 +95,7 @@ extern uint32_t wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
 
 extern float Wrms[];					    // Sum of sampled V*I
 extern float Irms[];					    // root sum I^2
-extern float Vrms,Vpk_neg,Vpk_pos;			// root sum V^2, -Vp, +Vp
+extern float Vrms,Vpp,Vnp;			// root sum V^2, -Vp, +Vp
 extern float Freq;
 extern float Vrms_min;
 extern float Vrms_max;

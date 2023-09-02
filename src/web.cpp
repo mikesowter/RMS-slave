@@ -56,6 +56,35 @@ void handleMetrics() {
 #endif
 
   if ( !pwrOutage && Wrms_min[1] != 9999.0F ) {
+ #ifdef RMS8
+ // power
+    promform("rms8Pwr_min1", Wrms_min[1], 2);
+    promform("rms8Pwr_min2", Wrms_min[2], 2);
+    promform("rms8Pwr_min3", Wrms_min[3], 2);
+    promform("rms8Pwr_min4", Wrms_min[4], 2);
+    promform("rms8Pwr_min5", Wrms_min[5], 2);
+    promform("rms8Pwr_min6", Wrms_min[6], 2);
+    promform("rms8Pwr_min7", Wrms_min[7], 2);
+    promform("rms8Pwr_min8", Wrms_min[8], 2);
+
+    promform("rms8Pwr_max1", Wrms_max[1], 2);
+    promform("rms8Pwr_max2", Wrms_max[2], 2);
+    promform("rms8Pwr_max3", Wrms_max[3], 2);
+    promform("rms8Pwr_max4", Wrms_max[4], 2);
+    promform("rms8Pwr_max5", Wrms_max[5], 2);
+    promform("rms8Pwr_max6", Wrms_max[6], 2);
+    promform("rms8Pwr_max7", Wrms_max[7], 2);
+    promform("rms8Pwr_max8", Wrms_max[8], 2);
+// energy
+    promform("rms8Energy1", Energy[1], 2);
+    promform("rms8Energy2", Energy[2], 2);
+    promform("rms8Energy3", Energy[3], 2);
+    promform("rms8Energy4", Energy[4], 2);
+    promform("rms8Energy5", Energy[5], 2);
+    promform("rms8Energy6", Energy[6], 2);
+    promform("rms8Energy7", Energy[7], 2);
+    promform("rms8Energy8", Energy[8], 2);
+#else
 // power
     promform("rmsPwr_min1", Wrms_min[1], 2);
     promform("rmsPwr_min2", Wrms_min[2], 2);
@@ -83,11 +112,22 @@ void handleMetrics() {
     promform("rmsEnergy6", Energy[6], 2);
     promform("rmsEnergy7", Energy[7], 2);
     promform("rmsEnergy8", Energy[8], 2);
-#ifndef RMS8
+
     promform("rmsT11_kWh", T11_kWh[0], 4);
     promform("rmsT11_kWh75", T11_kWh[1], 4);
     promform("rmsT11_kWh10", T11_kWh[2], 4);
 #endif
+#ifdef RMS8
+// costs
+    promform("rms8Cost1", costEnergy[1], 2);
+    promform("rms8Cost2", costEnergy[2], 2);
+    promform("rms8Cost3", costEnergy[3], 2);
+    promform("rms8Cost4", costEnergy[4], 2);
+    promform("rms8Cost5", costEnergy[5], 2);
+    promform("rms8Cost6", costEnergy[6], 2);
+    promform("rms8Cost7", costEnergy[7], 2);
+    promform("rms8Cost8", costEnergy[8], 2);
+#else 
 // costs
     promform("rmsCost1", costEnergy[1], 2);
     promform("rmsCost2", costEnergy[2], 2);
@@ -97,7 +137,7 @@ void handleMetrics() {
     promform("rmsCost6", costEnergy[6], 2);
     promform("rmsCost7", costEnergy[7], 2);
     promform("rmsCost8", costEnergy[8], 2);
-#ifndef RMS8
+
 // battery simulation
     for (uint8_t ps = 0;ps<3;ps++) {
       strcpy(promName,"rmsExcessP0 ");
@@ -133,14 +173,24 @@ void handleMetrics() {
       }
     }
     promform("rmsSpareSolar", avSparekW, 2);
-  #endif
+  }
+#endif
+#ifdef RMS8
+    // housekeeping
+    promform("rms8WfdTimeMin", (float)WFDmin, 0);
+    promform("rms8WfdTimeMax", (float)WFDmax, 0);
+    promform("rms8WaitWatchMin", (float)WWmin, 0);
+    promform("rms8WaitWatchMax", (float)WWmax, 0);
+    promform("rms8MissedCycles", (float)missedCycle, 0);
+#else
     // housekeeping
     promform("rmsWfdTimeMin", (float)WFDmin, 0);
     promform("rmsWfdTimeMax", (float)WFDmax, 0);
     promform("rmsWaitWatchMin", (float)WWmin, 0);
     promform("rmsWaitWatchMax", (float)WWmax, 0);
     promform("rmsMissedCycles", (float)missedCycle, 0);
-  }
+#endif
+
   server.send ( 200, "text/plain", longStr );
   // reset max,min for prometheus scan interval
   Vmin_n = 500.0F;
