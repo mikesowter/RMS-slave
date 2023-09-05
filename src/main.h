@@ -51,8 +51,8 @@ String resetDetail = ESP.getResetInfo();
 #define TIME_ZONE 10
 #define LONG_STR_SIZE 10000
 
-//#define RMS8 8
-#ifdef RMS8
+#define RMS2
+#ifdef RMS2
     #define NUM_CCTS 7
     #define MASTER_RESET D3
     #define LED_PIN D4
@@ -88,7 +88,7 @@ char fltStr[12];
 char longStr[LONG_STR_SIZE];  
 
 IPAddress localIP, timeServerIP;
-#ifdef RMS8
+#ifdef RMS2
     IPAddress ip(192, 168, 1, 62); 
 #else
     IPAddress ip(192, 168, 1, 56); 
