@@ -46,16 +46,16 @@ void getLastScan();
 void updateEnergyFile();
 void updateBatteryFile();
 void setupTime();
-bool checkSumOk();
+bool calcChecksum();
 
 #define NTP_PACKET_SIZE 48
 #define TIME_ZONE 10
 #define LONG_STR_SIZE 10000
-#define NUM_CCTS 8 
+#define NUM_CCTS 7
 #define FS_ID LittleFS
 #define MASTER_RESET D3
 #define LED_PIN D4
-//#define RMS8 8
+#define RMS2
 
 extern WiFiUDP udp;
 extern WiFiClient client;
@@ -66,6 +66,7 @@ extern Ticker secondTick;
 extern volatile uint8_t watchDog;
 extern IPAddress localIP,timeServerIP,fileServerIP;
 extern bool SPIwait, waterOn;
+extern bool checkSumBad;
 extern bool exporting, exporting7_5, exporting10, T31charging, pwrOutage;
 extern bool noDataYet;
 extern ESP8266WebServer server;

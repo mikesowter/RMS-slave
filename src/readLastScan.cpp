@@ -1,7 +1,7 @@
 #include <arduino.h>
 #include <ESP8266WiFi.h>
 #include <TimeLib.h>
-//#define RMS8
+#define RMS2
 #define NUM_CCTS 8
 #define LONG_STR_SIZE 10000
 
@@ -16,10 +16,6 @@ extern uint8_t gobackhrs;
 float readProm(char* unit);
  
 void getLastScan() {
-  #ifdef RMS8
-    return;
-  #endif
-
   Serial.println("reading last values from prometheus");
   uint32_t querystart = millis();
   char unit[20];
@@ -45,7 +41,56 @@ void getLastScan() {
   }  
 
 // read miscellaneous recent values
+#ifndef RMS2
+  char root[] = "rms";
+  uint8_t po = 10;
+  uint8_t bo = 12;
+#else 
+  char root[] = "rms2";
+  uint8_t po = 11;
+  uint8_t bo = 13;
+#endif
+  char promName[20];
+  for (uint8_t ps = 0;ps<3;ps++) {
+    strcpy(promName,root);
+    strcat(promName,"ExcessP0 ");
+    promName[po] = ps + '0';
+    T11_kWh[ps] = readProm(promName);
 
+    for (uint8_t bs = 0;bs<3;bs++) {
+      strcpy(promName,root);
+      strcat(promName,"ChargeP0B0 ");
+      promName[po] = ps + '0';
+      promName[bo] = bs + '0';
+      batt_charge[ps][bs] = readProm(promName);
+    }
+
+    for (uint8_t bs = 0;bs<3;bs++) {
+      strcpy(promName,root);
+      strcat(promName,"ToHousP0B0 ");
+      promName[po] = ps + '0';
+      promName[bo] = bs + '0';
+      batt_tohouse[ps][bs] = readProm(promName);
+    }
+
+    for (uint8_t bs = 0;bs<3;bs++) {
+      strcpy(promName,root);
+      strcat(promName,"ToGridP0B0 ");
+      promName[po] = ps + '0';
+      promName[bo] = bs + '0';
+      dump_togrid[ps][bs] = readProm(promName);
+    }
+
+    for (uint8_t bs = 0;bs<3;bs++) {
+      strcpy(promName,root);
+      strcat(promName,"SavingP0B0 ");
+      promName[po] = ps + '0';
+      promName[bo] = bs + '0';
+      batt_savings[ps][bs] = readProm(promName);
+    }
+  }   
+
+/*
   T11_kWh[0] = readProm("rmsT11_kWh");
   T11_kWh[1] = readProm("rmsT11_kWh75");
   T11_kWh[2] = readProm("rmsT11_kWh10");
@@ -57,11 +102,11 @@ void getLastScan() {
   batt_charge[1][0] = readProm("rmsChargeP1B0");
   batt_tohouse[1][0] = readProm("rmsToHousP1B0");
   dump_togrid[1][0] = readProm("rmsToGridP1B0");
-  batt_savings[0][0] = readProm("rmsSavingP1B0");
+  batt_savings[1][0] = readProm("rmsSavingP1B0");
   batt_charge[2][0] = readProm("rmsChargeP2B0");
   batt_tohouse[2][0] = readProm("rmsToHousP2B0");
   dump_togrid[2][0] = readProm("rmsToGridP2B0");
-  batt_savings[0][0] = readProm("rmsSavingP2B0");
+  batt_savings[2][0] = readProm("rmsSavingP2B0");
  
   batt_charge[0][1] = readProm("rmsChargeP0B1");
   batt_tohouse[0][1] = readProm("rmsToHousP0B1");
@@ -70,11 +115,11 @@ void getLastScan() {
   batt_charge[1][1] = readProm("rmsChargeP1B1");
   batt_tohouse[1][1] = readProm("rmsToHousP1B1");
   dump_togrid[1][1] = readProm("rmsToGridP1B1");
-  batt_savings[0][1] = readProm("rmsSavingP1B1");
+  batt_savings[1][1] = readProm("rmsSavingP1B1");
   batt_charge[2][1] = readProm("rmsChargeP2B1");
   batt_tohouse[2][1] = readProm("rmsToHousP2B1");
   dump_togrid[2][1] = readProm("rmsToGridP2B1");
-  batt_savings[0][1] = readProm("rmsSavingP2B1");
+  batt_savings[2][1] = readProm("rmsSavingP2B1");
   
   batt_charge[0][2] = readProm("rmsChargeP0B2");
   batt_tohouse[0][2] = readProm("rmsToHousP0B2");
@@ -83,11 +128,11 @@ void getLastScan() {
   batt_charge[1][2] = readProm("rmsChargeP1B2");
   batt_tohouse[1][2] = readProm("rmsToHousP1B2");
   dump_togrid[1][2] = readProm("rmsToGridP1B2");
-  batt_savings[0][2] = readProm("rmsSavingP1B2");
+  batt_savings[1][2] = readProm("rmsSavingP1B2");
   batt_charge[2][2] = readProm("rmsChargeP2B2");
   batt_tohouse[2][2] = readProm("rmsToHousP2B2");
   dump_togrid[2][2] = readProm("rmsToGridP2B2");
-  batt_savings[0][2] = readProm("rmsSavingP2B2");
+  batt_savings[2][2] = readProm("rmsSavingP2B2");   */
 
   Serial.printf("query took %li ms\n",millis()-querystart);
 }

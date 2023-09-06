@@ -45,7 +45,7 @@ void waitForData() {
     SPIwait = true;
     SPISlave.end(); 
     if (millis() > wfdStart + 30000) break;  // for minProc
-  } while ( !checkSumOk() ); // bad checksum 
+  } while ( !calcChecksum() ); // bad checksum 
   // measure WFD times
   wfdTime = millis()-wfdStart;
   WFDmin = _min(WFDmin,wfdTime);
@@ -53,7 +53,7 @@ void waitForData() {
   unloadValues();
   dailyEnergy();
   yield(); 
-#ifndef RMS8
+#ifndef RMS2
   batteryEnergy();   // battery simulation only useful on original meter
 #endif
   noDataYet = false;   
@@ -85,7 +85,7 @@ bool unloadValues() {
       pwrOutage = false;
       diagMess("power restored");
     }
-    if ( !checkSumOk() ) return false;
+    if ( checkSumBad ) return false;
     offset = 0;
     float v,w;
     Freq = unload2Bytes()/1000.0;
@@ -93,10 +93,10 @@ bool unloadValues() {
     Vrms = unload2Bytes()/100.0;                
     Vrms_min = _min(Vrms_min,Vrms);
     Vrms_max = _max(Vrms_max,Vrms);
-    v = unload2Bytes()/50.0;    // peak from negative half cycle
+    v = unload2Bytes()/100.0;    // peak from negative half cycle
     Vmin_n = _min(Vmin_n,v);
     Vmax_n = _max(Vmax_n,v);
-    v = unload2Bytes()/50.0;    // peak from positive half cycle
+    v = unload2Bytes()/100.0;    // peak from positive half cycle
     Vmin_p = _min(Vmin_p,v);
     Vmax_p = _max(Vmax_p,v);
     // Serial.printf("Freq = %0.3f Vrms=%0.1f Vmin=%0.1f Vmax=%0.1f\n", Freq, Vrms, Vmin, Vmax);
@@ -128,23 +128,26 @@ float unload2Bytes() {
   }
   uint16_t val = 256.0*SPIdata[offset++];
   val += SPIdata[offset++];
-#ifdef RMS8
-  Serial.printf(" %d:%0X",offset-2,val);
-  if (offset > 31) Serial.printf("  ");
-#endif
   checkSum += val;
   return (float)val;
 }
 
-bool checkSumOk() {
+bool calcChecksum() {
+  checkSumBad = false;
   checkSum = 0;
   offset = 0;
-  while (offset<29) unload2Bytes();  
+  while (offset<29) {
+    float fval = unload2Bytes();  
+  #ifdef RMS2
+    Serial.printf(" %d:%.0f",offset,fval);
+  #endif
+  }
+  Serial.printf("\n");
   
   uint16_t rxSum = checkSum;                   // sum of bytes 0-29 calc'd by receiver
   uint16_t txSum = (uint16_t) unload2Bytes();  // sum of bytes 0-29 calc'd by transmitter
   if (rxSum == txSum) return true;
-
+  checkSumBad = true;
   sprintf(charBuf,"checksum");
   diagMess(charBuf);
   if ( ++badSumCount < 3 ) return false;
@@ -158,5 +161,5 @@ bool checkSumOk() {
 //  sprintf(charBuf,"rebooting slave");
 //  diagMess(charBuf);
 //  ESP.restart();
-  return true;   // needed for compiler
+  return false;   // needed for compiler
 }

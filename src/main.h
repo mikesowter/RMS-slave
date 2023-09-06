@@ -40,7 +40,7 @@ void checkScan();
 void getLastScan();
 void setupFS();
 void sync2Master();
-bool checkSumOk();
+bool calcChecksum();
 
 String resetReason = "Restart caused by " + ESP.getResetReason();
 String resetDetail = ESP.getResetInfo();
@@ -73,6 +73,7 @@ volatile uint8_t watchDog = 0;
 
 bool SPIwait = true;     // wait for data in SPI slave loop?
 bool noDataYet = true;   // no data from RMS master yet?
+bool checkSumBad;
 bool waterOn, exporting, exporting7_5, exporting10, scanFail, T31charging, pwrOutage;
 uint8_t gobackhrs = 0;     // get scan data from database?
 char fileName[] = "/XXXyymmdd.csv";
