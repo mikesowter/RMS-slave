@@ -4,6 +4,7 @@ float unload2Bytes();
 bool unloadValues();
 const float AMPS_CORRECTION_FACTOR = 1.021; // low currents < 4A on 20190922
 uint16_t checkSum;
+float v,w;
 
 void setupSPIslave() {
   // data has been received from the master. len is always 32 bytes
@@ -87,18 +88,17 @@ bool unloadValues() {
     }
     if ( checkSumBad ) return false;
     offset = 0;
-    float v,w;
+
     Freq = unload2Bytes()/1000.0;
     if (Freq < 40.0 || Freq > 55.0 ) Freq = 50.0;   // remove freq errors from record
     Vrms = unload2Bytes()/100.0;                
     Vrms_min = _min(Vrms_min,Vrms);
     Vrms_max = _max(Vrms_max,Vrms);
-    v = unload2Bytes()/100.0;    // peak from negative half cycle
-    Vmin_n = _min(Vmin_n,v);
-    Vmax_n = _max(Vmax_n,v);
-    v = unload2Bytes()/100.0;    // peak from positive half cycle
-    Vmin_p = _min(Vmin_p,v);
+    v = unload2Bytes()/100.0;    // Vpp_max
     Vmax_p = _max(Vmax_p,v);
+    v = unload2Bytes()/100.0;    // Vpp_min
+    Vmin_p = _min(Vmin_p,v);
+
     // Serial.printf("Freq = %0.3f Vrms=%0.1f Vmin=%0.1f Vmax=%0.1f\n", Freq, Vrms, Vmin, Vmax);
 
     if ( Vmin_n > -400.0 && Vmax_p < 400.0) {       // remove spurious surge power from the record
@@ -117,6 +117,15 @@ bool unloadValues() {
     avSparekW = 0.99*avSparekW + 0.01*( Wrms[7] - Wrms[1] );  
 
   }
+  offset = 22;
+  v = unload2Bytes()/100.0;           
+  Vrms_max = _max(Vrms_max,v);     
+  v = unload2Bytes()/100.0;           
+  Vrms_min = _min(Vrms_min,v);
+  v = unload2Bytes()/100.0;    // Vnp_max
+  Vmax_n = _max(Vmax_p,v);
+  v = unload2Bytes()/100.0;    // Vnp_min
+  Vmin_n = _min(Vmin_p,v);
   Vbat = analogRead(A0) * 0.005927;
   return true;
 }

@@ -50,13 +50,13 @@ unsigned long getTime() {
   }
   ausSeconds = getNTPreply();
   /*
-  double two32 = (double)0XFFFFFFFF;
+  float two32 = (float)0XFFFFFFFF;
   setTime(Tref_sec);
-  Serial.printf("\n reference time: %s %s %sµs\n", dateStamp(), timeStamp(),f2s6((double)Tref_usec/two32));
+  Serial.printf("\n reference time: %s %s %sµs\n", dateStamp(), timeStamp(),f2s6((float)Tref_usec/two32));
   setTime(Trx_sec);
-  Serial.printf("\n received time:  %s %s %sµs\n", dateStamp(), timeStamp(),f2s6((double)Trx_usec/two32));
+  Serial.printf("\n received time:  %s %s %sµs\n", dateStamp(), timeStamp(),f2s6((float)Trx_usec/two32));
   setTime(Ttx_sec);
-  Serial.printf("\n transmit time:  %s %s %sµs\n\n", dateStamp(), timeStamp(),f2s6((double)Ttx_usec/two32));
+  Serial.printf("\n transmit time:  %s %s %sµs\n\n", dateStamp(), timeStamp(),f2s6((float)Ttx_usec/two32));
   */
   /*  
 //    local NTP
