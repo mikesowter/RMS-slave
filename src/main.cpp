@@ -8,7 +8,7 @@ which has a 104us capture loop which can't be interrupted
 void setup(void) {
   Serial.begin(115200);
   #ifdef RMS2
-    Serial.println("\nRMS2 slave 20230905");
+    Serial.println("\nRMS2 slave 20231004");
   #else
     Serial.println("\nRMS16 slave 20230901");
   #endif

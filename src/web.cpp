@@ -65,7 +65,6 @@ void handleMetrics() {
     promform("rms2Pwr_min5", Wrms_min[5], 2);
     promform("rms2Pwr_min6", Wrms_min[6], 2);
     promform("rms2Pwr_min7", Wrms_min[7], 2);
-    promform("rms2Pwr_min8", Wrms_min[8], 2);
 
     promform("rms2Pwr_max1", Wrms_max[1], 2);
     promform("rms2Pwr_max2", Wrms_max[2], 2);
@@ -74,7 +73,7 @@ void handleMetrics() {
     promform("rms2Pwr_max5", Wrms_max[5], 2);
     promform("rms2Pwr_max6", Wrms_max[6], 2);
     promform("rms2Pwr_max7", Wrms_max[7], 2);
-    promform("rms2Pwr_max8", Wrms_max[8], 2);
+
 // energy
     promform("rms2Energy1", Energy[1], 2);
     promform("rms2Energy2", Energy[2], 2);
@@ -83,7 +82,7 @@ void handleMetrics() {
     promform("rms2Energy5", Energy[5], 2);
     promform("rms2Energy6", Energy[6], 2);
     promform("rms2Energy7", Energy[7], 2);
-    promform("rms2Energy8", Energy[8], 2);
+
 #else
 // power
     promform("rmsPwr_min1", Wrms_min[1], 2);
@@ -117,17 +116,7 @@ void handleMetrics() {
     promform("rmsT11_kWh75", T11_kWh[1], 4);
     promform("rmsT11_kWh10", T11_kWh[2], 4);
 #endif
-#ifdef RMS2
-// costs
-    promform("rms2Cost1", costEnergy[1], 2);
-    promform("rms2Cost2", costEnergy[2], 2);
-    promform("rms2Cost3", costEnergy[3], 2);
-    promform("rms2Cost4", costEnergy[4], 2);
-    promform("rms2Cost5", costEnergy[5], 2);
-    promform("rms2Cost6", costEnergy[6], 2);
-    promform("rms2Cost7", costEnergy[7], 2);
-    promform("rms2Cost8", costEnergy[8], 2);
-#else 
+#ifndef RMS2
 // costs
     promform("rmsCost1", costEnergy[1], 2);
     promform("rmsCost2", costEnergy[2], 2);

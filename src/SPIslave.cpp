@@ -101,6 +101,9 @@ bool unloadValues() {
       w = unload2Bytes();
       if ( w > 15000.0F ) w = 9999.0F;                // reasonability limit
       else if ( w < 5.0F ) w = 0.0F;                  // remove low end noise
+      Wrms[p] = 0.8*Wrms[p] + 0.2*w;                  // should do average
+      if (w < Wrms_min[p]) Wrms_min[p] = w;
+      if (w > Wrms_max[p]) Wrms_max[p] = w;
     }
     offset = 22;
     v = unload2Bytes()/100.0;    // Vpp_max
@@ -133,9 +136,6 @@ bool calcChecksum() {
   offset = 0;
   while (offset<29) {
     float fval = unload2Bytes();  
-  #ifdef RMS2
-    Serial.printf(" %d:%.0f",offset-2,fval);
-  #endif
   }
   Serial.printf("\n");
   
@@ -150,7 +150,7 @@ bool calcChecksum() {
   sprintf(charBuf,"rebooting master");
   diagMess(charBuf);
   digitalWrite(MASTER_RESET,0);
-  delayMicroseconds(100);
+  delay(1);
   digitalWrite(MASTER_RESET,1);
   delay(1000);
 //  sprintf(charBuf,"rebooting slave");

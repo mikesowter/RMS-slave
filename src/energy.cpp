@@ -23,6 +23,7 @@ void dailyEnergy() {
     Energy[i] += incEnergy[i];
     if ( i!=1 && i!=5 && i!=7 ) goodLoads += incEnergy[i]; // water&solar
   }
+  #ifndef RMS2
   loads = incEnergy[1];     // T11 incoming to dist panel
   solar = incEnergy[7];     // inverter incoming to dist panel
   float spareSolar = solar - loads; 
@@ -62,4 +63,5 @@ void dailyEnergy() {
     T11_kWh[ps] += T11_inc[ps];
     fact += 0.5F;
   }
+  #endif
 }
