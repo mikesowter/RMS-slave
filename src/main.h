@@ -126,7 +126,7 @@ float incEnergy[NUM_CCTS+1];
 float costEnergy[NUM_CCTS+1];   // costEnergy[1] is cost of unmetered
 float Wrms_min[NUM_CCTS+1];		
 float Wrms_max[NUM_CCTS+1];	
-float Irms[NUM_CCTS+1];					// root sum I^2
+float Arms[NUM_CCTS+1];					// root sum I^2
 float Vrms, Vpk_min, Vpk_max;		    // root sum V^2, -Vp, +Vp
 float Freq;                         // grid frequency to 50.000
 float Vrms_min = 500.0;             // max values between scans

@@ -1382,7 +1382,7 @@ Discarded input sections
                 0x0000000000000000        0x4 .pio\build\d1_mini\src\main.cpp.o
  .bss.Vpk_max   0x0000000000000000        0x4 .pio\build\d1_mini\src\main.cpp.o
  .bss.Vpk_min   0x0000000000000000        0x4 .pio\build\d1_mini\src\main.cpp.o
- .bss.Irms      0x0000000000000000       0x24 .pio\build\d1_mini\src\main.cpp.o
+ .bss.Arms      0x0000000000000000       0x24 .pio\build\d1_mini\src\main.cpp.o
  .bss.startMillis
                 0x0000000000000000        0x4 .pio\build\d1_mini\src\main.cpp.o
  .bss.t1        0x0000000000000000        0x4 .pio\build\d1_mini\src\main.cpp.o

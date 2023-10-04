@@ -41,7 +41,7 @@ void handleMetrics() {
   promform("rms2Vpmax_p", Vmax_p, 2);
   promform("rms2Vpmin_n", Vmin_n, 2);
   promform("rms2Vpmax_n", Vmax_n, 2);
-  promform("rms2Freq", Freq, 4);
+  promform("rms2Freq", Freq, 3);
 #else
   promform("rmsVbattery", Vbat, 2);
   promform("rmsWifiSignal", -WiFi.RSSI(), 0);
@@ -52,7 +52,7 @@ void handleMetrics() {
   promform("rmsVpmax_p", Vmax_p, 2);
   promform("rmsVpmin_n", Vmin_n, 2);
   promform("rmsVpmax_n", Vmax_n, 2);
-  promform("rmsFreq", Freq, 4);
+  promform("rmsFreq", Freq, 3);
 #endif
 
   if ( !pwrOutage && Wrms_min[1] != 9999.0F ) {

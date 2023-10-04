@@ -4,3 +4,6 @@
 .vscode
 src/secrets.h
 src/*.txt
+src/check.cpp
+output.map
+output.map

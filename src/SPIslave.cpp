@@ -92,41 +92,27 @@ bool unloadValues() {
     Freq = unload2Bytes()/1000.0;
     if (Freq < 40.0 || Freq > 55.0 ) Freq = 50.0;   // remove freq errors from record
     Vrms = unload2Bytes()/100.0;                
-    Vrms_min = _min(Vrms_min,Vrms);
-    Vrms_max = _max(Vrms_max,Vrms);
+    v = unload2Bytes()/100.0;    
+    Vrms_max = _max(Vrms_max,v);
+    v = unload2Bytes()/100.0;    
+    Vrms_min = _min(Vrms_min,v);
+
+    for (uint8_t p=1 ; p<=NUM_CCTS ; p++) { 
+      w = unload2Bytes();
+      if ( w > 15000.0F ) w = 9999.0F;                // reasonability limit
+      else if ( w < 5.0F ) w = 0.0F;                  // remove low end noise
+    }
+    offset = 22;
     v = unload2Bytes()/100.0;    // Vpp_max
     Vmax_p = _max(Vmax_p,v);
     v = unload2Bytes()/100.0;    // Vpp_min
     Vmin_p = _min(Vmin_p,v);
-
-    // Serial.printf("Freq = %0.3f Vrms=%0.1f Vmin=%0.1f Vmax=%0.1f\n", Freq, Vrms, Vmin, Vmax);
-
-    if ( Vmin_n > -400.0 && Vmax_p < 400.0) {       // remove spurious surge power from the record
-      for (uint8_t p=1 ; p<(NUM_CCTS+1) ; p++) { 
-        w = unload2Bytes();
-        if ( w > 15000.0F ) w = 9999.0F;                // reasonability limit
-        else if ( w < 5.0F ) w = 0.0F;                  // remove low end noise
-        Wrms[p] = w;    
-        Wrms_min[p] = _min( Wrms_min[p], w );
-        Wrms_max[p] = _max( Wrms_max[p], w ); 
-      }
-    }
-    waterOn = false;
-    if ( Wrms[5] > 1000.0F ) waterOn = true;
-    // for big load queries (time to start/stop the pool heater?)
-    avSparekW = 0.99*avSparekW + 0.01*( Wrms[7] - Wrms[1] );  
-
+    v = unload2Bytes()/100.0;    // Vnp_max
+    Vmax_n = _max(Vmax_p,v);
+    v = unload2Bytes()/100.0;    // Vnp_min
+    Vmin_n = _min(Vmin_p,v);
+    Vbat = analogRead(A0) * 0.005835;
   }
-  offset = 22;
-  v = unload2Bytes()/100.0;           
-  Vrms_max = _max(Vrms_max,v);     
-  v = unload2Bytes()/100.0;           
-  Vrms_min = _min(Vrms_min,v);
-  v = unload2Bytes()/100.0;    // Vnp_max
-  Vmax_n = _max(Vmax_p,v);
-  v = unload2Bytes()/100.0;    // Vnp_min
-  Vmin_n = _min(Vmin_p,v);
-  Vbat = analogRead(A0) * 0.005927;
   return true;
 }
 
@@ -148,7 +134,7 @@ bool calcChecksum() {
   while (offset<29) {
     float fval = unload2Bytes();  
   #ifdef RMS2
-    Serial.printf(" %d:%.0f",offset,fval);
+    Serial.printf(" %d:%.0f",offset-2,fval);
   #endif
   }
   Serial.printf("\n");
