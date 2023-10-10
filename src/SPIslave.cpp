@@ -91,11 +91,13 @@ bool unloadValues() {
 
     Freq = unload2Bytes()/1000.0;
     if (Freq < 40.0 || Freq > 55.0 ) Freq = 50.0;   // remove freq errors from record
-    Vrms = unload2Bytes()/100.0;                
+    Vrms = unload2Bytes()/100.0; 
+    #ifdef RMS2               
     v = unload2Bytes()/100.0;    
     Vrms_max = _max(Vrms_max,v);
     v = unload2Bytes()/100.0;    
     Vrms_min = _min(Vrms_min,v);
+    #endif
 
     for (uint8_t p=1 ; p<=NUM_CCTS ; p++) { 
       w = unload2Bytes();
@@ -105,13 +107,9 @@ bool unloadValues() {
       if (w < Wrms_min[p]) Wrms_min[p] = w;
       if (w > Wrms_max[p]) Wrms_max[p] = w;
     }
-    offset = 22;
+    offset = 26;
     v = unload2Bytes()/100.0;    // Vpp_max
     Vmax_p = _max(Vmax_p,v);
-    v = unload2Bytes()/100.0;    // Vpp_min
-    Vmin_p = _min(Vmin_p,v);
-    v = unload2Bytes()/100.0;    // Vnp_max
-    Vmax_n = _max(Vmax_p,v);
     v = unload2Bytes()/100.0;    // Vnp_min
     Vmin_n = _min(Vmin_p,v);
     Vbat = analogRead(A0) * 0.005835;
@@ -134,9 +132,7 @@ bool calcChecksum() {
   checkSumBad = false;
   checkSum = 0;
   offset = 0;
-  while (offset<29) {
-    float fval = unload2Bytes();  
-  }
+  while (offset<29) unload2Bytes();  
   Serial.printf("\n");
   
   uint16_t rxSum = checkSum;                   // sum of bytes 0-29 calc'd by receiver

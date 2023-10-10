@@ -1,17 +1,4 @@
-#include <arduino.h>
-#include <ESP8266WiFi.h>
-#include <TimeLib.h>
-#define RMS2
-#define NUM_CCTS 8
-#define LONG_STR_SIZE 10000
-
-extern float Energy[NUM_CCTS+1], costEnergy[NUM_CCTS+1];
-extern float T11_kWh[3];	
-extern char longStr[];
-void diagMess(const char* mess);
-extern float batt_savings[3][3];    // first index is solar, 2nd is battery size
-extern float batt_tohouse[3][3], batt_charge[3][3], dump_togrid[3][3];
-extern uint8_t gobackhrs;
+#include <extern.h>
 
 float readProm(char* unit);
  
