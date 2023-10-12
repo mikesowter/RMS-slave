@@ -89,7 +89,7 @@ bool unloadValues() {
     if ( checkSumBad ) return false;
     offset = 0;
 
-    Freq = unload2Bytes()/1000.0;
+    Freq = unload2Bytes()/500.0;
     if (Freq < 40.0 || Freq > 55.0 ) Freq = 50.0;   // remove freq errors from record
     Vrms = unload2Bytes()/100.0; 
     #ifdef RMS2               
@@ -103,14 +103,14 @@ bool unloadValues() {
       w = unload2Bytes();
       if ( w > 15000.0F ) w = 9999.0F;                // reasonability limit
       else if ( w < 5.0F ) w = 0.0F;                  // remove low end noise
-      Wrms[p] = 0.8*Wrms[p] + 0.2*w;                  // should do average
+      Wrms[p] = 0.7*Wrms[p] + 0.3*w;                  // should do average
       if (w < Wrms_min[p]) Wrms_min[p] = w;
       if (w > Wrms_max[p]) Wrms_max[p] = w;
     }
     offset = 26;
-    v = unload2Bytes()/100.0;    // Vpp_max
+    v = unload2Bytes()/50.0;    // Vpp_max
     Vmax_p = _max(Vmax_p,v);
-    v = unload2Bytes()/100.0;    // Vnp_min
+    v = unload2Bytes()/50.0;    // Vnp_min
     Vmin_n = _min(Vmin_p,v);
     Vbat = analogRead(A0) * 0.005835;
   }
@@ -122,7 +122,7 @@ float unload2Bytes() {
     diagMess("illegal SPI data offset ");
     return 0.0;
   }
-  uint16_t val = 256.0*SPIdata[offset++];
+  int16_t val = 256.0*SPIdata[offset++];
   val += SPIdata[offset++];
   checkSum += val;
   return (float)val;

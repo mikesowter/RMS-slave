@@ -58,13 +58,13 @@ bool calcChecksum();
 #else
     #define NUM_CCTS 8
     extern float T11_kWh[];
-    extern uint8_t gobackhrs;
 #endif
 
 #define FS_ID LittleFS
 #define MASTER_RESET D3
 #define LED_PIN D4
 
+extern uint8_t gobackhrs;
 extern WiFiUDP udp;
 extern WiFiClient client;
 extern FtpServer ftpSrv;

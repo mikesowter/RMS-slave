@@ -28,15 +28,15 @@ void getLastScan() {
   }  
 
 // read miscellaneous recent values
-#ifndef RMS2
-  char root[] = "rms";
-  uint8_t po = 10;
-  uint8_t bo = 12;
-#else 
+#ifdef RMS2
   char root[] = "rms2";
   uint8_t po = 11;
   uint8_t bo = 13;
-#endif
+#else 
+  char root[] = "rms2";
+  uint8_t po = 10;
+  uint8_t bo = 12;
+
   char promName[20];
   for (uint8_t ps = 0;ps<3;ps++) {
     strcpy(promName,root);
@@ -76,6 +76,7 @@ void getLastScan() {
       batt_savings[ps][bs] = readProm(promName);
     }
   }   
+  #endif
 
 /*
   T11_kWh[0] = readProm("rmsT11_kWh");

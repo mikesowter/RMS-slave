@@ -265,9 +265,7 @@ void handleNotFound() {
   else if (strncmp(userText,"/apple",6)==0) {
   }
   else if (strncmp(userText,"/spareSol",9)==0) {
-    strcpy(longStr,"\n# TYPE rmsSpareSolar guage");
-    strcat(longStr,"\nrmsSpareSolar ");
-    strcat(longStr,f2s2(avSparekW));
+    promform("rmsSpareSolar", avSparekW, 2);
     strcat(longStr,"\n" );
     server.send ( 200, "text/plain", longStr ); 
   }
