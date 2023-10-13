@@ -30,7 +30,7 @@ void setup(void) {
   diagMess(charBuf); 				// only give detail
   #ifndef RMS2
   // recover previous values from prometheus
-  getLastScan();   
+  readPromDB();   
   #endif
   // setup server
   server.on ( "/", handleRoot );
@@ -48,8 +48,8 @@ void loop() {
   loopStart = millis();
   // wait for data from master
   waitForData();
-  //  check for change of minute
-  if ( minute() != oldMin ) minProc();
+  //  check the time
+  minProc();
   // check the network
   checkScan();
   // synchronise with master

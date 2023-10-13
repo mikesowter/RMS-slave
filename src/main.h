@@ -37,7 +37,7 @@ void joinNet();
 void setupTime();
 void updateEnergyFile();
 void checkScan();
-void getLastScan();
+void readPromDB();
 void setupFS();
 void sync2Master();
 bool calcChecksum();
@@ -50,17 +50,15 @@ String resetDetail = ESP.getResetInfo();
 #define BUFFER_SIZE 128
 #define TIME_ZONE 10
 #define LONG_STR_SIZE 10000
+#define MASTER_RESET D3
+#define LED_PIN D4
 
 //#define RMS2
 #ifdef RMS2
     #define NUM_CCTS 7
-    #define MASTER_RESET D3
-    #define LED_PIN D4
+
 #else
     #define NUM_CCTS 8
-    #define MASTER_RESET D3
-    #define LED_PIN D4
-    extern float T11_kWh[];
 #endif
 
 ESP8266WebServer server( 80 );

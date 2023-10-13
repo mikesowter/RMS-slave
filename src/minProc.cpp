@@ -6,6 +6,7 @@
 void minProc() {
   // update master time
   SPISlave.setStatus(now());
+  if ( minute() == oldMin ) return;
   oldMin = minute();
   // check for new quarter hour
   if ( oldQtr == minute()/15 ) return;

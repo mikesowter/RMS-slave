@@ -41,7 +41,7 @@ void joinNet();
 byte storeData();
 void dailyEnergy();
 void batteryEnergy();
-void getLastScan();
+void readPromDB();
 // void t31check();
 void updateEnergyFile();
 void updateBatteryFile();
@@ -51,6 +51,9 @@ bool calcChecksum();
 #define NTP_PACKET_SIZE 48
 #define TIME_ZONE 10
 #define LONG_STR_SIZE 10000
+#define FS_ID LittleFS
+#define MASTER_RESET D3
+#define LED_PIN D4
 
 //#define RMS2
 #ifdef RMS2
@@ -60,9 +63,7 @@ bool calcChecksum();
     extern float T11_kWh[];
 #endif
 
-#define FS_ID LittleFS
-#define MASTER_RESET D3
-#define LED_PIN D4
+
 
 extern uint8_t gobackhrs;
 extern WiFiUDP udp;

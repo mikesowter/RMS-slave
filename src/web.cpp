@@ -161,7 +161,8 @@ void handleMetrics() {
         promform(promName,batt_savings[ps][bs],2);
       }
     }
-    promform("rmsSpareSolar", avSparekW, 2);
+    strcpy(promName,"rmsSpareSolar ");
+    promform(promName, avSparekW, 3);
 #endif
   }
 
@@ -265,25 +266,20 @@ void handleNotFound() {
   else if (strncmp(userText,"/apple",6)==0) {
   }
   else if (strncmp(userText,"/spareSol",9)==0) {
+    longStr[0] = '\0';
     promform("rmsSpareSolar", avSparekW, 2);
     strcat(longStr,"\n" );
     server.send ( 200, "text/plain", longStr ); 
   }
-  else if (strncmp(userText,"/goback24",9)==0) {
-    gobackhrs = 24;
-    getLastScan();
+  else if (strncmp(userText,"/goback",7)==0) {
+    gobackhrs = atoi(userText+8);
+    readPromDB();
     gobackhrs = 0;
-    errMess("data recovered from yesterday");
-    strcpy(charBuf,"<!DOCTYPE html><html><head><HR>back 24hrs<HR></head></html>");
-    server.send ( 200, "text/html", charBuf );
-  }
-  else if (strncmp(userText,"/goback48",9)==0) {
-    gobackhrs = 48;
-    getLastScan();
-    gobackhrs = 0;
-    errMess("data recovered from 2 days back");
-    strcpy(charBuf,"<!DOCTYPE html><html><head><HR>back 48hrs<HR></head></html>");
-    server.send ( 200, "text/html", charBuf );
+    strcpy(charBuf,"data recovered from ");
+    strcat(charBuf,userText+8);
+    strcat(charBuf," hrs back");
+    errMess(charBuf);
+    server.send ( 200, "text/plain", charBuf );
   }
   else {
     strcpy(charBuf,userText);

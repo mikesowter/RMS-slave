@@ -2,7 +2,7 @@
 
 float readProm(char* unit);
  
-void getLastScan() {
+void readPromDB() {
   Serial.println("reading last values from prometheus");
   uint32_t querystart = millis();
   char unit[20];
@@ -33,7 +33,7 @@ void getLastScan() {
   uint8_t po = 11;
   uint8_t bo = 13;
 #else 
-  char root[] = "rms2";
+  char root[] = "rms";
   uint8_t po = 10;
   uint8_t bo = 12;
 
@@ -78,50 +78,6 @@ void getLastScan() {
   }   
   #endif
 
-/*
-  T11_kWh[0] = readProm("rmsT11_kWh");
-  T11_kWh[1] = readProm("rmsT11_kWh75");
-  T11_kWh[2] = readProm("rmsT11_kWh10");
-
-  batt_charge[0][0] = readProm("rmsChargeP0B0");
-  batt_tohouse[0][0] = readProm("rmsToHousP0B0");
-  dump_togrid[0][0] = readProm("rmsToGridP0B0");
-  batt_savings[0][0] = readProm("rmsSavingP0B0");
-  batt_charge[1][0] = readProm("rmsChargeP1B0");
-  batt_tohouse[1][0] = readProm("rmsToHousP1B0");
-  dump_togrid[1][0] = readProm("rmsToGridP1B0");
-  batt_savings[1][0] = readProm("rmsSavingP1B0");
-  batt_charge[2][0] = readProm("rmsChargeP2B0");
-  batt_tohouse[2][0] = readProm("rmsToHousP2B0");
-  dump_togrid[2][0] = readProm("rmsToGridP2B0");
-  batt_savings[2][0] = readProm("rmsSavingP2B0");
- 
-  batt_charge[0][1] = readProm("rmsChargeP0B1");
-  batt_tohouse[0][1] = readProm("rmsToHousP0B1");
-  dump_togrid[0][1] = readProm("rmsToGridP0B1");
-  batt_savings[0][1] = readProm("rmsSavingP0B1");
-  batt_charge[1][1] = readProm("rmsChargeP1B1");
-  batt_tohouse[1][1] = readProm("rmsToHousP1B1");
-  dump_togrid[1][1] = readProm("rmsToGridP1B1");
-  batt_savings[1][1] = readProm("rmsSavingP1B1");
-  batt_charge[2][1] = readProm("rmsChargeP2B1");
-  batt_tohouse[2][1] = readProm("rmsToHousP2B1");
-  dump_togrid[2][1] = readProm("rmsToGridP2B1");
-  batt_savings[2][1] = readProm("rmsSavingP2B1");
-  
-  batt_charge[0][2] = readProm("rmsChargeP0B2");
-  batt_tohouse[0][2] = readProm("rmsToHousP0B2");
-  dump_togrid[0][2] = readProm("rmsToGridP0B2");
-  batt_savings[0][2] = readProm("rmsSavingP0B2");
-  batt_charge[1][2] = readProm("rmsChargeP1B2");
-  batt_tohouse[1][2] = readProm("rmsToHousP1B2");
-  dump_togrid[1][2] = readProm("rmsToGridP1B2");
-  batt_savings[1][2] = readProm("rmsSavingP1B2");
-  batt_charge[2][2] = readProm("rmsChargeP2B2");
-  batt_tohouse[2][2] = readProm("rmsToHousP2B2");
-  dump_togrid[2][2] = readProm("rmsToGridP2B2");
-  batt_savings[2][2] = readProm("rmsSavingP2B2");   */
-
   Serial.printf("query took %li ms\n",millis()-querystart);
 }
 
@@ -130,7 +86,7 @@ float readProm(char* unit) {
   WiFiClient client;
   uint16_t replyPtr, numPtr;
   uint32_t t = now()-36000;   // back to zulu time
-  t -= gobackhrs*3600;        // recover from outage
+  t -= gobackhrs*3600;        // recover from long outage
 
   char host[] = "192.168.1.24";   // RPi-2 prometheus and influx server
   char Str1[] = "GET /api/v1/query_range?query=";
