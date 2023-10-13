@@ -266,10 +266,9 @@ void handleNotFound() {
   else if (strncmp(userText,"/apple",6)==0) {
   }
   else if (strncmp(userText,"/spareSol",9)==0) {
-    longStr[0] = '\0';
-    promform("rmsSpareSolar", avSparekW, 2);
-    strcat(longStr,"\n" );
-    server.send ( 200, "text/plain", longStr ); 
+    strcpy(longStr,"\nrmsSpareSolar ");
+    strcat(longStr,f2s2(avSparekW));
+    server.send ( 200, "text/plain", longStr );
   }
   else if (strncmp(userText,"/goback",7)==0) {
     gobackhrs = atoi(userText+8);

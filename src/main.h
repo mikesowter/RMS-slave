@@ -56,7 +56,6 @@ String resetDetail = ESP.getResetInfo();
 //#define RMS2
 #ifdef RMS2
     #define NUM_CCTS 7
-
 #else
     #define NUM_CCTS 8
 #endif

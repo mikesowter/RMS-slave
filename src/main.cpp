@@ -10,7 +10,7 @@ void setup(void) {
   #ifdef RMS2
     Serial.println("\nRMS2 slave 20231004");
   #else
-    Serial.println("\nRMS16 slave 20230901");
+    Serial.println("\nRMS1 slave 20231013");
   #endif
   digitalWrite(MASTER_RESET,1);
   pinMode(MASTER_RESET, OUTPUT);

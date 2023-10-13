@@ -1,6 +1,7 @@
 #include <extern.h>
+extern float T11_kWh[];
 
-float readProm(char* unit);
+float readPromItem(char* unit);
  
 void readPromDB() {
   Serial.println("reading last values from prometheus");
@@ -14,7 +15,7 @@ void readPromDB() {
     int len = strlen(unit);
     unit[len] = '0' + cct;
     unit[len+1] = '\0';
-    Energy[cct] = readProm(unit);
+    Energy[cct] = readPromItem(unit);
   }  
 
 // read most recent rmsEnergyCost# values
@@ -24,64 +25,58 @@ void readPromDB() {
     int len = strlen(unit);
     unit[len] = '0' + cct;
     unit[len+1] = '\0';
-    costEnergy[cct] = readProm(unit);
+    costEnergy[cct] = readPromItem(unit);
   }  
 
 // read miscellaneous recent values
-#ifdef RMS2
-  char root[] = "rms2";
+#ifndef RMS2
+  char root[] = "rms";
   uint8_t po = 11;
   uint8_t bo = 13;
-#else 
-  char root[] = "rms";
-  uint8_t po = 10;
-  uint8_t bo = 12;
 
   char promName[20];
   for (uint8_t ps = 0;ps<3;ps++) {
     strcpy(promName,root);
-    strcat(promName,"ExcessP0 ");
+    strcat(promName,"ExcessP0");
     promName[po] = ps + '0';
-    T11_kWh[ps] = readProm(promName);
+    T11_kWh[ps] = readPromItem(promName);
 
     for (uint8_t bs = 0;bs<3;bs++) {
       strcpy(promName,root);
-      strcat(promName,"ChargeP0B0 ");
+      strcat(promName,"ChargeP0B0");
       promName[po] = ps + '0';
       promName[bo] = bs + '0';
-      batt_charge[ps][bs] = readProm(promName);
+      batt_charge[ps][bs] = readPromItem(promName);
     }
 
     for (uint8_t bs = 0;bs<3;bs++) {
       strcpy(promName,root);
-      strcat(promName,"ToHousP0B0 ");
+      strcat(promName,"ToHousP0B0");
       promName[po] = ps + '0';
       promName[bo] = bs + '0';
-      batt_tohouse[ps][bs] = readProm(promName);
+      batt_tohouse[ps][bs] = readPromItem(promName);
     }
 
     for (uint8_t bs = 0;bs<3;bs++) {
       strcpy(promName,root);
-      strcat(promName,"ToGridP0B0 ");
+      strcat(promName,"ToGridP0B0");
       promName[po] = ps + '0';
       promName[bo] = bs + '0';
-      dump_togrid[ps][bs] = readProm(promName);
+      dump_togrid[ps][bs] = readPromItem(promName);
     }
 
     for (uint8_t bs = 0;bs<3;bs++) {
       strcpy(promName,root);
-      strcat(promName,"SavingP0B0 ");
+      strcat(promName,"SavingP0B0");
       promName[po] = ps + '0';
       promName[bo] = bs + '0';
-      batt_savings[ps][bs] = readProm(promName);
+      batt_savings[ps][bs] = readPromItem(promName);
     }
   }   
-  #endif
-
-  Serial.printf("query took %li ms\n",millis()-querystart);
+#endif
 }
 
-float readProm(char* unit) {
+float readPromItem(char* unit) {
   #include <ESP8266WiFi.h>
   WiFiClient client;
   uint16_t replyPtr, numPtr;
