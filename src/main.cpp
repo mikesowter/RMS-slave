@@ -1,17 +1,11 @@
  /* RMS slave offloads any async behaviour from RMS master
-which has a 104us capture loop which can't be interrupted
- */
+which has a 104us capture loop which can't be interrupted */
 
 #include <main.h>
 
-
 void setup(void) {
   Serial.begin(115200);
-  #ifdef RMS2
-    Serial.println("\nRMS2 slave 20231004");
-  #else
-    Serial.println("\nRMS1 slave 20231013");
-  #endif
+  Serial.println(CODEVERSION);
   digitalWrite(MASTER_RESET,1);
   pinMode(MASTER_RESET, OUTPUT);
   pinMode(LED_PIN, OUTPUT);
@@ -28,7 +22,7 @@ void setup(void) {
   // explain restart
 	resetDetail.toCharArray(charBuf,resetDetail.length()+1);
   diagMess(charBuf); 				// only give detail
-  #ifndef RMS2
+  #ifdef RMS1
   // recover previous values from prometheus
   readPromDB();   
   #endif

@@ -1,4 +1,4 @@
-
+#include "defines.h"
 #include "Arduino.h"
 #include "TimeLib.h"
 #include <SPISlave.h>
@@ -47,23 +47,6 @@ void updateEnergyFile();
 void updateBatteryFile();
 void setupTime();
 bool calcChecksum();
-
-#define NTP_PACKET_SIZE 48
-#define TIME_ZONE 10
-#define LONG_STR_SIZE 10000
-#define FS_ID LittleFS
-#define MASTER_RESET D3
-#define LED_PIN D4
-
-//#define RMS2
-#ifdef RMS2
-    #define NUM_CCTS 7
-#else
-    #define NUM_CCTS 8
-    extern float T11_kWh[];
-#endif
-
-
 
 extern uint8_t gobackhrs;
 extern WiFiUDP udp;

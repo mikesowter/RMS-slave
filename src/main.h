@@ -1,4 +1,4 @@
-
+#include "defines.h"
 #include "Arduino.h"
 #include "TimeLib.h"
 #include "secrets.h"
@@ -45,21 +45,6 @@ bool calcChecksum();
 String resetReason = "Restart caused by " + ESP.getResetReason();
 String resetDetail = ESP.getResetInfo();
 
-#define NTP_SERVER_NAME "au.pool.ntp.org"
-#define NTP_PACKET_SIZE 48
-#define BUFFER_SIZE 128
-#define TIME_ZONE 10
-#define LONG_STR_SIZE 10000
-#define MASTER_RESET D3
-#define LED_PIN D4
-
-//#define RMS2
-#ifdef RMS2
-    #define NUM_CCTS 7
-#else
-    #define NUM_CCTS 8
-#endif
-
 ESP8266WebServer server( 80 );
 FtpServer ftpSrv;
 WiFiUDP udp;
@@ -87,11 +72,7 @@ char fltStr[12];
 char longStr[LONG_STR_SIZE];  
 
 IPAddress localIP, timeServerIP;
-#ifdef RMS2
-    IPAddress ip(192, 168, 1, 62); 
-#else
-    IPAddress ip(192, 168, 1, 56); 
-#endif
+IPAddress ip(192, 168, 1, IP4); 
 IPAddress gateway(192, 168, 1, 1);
 IPAddress subnet(255, 255, 255, 0);
 IPAddress dns(192, 168, 1, 1);

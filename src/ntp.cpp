@@ -1,4 +1,3 @@
-#include <arduino.h>
 #include "extern.h"
 
 void sendNTPrequest(IPAddress& address);
