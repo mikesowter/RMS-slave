@@ -27,11 +27,11 @@ void readPromDB() {
     costEnergy[cct] = readPromItem(unit);
   }  
 
-// read miscellaneous recent values
-#ifndef RMS2
+// read miscellaneous battery and solar values
+#ifdef RMS1
   char root[] = "rms";
-  uint8_t po = 11;
-  uint8_t bo = 13;
+  uint8_t po = 10;
+  uint8_t bo = 12;
 
   char promName[20];
   for (uint8_t ps = 0;ps<3;ps++) {

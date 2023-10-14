@@ -54,7 +54,7 @@ void waitForData() {
   unloadValues();
   dailyEnergy();
   yield(); 
-#ifndef RMS2
+#ifdef RMS1
   batteryEnergy();   // battery simulation only useful on original meter
 #endif
   noDataYet = false;   
@@ -107,6 +107,9 @@ bool unloadValues() {
       if (w < Wrms_min[p]) Wrms_min[p] = w;
       if (w > Wrms_max[p]) Wrms_max[p] = w;
     }
+    #ifdef RMS1
+      avSparekW = 0.95*avSparekW + 0.05*(Wrms[7]-Wrms[1]);
+    #endif
     offset = 26;
     v = unload2Bytes()/50.0;    // Vpp_max
     Vmax_p = _max(Vmax_p,v);

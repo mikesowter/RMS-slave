@@ -30,7 +30,7 @@ void dailyEnergy() {
   loads = incEnergy[1];     // T11 incoming to dist panel
   solar = incEnergy[7];     // inverter incoming to dist panel
   float spareSolar = solar - loads; 
-  avSparekW = 0.9*avSparekW + 0.1*spareSolar;
+ 
 
   for ( int i = 2;i<NUM_CCTS+1;i++ ) {
     if ( i == 5 && waterOn ) {

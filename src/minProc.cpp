@@ -21,7 +21,7 @@ void minProc() {
   setupTime();
   // write days energy totals
   updateEnergyFile();
-#ifndef RMS2
+#ifdef RMS1
   // battery simulation totals
   updateBatteryFile();
 #endif
@@ -30,7 +30,7 @@ void minProc() {
     Energy[i] = 0.0F;
     costEnergy[i] = 0.0F;
   }
-#ifndef RMS2
+#ifdef RMS1
   extern float T11_kWh[3];
 
   for (uint8_t ps = 0;ps<3;ps++) {

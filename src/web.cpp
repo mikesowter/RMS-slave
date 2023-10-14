@@ -116,7 +116,7 @@ void handleMetrics() {
     promform("rmsT11_kWh75", T11_kWh[1], 4);
     promform("rmsT11_kWh10", T11_kWh[2], 4);
 #endif
-#ifndef RMS2
+#ifdef RMS1
 // costs
     promform("rmsCost1", costEnergy[1], 2);
     promform("rmsCost2", costEnergy[2], 2);
@@ -129,39 +129,39 @@ void handleMetrics() {
 
 // battery simulation
     for (uint8_t ps = 0;ps<3;ps++) {
-      strcpy(promName,"rmsExcessP0 ");
+      strcpy(promName,"rmsExcessP0");
       promName[10] = ps + '0';
       promform(promName,excessSolar[ps],5);
 
       for (uint8_t bs = 0;bs<3;bs++) {
-        strcpy(promName,"rmsChargeP0B0 ");
+        strcpy(promName,"rmsChargeP0B0");
         promName[10] = ps + '0';
         promName[12] = bs + '0';
         promform(promName,batt_charge[ps][bs],2);
       }
 
       for (uint8_t bs = 0;bs<3;bs++) {
-        strcpy(promName,"rmsToGridP0B0 ");
+        strcpy(promName,"rmsToGridP0B0");
         promName[10] = ps + '0';
         promName[12] = bs + '0';
         promform(promName,dump_togrid[ps][bs],2);
       }
 
       for (uint8_t bs = 0;bs<3;bs++) {
-        strcpy(promName,"rmsToHousP0B0 ");
+        strcpy(promName,"rmsToHousP0B0");
         promName[10] = ps + '0';
         promName[12] = bs + '0';
         promform(promName,batt_tohouse[ps][bs],2);
       }
 
       for (uint8_t bs = 0;bs<3;bs++) {
-        strcpy(promName,"rmsSavingP0B0 ");
+        strcpy(promName,"rmsSavingP0B0");
         promName[10] = ps + '0';
         promName[12] = bs + '0';
         promform(promName,batt_savings[ps][bs],2);
       }
     }
-    strcpy(promName,"rmsSpareSolar ");
+    strcpy(promName,"rmsSpareSolar");
     promform(promName, avSparekW, 3);
 #endif
   }
