@@ -5,7 +5,6 @@ float readPromItem(char* unit);
  
 void readPromDB() {
   Serial.println("reading last values from prometheus");
-  uint32_t querystart = millis();
   char unit[20];
   
 // read most recent rmsEnergy# values

@@ -13,17 +13,20 @@ float NOISE[] = {5,5,5,5,5,5,50,15,5};  // updated 20220725 to handle oven(6) no
 
 void dailyEnergy() {
 
-  float goodLoads, badLoads, split, rate;
+  #ifdef RMS1
+    float goodLoads=0.0F, badLoads, split, rate;
+  #endif
   t_scan = millis() - t_lastData;
   t_lastData = millis();
-  goodLoads = 0.0;
   for ( int i = 1;i<NUM_CCTS+1;i++ ) {
     if ( Wrms[i] < NOISE[i] ) Wrms[i] = 0.0;          // eliminate noise
     incEnergy[i] = Wrms[i]*(float)t_scan/3.6e9;       // kWh units
     Energy[i] += incEnergy[i];
-    if ( i!=1 && i!=5 && i!=7 ) goodLoads += incEnergy[i]; // water&solar
+    #ifdef RMS1
+      if ( i!=1 && i!=5 && i!=7 ) goodLoads += incEnergy[i]; // water&solar
+    #endif
   }
-  #ifndef RMS2
+  #ifdef RMS1
   loads = incEnergy[1];     // T11 incoming to dist panel
   solar = incEnergy[7];     // inverter incoming to dist panel
   float spareSolar = solar - loads; 
