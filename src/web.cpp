@@ -46,12 +46,8 @@ void handleMetrics() {
   promform("rmsVbattery", Vbat, 2);
   promform("rmsWifiSignal", -WiFi.RSSI(), 0);
   promform("rmsVolts", Vrms, 2);
-  promform("rmsVmin", Vrms_min, 2);
-  promform("rmsVmax", Vrms_max, 2);
-  promform("rmsVpmin_p", Vmin_p, 2);
   promform("rmsVpmax_p", Vmax_p, 2);
   promform("rmsVpmin_n", Vmin_n, 2);
-  promform("rmsVpmax_n", Vmax_n, 2);
   promform("rmsFreq", Freq, 3);
 #endif
 

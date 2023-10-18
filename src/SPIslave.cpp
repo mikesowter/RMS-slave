@@ -46,7 +46,21 @@ void waitForData() {
     SPIwait = true;
     SPISlave.end(); 
     if (millis() > wfdStart + 30000) break;  // for minProc
-  } while ( !calcChecksum() ); // bad checksum 
+    calcCheckSum();
+    Serial.print("\n");  
+    Serial.print(timeStamp());
+    for ( uint8_t p=0;p<32;p+=2 ) {
+#ifdef RMS1
+      if ( p > 3 && p < 22) Serial.printf("%d,",(int16_t)(256*SPIdata[p]+SPIdata[p+1]));
+      else Serial.printf("%d,",256*SPIdata[p]+SPIdata[p+1]);
+#endif
+#ifdef RMS2
+      if ( p > 7 && p < 22) Serial.printf("%d,",(int16_t)(256*SPIdata[p]+SPIdata[p+1]));
+      else Serial.printf("%d,",256*SPIdata[p]+SPIdata[p+1]);
+#endif
+    }
+    Serial.print("\n");
+  } while ( checkSumBad);
   // measure WFD times
   wfdTime = millis()-wfdStart;
   WFDmin = _min(WFDmin,wfdTime);
@@ -89,8 +103,7 @@ bool unloadValues() {
     if ( checkSumBad ) return false;
     offset = 0;
 
-    Freq = unload2Bytes()/500.0;
-    if (Freq < 40.0 || Freq > 55.0 ) Freq = 50.0;   // remove freq errors from record
+    Freq = unload2Bytes()/1000.0;
     Vrms = unload2Bytes()/100.0; 
     #ifdef RMS2               
     v = unload2Bytes()/100.0;    
@@ -101,19 +114,19 @@ bool unloadValues() {
 
     for (uint8_t p=1 ; p<=NUM_CCTS ; p++) { 
       w = unload2Bytes();
-      if ( w > 15000.0F ) w = 9999.0F;                // reasonability limit
-      else if ( w < 5.0F ) w = 0.0F;                  // remove low end noise
-      Wrms[p] = 0.7*Wrms[p] + 0.3*w;                  // should do average
+      w = (int16_t) w;                // convert unsigned to signed
+    //if ( abs(w) < 5.0F ) w = 0.0F;                  // remove low end noise
+      Wrms[p] = 0.8*Wrms[p] + 0.3*w;                  // should do smooth over 5 scans
       if (w < Wrms_min[p]) Wrms_min[p] = w;
       if (w > Wrms_max[p]) Wrms_max[p] = w;
     }
     #ifdef RMS1
-      avSparekW = 0.95*avSparekW + 0.05*(Wrms[7]-Wrms[1]);
+      avSparekW = 0.99*avSparekW + 0.01*(Wrms[7]-Wrms[1]);
     #endif
     offset = 26;
-    v = unload2Bytes()/50.0;    // Vpp_max
+    v = unload2Bytes()/100.0;    // Vpp_max
     Vmax_p = _max(Vmax_p,v);
-    v = unload2Bytes()/50.0;    // Vnp_min
+    v = unload2Bytes()/100.0;    // Vnp_min
     Vmin_n = _min(Vmin_p,v);
     Vbat = analogRead(A0) * 0.005835;
   }
@@ -125,35 +138,19 @@ float unload2Bytes() {
     diagMess("illegal SPI data offset ");
     return 0.0;
   }
-  int16_t val = 256.0*SPIdata[offset++];
+  uint16_t val = 256.0*SPIdata[offset++];
   val += SPIdata[offset++];
   checkSum += val;
   return (float)val;
 }
 
-bool calcChecksum() {
-  checkSumBad = false;
+void calcCheckSum() {
+  checkSumBad = true;
   checkSum = 0;
   offset = 0;
   while (offset<29) unload2Bytes();  
-  Serial.printf("\n");
-  
   uint16_t rxSum = checkSum;                   // sum of bytes 0-29 calc'd by receiver
   uint16_t txSum = (uint16_t) unload2Bytes();  // sum of bytes 0-29 calc'd by transmitter
-  if (rxSum == txSum) return true;
-  checkSumBad = true;
-  sprintf(charBuf,"checksum");
-  diagMess(charBuf);
-  if ( ++badSumCount < 3 ) return false;
-  badSumCount = 0;
-  sprintf(charBuf,"rebooting master");
-  diagMess(charBuf);
-  digitalWrite(MASTER_RESET,0);
-  delay(1);
-  digitalWrite(MASTER_RESET,1);
-  delay(1000);
-//  sprintf(charBuf,"rebooting slave");
-//  diagMess(charBuf);
-//  ESP.restart();
-  return false;   // needed for compiler
+  if (rxSum == txSum) checkSumBad = false;
+  return;   
 }

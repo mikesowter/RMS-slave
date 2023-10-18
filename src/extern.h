@@ -46,7 +46,7 @@ void readPromDB();
 void updateEnergyFile();
 void updateBatteryFile();
 void setupTime();
-bool calcChecksum();
+void calcCheckSum();
 
 extern uint8_t gobackhrs;
 extern WiFiUDP udp;

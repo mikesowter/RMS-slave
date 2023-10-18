@@ -40,7 +40,7 @@ void checkScan();
 void readPromDB();
 void setupFS();
 void sync2Master();
-bool calcChecksum();
+void calcCheckSum();
 
 String resetReason = "Restart caused by " + ESP.getResetReason();
 String resetDetail = ESP.getResetInfo();
