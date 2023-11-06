@@ -116,7 +116,7 @@ bool unloadValues() {
       w = unload2Bytes();
       w = (int16_t) w;                // convert unsigned to signed
     //if ( abs(w) < 5.0F ) w = 0.0F;                  // remove low end noise
-      Wrms[p] = 0.8*Wrms[p] + 0.3*w;                  // should do smooth over 5 scans
+      Wrms[p] = 0.8*Wrms[p] + 0.2*w;                  // should do smooth over 5 scans
       if (w < Wrms_min[p]) Wrms_min[p] = w;
       if (w > Wrms_max[p]) Wrms_max[p] = w;
     }
