@@ -40,12 +40,12 @@ void waitForData() {
   digitalWrite(LED_PIN,0);
   wfdPrev = wfdTime;
   wfdStart = millis();
-  do {
+//  do {
     SPISlave.begin();
     while (SPIwait) watchWait(10);
     SPIwait = true;
     SPISlave.end(); 
-    if (millis() > wfdStart + 30000) break;  // for minProc
+//    if (millis() > wfdStart + 30000) break;  // for minProc
     calcCheckSum();
     Serial.print("\n");  
     Serial.print(timeStamp());
@@ -59,8 +59,7 @@ void waitForData() {
       else Serial.printf("%d,",256*SPIdata[p]+SPIdata[p+1]);
 #endif
     }
-    Serial.print("\n");
-  } while ( checkSumBad);
+//  } while ( checkSumBad);
   // measure WFD times
   wfdTime = millis()-wfdStart;
   WFDmin = _min(WFDmin,wfdTime);
@@ -152,5 +151,6 @@ void calcCheckSum() {
   uint16_t rxSum = checkSum;                   // sum of bytes 0-29 calc'd by receiver
   uint16_t txSum = (uint16_t) unload2Bytes();  // sum of bytes 0-29 calc'd by transmitter
   if (rxSum == txSum) checkSumBad = false;
+  else Serial.print(" checksum ");
   return;   
 }

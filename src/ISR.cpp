@@ -18,7 +18,7 @@ bool timesUp(uint32_t t,const char* tag) {
 
 void activity(const char* tag) {
   int ms = millis() - appStart;
-  if ( millis() - appStart > 5 ) Serial.printf("-%s %d\n",tag,ms);
+  if ( millis() - appStart > 1 ) Serial.printf("-%s %dms ",tag,ms);
   appStart = millis();
 }
 

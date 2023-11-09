@@ -22,10 +22,10 @@ void setupFS () {
   Serial.println(" bytes available");
   Serial.print(fs_info.usedBytes);
   Serial.println(" bytes used");
-  Serial.print(fs_info.blockSize);
+/*  Serial.print(fs_info.blockSize);
   Serial.println(" blocksize");
   Serial.print(fs_info.pageSize);
-  Serial.println(" pagesize\n");
+  Serial.println(" pagesize\n");  */
 
   LittleFS.setTimeCallback(myTimeCallback);
 }
