@@ -72,6 +72,12 @@ void readPromDB() {
       batt_savings[ps][bs] = readPromItem(promName);
     }
   }   
+  strcpy(promName,"rmsT11_kWh");
+  T11_kWh[0] = readPromItem(promName);
+  strcpy(promName,"rmsT11_kWh75");
+  T11_kWh[1] = readPromItem(promName);
+  strcpy(promName,"rmsT11_kWh10");
+  T11_kWh[2] = readPromItem(promName);
 #endif
 }
 

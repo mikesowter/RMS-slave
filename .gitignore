@@ -2,7 +2,7 @@
 .clang_complete
 .gcc-flags.json
 .vscode
-src\secrets.h
-src\logs
+src/secrets.h
+src/logs
 output.map
 

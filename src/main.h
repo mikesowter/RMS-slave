@@ -89,7 +89,7 @@ uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
 uint32_t loopStart, loopTime, LTmin, LTmax;
 uint32_t wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
 
-float Wrms[NUM_CCTS+1];					// Sum of sampled V*I
+float Wrms[MAX_CCTS];					// Sum of sampled V*I
 /*  RMS16:
     scan Wrms[] load
     cct0 1  total import to house

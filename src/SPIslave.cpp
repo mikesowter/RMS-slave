@@ -113,7 +113,7 @@ bool unloadValues() {
 
     for (uint8_t p=1 ; p<=NUM_CCTS ; p++) { 
       w = unload2Bytes();
-      w = (int16_t) w;                // convert unsigned to signed
+      w = (int16_t) w;                                // convert unsigned to signed
     //if ( abs(w) < 5.0F ) w = 0.0F;                  // remove low end noise
       Wrms[p] = 0.8*Wrms[p] + 0.2*w;                  // should do smooth over 5 scans
       if (w < Wrms_min[p]) Wrms_min[p] = w;
@@ -121,6 +121,7 @@ bool unloadValues() {
     }
     #ifdef RMS1
       avSparekW = 0.99*avSparekW + 0.01*(Wrms[7]-Wrms[1]);
+      for (uint8_t q=NUM_CCTS+1 ; q<=MAX_CCTS ; q++) Wrms[q] = 0.0; // unused inputs
     #endif
     offset = 26;
     v = unload2Bytes()/100.0;    // Vpp_max
