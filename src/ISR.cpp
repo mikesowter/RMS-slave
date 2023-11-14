@@ -18,7 +18,7 @@ bool timesUp(uint32_t t,const char* tag) {
 
 void activity(const char* tag) {
   int ms = millis() - appStart;
-  if ( millis() - appStart > 1 ) Serial.printf("-%s %dms ",tag,ms);
+  if ( millis() - appStart > 1 ) Serial.printf("%s %dms ",tag,ms);
   appStart = millis();
 }
 
@@ -30,8 +30,8 @@ void watchWait(uint32_t timer) {
     if ( udp.parsePacket() ) handleWater();      // 600us max
     appStart = millis();
     // check for web requests
-    server.handleClient();                       // 40ms for metrics
-    activity("web");
+    server.handleClient();                       // 16ms for metrics
+    activity("NET");
     // check for OTA
     ArduinoOTA.handle();
     activity("OTA");

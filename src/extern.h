@@ -47,6 +47,7 @@ void updateEnergyFile();
 void updateBatteryFile();
 void setupTime();
 void calcCheckSum();
+void activity(const char* tag);
 
 extern uint8_t gobackhrs;
 extern WiFiUDP udp;
@@ -85,10 +86,11 @@ extern uint32_t t0, t1, startMillis, startSeconds, lastScan;
 extern uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
 extern uint32_t loopStart, loopTime, LTmin, LTmax;
 extern uint32_t wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
+extern uint32_t waitStart, appStart;
 
 extern float Wrms[];					    // Sum of sampled V*I
 extern float Arms[];					    // root sum I^2
-extern float Vrms,Vpp,Vnp;			// root sum V^2, -Vp, +Vp
+extern float Vrms,Vpp,Vnp;			        // root sum V^2, -Vp, +Vp
 extern float Freq;
 extern float Vrms_min;
 extern float Vrms_max;

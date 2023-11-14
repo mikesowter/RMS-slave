@@ -26,6 +26,7 @@ void handleRoot() {
   strcat(longStr,"\nWifiSignal ");
   strcat(longStr,f2s2(-WiFi.RSSI()));
   server.send ( 200, "text/plain", longStr );
+  activity("root ");
 }
 
 
@@ -199,6 +200,7 @@ void handleMetrics() {
   LTmax = 0;
   WFDmin = 9999;
   WFDmax = 0;
+  activity("mets");
  }
 
 void handleWater() {
@@ -212,6 +214,7 @@ void handleWater() {
   udp.beginPacket(udp.remoteIP(), udp.remotePort());
   udp.write(replyPacket);
   udp.endPacket();
+  activity("hotw ");
  };
 
 void handleNotFound() {
@@ -234,6 +237,7 @@ void handleNotFound() {
     fd.close();
     strcpy(charBuf,"<!DOCTYPE html><html><head><HR>Diags deleted<HR></head></html>");
     server.send ( 200, "text/html", charBuf );
+    activity("deld");
   }
   else if (strncmp(userText,"/delerrs",8)==0) {
     LittleFS.remove("/errmess.txt");
@@ -242,6 +246,7 @@ void handleNotFound() {
     fe.close();
     strcpy(charBuf,"<!DOCTYPE html><html><head><HR>Errors deleted<HR></head></html>");
     server.send ( 200, "text/html", charBuf );
+    activity("dele");
   }
   else if (LittleFS.exists(userText)) {
     strcpy(longStr,"File: ");
@@ -256,15 +261,19 @@ void handleNotFound() {
     }
     fh.close();
     server.send ( 200, "text/plain", longStr );
+    activity("file");
   }
   else if (strncmp(userText,"/favicon.ico",12)==0) {
+    activity("favi");
   }
   else if (strncmp(userText,"/apple",6)==0) {
+    activity("appl");
   }
   else if (strncmp(userText,"/spareSol",9)==0) {
     strcpy(longStr,"\nrmsSpareSolar ");
     strcat(longStr,f2s2(avSparekW));
     server.send ( 200, "text/plain", longStr );
+    activity("spar");
   }
   else if (strncmp(userText,"/goback",7)==0) {
     gobackhrs = atoi(userText+8);
@@ -275,12 +284,14 @@ void handleNotFound() {
     strcat(charBuf," hrs back");
     errMess(charBuf);
     server.send ( 200, "text/plain", charBuf );
+    activity("gobk");
   }
   else {
     strcpy(charBuf,userText);
     strcat(charBuf," is not a valid option");
     errMess(charBuf);
     helpPage();
+    activity("help");
   }
 }
 

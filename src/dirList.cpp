@@ -19,6 +19,7 @@ void handleDir() {
     strcat(longStr,fileSizeStr);
   }
   server.send ( 200, "text/plain", longStr );
+  activity("dir:");
   //Serial.println(longStr);
 }
 
