@@ -9,8 +9,8 @@ float v,w;
 void setupSPIslave() {
   // data has been received from the master. len is always 32 bytes
   SPISlave.onData([](uint8_t * data, size_t len) {
-    SPISlave.setData(data,32);
-    for (uint8_t i=0; i<32; i++) SPIdata[i] = data[i];
+  //  SPISlave.setData(data,32);
+    for (uint8_t i=0; i<32; i++) MOSIdata[i] = data[i];
     SPIwait = false;
   });
 
@@ -40,26 +40,35 @@ void waitForData() {
   digitalWrite(LED_PIN,0);
   wfdPrev = wfdTime;
   wfdStart = millis();
-//  do {
+  do {
     SPISlave.begin();
     while (SPIwait) watchWait(10);
     SPIwait = true;
     SPISlave.end(); 
-//    if (millis() > wfdStart + 30000) break;  // for minProc
+    if (millis() > wfdStart + 30000) {
+      errMess("wait for data timeout");
+      break;  // for minProc
+    }
     calcCheckSum();
-    Serial.print("\n");  
-    Serial.print(timeStamp());
+    if ( checkSumBad ) {
+      MISOdata[0] = 0x15; //NAK
+      diagMess("bad checksum");
+    }
+    else MISOdata[0] = 0x06; //ACK
+    SPISlave.setData(MISOdata,1);  
+    } while ( checkSumBad );
+
     for ( uint8_t p=0;p<32;p+=2 ) {
 #ifdef RMS1
-      if ( p > 3 && p < 22) Serial.printf("%d,",(int16_t)(256*SPIdata[p]+SPIdata[p+1]));
-      else Serial.printf("%d,",256*SPIdata[p]+SPIdata[p+1]);
+      if ( p > 3 && p < 22) Serial.printf("%d,",(int16_t)(256*MOSIdata[p]+MOSIdata[p+1]));
+      else Serial.printf("%d,",256*MOSIdata[p]+MOSIdata[p+1]);
 #endif
 #ifdef RMS2
-      if ( p > 7 && p < 22) Serial.printf("%d,",(int16_t)(256*SPIdata[p]+SPIdata[p+1]));
-      else Serial.printf("%d,",256*SPIdata[p]+SPIdata[p+1]);
+      if ( p > 7 && p < 22) Serial.printf("%d,",(int16_t)(256*MOSIdata[p]+MOSIdata[p+1]));
+      else Serial.printf("%d,",256*MOSIdata[p]+MOSIdata[p+1]);
 #endif
     }
-//  } while ( checkSumBad);
+
   // measure WFD times
   wfdTime = millis()-wfdStart;
   WFDmin = _min(WFDmin,wfdTime);
@@ -75,7 +84,7 @@ void waitForData() {
 }
 
 bool unloadValues() {
-  if ( SPIdata[0] == 0xFF && SPIdata[1] == 0xFF) {
+  if ( MOSIdata[0] == 0xFF && MOSIdata[1] == 0xFF) {
     if ( !pwrOutage ) {
       pwrOutage = true;
       diagMess("power outage");
@@ -138,13 +147,16 @@ float unload2Bytes() {
     diagMess("illegal SPI data offset ");
     return 0.0;
   }
-  uint16_t val = 256.0*SPIdata[offset++];
-  val += SPIdata[offset++];
+  uint16_t val = 256.0*MOSIdata[offset++];
+  val += MOSIdata[offset++];
   checkSum += val;
   return (float)val;
 }
 
 void calcCheckSum() {
+  Serial.println();
+  Serial.print(timeStamp());
+  Serial.print(",");
   checkSumBad = true;
   checkSum = 0;
   offset = 0;

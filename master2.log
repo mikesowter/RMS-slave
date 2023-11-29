@@ -1,0 +1,744 @@
+--- Terminal on com9 | 115200 8-N-1
+--- Available filters and text transformations: colorize, debug, default, direct, esp8266_exception_decoder, hexlify, log2file, nocontrol, printable, send_on_enter, time
+--- More details at https://bit.ly/pio-monitor-filters
+--- Quit: Ctrl+C | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H
+
+
+RMS2 Version 1.0  20230831
+231129 18:05:44 
+
+18:05:44 ,50028,23307,23307,23266,2,2,2,2,1,1,65535,32010,31531,52386,ack:6  ms:775
+
+18:05:45 ,50018,23322,23322,23297,2,2,2,3,1,2,0,32010,31531,52440,ack:6  ms:753
+
+18:05:46 ,50012,23255,23286,23246,2,1,2,3,1,1,0,32010,31435,52182,ack:6  ms:692
+
+18:05:47 ,50012,23313,23314,23280,3,3,0,1,1,2,65535,32202,31435,52493,ack:6  ms:732
+
+18:05:48 ,50004,23317,23332,23297,2,3,2,2,1,3,0,32010,31531,52432,ack:6  ms:712
+
+18:05:49 ,50000,23304,23326,23300,2,3,3,3,2,3,0,32010,31531,52415,ack:6  ms:712
+
+18:05:50 ,50008,23322,23343,23305,2,1,2,2,1,2,65535,32106,31531,52552,ack:6  ms:711
+
+18:05:51 ,50010,23335,23358,23326,3,1,2,2,1,2,0,32106,31339,52413,ack:6  ms:710
+
+18:05:52 ,50014,23327,23346,23304,2,3,1,2,1,2,1,32010,31531,52472,ack:6  ms:708
+
+18:05:53 ,50018,23344,23344,23316,2,3,2,3,1,3,65535,32106,31627,52696,ack:6  ms:747
+
+18:05:54 ,50022,23285,23316,23285,2,2,4,2,1,2,0,32106,31339,52294,ack:6  ms:705
+
+18:05:55 ,50030,23280,23300,23278,2,2,2,2,2,2,0,32010,31435,52273,ack:6  ms:705
+
+18:05:56 ,50032,23307,23307,23274,2,2,2,2,1,3,65535,32010,31243,52112,ack:6  ms:724
+
+18:05:57 ,50032,23280,23297,23268,1,2,2,2,1,2,0,32106,31531,52452,ack:6  ms:723
+
+18:05:58 ,50028,23284,23293,23270,2,3,2,2,2,3,65535,32106,31531,52453,ack:6  ms:703
+
+18:05:59 ,50022,23304,23306,23271,2,3,1,2,2,2,0,32010,31435,52288,ack:6  ms:742
+
+18:06:00 ,50018,23277,23288,23255,3,2,2,2,0,3,0,31914,31148,51840,ack:6  ms:741
+
+18:06:01 ,50024,23302,23304,23279,3,2,2,1,2,2,65535,32010,31435,52293,ack:6  ms:740
+
+18:06:02 ,50024,23295,23295,23265,1,2,2,2,0,3,0,32010,31531,52358,ack:6  ms:738
+
+18:06:03 ,50024,23252,23302,23252,2,3,2,2,1,2,0,32010,31339,52119,ack:6  ms:717
+
+18:06:04 ,50030,23268,23268,23248,3,3,2,2,1,3,65535,32010,31435,52200,ack:6  ms:717
+
+18:06:05 ,50032,23272,23285,23272,1,2,2,3,0,2,0,32010,31531,52340,ack:6  ms:737
+
+18:06:06 ,50026,23247,23286,23247,2,3,2,2,1,2,65533,31914,31531,52188,ack:6  ms:756
+
+18:06:07 ,50032,23211,23246,23201,3,3,2,2,2,2,0,31914,31148,51694,ack:6  ms:736
+
+18:06:08 ,50030,23253,23258,23217,1,2,3,2,1,2,0,31914,31531,52142,ack:6  ms:714
+
+18:06:09 ,50026,23239,23253,23231,3,2,3,2,0,2,0,32010,31339,52038,ack:6  ms:713
+
+18:06:10 ,50024,23405,23405,23363,1,2,2,2,2,1,0,32106,31435,52676,ack:6  ms:731
+
+18:06:11 ,50026,23476,23480,23447,4,3,2,2,1,3,65535,32298,31723,53392,ack:6  ms:690
+
+18:06:12 ,50016,23445,23465,23427,3,2,1,2,1,2,65535,32202,31723,53216,ack:6  ms:709
+
+18:06:13 ,50022,23470,23470,23448,2,3,2,2,1,2,65535,32298,31818,53465,ack:6  ms:728
+
+18:06:14 ,50020,23474,23491,23470,2,2,1,3,1,2,0,32202,31818,53414,ack:6  ms:727
+
+18:06:15 ,50012,23264,23477,23264,1,1,1,2,1,2,0,32202,31627,52782,ack:6  ms:705
+
+18:06:16 ,50014,23292,23292,23256,2,2,2,3,1,2,65534,32010,31531,52333,ack:6  ms:724
+
+18:06:17 ,50014,23291,23294,23282,1,2,2,3,2,2,65534,32010,31531,52360,ack:6  ms:743
+
+18:06:18 ,50014,23260,23273,23249,1,2,1,2,1,2,1,32010,31243,51987,ack:6  ms:722
+
+18:06:19 ,50016,23270,23302,23270,2,3,3,3,1,2,0,32010,31339,52149,ack:6  ms:721
+
+18:06:20 ,50014,23276,23302,23276,3,3,2,2,2,2,0,32010,31339,52159,ack:6  ms:760
+
+18:06:21 ,50020,23309,23309,23271,3,1,2,2,2,3,65535,32010,31339,52198,ack:6  ms:739
+
+18:06:22 ,50024,23307,23318,23265,3,1,4,2,1,2,65534,32010,31531,52394,ack:6  ms:758
+
+18:06:23 ,50024,23302,23305,23286,2,3,1,3,0,2,0,32010,31435,52301,ack:6  ms:757
+
+18:06:24 ,50026,23273,23297,23263,2,2,2,3,2,2,0,32010,31435,52245,ack:6  ms:716
+
+18:06:25 ,50024,23271,23288,23269,2,3,2,2,1,3,0,31914,31531,52238,ack:6  ms:735
+
+18:06:26 ,50022,23273,23277,23250,2,3,1,2,0,2,65534,31914,31531,52203,ack:6  ms:734
+
+18:06:27 ,50020,23269,23278,23257,3,2,2,2,1,1,1,31914,31531,52209,ack:6  ms:714
+
+18:06:28 ,50016,23243,23270,23243,2,3,2,4,2,2,2,31914,31339,51970,ack:6  ms:693
+
+18:06:29 ,50022,23245,23267,23216,2,2,2,1,1,1,0,31914,31243,51844,ack:6  ms:692
+
+18:06:30 ,50012,23243,23271,23243,1,2,1,1,0,3,0,31914,31531,52150,ack:6  ms:731
+
+18:06:31 ,50008,23236,23253,23236,2,3,3,1,0,2,0,31914,31435,52021,ack:6  ms:711
+
+18:06:32 ,50000,23264,23264,23241,2,2,1,1,1,2,65534,31914,31435,52053,ack:6  ms:732
+
+18:06:33 ,50002,23264,23270,23258,2,4,3,2,0,2,65535,31914,31531,52179,ack:6  ms:751
+
+18:06:34 ,49992,23271,23271,23239,2,1,1,3,2,2,0,32010,31531,52253,ack:6  ms:730
+
+18:06:35 ,49994,23284,23294,23277,0,1,3,2,0,1,65535,32010,31531,52324,ack:6  ms:749
+
+18:06:36 ,49998,23270,23297,23270,3,4,2,2,2,1,0,31914,31435,52126,ack:6  ms:749
+
+18:06:37 ,50002,23292,23303,23289,2,2,2,2,1,2,65535,32010,31531,52365,ack:6  ms:748
+
+18:06:38 ,50006,23263,23301,23263,3,2,3,2,1,2,65535,32010,31531,52314,ack:6  ms:728
+
+18:06:39 ,50012,23261,23277,23256,3,4,2,2,0,3,0,32010,31531,52289,ack:6  ms:706
+
+18:06:40 ,50020,23279,23279,23253,2,1,2,2,1,2,65534,31914,31339,52020,ack:6  ms:725
+
+18:06:41 ,50026,23261,23277,23259,3,3,3,2,2,2,65535,32010,31435,52210,ack:6  ms:704
+
+18:06:42 ,50036,23241,23258,23239,1,3,2,3,1,3,1,31914,31435,52065,ack:6  ms:742
+
+18:06:43 ,50042,23251,23267,23251,2,3,0,2,1,1,1,31914,31435,52098,ack:6  ms:721
+
+18:06:44 ,50044,23256,23264,23244,2,2,2,2,1,2,65534,32010,31531,52286,ack:6  ms:739
+
+18:06:45 ,50040,23220,23249,23220,1,1,2,2,1,2,1,31914,31339,51920,ack:6  ms:738
+
+18:06:46 ,50038,23233,23235,23220,3,3,1,1,0,2,65533,31914,31435,52010,ack:6  ms:736
+
+18:06:47 ,50038,23393,23414,23393,2,3,3,3,0,1,0,32106,31627,52911,ack:6  ms:715
+
+18:06:48 ,50028,23437,23437,23413,2,2,2,2,1,3,65533,32202,31531,52985,ack:6  ms:713
+
+18:06:49 ,50026,23441,23441,23414,2,3,3,1,1,1,65535,32202,31531,52993,ack:6  ms:731
+
+18:06:50 ,50026,23448,23456,23435,2,3,2,2,1,1,65535,32202,31723,53228,ack:6  ms:750
+
+18:06:51 ,50024,23421,23449,23421,3,3,2,2,1,2,0,32298,31818,53372,ack:6  ms:709
+
+18:06:52 ,50022,23429,23453,23405,2,1,3,2,0,2,0,32202,31723,53172,ack:6  ms:708
+
+18:06:53 ,50022,23454,23463,23444,1,2,2,2,0,2,65533,32202,31818,53337,ack:6  ms:727
+
+18:06:54 ,50024,23416,23432,23414,1,1,1,3,0,2,2,32202,31723,53149,ack:6  ms:706
+
+18:06:55 ,50018,23381,23406,23381,2,2,2,2,0,2,0,32202,31818,53144,ack:6  ms:704
+
+18:06:56 ,50016,23373,23395,23373,3,2,1,3,1,3,0,32202,31627,52927,ack:6  ms:724
+
+18:06:57 ,50018,23414,23414,23400,2,2,2,2,0,2,0,32202,31818,53204,ack:6  ms:743
+
+18:06:58 ,50020,23393,23415,23393,2,3,2,1,1,2,0,32202,31627,52989,ack:6  ms:703
+
+18:06:59 ,50022,23394,23418,23387,3,2,2,3,1,3,0,32202,31531,52896,ack:6  ms:742
+
+18:07:00 ,50024,23412,23427,23410,2,1,1,2,0,3,65535,32202,31531,52942,ack:6  ms:722
+
+18:07:01 ,50030,23401,23421,23401,2,2,2,3,2,2,1,32202,31531,52928,ack:6  ms:702
+
+18:07:02 ,50032,23428,23428,23398,4,1,2,1,1,2,0,32202,31531,52958,ack:6  ms:721
+
+18:07:03 ,50036,23383,23395,23361,2,1,1,3,1,2,65535,32202,31627,52941,ack:6  ms:740
+
+18:07:04 ,50034,23223,23391,23215,2,2,1,3,1,2,65535,32106,31531,52438,ack:6  ms:719
+
+18:07:05 ,50030,23216,23230,23205,2,2,2,3,0,2,0,31914,31243,51777,ack:6  ms:697
+
+18:07:06 ,50038,23247,23251,23220,3,2,2,2,1,2,1,32010,31531,52238,ack:6  ms:735
+
+18:07:07 ,50030,23256,23283,23256,2,2,2,2,0,2,0,32010,31531,52304,ack:6  ms:734
+
+18:07:08 ,50024,23212,23284,23205,2,2,2,2,0,2,1,32010,31435,52109,ack:6  ms:694
+
+18:07:09 ,50028,23262,23282,23253,2,1,2,2,2,3,65535,32010,31435,52209,ack:6  ms:693
+
+18:07:10 ,50030,23272,23286,23263,1,3,2,3,0,2,0,32010,31435,52235,ack:6  ms:712
+
+18:07:11 ,50036,23282,23295,23280,3,2,2,3,1,1,1,32010,31435,52279,ack:6  ms:691
+
+18:07:12 ,50036,23289,23294,23263,4,1,2,2,1,2,65535,32010,31243,52074,ack:6  ms:710
+
+18:07:13 ,50032,23262,23291,23262,4,1,3,1,2,1,65535,32010,31627,52423,ack:6  ms:729
+
+18:07:14 ,50024,23284,23284,23251,2,1,3,3,1,2,65535,32010,31531,52323,ack:6  ms:709
+
+18:07:15 ,50028,23275,23296,23275,3,1,3,2,1,3,65535,32010,31627,52451,ack:6  ms:708
+
+18:07:16 ,50022,23290,23292,23258,3,1,3,2,1,1,65534,32010,31435,52244,ack:6  ms:746
+
+18:07:17 ,50018,23245,23270,23245,3,1,3,2,1,2,0,32010,31531,52259,ack:6  ms:745
+
+18:07:18 ,50018,23267,23273,23257,3,2,2,1,1,2,0,32010,31627,52391,ack:6  ms:704
+
+18:07:19 ,50018,23275,23287,23264,3,2,3,3,1,2,1,32010,31435,52232,ack:6  ms:724
+
+18:07:20 ,50020,23266,23287,23265,2,3,2,2,1,3,65535,31914,31435,52127,ack:6  ms:743
+
+18:07:21 ,50020,23281,23282,23258,2,2,2,3,1,3,0,31914,31339,52035,ack:6  ms:762
+
+18:07:22 ,50022,23268,23292,23268,2,2,2,2,1,2,0,32010,31531,52330,ack:6  ms:721
+
+18:07:23 ,50024,23231,23266,23231,2,1,2,2,1,1,0,32010,31531,52230,ack:6  ms:720
+
+18:07:24 ,50022,23253,23267,23231,3,1,2,2,0,2,0,31914,31531,52156,ack:6  ms:718
+
+18:07:25 ,50022,23215,23259,23215,2,3,1,1,2,2,1,31914,31243,51808,ack:6  ms:696
+
+18:07:26 ,50016,23225,23239,23225,1,2,2,3,2,3,0,31914,31339,51899,ack:6  ms:715
+
+18:07:27 ,50012,23222,23256,23220,2,2,1,3,0,3,0,31914,31148,51711,ack:6  ms:694
+
+18:07:28 ,50012,23219,23253,23219,2,2,2,2,1,1,1,31914,31243,51799,ack:6  ms:714
+
+18:07:29 ,50008,23233,23256,23232,2,2,3,3,1,3,0,31914,31339,51924,ack:6  ms:713
+
+18:07:30 ,50000,23239,23258,23231,0,3,1,2,2,2,65535,32010,31339,52014,ack:6  ms:713
+
+18:07:31 ,50002,23245,23268,23239,1,2,2,2,1,2,0,31914,31435,52041,ack:6  ms:712
+
+18:07:32 ,50000,23272,23289,23257,2,2,2,2,1,3,0,32010,31531,52299,ack:6  ms:712
+
+18:07:33 ,49988,23227,23273,23227,4,3,4,3,1,1,0,32010,31435,52104,ack:6  ms:731
+
+18:07:34 ,49998,23242,23270,23242,2,2,2,2,1,2,0,31914,31531,52136,ack:6  ms:711
+
+18:07:35 ,49998,23268,23294,23247,3,2,2,1,0,2,65535,32010,31339,52093,ack:6  ms:732
+
+18:07:36 ,50006,23265,23276,23259,2,3,2,2,1,1,65535,31914,31435,52093,ack:6  ms:691
+
+18:07:37 ,50016,23251,23277,23251,1,1,2,2,1,2,0,32010,31531,52273,ack:6  ms:711
+
+18:07:38 ,50030,23278,23298,23277,3,3,2,2,1,3,0,31914,31531,52270,ack:6  ms:710
+
+18:07:39 ,50034,23262,23284,23259,2,3,1,2,1,2,0,31914,31339,52031,ack:6  ms:709
+
+18:07:40 ,50040,23218,23251,23218,3,2,1,2,1,1,1,31914,31243,51823,ack:6  ms:707
+
+18:07:41 ,50036,23186,23216,23186,1,3,3,2,1,2,0,31914,31435,51913,ack:6  ms:726
+
+18:07:42 ,50030,23173,23184,23160,3,3,3,1,1,2,65534,31818,31435,51739,ack:6  ms:725
+
+18:07:43 ,50024,23138,23168,23138,3,2,0,3,1,2,0,31818,31243,51468,ack:6  ms:703
+
+18:07:44 ,50016,23180,23192,23146,3,2,0,1,0,2,0,31914,31148,51532,ack:6  ms:703
+
+18:07:45 ,50010,23199,23199,23178,1,1,2,1,0,2,0,31818,31435,51774,ack:6  ms:742
+
+18:07:46 ,50010,23414,23414,23199,2,2,0,2,2,1,65533,32202,31435,52608,ack:6  ms:722
+
+18:07:47 ,50002,23388,23403,23384,3,3,3,3,1,3,0,32106,31531,52758,ack:6  ms:700
+
+18:07:48 ,50002,23411,23411,23394,2,1,0,3,0,2,65534,32202,31723,53077,ack:6  ms:740
+
+18:07:49 ,50000,23419,23420,23409,3,4,2,3,2,2,65535,32106,31723,53020,ack:6  ms:739
+
+18:07:50 ,49996,23422,23422,23403,1,2,2,3,1,2,65533,32298,31723,53200,ack:6  ms:759
+
+18:07:51 ,49996,23388,23415,23388,2,2,1,2,1,3,0,32106,31627,52859,ack:6  ms:717
+
+18:07:52 ,50006,23410,23423,23377,2,2,2,2,0,1,0,32202,31435,52790,ack:6  ms:696
+
+18:07:53 ,49998,23412,23414,23388,2,2,2,2,1,3,0,32202,31627,52981,ack:6  ms:716
+
+18:07:54 ,50006,23404,23415,23381,2,1,3,3,1,2,1,32106,31627,52880,ack:6  ms:715
+
+18:07:55 ,50012,23417,23417,23392,3,2,1,3,1,3,65533,32202,31531,52909,ack:6  ms:735
+
+18:07:56 ,50016,23399,23429,23399,3,3,2,3,1,1,0,32202,31723,53109,ack:6  ms:734
+
+18:07:57 ,50018,23360,23401,23360,3,2,3,2,1,2,0,32106,31531,52717,ack:6  ms:693
+
+18:07:58 ,50030,23386,23387,23362,2,4,4,2,0,2,65535,32106,31531,52743,ack:6  ms:711
+
+18:07:59 ,50024,23351,23386,23351,3,2,4,2,2,2,65535,32106,31723,52883,ack:6  ms:710
+
+18:08:00 ,50022,23327,23350,23278,1,3,2,2,1,1,0,32010,31435,52360,ack:6  ms:708
+
+18:08:01 ,50020,23334,23346,23299,1,4,3,3,1,2,0,32106,31627,52674,ack:6  ms:708
+
+18:08:02 ,50012,23321,23340,23316,3,1,2,2,1,2,0,32106,31627,52661,ack:6  ms:708
+
+18:08:03 ,50012,23333,23341,23309,1,2,2,2,1,2,1,32010,31627,52571,ack:6  ms:707
+
+18:08:04 ,50008,23303,23353,23303,2,3,1,2,1,2,1,32106,31435,52448,ack:6  ms:687
+
+18:08:05 ,50000,23287,23309,23286,2,2,2,3,1,1,0,32010,31435,52266,ack:6  ms:706
+
+18:08:06 ,49996,23336,23339,23306,3,3,2,3,1,3,65535,32010,31531,52460,ack:6  ms:685
+
+18:08:07 ,49994,23336,23341,23319,3,2,3,2,2,2,65535,32010,31627,52568,ack:6  ms:744
+
+18:08:08 ,49986,23169,23186,23168,2,3,2,3,1,2,0,31818,31243,51511,ack:6  ms:723
+
+18:08:09 ,49984,23173,23195,23173,3,2,3,2,1,2,0,31818,31435,51719,ack:6  ms:742
+
+18:08:10 ,49980,23181,23184,23172,3,3,3,1,0,1,65535,31914,31435,51804,ack:6  ms:763
+
+18:08:11 ,49978,23178,23191,23151,2,1,2,1,1,3,65535,31818,31243,51496,ack:6  ms:704
+
+18:08:12 ,49980,23181,23185,23167,2,2,2,2,1,3,0,31818,31435,51706,ack:6  ms:743
+
+18:08:13 ,49976,23154,23176,23146,2,2,3,2,1,2,65535,31818,31148,51357,ack:6  ms:723
+
+18:08:14 ,49988,23180,23186,23167,2,3,1,2,2,3,65535,31818,31435,51714,ack:6  ms:742
+
+18:08:15 ,49994,23187,23210,23187,2,1,4,1,1,2,0,31818,31243,51578,ack:6  ms:742
+
+18:08:16 ,49992,23186,23211,23185,2,2,4,3,1,3,65533,31914,31435,51863,ack:6  ms:741
+
+18:08:17 ,50000,23142,23175,23142,1,1,2,3,0,2,1,31818,31243,51458,ack:6  ms:721
+
+18:08:18 ,49992,23160,23179,23145,2,3,2,2,1,3,0,31818,31243,51478,ack:6  ms:701
+
+18:08:19 ,49994,23147,23169,23147,3,1,3,3,1,2,0,31818,31339,51555,ack:6  ms:740
+
+18:08:20 ,49989,23166,23183,23166,1,2,3,3,1,2,65535,31818,31435,51696,ack:6  ms:741
+
+18:08:21 ,49988,23204,23204,23141,2,1,3,3,2,3,65534,31914,31339,51730,ack:6  ms:740
+
+18:08:22 ,49982,23227,23230,23197,2,2,2,2,1,2,65535,31914,31435,51923,ack:6  ms:781
+
+18:08:23 ,49972,23171,23232,23171,3,2,2,2,1,2,0,31914,31148,51548,ack:6  ms:700
+
+18:08:24 ,49980,23217,23230,23205,1,1,3,2,1,1,0,31914,31531,52014,ack:6  ms:720
+
+18:08:25 ,49980,23259,23271,23253,2,2,2,2,1,3,0,32010,31531,52244,ack:6  ms:720
+
+18:08:26 ,49974,23252,23263,23249,2,3,2,3,1,2,65535,32010,31531,52219,ack:6  ms:740
+
+18:08:27 ,49984,23222,23253,23215,1,3,1,2,1,3,65534,32010,31243,51864,ack:6  ms:719
+
+18:08:28 ,49980,23188,23213,23175,2,1,2,3,1,2,65535,31818,31339,51651,ack:6  ms:738
+
+18:08:29 ,49982,23192,23192,23158,2,1,2,2,1,2,65535,31818,31435,51714,ack:6  ms:739
+
+18:08:30 ,49986,23178,23202,23178,3,2,3,2,2,3,0,31818,31435,51740,ack:6  ms:719
+
+18:08:31 ,49984,23182,23205,23176,3,2,2,3,2,2,0,31818,31243,51550,ack:6  ms:719
+
+18:08:32 ,49989,23192,23194,23179,2,2,3,3,0,3,65534,31818,31435,51746,ack:6  ms:739
+
+18:08:33 ,49998,23178,23197,23177,1,2,2,2,0,1,1,31818,31435,51740,ack:6  ms:719
+
+18:08:34 ,49998,23191,23197,23173,2,3,0,2,2,2,0,31914,31435,51847,ack:6  ms:698
+
+18:08:35 ,49994,23164,23193,23146,2,2,2,3,2,2,0,31818,31339,51595,ack:6  ms:697
+
+18:08:36 ,50004,23181,23184,23171,2,4,2,2,1,2,65535,31818,31435,51733,ack:6  ms:716
+
+18:08:37 ,50002,23226,23226,23154,4,2,2,2,1,1,65534,31914,31435,51895,ack:6  ms:736
+
+18:08:38 ,50002,23210,23228,23209,2,1,1,2,1,1,1,31914,31435,51935,ack:6  ms:696
+
+18:08:39 ,50006,23216,23230,23204,2,3,2,3,2,2,0,31914,31435,51947,ack:6  ms:715
+
+18:08:40 ,50010,23246,23246,23229,2,3,3,3,1,2,0,32010,31531,52214,ack:6  ms:735
+
+18:08:41 ,50014,23218,23237,23205,3,3,3,3,0,3,0,31914,31243,51774,ack:6  ms:715
+
+18:08:42 ,50018,23233,23242,23215,2,3,1,1,1,2,65535,31914,31243,51802,ack:6  ms:694
+
+18:08:43 ,50020,23228,23240,23227,1,2,2,3,0,2,0,32010,31531,52194,ack:6  ms:713
+
+18:08:44 ,50006,23194,23236,23194,1,3,1,2,1,2,0,31914,31339,51821,ack:6  ms:732
+
+18:08:45 ,50008,23189,23203,23153,2,3,2,1,1,2,1,31914,31148,51555,ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:6  ms:5398
+
+18:08:51 ,49976,23261,23282,23248,2,2,1,1,1,1,0,32010,31243,51956,ack:6  ms:692
+
+18:08:52 ,49974,23277,23286,23263,2,2,1,3,1,2,65534,32010,31531,52278,ack:6  ms:732
+
+18:08:53 ,49972,23292,23297,23275,3,2,2,1,1,3,65535,32010,31627,52412,ack:6  ms:712
+
+18:08:54 ,49976,23272,23285,23257,1,2,2,1,1,2,0,32010,31531,52268,ack:6  ms:732
+
+18:08:55 ,49980,23260,23285,23240,3,2,1,2,1,2,1,32010,31339,52054,ack:6  ms:712
+
+18:08:56 ,49982,23263,23282,23256,2,2,1,2,1,2,0,32010,31531,52262,ack:6  ms:732
+
+18:08:57 ,49988,23259,23272,23244,2,2,2,3,1,2,1,32010,31339,52053,ack:6  ms:711
+
+18:08:58 ,49994,23268,23290,23268,2,1,1,1,2,1,0,32010,31531,52297,ack:6  ms:711
+
+18:08:59 ,49992,23265,23278,23250,1,2,2,2,1,2,0,32010,31531,52264,ack:6  ms:730
+
+18:09:00 ,49994,23254,23261,23221,2,3,3,1,1,2,65535,32010,31435,52114,ack:6  ms:750
+
+18:09:01 ,49996,23238,23246,23230,3,2,2,3,1,2,0,31914,31531,52096,ack:6  ms:729
+
+18:09:02 ,49992,23214,23251,23214,2,2,4,3,0,2,0,32010,31339,51961,ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:6  ms:1312
+
+18:09:03 ,49989,23243,23252,23236,2,2,2,2,0,2,0,31914,31531,52103,ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:0 ack:6  ms:761
+
+18:09:04 ,49989,23228,23254,23228,1,2,2,2,0,2,0,32010,31531,52177,ack:6  ms:736
+
+18:09:05 ,49986,23221,23251,23221,4,2,2,2,1,2,0,31914,31531,52065,ack:6  ms:715
+
+18:09:06 ,49978,23234,23234,23205,0,3,1,3,2,2,65534,31914,31339,51841,ack:6  ms:735
+
+18:09:07 ,49976,23220,23247,23220,3,4,1,2,1,2,1,31914,31435,51954,ack:6  ms:735
+
+18:09:08 ,49972,23230,23247,23219,2,2,3,2,1,1,1,32010,31339,51957,ack:6  ms:715
+
+18:09:09 ,49964,23235,23240,23229,2,2,2,2,1,2,0,32010,31435,52052,ack:6  ms:696
+
+18:09:10 ,49968,23259,23264,23248,2,3,3,2,1,1,0,31914,31531,52124,ack:6  ms:716
+
+18:09:11 ,49970,23258,23272,23253,3,3,2,3,1,2,0,31914,31531,52140,ack:6  ms:716
+
+18:09:12 ,49974,23267,23286,23251,3,3,2,1,0,3,0,32010,31339,52067,ack:6  ms:716
+
+18:09:13 ,49982,23252,23286,23245,2,3,2,1,1,2,65535,32010,31531,52244,ack:6  ms:735
+
+18:09:14 ,49984,23253,23254,23237,3,2,3,3,0,2,0,31914,31531,52114,ack:6  ms:755
+
+18:09:15 ,49996,23249,23273,23244,3,2,2,2,2,2,0,32010,31339,52052,ack:6  ms:694
+
+18:09:16 ,49992,23243,23276,23243,2,2,2,2,1,2,65535,31914,31531,52137,ack:6  ms:753
+
+18:09:17 ,49996,23211,23231,23210,2,3,0,2,1,2,65534,31914,31531,52029,ack:6  ms:733
+
+18:09:18 ,49998,23219,23237,23188,1,1,1,2,1,3,0,31914,31243,51736,ack:6  ms:752
+
+18:09:19 ,50002,23206,23239,23206,2,2,2,2,1,3,1,31914,31435,51943,ack:6  ms:731
+
+18:09:20 ,49998,23218,23227,23195,3,3,2,3,1,2,65535,31914,31339,51832,ack:6  ms:711
+
+18:09:21 ,50006,23200,23218,23187,2,2,2,2,1,2,65535,31914,31339,51802,ack:6  ms:730
+
+18:09:22 ,50010,23242,23248,23209,2,2,2,2,1,2,1,32010,31339,51998,ack:6  ms:709
+
+18:09:23 ,50012,23221,23242,23220,2,2,1,3,2,2,0,31914,31435,51984,ack:6  ms:728
+
+18:09:24 ,50018,23212,23246,23211,1,2,2,2,1,2,0,31914,31339,51878,ack:6  ms:708
+
+18:09:25 ,50020,23251,23251,23216,2,1,1,4,0,2,65534,32010,31339,52023,ack:6  ms:687
+
+18:09:26 ,50022,23233,23247,23211,2,2,2,2,1,2,0,32010,31339,52001,ack:6  ms:686
+
+18:09:27 ,50018,23206,23229,23206,2,3,2,2,2,2,65535,31914,31531,52044,ack:6  ms:706
+
+18:09:28 ,50020,23200,23220,23161,2,3,2,3,0,3,1,31914,31339,51796,ack:6  ms:725
+
+18:09:29 ,50018,23203,23232,23203,4,2,1,2,1,2,65535,31914,31243,51752,ack:6  ms:684
+
+18:09:30 ,50010,23202,23215,23182,2,2,1,3,1,2,65535,31914,31243,51704,ack:6  ms:703
+
+18:09:31 ,50000,23200,23206,23159,2,3,2,2,1,2,0,31914,31339,51758,ack:6  ms:722
+
+18:09:32 ,49994,23220,23226,23217,2,3,1,3,1,2,0,31914,31531,52042,ack:6  ms:741
+
+18:09:33 ,49982,23224,23229,23196,3,2,2,2,1,2,65534,31914,31339,51822,ack:6  ms:761
+
+18:09:34 ,49980,23240,23240,23214,3,3,2,3,2,2,0,31914,31435,51966,ack:6  ms:720
+
+18:09:35 ,49976,23230,23251,23225,2,2,1,2,0,3,0,31914,31531,52065,ack:6  ms:700
+
+18:09:36 ,49972,23243,23261,23237,2,3,2,2,2,3,1,32010,31435,52101,ack:6  ms:720
+
+18:09:37 ,49974,23223,23255,23222,2,3,2,1,1,1,0,31914,31435,51961,ack:6  ms:720
+
+18:09:38 ,49978,23240,23242,23213,3,2,1,2,1,2,0,31914,31435,51961,ack:6  ms:700
+
+18:09:39 ,49984,23274,23274,23240,2,2,1,2,0,2,65534,32010,31531,52248,ack:6  ms:720
+
+18:09:40 ,49992,23275,23278,23268,3,2,3,3,2,2,65535,32010,31531,52296,ack:6  ms:760
+
+18:09:41 ,49989,23252,23268,23241,1,2,2,2,2,2,0,31914,31531,52134,ack:6  ms:720
+
+18:09:42 ,49998,23218,23248,23218,2,3,2,3,1,3,0,31914,31339,51877,ack:6  ms:740
+
+18:09:43 ,50008,23247,23274,23247,2,3,2,3,1,1,65535,32010,31435,52160,ack:6  ms:739
+
+18:09:44 ,50008,23213,23260,23213,2,3,3,2,0,3,2,31914,31243,51794,ack:6  ms:718
+
+18:09:45 ,50010,23205,23222,23191,2,3,2,2,2,3,0,31914,31339,51823,ack:6  ms:718
+
+18:09:46 ,50006,23212,23238,23191,1,1,3,2,0,2,65535,31914,31243,51740,ack:6  ms:737
+
+18:09:47 ,50004,23176,23199,23176,2,2,3,2,1,2,65535,31914,31435,51843,ack:6  ms:716
+
+18:09:48 ,49994,23178,23188,23174,2,2,2,2,1,2,65533,31914,31435,51819,ack:6  ms:735
+
+18:09:49 ,49989,23191,23205,23178,1,1,4,2,2,2,0,31914,31435,51852,ack:6  ms:715
+
+18:09:50 ,49974,23209,23229,23196,2,2,3,2,1,2,65534,31914,31435,51895,ack:6  ms:735
+
+18:09:51 ,49966,23358,23371,23179,3,3,1,1,1,2,65535,32010,31435,52257,ack:6  ms:716
+
+18:09:52 ,49964,23377,23399,23371,4,2,1,2,1,2,0,32202,31627,52880,ack:6  ms:715
+
+18:09:53 ,49960,23374,23411,23374,4,3,2,2,0,2,0,32106,31531,52697,ack:6  ms:695
+
+18:09:54 ,49960,23396,23409,23392,3,3,2,2,2,2,0,32202,31723,53024,ack:6  ms:736
+
+18:09:55 ,49972,23400,23420,23400,1,3,2,1,1,3,0,32202,31723,53056,ack:6  ms:736
+
+18:09:56 ,49972,23409,23428,23407,2,2,1,2,1,3,0,32202,31818,53175,ack:6  ms:717
+
+18:09:57 ,49982,23394,23407,23383,2,2,2,1,1,1,0,32202,31627,52932,ack:6  ms:697
+
+18:09:58 ,49989,23406,23410,23364,1,3,1,2,1,2,65534,32106,31531,52742,ack:6  ms:717
+
+18:09:59 ,49992,23363,23394,23360,3,2,2,3,1,1,0,32202,31723,52974,ack:6  ms:715
+
+18:10:00 ,49992,23346,23374,23343,3,2,2,2,1,2,65533,32106,31723,52821,ack:6  ms:755
+
+18:10:01 ,49994,23304,23342,23304,3,2,2,2,1,2,2,32106,31339,52331,ack:6  ms:713
+
+18:10:02 ,49980,23305,23330,23298,3,3,1,1,1,2,0,32106,31627,52585,ack:6  ms:713
+
+18:10:03 ,49976,23311,23311,23290,2,3,3,2,1,1,65534,32010,31531,52367,ack:6  ms:733
+
+18:10:04 ,49976,23338,23340,23312,3,1,1,1,2,2,65533,32010,31627,52538,ack:6  ms:732
+
+18:10:05 ,49970,23341,23354,23331,2,2,2,2,0,2,65533,32106,31627,52664,ack:6  ms:733
+
+18:10:06 ,49964,23323,23353,23323,1,2,1,3,1,2,2,32010,31531,52444,ack:6  ms:713
+
+18:10:07 ,49966,23374,23374,23346,2,3,2,2,1,3,65535,32106,31627,52733,ack:6  ms:733
+
+18:10:08 ,49962,23365,23380,23355,2,1,2,3,1,2,65535,32106,31723,52829,ack:6  ms:693
+
+18:10:09 ,49964,23359,23380,23359,2,3,3,3,1,3,65535,32106,31723,52833,ack:6  ms:733
+
+18:10:10 ,49966,23397,23397,23384,2,2,3,3,1,2,65533,32202,31818,53102,ack:6  ms:713
+
+18:10:11 ,49968,23384,23404,23384,2,1,2,2,2,2,1,32202,31818,53100,ack:6  ms:714
+
+18:10:12 ,49968,23370,23404,23370,1,2,2,1,2,2,0,32106,31723,52879,ack:6  ms:714
+
+18:10:13 ,49976,23214,23218,23200,3,4,1,1,1,2,65533,31914,31531,51990,ack:6  ms:734
+
+18:10:14 ,49976,23211,23230,23175,3,2,2,2,1,2,1,31914,31339,51786,ack:6  ms:695
+
+18:10:15 ,49974,23220,23234,23203,1,1,2,2,1,1,0,31914,31435,51916,ack:6  ms:715
+
+18:10:16 ,49968,23190,23210,23188,2,2,2,3,2,2,1,31914,31339,51751,ack:6  ms:715
+
+18:10:17 ,49966,23203,23203,23175,2,2,1,3,2,2,65533,31914,31243,51641,ack:6  ms:715
+
+18:10:18 ,49958,23193,23206,23182,2,2,1,2,1,1,1,31914,31435,51826,ack:6  ms:715
+
+18:10:19 ,49962,23190,23190,23149,2,2,2,2,1,1,65533,31818,31148,51392,ack:6  ms:715
+
+18:10:20 ,49960,23208,23226,23208,1,3,1,2,1,2,0,31914,31243,51697,ack:6  ms:715
+
+18:10:21 ,49964,23180,23180,22992,2,2,1,3,1,2,65535,31818,31243,51315,ack:6  ms:716
+
+18:10:22 ,49962,23387,23387,23375,3,3,3,1,1,2,0,32106,31723,52881,ack:6  ms:756
+
+18:10:23 ,49966,23376,23396,23359,3,3,2,3,2,2,1,32106,31531,52678,ack:6  ms:716
+
+18:10:24 ,49968,23389,23395,23388,2,2,1,4,1,2,65535,32202,31723,53004,ack:6  ms:696
+
+18:10:25 ,49970,23400,23402,23379,2,2,2,2,1,2,0,32202,31723,53015,ack:6  ms:697
+
+18:10:26 ,49972,23349,23381,23349,2,3,2,2,1,2,1,32106,31723,52821,ack:6  ms:716
+
+18:10:27 ,49980,23382,23389,23354,2,4,2,2,0,2,65533,32202,31723,52967,ack:6  ms:735
+
+18:10:28 ,49978,23374,23398,23370,3,3,3,3,1,2,0,32202,31723,52988,ack:6  ms:714
+
+18:10:29 ,49980,23349,23372,23349,2,1,1,2,1,2,1,32202,31627,52817,ack:6  ms:694
+
+18:10:30 ,49986,23372,23389,23357,1,3,2,2,1,1,0,32106,31531,52679,ack:6  ms:733
+
+18:10:31 ,49988,23354,23387,23354,3,1,3,2,1,2,0,32202,31723,52948,ack:6  ms:733
+
+18:10:32 ,49986,23351,23386,23351,3,3,3,2,1,2,0,32106,31723,52845,ack:6  ms:734
+
+18:10:33 ,49984,23354,23375,23353,2,2,1,2,2,2,65535,32106,31723,52833,ack:6  ms:693
+
+18:10:34 ,49986,23370,23379,23365,3,2,1,3,1,2,65533,32202,31723,52962,ack:6  ms:733
+
+18:10:35 ,49980,23351,23383,23338,2,2,2,2,1,2,0,32106,31435,52532,ack:6  ms:712
+
+18:10:36 ,49980,23351,23364,23347,2,1,2,1,1,2,1,32106,31723,52809,ack:6  ms:692
+
+18:10:37 ,49974,23385,23387,23374,3,2,2,2,1,3,65534,32106,31723,52888,ack:6  ms:732
+
+18:10:38 ,49968,23385,23402,23366,3,2,1,3,1,2,65535,32106,31531,52697,ack:6  ms:712
+
+18:10:39 ,49970,23357,23391,23357,2,3,1,2,2,1,65535,32106,31627,52746,ack:6  ms:711
+
+18:10:40 ,49972,23390,23414,23390,2,3,1,1,1,2,65535,32106,31723,52932,ack:6  ms:731
+
+18:10:41 ,49972,23396,23407,23376,4,1,1,3,1,3,65534,32202,31531,52823,ack:6  ms:711
+
+18:10:42 ,49974,23362,23390,23359,1,2,2,3,1,3,0,32202,31435,52662,ack:6  ms:712
+
+18:10:43 ,49978,23396,23396,23362,2,1,2,2,1,3,65534,32202,31435,52706,ack:6  ms:713
+
+18:10:44 ,49976,23342,23392,23342,2,3,1,2,1,2,1,32106,31531,52629,ack:6  ms:693
+
+18:10:45 ,49976,23186,23191,23178,2,1,2,3,1,2,0,31914,31435,51819,ack:6  ms:692
+
+18:10:46 ,49978,23199,23200,23185,3,3,2,2,0,2,65533,31914,31435,51848,ack:6  ms:752
+
+18:10:47 ,49976,23177,23195,23172,2,3,2,3,1,2,0,31818,31435,51714,ack:6  ms:712
+
+18:10:48 ,49976,23148,23195,23148,3,4,2,2,1,2,65534,31818,31339,51564,ack:6  ms:711
+
+18:10:49 ,49972,23140,23148,23120,2,2,2,2,0,2,0,31818,31243,51379,ack:6  ms:711
+
+18:10:50 ,49970,23156,23157,23121,3,1,2,2,1,2,65532,31818,31339,51496,ack:6  ms:712
+
+18:10:51 ,49970,23175,23187,23155,1,3,2,2,0,2,0,31818,31339,51582,ack:6  ms:712
+
+18:10:52 ,49964,23184,23204,23178,2,4,4,2,1,2,65535,31914,31339,51725,ack:6  ms:713
+
+18:10:53 ,49964,23197,23197,23160,4,2,2,2,1,2,65534,31818,31435,51710,ack:6  ms:712
+
+18:10:54 ,49954,23179,23208,23178,1,1,2,1,1,1,1,31914,31243,51612,ack:6  ms:691
+
+18:10:55 ,49956,23188,23191,23177,3,4,2,3,1,3,65533,31914,31339,51706,ack:6  ms:711
+
+18:10:56 ,49956,23210,23210,23174,3,2,2,2,1,1,65535,31914,31243,51645,ack:6  ms:731
+
+18:10:57 ,49958,23215,23221,23197,2,4,2,2,1,2,0,31914,31339,51785,ack:6  ms:691
+
+18:10:58 ,49956,23236,23236,23203,2,3,2,2,1,3,65532,31914,31339,51821,ack:6  ms:712
+
+18:10:59 ,49956,23200,23222,23192,3,2,3,3,1,2,0,31914,31339,51765,ack:6  ms:713
+
+18:11:00 ,49966,23217,23229,23198,1,2,1,2,1,2,0,32010,31339,51896,ack:6  ms:714
+
+18:11:01 ,49962,23224,23235,23209,2,2,2,2,0,2,65535,31914,31435,51916,ack:6  ms:715
+
+18:11:02 ,49966,23167,23194,23166,3,1,2,2,1,2,0,31818,31339,51589,ack:6  ms:714
+
+18:11:03 ,49972,23166,23187,23166,2,3,1,2,1,3,65534,31818,31339,51586,ack:6  ms:734
+
+18:11:04 ,49970,23173,23188,23172,2,4,3,2,1,1,65533,31914,31435,51790,ack:6  ms:734
+
+18:11:05 ,49968,23158,23174,23153,1,3,2,2,1,1,1,31818,31435,51645,ack:6  ms:694
+
+18:11:06 ,49968,23138,23168,23138,3,3,2,3,0,2,65535,31818,31339,51509,ack:6  ms:734
+
+18:11:07 ,49968,23168,23171,23144,2,1,2,2,1,2,65534,31818,31435,51640,ack:6  ms:774
+
+18:11:08 ,49964,23191,23191,23159,1,1,1,2,1,2,65535,31818,31435,51693,ack:6  ms:735
+
+18:11:09 ,49954,23136,23168,23136,3,1,3,4,2,2,1,31818,31243,51399,ack:6  ms:715
+
+18:11:10 ,49964,22980,23006,22980,2,2,1,1,1,2,0,31627,30956,50450,ack:6  ms:696
+
+18:11:11 ,49956,22997,23003,22974,3,2,3,2,1,2,65532,31531,31052,50450,ack:6  ms:717
+
+18:11:12 ,49956,22981,22998,22977,1,3,3,2,1,2,0,31627,31052,50531,ack:6  ms:697
+
+18:11:13 ,49960,22981,22981,22959,2,1,3,2,1,1,65532,31627,31148,50590,ack:6  ms:738
+
+18:11:14 ,49964,22951,22974,22951,1,2,4,2,1,2,0,31531,31148,50459,ack:6  ms:718
+
+18:11:15 ,49964,22924,22964,22924,1,2,3,2,1,3,0,31531,30956,50203,ack:6  ms:698
+
+18:11:16 ,49972,22946,22968,22946,2,2,2,3,1,2,0,31627,31148,50547,ack:6  ms:738
+
+18:11:17 ,49970,22947,22963,22944,4,3,2,3,2,2,1,31531,31148,50448,ack:6  ms:698
+
+18:11:18 ,49978,22947,22963,22929,3,3,1,2,1,2,1,31627,31052,50437,ack:6  ms:719
+
+18:11:19 ,49982,22943,22969,22938,2,3,2,2,1,2,1,31531,30956,50260,ack:6  ms:719
+
+18:11:20 ,49980,22927,22959,22927,2,2,2,1,0,1,0,31531,30956,50216,ack:6  ms:719
+
+18:11:21 ,49976,22936,22938,22917,3,1,1,2,1,3,0,31435,31052,50193,ack:6  ms:759
+
+18:11:22 ,49974,22927,22938,22915,2,1,3,2,2,3,65532,31531,30860,50082,ack:6  ms:719
+
+18:11:23 ,49970,22932,22941,22926,2,3,3,3,2,2,0,31531,31148,50391,ack:6  ms:719
+
+18:11:24 ,49964,22933,22945,22933,3,1,3,1,1,2,1,31531,31052,50298,ack:6  ms:719
+
+18:11:25 ,49962,22949,22962,22947,2,1,3,2,2,2,0,31531,30860,50151,ack:6  ms:719
+
+18:11:26 ,49956,22978,22989,22977,4,3,3,2,1,2,65535,31627,31148,50617,ack:6  ms:720
+
+18:11:27 ,49958,22976,22983,22962,3,3,2,3,1,1,0,31531,31052,50403,ack:6  ms:721
+
+18:11:28 ,49954,22989,23001,22987,3,2,3,3,1,3,65534,31531,31148,50551,ack:6  ms:743
+
+18:11:29 ,49960,22966,22978,22930,2,1,2,2,2,2,0,31531,31148,50452,ack:6  ms:723
+
+18:11:30 ,49960,23002,23002,22961,1,2,1,1,1,2,65535,31627,31052,50539,ack:6  ms:723
+
+18:11:31 ,49962,22967,22983,22966,1,2,3,2,1,2,0,31531,31148,50496,ack:6  ms:722
+
+18:11:32 ,49968,22974,22979,22935,3,2,2,2,1,3,65535,31531,30860,50187,ack:6  ms:723
+
+18:11:33 ,49966,22968,22987,22963,3,2,3,1,0,2,0,31627,31148,50598,ack:6  ms:723
+
+18:11:34 ,49972,22959,22961,22933,2,2,2,2,2,2,65534,31531,31052,50346,ack:6  ms:743
+
+18:11:35 ,49978,22972,22975,22936,2,3,1,2,1,3,65533,31531,31052,50381,ack:6  ms:744
+
+18:11:36 ,49974,22959,22964,22951,2,1,4,1,1,1,0,31531,31148,50465,ack:6  ms:743
+
+18:11:37 ,49980,22919,22949,22919,2,2,3,2,1,2,0,31531,30860,50098,ack:6  ms:723
+
+18:11:38 ,49982,22942,22964,22935,2,1,1,2,1,2,0,31531,31148,50439,ack:6  ms:723
+
+18:11:39 ,49978,22941,22960,22941,3,3,1,2,1,2,0,31531,31148,50439,ack:6  ms:723
+
+18:11:40 ,49978,22957,22957,22938,1,2,2,2,1,2,65534,31531,31052,50349,ack:6  ms:782
+
+18:11:41 ,49978,22951,22958,22926,2,3,3,3,1,1,65535,31531,31148,50432,ack:6  ms:741
+
+18:11:42 ,49988,22972,22972,22941,2,2,1,2,2,2,65535,31531,31052,50394,ack:6  ms:742
+
+18:11:43 ,49984,22936,22968,22923,2,1,1,2,1,2,65535,31531,30956,50234,ack:6  ms:701
+
+18:11:44 ,49986,22911,22934,22907,1,3,3,2,1,1,0,31627,31052,50356,ack:6  ms:720
+
+18:11:45 ,49988,22916,22930,22899,2,4,1,1,1,2,0,31531,30956,50159,ack:6  ms:720
+
+18:11:46 ,49986,22906,22941,22906,3,2,2,2,1,2,0,31435,31148,50262,ack:6  ms:741
+
+18:11:47 ,49984,22899,22927,22899,1,2,2,1,1,2,0,31435,31052,50133,ack:6  ms:700
+
+18:11:48 ,49978,22902,22923,22902,3,2,2,1,2,2,1,31627,30860,50133,ack:6  ms:739
+
+18:11:49 ,49976,22938,22943,22932,2,2,3,1,1,1,65535,31531,31052,50309,ack:6  ms:759
+
+18:11:50 ,49974,22923,22931,22917,3,1,2,2,0,2,1,31531,31052,50267,ack:6  ms:719
+
+18:11:51 ,49972,22925,22925,22911,3,2,1,3,0,2,65535,31531,30956,50158,ack:6  ms:719
+
+18:11:52 ,49972,23118,23136,22938,2,1,2,3,1,3,0,31723,31148,50975,ack:6  ms:738
+
+18:11:53 ,49974,23095,23109,23094,2,2,2,2,1,2,65535,31723,31243,51176,ack:6  ms:698
+
+18:11:54 ,49982,23132,23132,23094,2,3,2,2,1,1,65533,31723,31148,51147,ack:6  ms:737
+
+18:11:55 ,49980,23085,23129,23085,2,1,1,2,1,2,1,31818,31243,51278,ack:6  ms:698
+
+18:11:56 ,49974,23055,23094,23055,2,2,2,1,1,2,0,31723,31243,51082,ack:6  ms:738

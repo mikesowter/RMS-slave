@@ -32,7 +32,7 @@ void minProc() {
   }
 #ifdef RMS1
   extern float T11_kWh[3];
-
+  // first through panel size (ps)
   for (uint8_t ps = 0;ps<3;ps++) {
   // then through battery size (bs)
     for (uint8_t bs = 0;bs<3;bs++) {

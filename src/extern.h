@@ -78,7 +78,7 @@ extern char longStr[];
 
 extern uint8_t buffer[];
 extern uint8_t scanSec, badSumCount;
-extern uint8_t SPIdata[];
+extern uint8_t MOSIdata[], MISOdata[];
 extern uint8_t oldMin, oldQtr, oldHour, oldDay, oldMonth, offset;
 extern uint16_t i, oldYear, htmlLen, CstringPtr;
 extern uint16_t localPort, missedCycle;   
