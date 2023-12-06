@@ -48,11 +48,13 @@ void loop() {
   checkScan();
   // synchronise with master
   sync2Master();
-}
+  // compare loop count
+  loopCount++;
+  }
 
 void sync2Master() {
-  missedCycle += (uint16_t) (wfdTime/1000);  
-  syncDelay = 1000 - wfdTime%1000;
+  if ( wfdTime > 2000 ) missedCycle++;
+  syncDelay = 1000 - min(wfdTime,800UL);
   syncDelay += (wfdTime%1000 - 250) /10;
   syncDelay = syncDelay>800?750:syncDelay;
 //  Serial.println(timeStamp());
@@ -99,7 +101,7 @@ void joinNet() {
 void setupTime() {
   // Set epoch and timers
   setTime(getTime());
-  setupSPIslave();      // tell Master the time
+  setupSPIslave();      // and tell Master the time, one day he'll read it
   SPISlave.end();
   oldMin = minute();
   oldQtr = oldMin/15;

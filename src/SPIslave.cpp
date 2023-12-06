@@ -26,37 +26,40 @@ void setupSPIslave() {
 
   // The master has read the status register
   SPISlave.onStatusSent([]() {
-    Serial.println("Time code read\n");
+    Serial.printf("Time code read: %lums\n", millis()%1000);
   });
   // Setup SPI Slave registers and pins
   SPISlave.begin();
 
   // Set the status register (if the master reads it, it will read this value)
   SPISlave.setStatus(now());
-  Serial.println("SPI slave started" );
+  Serial.printf("Time code sent: %lums\n", millis()%1000);
 }
 
 void waitForData() {
+  yield();
   digitalWrite(LED_PIN,0);
   wfdPrev = wfdTime;
   wfdStart = millis();
+  bool CHKflag = false;
   do {
     SPISlave.begin();
-    while (SPIwait) watchWait(10);
+    while (SPIwait) watchWait(5);
     SPIwait = true;
     SPISlave.end(); 
     if (millis() > wfdStart + 30000) {
       errMess("wait for data timeout");
       break;  // for minProc
     }
-    calcCheckSum();
+    calcCheckSum();                 // ~350us
     if ( checkSumBad ) {
-      MISOdata[0] = 0x15; //NAK
-      diagMess("bad checksum");
+      MISOdata[0] = 0x15;           // NAK
+      CHKflag = true;
     }
-    else MISOdata[0] = 0x06; //ACK
-    SPISlave.setData(MISOdata,1);  
+    else MISOdata[0] = 0x06;        // ACK
+    SPISlave.setData(MISOdata,1);   //  ~20us
     } while ( checkSumBad );
+    if ( CHKflag ) errMess("checksum");
 
     for ( uint8_t p=0;p<32;p+=2 ) {
 #ifdef RMS1
@@ -68,6 +71,7 @@ void waitForData() {
       else Serial.printf("%d,",256*MOSIdata[p]+MOSIdata[p+1]);
 #endif
     }
+  Serial.printf(" missed: %4lu ",(long)(now()-startSeconds-loopCount));
 
   // measure WFD times
   wfdTime = millis()-wfdStart;
@@ -84,6 +88,8 @@ void waitForData() {
 }
 
 bool unloadValues() {
+  Serial.println();
+  Serial.print(timeStamp());
   if ( MOSIdata[0] == 0xFF && MOSIdata[1] == 0xFF) {
     if ( !pwrOutage ) {
       pwrOutage = true;
@@ -154,16 +160,12 @@ float unload2Bytes() {
 }
 
 void calcCheckSum() {
-  Serial.println();
-  Serial.print(timeStamp());
-  Serial.print(",");
-  checkSumBad = true;
   checkSum = 0;
   offset = 0;
   while (offset<29) unload2Bytes();  
   uint16_t rxSum = checkSum;                   // sum of bytes 0-29 calc'd by receiver
   uint16_t txSum = (uint16_t) unload2Bytes();  // sum of bytes 0-29 calc'd by transmitter
   if (rxSum == txSum) checkSumBad = false;
-  else Serial.print(" checksum ");
+  else checkSumBad = true;
   return;   
 }

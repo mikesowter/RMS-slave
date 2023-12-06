@@ -1,5 +1,5 @@
 #include "extern.h"
-uint32_t waitStart, appStart;
+long unsigned int waitStart, appStart;
 
  
 void ISRwatchDog () {
@@ -8,12 +8,6 @@ void ISRwatchDog () {
     errMess("watchDog 20s timeout");
     ESP.restart();
   }
-}
-  //  if ( timesUp(timer,"net") ) break;
-bool timesUp(uint32_t t,const char* tag) {
-  if ( millis()-waitStart < t ) return false;
-  Serial.printf("-%s",tag);
-  return true;
 }
 
 void activity(const char* tag) {
@@ -40,8 +34,6 @@ void watchWait(uint32_t timer) {
     activity("FTP");
     // reset watch dog
     watchDog = 0;
-    // do background
-    yield();
     // statistics
     uint32_t ww = micros() - start;
     if ( ww < WWmin) WWmin = ww;
