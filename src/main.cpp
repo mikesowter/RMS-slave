@@ -53,13 +53,7 @@ void loop() {
   }
 
 void sync2Master() {
-  if ( wfdTime > 2000 ) missedCycle++;
-  syncDelay = 1000 - min(wfdTime,800UL);
-  syncDelay += (wfdTime%1000 - 250) /10;
-  syncDelay = syncDelay>800?750:syncDelay;
-//  Serial.println(timeStamp());
-//  Serial.printf("%s sync: %i, wfd: %i\n",timeStamp(),syncDelay,wfdTime);
-  watchWait(syncDelay);
+  if ( wfdTime > 1000 ) missedCycle++;
 }
 
 void checkScan() {

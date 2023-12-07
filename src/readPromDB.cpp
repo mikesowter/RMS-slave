@@ -114,7 +114,7 @@ float readPromItem(char* unit) {
   if (client.connect(host, 9090)) {
     client.write(query,strlen(query));
     replyPtr = 0;
-    Serial.print(query);
+//    Serial.print(query);
     while (client.connected() || client.available()) {
       if (client.available()) {
         longStr[replyPtr++] = client.read();
@@ -128,7 +128,7 @@ float readPromItem(char* unit) {
       for (numPtr = replyPtr-8; numPtr>replyPtr-18; numPtr-- ) {
         if (longStr[numPtr] == '\"') {
           value = atof(longStr+numPtr+1);
-          Serial.printf("%s:%.3f\n\n",unit,value);
+//          Serial.printf("%s:%.3f\n\n",unit,value);
           numPtr = 0;
           break;
         }
