@@ -48,12 +48,10 @@ void loop() {
   checkScan();
   // synchronise with master
   sync2Master();
-  // compare loop count
-  loopCount++;
   }
 
 void sync2Master() {
-  if ( wfdTime > 1000 ) missedCycle++;
+  if ( wfdTime > 1500 ) missedCycle++;
 }
 
 void checkScan() {

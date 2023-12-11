@@ -21,19 +21,19 @@ void setupSPIslave() {
   // status has been received from the master.
   // The status register is a special register that both the slave and the master can write to and read from.
   SPISlave.onStatus([](uint32_t data) {
-    Serial.printf("Master status: %u\n", data);
+  //  Serial.printf("Master status: %u\n", data);
   });
 
   // The master has read the status register
   SPISlave.onStatusSent([]() {
-    Serial.printf("Time code read: %lums\n", millis()%1000);
+  //  Serial.printf("Time code read: %lums\n", millis()%1000);
   });
   // Setup SPI Slave registers and pins
   SPISlave.begin();
 
   // Set the status register (if the master reads it, it will read this value)
   SPISlave.setStatus(now());
-  Serial.printf("Time code sent: %lums\n", millis()%1000);
+  // Serial.printf("Time code sent: %lums\n", millis()%1000);
 }
 
 void waitForData() {
@@ -41,25 +41,26 @@ void waitForData() {
   digitalWrite(LED_PIN,0);
   wfdPrev = wfdTime;
   wfdStart = millis();
-  bool CHKflag = false;
+  watchWait(100);
+//  bool CHKflag = false;
   do {
     SPISlave.begin();
-    while (SPIwait) watchWait(5);
     SPIwait = true;
+    while (SPIwait) watchWait(5);
     SPISlave.end(); 
     if (millis() > wfdStart + 30000) {
-      errMess("wait for data timeout");
+      errMess("wait for data 30s timeout");
       break;  // for minProc
     }
     calcCheckSum();                 // ~350us
     if ( checkSumBad ) {
       MISOdata[0] = 0x15;           // NAK
-      CHKflag = true;
+  //    CHKflag = true;
     }
     else MISOdata[0] = 0x06;        // ACK
     SPISlave.setData(MISOdata,1);   //  ~20us
     } while ( checkSumBad );
-    if ( CHKflag ) errMess("checksum");
+//    if ( CHKflag ) errMess("checksum");
 
     for ( uint8_t p=0;p<32;p+=2 ) {
 #ifdef RMS1
@@ -71,7 +72,6 @@ void waitForData() {
       else Serial.printf("%d,",256*MOSIdata[p]+MOSIdata[p+1]);
 #endif
     }
-  Serial.printf(" missed: %4lu ",(long)(now()-startSeconds-loopCount));
 
   // measure WFD times
   wfdTime = millis()-wfdStart;

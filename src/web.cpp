@@ -286,6 +286,16 @@ void handleNotFound() {
     server.send ( 200, "text/plain", charBuf );
     activity("gobk");
   }
+  else if (strncmp(userText,"/OTA",4)==0) {
+    uint32_t OTAstart=millis();
+    do {
+      // check for OTA
+      ArduinoOTA.handle();
+      delay(2000);
+    } while ( millis() - OTAstart < 10000);
+    strcpy(charBuf," resuming normal service ");
+    server.send ( 200, "text/plain", charBuf );
+  }
   else {
     strcpy(charBuf,userText);
     strcat(charBuf," is not a valid option");
