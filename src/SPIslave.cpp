@@ -74,9 +74,9 @@ void waitForData() {
     }
 
   // measure WFD times
-  wfdTime = millis()-wfdStart;
-  if ( wfdTime < WFDmin) WFDmin = wfdTime;
-  if ( wfdTime > WFDmax) WFDmax = wfdTime;
+  wfdTime = max(0UL,millis()-wfdStart);
+  WFDmin = min(WFDmin,wfdTime);
+  WFDmax = max(WFDmax,wfdTime);
   unloadValues();
   dailyEnergy();
   yield(); 

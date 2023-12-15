@@ -5,23 +5,25 @@ unsigned long getNTPreply();
 
 uint32_t getTime() {
 
-  unsigned long year2030 = 1893456000UL;
-  unsigned long year2017 = 1483207200UL;
+  unsigned long year2050 = 2524575600UL;
+  unsigned long year2020 = 1577804400UL;
   uint32_t start = millis();
 
   WiFi.hostByName("au.pool.ntp.org", timeServerIP);
 
   while( millis()-start < 10000) {
-    while (udp.parsePacket()!= NTP_PACKET_SIZE) {
+    while (udp.parsePacket() != NTP_PACKET_SIZE) {
       sendNTPrequest(timeServerIP);
-      delay(1000);
+      delay(200);
     }
     startSeconds = getNTPreply();
-    delay(100);
-    if (startSeconds > year2017 && startSeconds < year2030) break;
+    if (startSeconds > year2020 && startSeconds < year2050) {
+      while ( millis() % 1000UL != 0UL ) {};    // sync to ms clock
+      return startSeconds+1;
+    }
     Serial.printf("\nNTP reply bad: %lu",startSeconds);
   }
-  return startSeconds;
+  return 0UL;
 }
 
 // send an NTP request to the time server at the given address
