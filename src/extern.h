@@ -82,11 +82,11 @@ extern uint8_t MOSIdata[], MISOdata[];
 extern uint8_t oldMin, oldQtr, oldHour, oldDay, oldMonth, offset;
 extern uint16_t i, oldYear, htmlLen, CstringPtr;
 extern uint16_t localPort, loopCount, missedCycle;   
-extern long unsigned int t0, t1, t2, t3, startMillis, startSeconds, lastScan;
-extern long unsigned int t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
-extern long unsigned int loopStart, loopTime, LTmin, LTmax;
-extern long unsigned int wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
-extern long unsigned int waitStart, appStart;
+extern uint32_t t0, t1, t2, t3, startMillis, startSeconds, lastScan;
+extern uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
+extern uint32_t loopStart, loopTime, LTmin, LTmax;
+extern uint32_t wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
+extern uint32_t waitStart, appStart;
 
 extern float Wrms[];					    // Sum of sampled V*I
 extern float Arms[];					    // root sum I^2

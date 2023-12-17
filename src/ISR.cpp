@@ -1,5 +1,5 @@
 #include "extern.h"
-long unsigned int waitStart, appStart;
+uint32_t waitStart, appStart;
 
  
 void ISRwatchDog () {

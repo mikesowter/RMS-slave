@@ -84,13 +84,13 @@ uint8_t scanSec, badSumCount = 0;
 uint16_t i, oldYear, htmlLen, CstringPtr, syncDelay = 800;
 uint16_t localPort = 4210;          //  must match port assigned in "pulse"
 uint16_t loopCount = 0, missedCycle = 0;
-long unsigned int t0, t1, t2, t3, startMillis, startSeconds, lastScan;
-long unsigned int t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
-long unsigned int loopStart, loopTime, LTmin, LTmax, progLoopTime;
-long unsigned int wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
+uint32_t t0, t1, t2, t3, startMillis, startSeconds, lastScan;
+uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
+uint32_t loopStart, loopTime, LTmin, LTmax, progLoopTime;
+uint32_t wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
 
-float Wrms[MAX_CCTS];					// Sum of sampled V*I
-/*  RMS16:
+float Wrms[NUM_CCTS+1];					// Sum of sampled V*I
+/*  RMS1:
     scan Wrms[] load
     cct0 1  total import to house
     cct1 2  bedrooms 1&2

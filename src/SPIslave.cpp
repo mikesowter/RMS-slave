@@ -42,7 +42,7 @@ void waitForData() {
   wfdPrev = wfdTime;
   wfdStart = millis();
   watchWait(100);
-//  bool CHKflag = false;
+
   do {
     SPISlave.begin();
     SPIwait = true;
@@ -53,14 +53,10 @@ void waitForData() {
       break;  // for minProc
     }
     calcCheckSum();                 // ~350us
-    if ( checkSumBad ) {
-      MISOdata[0] = 0x15;           // NAK
-  //    CHKflag = true;
-    }
+    if ( checkSumBad ) MISOdata[0] = 0x15;  // NAK
     else MISOdata[0] = 0x06;        // ACK
     SPISlave.setData(MISOdata,1);   //  ~20us
     } while ( checkSumBad );
-//    if ( CHKflag ) errMess("checksum");
 
     for ( uint8_t p=0;p<32;p+=2 ) {
 #ifdef RMS1
@@ -74,9 +70,9 @@ void waitForData() {
     }
 
   // measure WFD times
-  wfdTime = max(0UL,millis()-wfdStart);
-  WFDmin = min(WFDmin,wfdTime);
-  WFDmax = max(WFDmax,wfdTime);
+  wfdTime = millis()-wfdStart;
+  if ( wfdTime < WFDmin ) WFDmin = wfdTime;
+  if ( wfdTime > WFDmax ) WFDmax = wfdTime;
   unloadValues();
   dailyEnergy();
   yield(); 
@@ -103,7 +99,7 @@ bool unloadValues() {
     Vmax_n = 0.0;      
     Vmin_p = 0.0;      
     Vmax_p = 0.0; 
-    for (int i=1;i<9;i++) {
+    for (int i=1;i<=NUM_CCTS;i++) {
       Wrms_min[i] = 0.0F;
       Wrms_max[i] = 0.0F;
     }

@@ -21,7 +21,7 @@ uint32_t getTime() {
       while ( millis() % 1000UL != 0UL ) {};    // sync to ms clock
       return startSeconds+1;
     }
-    Serial.printf("\nNTP reply bad: %lu",startSeconds);
+    Serial.printf("\nNTP reply bad: %u",startSeconds);
   }
   return 0UL;
 }

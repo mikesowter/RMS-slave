@@ -51,9 +51,9 @@ void loop() {
   }
 
 void sync2Master() {
-  if ( wfdTime > 1300 ) {       // no cycle missed under 1300ms
+  if ( wfdTime > 1300U ) {       // no cycle missed under 1300ms
     missedCycle++;
-    Serial.printf(" missed cycle: %lu ",wfdTime);
+    Serial.printf(" missed cycle: %u ",wfdTime);
   }
 }
 
