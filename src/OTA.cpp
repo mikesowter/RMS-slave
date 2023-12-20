@@ -12,21 +12,14 @@ uint8_t init_OTA() {
   // ArduinoOTA.setPasswordHash("21232f297a57a5a743894a0e4a801fc3");
 
   ArduinoOTA.onStart([]() {
-  /*  String type;
-    if (ArduinoOTA.getCommand() == U_FLASH)
-      type = "sketch";
-    else // U_LittleFS
-      type = "filesystem";  */
-
-    // NOTE: if updating LittleFS this would be the place to unmount LittleFS using LittleFS.end()
+    // shutdown web server
+    server.stop();
     Serial.println("OTA updating ");
   });
   ArduinoOTA.onEnd([]() {
     Serial.println("\nEnd");
   });
-  ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
-    Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
-  });
+  ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) { });
   ArduinoOTA.onError([](ota_error_t error) {
     Serial.printf("Error[%u]: ", error);
     if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed");

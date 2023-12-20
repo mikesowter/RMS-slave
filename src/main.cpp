@@ -13,6 +13,7 @@ void setup(void) {
   joinNet();
   // start OTA
   init_OTA();
+  delay(500);
   // setup FTP server
 	ftpSrv.begin("mike","iron");
   // set time related
@@ -51,7 +52,7 @@ void loop() {
   }
 
 void sync2Master() {
-  if ( wfdTime > 1300U ) {       // no cycle missed under 1300ms
+  if ( wfdTime > 1500U ) {       // no cycle missed under 1500ms
     missedCycle++;
     Serial.printf(" missed cycle: %u ",wfdTime);
   }
@@ -92,22 +93,3 @@ void joinNet() {
 
   udp.begin(localPort);
 }
-
-void setupTime() {
-  // Set epoch and timers
-  setTime(getTime());
-  setupSPIslave();      // and tell Master the time, one day he'll read it
-  SPISlave.end();
-  oldMin = minute();
-  oldQtr = oldMin/15;
-  oldHour = hour();
-  oldDay = day();
-  oldMonth = month();
-  oldYear = year();
-  Serial.printf("\nDate:%s Time:%s\n",dateStamp(),timeStamp());
-  // generate file name for day
-  strcpy(todayName,"/RM");
-  strcat(todayName,dateStamp());
-  strcat(todayName,".csv");
-}
-

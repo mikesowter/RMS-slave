@@ -56,3 +56,23 @@ unsigned long getNTPreply(){
   //add TIME_ZONE offset and return
   return GMT + TIME_ZONE*3600;
 }
+
+
+void setupTime() {
+  // Set epoch and timers
+  setTime(getTime());
+  setupSPIslave();      // and tell Master the time, one day he'll read it
+  SPISlave.end();
+  oldMin = minute();
+  oldQtr = oldMin/15;
+  oldHour = hour();
+  oldDay = day();
+  oldMonth = month();
+  oldYear = year();
+  Serial.printf("\nDate:%s Time:%s\n",dateStamp(),timeStamp());
+  // generate file name for day
+  strcpy(todayName,"/RM");
+  strcat(todayName,dateStamp());
+  strcat(todayName,".csv");
+}
+

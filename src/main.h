@@ -63,8 +63,8 @@ char fileName[] = "/XXXyymmdd.csv";
 char todayName[] = "/XXXyymmdd.csv";
 char userText[30];
 char saveName[20];
-char dateStr[] = "yymmdd";
-char timeStr[] = "hh:mm:ss ";
+char dateStr[] = "yymmdd ";
+char timeStr[] = "hh:mm:ss.ss,";
 char charBuf[256];
 char d2Str[] = "01";
 char d8Str[8];
@@ -89,7 +89,7 @@ uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
 uint32_t loopStart, loopTime, LTmin, LTmax, progLoopTime;
 uint32_t wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
 
-float Wrms[NUM_CCTS+1];					// Sum of sampled V*I
+float Wrms[MAX_CCTS+1];					// Sum of sampled V*I
 /*  RMS1:
     scan Wrms[] load
     cct0 1  total import to house

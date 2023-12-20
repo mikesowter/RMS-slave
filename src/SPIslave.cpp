@@ -41,7 +41,7 @@ void waitForData() {
   digitalWrite(LED_PIN,0);
   wfdPrev = wfdTime;
   wfdStart = millis();
-  watchWait(100);
+  watchWait(90);
 
   do {
     SPISlave.begin();
