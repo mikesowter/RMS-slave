@@ -100,6 +100,7 @@ extern float Wrms_min[];
 extern float Wrms_max[];	
 extern float Energy[];	
 extern float incEnergy[], costEnergy[];
+extern float T11_kWh[3];
 
 extern float panelCap[];
 extern float BattCap[];

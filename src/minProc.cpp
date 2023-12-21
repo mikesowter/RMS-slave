@@ -14,6 +14,21 @@ void minProc() {
   oldHour = hour();
   oldQtr = minute()/15;
   badSumCount = 0;
+  // check for 5am for battery sim reset
+#ifdef RMS1
+  if ( hour() == 5 && minute() == 0 ) {
+    // iterate through panel size (ps)
+    for (uint8_t ps = 0;ps<3;ps++) {
+    // then through battery size (bs)
+      for (uint8_t bs = 0;bs<3;bs++) {
+        batt_tohouse[ps][bs] = 0.0F;
+        dump_togrid[ps][bs] = 0.0F;
+        batt_savings[ps][bs] = 0.0F;
+      }
+      T11_kWh[ps] = 0.0F;
+    }
+  }
+#endif
   // check for end of day
   if ( day() == oldDay ) return;
   // update time at 00:00:05
@@ -30,18 +45,6 @@ void minProc() {
     Energy[i] = 0.0F;
     costEnergy[i] = 0.0F;
   }
-#ifdef RMS1
-  extern float T11_kWh[3];
-  // first through panel size (ps)
-  for (uint8_t ps = 0;ps<3;ps++) {
-  // then through battery size (bs)
-    for (uint8_t bs = 0;bs<3;bs++) {
-      batt_tohouse[ps][bs] = 0.0F;
-      dump_togrid[ps][bs] = 0.0F;
-      batt_savings[ps][bs] = 0.0F;
-    }
-    T11_kWh[ps] = 0.0F;
-  }
-#endif
+
   return;
 }  
