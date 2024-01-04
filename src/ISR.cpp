@@ -25,7 +25,7 @@ void watchWait(uint32_t timer) {
     appStart = millis();
     // check for web requests
     server.handleClient();                       // 16ms for metrics
-    activity("NET");
+    activity("SVR");
     // check for OTA
     ArduinoOTA.handle();
     activity("OTA");

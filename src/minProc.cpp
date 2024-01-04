@@ -22,10 +22,14 @@ void minProc() {
     // then through battery size (bs)
       for (uint8_t bs = 0;bs<3;bs++) {
         batt_tohouse[ps][bs] = 0.0F;
-        dump_togrid[ps][bs] = 0.0F;
+        dump_togrid[ps][bs] = 0.0F;   
         batt_savings[ps][bs] = 0.0F;
       }
       T11_kWh[ps] = 0.0F;
+    }
+    // reset daily energy costs
+    for ( int i = 1; i<NUM_CCTS+1; i++ ) {
+      costEnergy[i] = 0.0F;
     }
   }
 #endif
@@ -43,7 +47,7 @@ void minProc() {
   // reset daily energy sums at midnight
   for ( int i = 1; i<NUM_CCTS+1; i++ ) {
     Energy[i] = 0.0F;
-    costEnergy[i] = 0.0F;
+  //  costEnergy[i] = 0.0F;
   }
 
   return;

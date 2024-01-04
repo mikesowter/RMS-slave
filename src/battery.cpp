@@ -12,7 +12,7 @@ minute by minute basis, and hence the cost of ownership of the offgrid configura
 
 float panelCap[] = {5.0F,7.5F,10.0F};
 float battCap[] = {10.0F,20.0F,50.0F};
-float excessSolar[3], batt_savings[3][3];    // first index is solar, 2nd is battery size
+float excessSolar[3], batt_savings[3][3];    // first index is panel size, 2nd is battery size
 float batt_tohouse[3][3], batt_charge[3][3], dump_togrid[3][3];
 
 extern float NOISE[];  // 20220725 for oven(6) 
@@ -41,11 +41,11 @@ void batteryEnergy() {
       }
       else {                                          // -ive is discharging
         float battMin = battCap[bs]/50.0F;
-        if (batt_charge[ps][bs] > battMin) { // battery > 2% batcap
+        if (batt_charge[ps][bs] > battMin) {          // battery > 2% batcap
           batt_charge[ps][bs] += excessSolar[ps];
-          if ( batt_charge[ps][bs] < battMin) {                // marginally too low
-          batt_tohouse[ps][bs] += (batt_charge[ps][bs] - battMin);  // less to house 
-          batt_charge[ps][bs] = battMin;                       // battery at minimum
+          if ( batt_charge[ps][bs] < battMin) {       // marginally too low
+          batt_tohouse[ps][bs] += (batt_charge[ps][bs] - battMin); 
+          batt_charge[ps][bs] = battMin;              // battery at minimum
           }
           else batt_tohouse[ps][bs] -= excessSolar[ps]; 
         }
@@ -54,7 +54,7 @@ void batteryEnergy() {
         }
       }
       batt_savings[ps][bs] = batt_tohouse[ps][bs]*T11;                
-      batt_savings[ps][bs] += dump_togrid[ps][bs]*FIT-costEnergy[7];  // model-actual feedin
+      batt_savings[ps][bs] += dump_togrid[ps][bs]*FIT-costEnergy[7];  // model - realworld feedin
     }
   }
 }
