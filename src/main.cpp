@@ -59,9 +59,9 @@ void sync2Master() {
 }
 
 void checkScan() {
-  if ( millis() - lastScan > 60000UL ) {
+  if ( millis() - lastScan > 6000UL ) {
     if (!scanFail) {
-      diagMess("no scan for 60s");
+      diagMess("no scan for 6s");
       scanFail = true;
     }
     // rejoin local network if necessary
