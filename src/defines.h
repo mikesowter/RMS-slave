@@ -5,13 +5,13 @@
 #ifdef RMS1
     #define NUM_CCTS 8
     #define MAX_CCTS 11
-    #define CODEVERSION "\nRMS1 slave 20231221"
+    #define CODEVERSION "\nRMS1 slave 20240507"
     #define IP4 56
 #endif
 #ifdef RMS2
     #define NUM_CCTS 7
     #define MAX_CCTS 7
-    #define CODEVERSION "\nRMS2 slave 20231218"
+    #define CODEVERSION "\nRMS2 slave 20240124"
     #define IP4 62
 #endif
 

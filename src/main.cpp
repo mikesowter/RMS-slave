@@ -59,9 +59,9 @@ void sync2Master() {
 }
 
 void checkScan() {
-  if ( millis() - lastScan > 6000UL ) {
+  if ( millis() - lastScan > 30000UL ) {
     if (!scanFail) {
-      diagMess("no scan for 6s");
+      startOutage = lastScan;
       scanFail = true;
     }
     // rejoin local network if necessary
@@ -70,7 +70,8 @@ void checkScan() {
   else {
     if (scanFail) {
       scanFail = false;
-      diagMess("scan restored");
+      sprintf(charBuf,"scan outage of %lus",(millis()-startOutage)/1000UL);
+      diagMess(charBuf);
     }
   }
 }
