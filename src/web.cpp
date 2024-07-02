@@ -7,7 +7,7 @@ extern uint8_t gobackhrs;
 void promform(const char* pname,float lval, uint8_t res) {
   char fltStr[12];
   dtostrf((double)lval, 0, res, fltStr);
-  sprintf(charBuf,"\n# TYPE %s guage\n%s %s",pname, pname, fltStr);
+  sprintf(charBuf,"\n# TYPE %s gauge\n%s %s",pname, pname, fltStr);
   strcat(longStr,charBuf);
 }
 

@@ -132,6 +132,8 @@ bool unloadValues() {
     }
     #ifdef RMS1
       avSparekW = 0.99*avSparekW + 0.01*(Wrms[7]-Wrms[1]);
+      if ( Wrms[5] > 2000.0F ) waterOn = true;
+      else waterOn = false;
       for (uint8_t q=NUM_CCTS+1 ; q<=MAX_CCTS ; q++) Wrms[q] = 0.0; // unused inputs
     #endif
     offset = 26;

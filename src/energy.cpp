@@ -23,13 +23,13 @@ void dailyEnergy() {
     incEnergy[i] = Wrms[i]*(float)t_scan/3.6e9;       // kWh units
     Energy[i] += incEnergy[i];
     #ifdef RMS1
-      if ( i!=1 && i!=5 && i!=7 ) goodLoads += incEnergy[i]; // water&solar
+      if ( i!=1 && i!=5 && i!=7 ) goodLoads += incEnergy[i]; // loads 2,3,4,6,8
     #endif
   }
   #ifdef RMS1
   loads = incEnergy[1];     // T11 incoming to dist panel
   solar = incEnergy[7];     // inverter incoming to dist panel
-  float spareSolar = solar - loads; 
+  float spareSolar = max(0.0F,(solar-goodLoads)); 
  
 
   for ( int i = 2;i<NUM_CCTS+1;i++ ) {
@@ -37,7 +37,7 @@ void dailyEnergy() {
       costEnergy[i] += T31 * incEnergy[i];        // hotwater tariff
     }
     else if ( i == 7 ) {
-      costEnergy[i] += FIT * max(0.0F,spareSolar); // exported solar
+      costEnergy[i] += FIT * spareSolar;          // exported solar
     }
     else if ( solar > loads ) {                   // all provided by solar
       costEnergy[i] += FIT * incEnergy[i];
@@ -53,7 +53,7 @@ void dailyEnergy() {
   }
   badLoads = loads - goodLoads;                   // non-essential
   if (badLoads > 2.5E-4) {                        // remove noise from subtraction
-    spareSolar = max(0.0F,(solar-goodLoads));      
+         
     split = min(1.0F,spareSolar/badLoads);        // use next portion of solar
     rate = FIT * split + T11 * (1.0 - split);
     costEnergy[1] += rate * badLoads;
