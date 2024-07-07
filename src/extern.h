@@ -36,7 +36,6 @@ void ISRwatchDog();
 void waitForData();
 void minProc();
 void watchWait(uint32_t);
-void dirList();
 void joinNet();
 byte storeData();
 void dailyEnergy();

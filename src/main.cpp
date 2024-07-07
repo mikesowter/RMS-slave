@@ -91,6 +91,5 @@ void joinNet() {
   Serial.print("   signal strength: ");
   Serial.print(rssi);
   Serial.println(" dBm");
-
   udp.begin(localPort);
 }

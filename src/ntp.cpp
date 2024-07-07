@@ -1,4 +1,5 @@
 #include "extern.h"
+char buffer[80];
 
 void sendNTPrequest(IPAddress& address);
 unsigned long getNTPreply();
