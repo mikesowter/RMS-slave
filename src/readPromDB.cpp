@@ -88,7 +88,7 @@ float readPromItem(char* unit) {
   uint32_t t = now()-36000;   // back to zulu time
   t -= gobackhrs*3600;        // recover from long outage
 
-  char host[] = "192.168.1.24";   // RPi-2 prometheus and influx server
+  char host[] = "192.168.1.198";   // RPi-2 prometheus and influx server
   char Str1[] = "GET /api/v1/query_range?query=";
   char Str2[] = "&start=";   
   char Str3[12];

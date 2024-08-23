@@ -1,8 +1,9 @@
 #include <extern.h>
 
-#define T31 0.2138    // updated 20230701
-#define T11 0.3267    // updated 20230701
+#define T31 0.18172   // updated 20240701
+#define T11 0.2717    // updated 20240701
 #define FIT 0.08      // updated 20211128
+#define Dem 0.18546   // updated 20240701
 
 float T11_kWh[3];           // daily sum from grid with each panel size
 float T11_inc[3];           // increment from grid

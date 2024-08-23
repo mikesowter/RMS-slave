@@ -57,7 +57,8 @@ volatile uint8_t watchDog = 0;
 bool SPIwait = true;     // wait for data in SPI slave loop?
 bool noDataYet = true;   // no data from RMS master yet?
 bool checkSumBad;
-bool waterOn, exporting, exporting7_5, exporting10, scanFail, T31charging, pwrOutage;
+bool waterOn, exporting, exporting7_5, exporting10, scanFail;
+bool T31charging, pwrOutage, peakPeriod;
 uint8_t gobackhrs = 0;     // get scan data from database?
 char fileName[] = "/XXXyymmdd.csv";
 char todayName[] = "/XXXyymmdd.csv";
@@ -79,7 +80,7 @@ IPAddress dns(192, 168, 1, 1);
 
 uint8_t MOSIdata[32], MISOdata[32];
 uint8_t buffer[BUFFER_SIZE];
-uint8_t oldMin, oldQtr, oldHour, oldDay, oldMonth, offset;
+uint8_t oldMin, old5Min, oldQtr, oldHour, oldDay, oldMonth, offset;
 uint8_t scanSec, badSumCount = 0;
 uint16_t i, oldYear, htmlLen, CstringPtr, syncDelay = 800;
 uint16_t localPort = 4210;          //  must match port assigned in "pulse"
@@ -115,5 +116,7 @@ float Vmax_n = 0.0, Vmax_p = 0.0;
 float loads, solar;
 float avSparekW;            // smoothed solar-loads
 float Vbat;
+float en5min[6], rms15Demand, rms30Demand, rms15Peak, rms30Peak;
+
 
 

@@ -72,3 +72,10 @@ void updateBatteryFile() {
   }
   fh.close();
 }
+
+void writePeak() {
+  fh = LittleFS.open("PeakDemand.csv","a+");
+  fh.printf("%s,%.3f,%.3f\n",dateStamp(),rms15Peak,rms30Peak);
+  fh.close();
+  return;
+}

@@ -45,7 +45,7 @@ char* timeStamp() {
 
 // convert integer into a 2 char string dd
 char* i2sd(uint8_t b) {
-  b =% 100;
+  b %= 100;
   d2Str[0] = b/10+'0';
   d2Str[1] = b%10+'0';
   return d2Str;

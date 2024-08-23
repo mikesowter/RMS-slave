@@ -1,5 +1,4 @@
 #include "extern.h"
-char buffer[80];
 
 void sendNTPrequest(IPAddress& address);
 unsigned long getNTPreply();
@@ -65,6 +64,7 @@ void setupTime() {
   setupSPIslave();      // and tell Master the time, one day he'll read it
   SPISlave.end();
   oldMin = minute();
+  old5Min = minute()/5;
   oldQtr = oldMin/15;
   oldHour = hour();
   oldDay = day();

@@ -57,7 +57,7 @@ extern File fh,fd,fe;
 extern Ticker secondTick;
 extern volatile uint8_t watchDog;
 extern IPAddress localIP,timeServerIP,fileServerIP;
-extern bool SPIwait, waterOn;
+extern bool SPIwait, waterOn, peakPeriod;
 extern bool checkSumBad;
 extern bool exporting, exporting7_5, exporting10, T31charging, pwrOutage;
 extern bool noDataYet;
@@ -78,7 +78,7 @@ extern char longStr[];
 extern uint8_t buffer[];
 extern uint8_t scanSec, badSumCount;
 extern uint8_t MOSIdata[], MISOdata[];
-extern uint8_t oldMin, oldQtr, oldHour, oldDay, oldMonth, offset;
+extern uint8_t oldMin, old5Min, oldQtr, oldHour, oldDay, oldMonth, offset;
 extern uint16_t i, oldYear, htmlLen, CstringPtr;
 extern uint16_t localPort, loopCount, missedCycle;   
 extern uint32_t t0, t1, t2, t3, startMillis, startSeconds, lastScan;
@@ -100,6 +100,8 @@ extern float Wrms_max[];
 extern float Energy[];	
 extern float incEnergy[], costEnergy[];
 extern float T11_kWh[3];
+extern float en5min[6], rms15Demand, rms30Demand, rms15Peak, rms30Peak;
+
 
 extern float panelCap[];
 extern float BattCap[];

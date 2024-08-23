@@ -26,6 +26,8 @@ void setup(void) {
   #ifdef RMS1
   // recover previous values from prometheus
   readPromDB();   
+  for ( uint8_t en5index=0;en5index<6;en5index++ ) en5min[en5index] = Energy[1];
+  peakPeriod = hour() >= 16 && hour() < 21;
   #endif
   // setup server
   server.on ( "/", handleRoot );
