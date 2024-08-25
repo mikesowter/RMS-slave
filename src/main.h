@@ -92,15 +92,15 @@ uint32_t wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
 
 float Wrms[MAX_CCTS+1];					// Sum of sampled V*I
 /*  RMS1:
-    scan Wrms[] load
-    cct0 1  total import to house
-    cct1 2  bedrooms 1&2
-    cct2 3  kitchen lounge
-    cct3 4  downstairs
-    cct4 5  hotwater
-    cct5 6  oven
-    cct6 7  solar
-    cct7 8  lights    */
+    scan group    load
+    cct0 Wrms[1]  total house load
+    cct1 Wrms[2]  bedrooms 1&2
+    cct2 Wrms[3]  kitchen lounge
+    cct3 Wrms[4]  downstairs
+    cct4 Wrms[5]  hotwater
+    cct5 Wrms[6]  oven
+    cct6 Wrms[7]  solar contribution
+    cct7 Wrms[8]  lights    */
 float Energy[NUM_CCTS+1];	
 float incEnergy[NUM_CCTS+1];
 float costEnergy[NUM_CCTS+1];   // costEnergy[1] is cost of unmetered
@@ -116,7 +116,7 @@ float Vmax_n = 0.0, Vmax_p = 0.0;
 float loads, solar;
 float avSparekW;            // smoothed solar-loads
 float Vbat;
-float en5min[6], rms15Demand, rms30Demand, rms15Peak, rms30Peak;
+float en5min[6], so5min[6], rms15Demand, rms30Demand, rms15Peak, rms30Peak;
 
 
 

@@ -100,13 +100,10 @@ extern float Wrms_max[];
 extern float Energy[];	
 extern float incEnergy[], costEnergy[];
 extern float T11_kWh[3];
-extern float en5min[6], rms15Demand, rms30Demand, rms15Peak, rms30Peak;
-
-
+extern float en5min[6], so5min[6], rms15Demand, rms30Demand, rms15Peak, rms30Peak;
 extern float panelCap[];
 extern float BattCap[];
 extern float excessSolar[], batt_savings[3][3];    // first index is solar, 2nd is battery size
 extern float batt_tohouse[3][3], batt_charge[3][3], dump_togrid[3][3];
-
 extern float loads, solar, avSparekW;
 extern float Vbat;
