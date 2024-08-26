@@ -59,6 +59,7 @@ bool noDataYet = true;   // no data from RMS master yet?
 bool checkSumBad;
 bool waterOn, exporting, exporting7_5, exporting10, scanFail;
 bool T31charging, pwrOutage, peakPeriod;
+bool FTPcheck;
 uint8_t gobackhrs = 0;     // get scan data from database?
 char fileName[] = "/XXXyymmdd.csv";
 char todayName[] = "/XXXyymmdd.csv";
@@ -100,10 +101,17 @@ float Wrms[MAX_CCTS+1];					// Sum of sampled V*I
     cct4 Wrms[5]  hotwater
     cct5 Wrms[6]  oven
     cct6 Wrms[7]  solar contribution
-    cct7 Wrms[8]  lights    */
+    cct7 Wrms[8]  lights    
+    */
 float Energy[NUM_CCTS+1];	
 float incEnergy[NUM_CCTS+1];
-float costEnergy[NUM_CCTS+1];   // costEnergy[1] is cost of unmetered
+float costEnergy[NUM_CCTS+1];   
+/*  RMS1
+    costEnergy[1] is cost of unmetered (badloads)
+    costEnergy[2-6] is cost of Wrms[2-6]
+    costEnergy[7] is income from FIT
+    costEnergy[8] is cost of lights
+    */
 float Wrms_min[NUM_CCTS+1];		
 float Wrms_max[NUM_CCTS+1];	
 float Arms[NUM_CCTS+1];					// root sum I^2

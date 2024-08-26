@@ -78,6 +78,10 @@ void readPromDB() {
   T11_kWh[1] = readPromItem(promName);
   strcpy(promName,"rmsT11_kWh10");
   T11_kWh[2] = readPromItem(promName);
+  strcpy(promName,"rms15Peak");
+  rms15Peak = readPromItem(promName);
+  strcpy(promName,"rms30Peak");
+  rms30Peak = readPromItem(promName);
 #endif
 }
 

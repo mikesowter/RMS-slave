@@ -813,7 +813,7 @@ boolean FtpServer::dataConnect () {
   unsigned long startTime = millis ();
   //wait 5 seconds for a data connection
   if (!data.connected ()) {
-    while (!dataServer.hasClient () && millis () - startTime < 10000) {
+    while (!dataServer.hasClient () && millis () - startTime < 5000) {
       yield ();
     }
     if (dataServer.hasClient ()) {

@@ -31,6 +31,7 @@ void handleRoot() {
 
 
 void handleMetrics() {
+  if (FTPcheck) return;
   longStr[0] = '\0';
 #ifdef RMS2
   promform("rms2Vbattery", Vbat, 2);
@@ -100,8 +101,8 @@ void handleMetrics() {
     promform("rmsPwr_max7", Wrms_max[7], 2);
     promform("rmsPwr_max8", Wrms_max[8], 2);
     
-    promform("rms15Peak", rms15Peak, 2);
-    promform("rms30Peak", rms30Peak, 2);
+    promform("rms15Peak", rms15Peak, 3);
+    promform("rms30Peak", rms30Peak, 3);
     promform("rms15Demand", rms15Demand, 2);
     promform("rms30Demand", rms30Demand, 2);
 // energy

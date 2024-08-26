@@ -13,9 +13,9 @@ void minProc() {
   oldMin = minute();
   if ( old5Min == minute()/5 ) return;
   old5Min = minute()/5;
-  #ifndef RMS1
+  #ifdef RMS1
   // demand calcs
-    if ( hour() == 16 ) {
+  if ( hour() == 16 ) {
     if ( minute() == 30 ) {
       rms15Peak = 0.0F;
       rms30Peak = 0.0F;
@@ -26,9 +26,11 @@ void minProc() {
   en15index = (en5index+3)%6;   // index 15 min back
   rms15Demand = (Energy[1] - en5min[en15index])*4.0F;
   rms15Demand -= (Energy[7] - so5min[en15index])*4.0F;
+  rms15Demand = max(0.0F,rms15Demand);
   if ( peakPeriod && rms15Demand > rms15Peak ) rms15Peak = rms15Demand;
   rms30Demand = (Energy[1] - en5min[en5index])*2.0F;  
   rms30Demand -= (Energy[7] - so5min[en5index])*2.0F;
+  rms30Demand = max(0.0F,rms30Demand);
   if ( peakPeriod && rms30Demand > rms30Peak ) rms30Peak = rms30Demand;
   en5min[en5index] = Energy[1]; // overwrite value 30m back
   so5min[en5index] = Energy[7];
@@ -55,7 +57,7 @@ void minProc() {
   updateBatteryFile();
   // iterate through panel size (ps)
   for (uint8_t ps = 0;ps<3;ps++) {
-  // then through battery size (bs)
+    // then through battery size (bs)
     for (uint8_t bs = 0;bs<3;bs++) {
       batt_tohouse[ps][bs] = 0.0F;
       dump_togrid[ps][bs] = 0.0F;   

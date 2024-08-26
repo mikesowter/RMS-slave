@@ -6,8 +6,8 @@ which has a 104us capture loop which can't be interrupted */
 void setup(void) {
   Serial.begin(115200);
   Serial.println(CODEVERSION);
-  digitalWrite(MASTER_RESET,1);
   pinMode(MASTER_RESET, OUTPUT);
+  digitalWrite(MASTER_RESET,1);
   pinMode(LED_PIN, OUTPUT);
   // Join Network
   joinNet();
