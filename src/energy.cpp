@@ -7,6 +7,8 @@
 
 float T11_kWh[3];           // daily sum from grid with each panel size
 float T11_inc[3];           // increment from grid
+float FIT_kWh[3];
+float FIT_inc[3];
 
 float NOISE[] = {5,5,5,5,5,5,50,15,5};  // updated 20220725 to handle oven(6) noise
 
@@ -60,13 +62,24 @@ void dailyEnergy() {
     costEnergy[1] += rate * badLoads;
   }
 
-// all above is calc'ed on real values, 5kW and no battery. The next calc's the impact of simulated extra panels on T11
+// all above is calc'ed on real values, 5kW and no battery. 
+// The next calc's the impact on T11 & FIT of simulated extra panels 
 
   float fact = 1.0F;
   for (uint8_t ps=0;ps<3;ps++) {      
     T11_inc[ps] = max(0.0F,loads-(solar*fact));
     T11_kWh[ps] += T11_inc[ps];
+    FIT_inc[ps] = max(0.0F,(solar*fact)-loads);
+    FIT_kWh[ps] += FIT_inc[ps];
     fact += 0.5F;
+    /*
+    excess = (solar*fact)-loads);
+    T11_inc[ps] = max(0.0F,-excess);
+    T11_kWh[ps] += T11_inc[ps];
+    FIT_inc[ps] = max(0.0F,excess);
+    FIT_kWh[ps] += FIT_ins[ps];
+    fact += 0.5F;
+    */
   }
   #endif
 }

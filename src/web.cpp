@@ -130,6 +130,9 @@ void handleMetrics() {
     promform("rmsCost7", costEnergy[7], 2);
     promform("rmsCost8", costEnergy[8], 2);
 
+    promform("rmsFIT_kWh75", T11_kWh[1]*0.08, 4);
+    promform("rmsFIT_kWh10", T11_kWh[2]*0.08, 4);
+
 // battery simulation
     for (uint8_t ps = 0;ps<3;ps++) {
       strcpy(promName,"rmsExcessP0");
