@@ -4,11 +4,8 @@ This is required to calculate energy flows between the battery, house and grid o
 minute by minute basis, and hence the cost of ownership of the offgrid configuration.
 */
 
-#include <extern.h>
-
-#define T31 0.2138    // updated 20230701
-#define T11 0.3267    // updated 20230701
-#define FIT 0.08      // updated 20211128
+#include "extern.h"
+#include "defines.h"
 
 float panelCap[] = {5.0F,7.5F,10.0F};
 float battCap[] = {10.0F,20.0F,50.0F};
@@ -54,7 +51,7 @@ void batteryEnergy() {
         }
       }
       batt_savings[ps][bs] = batt_tohouse[ps][bs]*T11;                
-      batt_savings[ps][bs] += dump_togrid[ps][bs]*FIT-costEnergy[ps][7];  // model - realworld feedin
+      batt_savings[ps][bs] += dump_togrid[ps][bs]*FIT-costEnergy[ps][7];  
     }
   }
 }

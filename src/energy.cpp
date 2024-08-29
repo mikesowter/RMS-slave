@@ -1,9 +1,5 @@
-#include <extern.h>
-
-#define T31 0.18172   // updated 20240701
-#define T11 0.2717    // updated 20240701
-#define FIT 0.08      // updated 20211128
-#define Dem 0.18546   // updated 20240701
+#include "extern.h"
+#include "defines.h"
 
 float T11_kWh[3];           // daily sum from grid with each panel size
 float T11_inc[3];           // increment from grid
@@ -35,6 +31,7 @@ void dailyEnergy() {
   float spareSolar, factor = 1.0F;
   for ( uint8_t ps=0;ps<3;ps++) {                   // calculate the impact of 3 panel sizes
     spareSolar = max(0.0F,(solar*factor-goodLoads)); 
+    T11_inc[ps] = 0.0F;
  
     for ( int i = 2;i<NUM_CCTS+1;i++ ) {
       if ( i == 5 && waterOn ) {
@@ -48,11 +45,13 @@ void dailyEnergy() {
       }
       else if ( solar == 0.0 ) {
         costEnergy[ps][i] += T11 * incEnergy[i];      // none provided by solar
+        T11_inc[ps] += incEnergy[i];
       }
       else if ( goodLoads > 0.0F ) {
         split = min(1.0F,solar/goodLoads);            // loads metered separately
         rate = FIT * split + T11 * (1.0F - split);    // (2,3,4,6,8) are essential
         costEnergy[ps][i] += rate * incEnergy[i];     // use first portion of solar
+        T11_inc[ps] += incEnergy[i] * (1.0F - split); 
       }
     
       badLoads = loads - goodLoads;                   // non-essential
@@ -60,24 +59,12 @@ void dailyEnergy() {
         split = min(1.0F,spareSolar/badLoads);        // use next portion of solar
         rate = FIT * split + T11 * (1.0 - split);
         costEnergy[ps][1] += rate * badLoads;
+        T11_inc[ps] += badLoads * (1.0F - split); 
       }
     }
+    T11_kWh[ps] += T11_inc[ps];
     factor += 0.5F;
   }
-
-/* all above is calc'ed on real values, 5kW panels and no battery. 
-// The next calc's the impact on T11 & FIT of extra panels and no battery
-
-  float solarToGrid, fact = 1.0F;
-  loads = incEnergy[1];     // total load (some solar+T11) on dist panel
-  solar = incEnergy[7];     // solar incoming to house and grid
-  for (uint8_t ps=0;ps<3;ps++) {      
-    solarToGrid = solar*fact - loads;
-    T11_inc[ps] = max(0.0F,-solarToGrid);
-    T11_kWh[ps] += T11_inc[ps];
-    FIT_inc[ps] = max(0.0F,solarToGrid);
-    FIT_kWh[ps] += FIT_inc[ps];
-    fact += 0.5F; */
 
 #endif
 }

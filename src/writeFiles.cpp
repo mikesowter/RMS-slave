@@ -49,7 +49,9 @@ void updateEnergyFile() {
   fh.printf("\n%02d/%02d/%4d",day(),month(),year());
   for ( int i=1; i<NUM_CCTS+1; i++ ) {
     fh.printf(",%.2f",Energy[i]);
-    fh.printf(",$%.2f",costEnergy[i]);
+    fh.printf(",$%.2f",costEnergy[0][i]);
+    fh.printf(",$%.2f",costEnergy[1][i]);
+    fh.printf(",$%.2f",costEnergy[2][i]);
   }
   fh.printf(",%.2f,%.2f,%.2f",T11_kWh[0],T11_kWh[1],T11_kWh[2]);
   fh.close();
