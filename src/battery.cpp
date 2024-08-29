@@ -54,7 +54,7 @@ void batteryEnergy() {
         }
       }
       batt_savings[ps][bs] = batt_tohouse[ps][bs]*T11;                
-      batt_savings[ps][bs] += dump_togrid[ps][bs]*FIT-costEnergy[7];  // model - realworld feedin
+      batt_savings[ps][bs] += dump_togrid[ps][bs]*FIT-costEnergy[ps][7];  // model - realworld feedin
     }
   }
 }

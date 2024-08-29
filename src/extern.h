@@ -99,7 +99,7 @@ extern float Vmax_n, Vmax_p;
 extern float Wrms_min[];		
 extern float Wrms_max[];	
 extern float Energy[];	
-extern float incEnergy[], costEnergy[];
+extern float incEnergy[], costEnergy[][9];
 extern float T11_kWh[], FIT_kWh[];
 extern float en5min[], so5min[], rms15Demand, rms30Demand, rms15Peak, rms30Peak;
 extern float panelCap[];

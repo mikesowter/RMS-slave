@@ -121,17 +121,14 @@ void handleMetrics() {
 #endif
 #ifdef RMS1
 // costs
-    promform("rmsCost1", costEnergy[1], 2);
-    promform("rmsCost2", costEnergy[2], 2);
-    promform("rmsCost3", costEnergy[3], 2);
-    promform("rmsCost4", costEnergy[4], 2);
-    promform("rmsCost5", costEnergy[5], 2);
-    promform("rmsCost6", costEnergy[6], 2);
-    promform("rmsCost7", costEnergy[7], 2);
-    promform("rmsCost8", costEnergy[8], 2);
-
-    promform("rmsFIT_kWh75", T11_kWh[1]*0.08, 4);
-    promform("rmsFIT_kWh10", T11_kWh[2]*0.08, 4);
+    for (uint8_t ps = 0;ps<3;ps++) {
+      for (uint8_t cct = 1;cct<9;cct++) {
+        strcpy(promName,"rmsCost00");
+        promName[7] = ps + '0';
+        promName[8] = cct + '0';
+        promform(promName, costEnergy[ps][cct], 2);
+      }
+    }
 
 // battery simulation
     for (uint8_t ps = 0;ps<3;ps++) {

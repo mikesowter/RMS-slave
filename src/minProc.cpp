@@ -15,24 +15,18 @@ void minProc() {
   old5Min = minute()/5;
   #ifdef RMS1
   // demand calcs
-  if ( hour() == 16 ) {
-    if ( minute() == 30 ) {
-      rms15Peak = 0.0F;
-      rms30Peak = 0.0F;
-      peakPeriod = true;
-    }
-  }
-  en5index = (minute()/5)%6;    // current index into barrel of 6 x 5 min T11 readings
+  if ( hour() == 16 && minute() == 30 ) peakPeriod = true;
+  en5index = (minute()/5)%6;    // index into barrel of 6 x 5 min T11 readings
   en15index = (en5index+3)%6;   // index 15 min back
-  rms15Demand = (Energy[1] - en5min[en15index])*4.0F;
-  rms15Demand -= (Energy[7] - so5min[en15index])*4.0F;
-  rms15Demand = max(0.0F,rms15Demand);
+  rms15Demand = max(0.0F, Energy[1] - en5min[en15index]);
+  rms15Demand -= max(0.0F,Energy[7] - so5min[en15index]);
+  rms15Demand = max(0.0F,rms15Demand)*4.0F;
   if ( peakPeriod && rms15Demand > rms15Peak ) rms15Peak = rms15Demand;
   rms30Demand = (Energy[1] - en5min[en5index])*2.0F;  
   rms30Demand -= (Energy[7] - so5min[en5index])*2.0F;
   rms30Demand = max(0.0F,rms30Demand);
   if ( peakPeriod && rms30Demand > rms30Peak ) rms30Peak = rms30Demand;
-  en5min[en5index] = Energy[1]; // overwrite value 30m back
+  en5min[en5index] = Energy[1]; // overwrite values from 30m ago
   so5min[en5index] = Energy[7];
   #endif
   // check for new quarter hour
@@ -75,7 +69,9 @@ void minProc() {
   // reset daily energy sums at midnight
   for ( int i = 1; i<NUM_CCTS+1; i++ ) {
     Energy[i] = 0.0F;
-    costEnergy[i] = 0.0F;
+    costEnergy[0][i] = 0.0F;
+    costEnergy[1][i] = 0.0F;
+    costEnergy[2][i] = 0.0F;
   }
 
 return;

@@ -19,12 +19,13 @@ void readPromDB() {
 
 // read most recent rmsEnergyCost# values
 
-  for (int cct = 1; cct<9; cct++) {
-    strcpy(unit,"rmsCost");
-    int len = strlen(unit);
-    unit[len] = '0' + cct;
-    unit[len+1] = '\0';
-    costEnergy[cct] = readPromItem(unit);
+  for (int ps = 0; ps<3; ps++) {
+    strcpy(unit,"rmsCost00");
+    unit[7] = '0' + ps;
+    for (int cct = 1; cct<9; cct++) {
+      unit[8] = '0' + cct;
+      costEnergy[ps][cct] = readPromItem(unit);
+    }
   }  
 
 // read miscellaneous battery and solar values

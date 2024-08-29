@@ -105,12 +105,12 @@ float Wrms[MAX_CCTS+1];					// Sum of sampled V*I
     */
 float Energy[NUM_CCTS+1];	
 float incEnergy[NUM_CCTS+1];
-float costEnergy[NUM_CCTS+1];   
+float costEnergy[3][NUM_CCTS+1];   
 /*  RMS1
-    costEnergy[1] is cost of unmetered (badloads)
-    costEnergy[2-6] is cost of Wrms[2-6]
-    costEnergy[7] is income from FIT
-    costEnergy[8] is cost of lights
+    costEnergy[ps][1] is cost of unmetered (badloads)
+    costEnergy[ps][2-6] is cost of Wrms[2-6]
+    costEnergy[ps][7] is income from FIT
+    costEnergy[ps][8] is cost of lights
     */
 float Wrms_min[NUM_CCTS+1];		
 float Wrms_max[NUM_CCTS+1];	
