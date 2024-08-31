@@ -37,9 +37,9 @@ char* timeStamp() {
   strcat(timeStr,i2sd(minute()));
   strcat(timeStr,":");
   strcat(timeStr,i2sd(second()));
-  strcat(timeStr,".");
+/*  strcat(timeStr,".");
   strcat(timeStr,i2sd((millis()%1000)/10));
-  strcat(timeStr,",");
+  strcat(timeStr,","); */
   return timeStr;
 }
 

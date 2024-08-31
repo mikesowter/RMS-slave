@@ -1,10 +1,7 @@
 #include "extern.h"
 #include "defines.h"
 
-float T11_kWh[3];           // daily sum from grid with each panel size
-float T11_inc[3];           // increment from grid
-float FIT_kWh[3];
-float FIT_inc[3];
+
 
 float NOISE[] = {5,5,5,5,5,5,50,15,5};  // updated 20220725 to handle oven(6) noise
 
@@ -53,10 +50,9 @@ void dailyEnergy() {
         costEnergy[ps][i] += rate * incEnergy[i];     // use first portion of solar
         T11_inc[ps] += incEnergy[i] * (1.0F - split); 
       }
-    
-      badLoads = loads - goodLoads;                   // non-essential
-      if (badLoads > 2.5E-4) {                        // remove noise from subtraction
-        split = min(1.0F,spareSolar/badLoads);        // use next portion of solar
+      badLoads = loads - goodLoads;                   // non-essential (big heat pumps)
+      if (badLoads > 2.5E-4) {                        // remove noise & zero from calc
+        split = min(1.0F,spareSolar/badLoads);        // use last portion of solar
         rate = FIT * split + T11 * (1.0 - split);
         costEnergy[ps][1] += rate * badLoads;
         T11_inc[ps] += badLoads * (1.0F - split); 
@@ -65,7 +61,6 @@ void dailyEnergy() {
     T11_kWh[ps] += T11_inc[ps];
     factor += 0.5F;
   }
-
 #endif
 }
 

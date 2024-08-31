@@ -14,20 +14,16 @@ void minProc() {
   if ( old5Min == minute()/5 ) return;
   old5Min = minute()/5;
   #ifdef RMS1
-  // demand calcs
-  if ( hour() == 16 && minute() == 30 ) peakPeriod = true;
+  // demand calcs every 5 minutes
+  if ( hour() == 16 ) peakPeriod = true;
   en5index = (minute()/5)%6;    // index into barrel of 6 x 5 min T11 readings
   en15index = (en5index+3)%6;   // index 15 min back
-  rms15Demand = max(0.0F, Energy[1] - en5min[en15index]);
-  rms15Demand -= max(0.0F,Energy[7] - so5min[en15index]);
-  rms15Demand = max(0.0F,rms15Demand)*4.0F;
+  rms15Demand = (T11_kWh[0] - en5min[en15index])*4.0F;
   if ( peakPeriod && rms15Demand > rms15Peak ) rms15Peak = rms15Demand;
-  rms30Demand = (Energy[1] - en5min[en5index])*2.0F;  
-  rms30Demand -= (Energy[7] - so5min[en5index])*2.0F;
-  rms30Demand = max(0.0F,rms30Demand);
+  rms30Demand = (T11_kWh[0] - en5min[en5index])*2.0F;  
   if ( peakPeriod && rms30Demand > rms30Peak ) rms30Peak = rms30Demand;
-  en5min[en5index] = Energy[1]; // overwrite values from 30m ago
-  so5min[en5index] = Energy[7];
+  en5min[en5index] = T11_kWh[0]; // overwrite values from 30m ago
+  if ( peakPeriod ) writeDemand();
   #endif
   // check for new quarter hour
   if ( oldQtr == minute()/15 ) return;

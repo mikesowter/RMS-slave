@@ -41,6 +41,7 @@ void readPromDB();
 void setupFS();
 void sync2Master();
 void calcCheckSum();
+void writeDemand();
 
 String resetReason = "Restart caused by " + ESP.getResetReason();
 String resetDetail = ESP.getResetInfo();
@@ -125,6 +126,10 @@ float loads, solar;
 float avSparekW;            // smoothed solar-loads
 float Vbat;
 float en5min[6], so5min[6], rms15Demand, rms30Demand, rms15Peak, rms30Peak;
+float T11_kWh[3];           // daily sum from grid with each panel size
+float T11_inc[3];           // increment from grid
+float FIT_kWh[3];
+float FIT_inc[3];
 
 
 

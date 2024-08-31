@@ -33,9 +33,9 @@ void WriteQtr() {
   fh.print(",");
   fh.print(Vrms);
   fh.print(",");
-  fh.print(Energy[1]);
+  fh.print(T11_kWh[0]);
   fh.print(",");
-  fh.println(Vbat);
+  fh.println(FIT_kWh[0]);
   delay(10);
 }
 
@@ -78,6 +78,13 @@ void updateBatteryFile() {
 void writePeak() {
   fh = LittleFS.open("PeakDemand.csv","a+");
   fh.printf("%s,%.3f,%.3f\n",dateStamp(),rms15Peak,rms30Peak);
+  fh.close();
+  return;
+}
+
+void writeDemand() {
+  fh = LittleFS.open("Demand.csv","a+");
+  fh.printf("%s,%s,%.3f,%.3f\n",dateStamp(),timeStamp(),Energy[1],Energy[7]);
   fh.close();
   return;
 }

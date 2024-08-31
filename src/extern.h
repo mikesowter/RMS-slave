@@ -41,12 +41,12 @@ byte storeData();
 void dailyEnergy();
 void batteryEnergy();
 void readPromDB();
-// void t31check();
 void updateEnergyFile();
 void updateBatteryFile();
 void setupTime();
 void calcCheckSum();
 void activity(const char* tag);
+void writeDemand();
 
 extern uint8_t gobackhrs;
 extern WiFiUDP udp;
@@ -100,7 +100,7 @@ extern float Wrms_min[];
 extern float Wrms_max[];	
 extern float Energy[];	
 extern float incEnergy[], costEnergy[][9];
-extern float T11_kWh[], FIT_kWh[];
+extern float T11_kWh[], T11_inc[], FIT_kWh[], FIT_inc[];
 extern float en5min[], so5min[], rms15Demand, rms30Demand, rms15Peak, rms30Peak;
 extern float panelCap[];
 extern float BattCap[];
@@ -108,3 +108,4 @@ extern float excessSolar[], batt_savings[3][3];    // first index is solar, 2nd 
 extern float batt_tohouse[3][3], batt_charge[3][3], dump_togrid[3][3];
 extern float loads, solar, avSparekW;
 extern float Vbat;
+
