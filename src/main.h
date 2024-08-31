@@ -130,6 +130,7 @@ float T11_kWh[3];           // daily sum from grid with each panel size
 float T11_inc[3];           // increment from grid
 float FIT_kWh[3];
 float FIT_inc[3];
+float T11_kW;
 
 
 

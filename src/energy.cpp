@@ -59,6 +59,7 @@ void dailyEnergy() {
       }
     }
     T11_kWh[ps] += T11_inc[ps];
+    T11_kW = (T11_inc[0]/float(t_scan))*3600000.0F;
     factor += 0.5F;
   }
 #endif

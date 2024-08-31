@@ -25,14 +25,13 @@ void setup(void) {
   diagMess(charBuf); 				// only give detail
   // recover previous values from prometheus
   readPromDB();  
-  #ifdef RMS1 
+#ifdef RMS1 
   // init demand calcs
   for ( uint8_t en5index=0;en5index<6;en5index++ ) {
-    en5min[en5index] = Energy[1];
-    so5min[en5index] = Energy[7];
+    en5min[en5index] = T11_kWh[0];
   }
   peakPeriod = hour() >= 16 && hour() < 21;
-  #endif
+#endif
   // setup server
   server.on ( "/", handleRoot );
   server.on ( "/dir", handleDir );

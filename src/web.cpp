@@ -115,9 +115,11 @@ void handleMetrics() {
     promform("rmsEnergy7", Energy[7], 2);
     promform("rmsEnergy8", Energy[8], 2);
 
-    promform("rmsT11_kWh", T11_kWh[0], 4);
-    promform("rmsT11_kWh75", T11_kWh[1], 4);
-    promform("rmsT11_kWh10", T11_kWh[2], 4);
+    promform("rmsT11_kWh", T11_kWh[0], 3);
+    promform("rmsT11_kWh75", T11_kWh[1], 3);
+    promform("rmsT11_kWh10", T11_kWh[2], 3);
+    promform("rmsT11_kW", T11_kW, 3);
+
 #endif
 #ifdef RMS1
 // costs
