@@ -18,8 +18,8 @@ void minProc() {
   if ( hour() == 16 ) peakPeriod = true;
   en5index = (minute()/5)%6;    // index into barrel of 6 x 5 min T11 readings
   en15index = (en5index+3)%6;   // index 15 min back
-  rms15Demand = (T11_kWh[0] - en5min[en15index])*4.0F;
-  rms30Demand = (T11_kWh[0] - en5min[en5index])*2.0F;  
+  rms15Demand = (T11_kWh[0] - en5min[en15index])*4000.0F;
+  rms30Demand = (T11_kWh[0] - en5min[en5index])*2000.0F;  
   en5min[en5index] = T11_kWh[0]; // overwrite values from 30m ago
   if ( peakPeriod ) {
     if ( rms15Demand > rms15Peak ) rms15Peak = rms15Demand;

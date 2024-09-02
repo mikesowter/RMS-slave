@@ -83,8 +83,12 @@ void writePeak() {
 }
 
 void writeDemand() {
-  fh = LittleFS.open("Demand.csv","a+");
-  fh.printf("%s,%s,%.3f,%.3f\n",dateStamp(),timeStamp(),Energy[1],Energy[7]);
+  char name[20];
+  strcpy(name,"demand");
+  strcat(name,dateStamp());
+  strcat(name,".csv");
+  fh = LittleFS.open(name,"a+");
+  fh.printf("%s,%.3f,%.3f\n",timeStamp(),Energy[1],Energy[7]);
   fh.close();
   return;
 }

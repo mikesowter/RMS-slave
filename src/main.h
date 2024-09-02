@@ -67,7 +67,7 @@ char todayName[] = "/XXXyymmdd.csv";
 char userText[30];
 char saveName[20];
 char dateStr[] = "yymmdd ";
-char timeStr[] = "hh:mm:ss.ss,";
+char timeStr[] = "hh:mm:ss.ss,";    // in diagnostic mode only
 char charBuf[256];
 char d2Str[] = "01";
 char d8Str[8];
@@ -108,15 +108,15 @@ float Energy[NUM_CCTS+1];
 float incEnergy[NUM_CCTS+1];
 float costEnergy[3][NUM_CCTS+1];   
 /*  RMS1
-    costEnergy[ps][1] is cost of unmetered (badloads)
+    costEnergy[ps][1] is cost of unmetered (tier2loads) in $
     costEnergy[ps][2-6] is cost of Wrms[2-6]
     costEnergy[ps][7] is income from FIT
     costEnergy[ps][8] is cost of lights
-    */
-float Wrms_min[NUM_CCTS+1];		
+*/
+float Wrms_min[NUM_CCTS+1];		    // in kW
 float Wrms_max[NUM_CCTS+1];	
-float Arms[NUM_CCTS+1];					// root sum I^2
-float Vrms, Vpk_min, Vpk_max;		    // root sum V^2, -Vp, +Vp
+float Arms[NUM_CCTS+1];				// root sum I^2
+float Vrms, Vpk_min, Vpk_max;		// root sum V^2, -Vp, +Vp
 float Freq;                         // grid frequency to 50.000
 float Vrms_min = 500.0;             // max values between scans
 float Vrms_max = 0.0;

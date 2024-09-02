@@ -185,6 +185,7 @@ void handleMetrics() {
     promform("rmsWaitWatchMin", (float)WWmin, 0);
     promform("rmsWaitWatchMax", (float)WWmax, 0);
     promform("rmsMissedCycles", (float)missedCycle, 0);
+    promform("rmsScanTime", (float)t_scan, 0);
 #endif
 
   server.send ( 200, "text/plain", longStr );
