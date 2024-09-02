@@ -19,11 +19,13 @@ void minProc() {
   en5index = (minute()/5)%6;    // index into barrel of 6 x 5 min T11 readings
   en15index = (en5index+3)%6;   // index 15 min back
   rms15Demand = (T11_kWh[0] - en5min[en15index])*4.0F;
-  if ( peakPeriod && rms15Demand > rms15Peak ) rms15Peak = rms15Demand;
   rms30Demand = (T11_kWh[0] - en5min[en5index])*2.0F;  
-  if ( peakPeriod && rms30Demand > rms30Peak ) rms30Peak = rms30Demand;
   en5min[en5index] = T11_kWh[0]; // overwrite values from 30m ago
-  if ( peakPeriod ) writeDemand();
+  if ( peakPeriod ) {
+    if ( rms15Demand > rms15Peak ) rms15Peak = rms15Demand;
+    if ( rms30Demand > rms30Peak ) rms30Peak = rms30Demand;
+    writeDemand();
+  }
   #endif
   // check for new quarter hour
   if ( oldQtr == minute()/15 ) return;

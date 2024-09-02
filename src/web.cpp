@@ -101,25 +101,25 @@ void handleMetrics() {
     promform("rmsPwr_max7", Wrms_max[7], 2);
     promform("rmsPwr_max8", Wrms_max[8], 2);
     
+    promform("rmsT11_kW", T11_kW, 3);
     promform("rms15Peak", rms15Peak, 3);
     promform("rms30Peak", rms30Peak, 3);
-    promform("rms15Demand", rms15Demand, 2);
-    promform("rms30Demand", rms30Demand, 2);
+    promform("rms15Demand", rms15Demand, 3);
+    promform("rms30Demand", rms30Demand, 3);
 // energy
-    promform("rmsEnergy1", Energy[1], 2);
-    promform("rmsEnergy2", Energy[2], 2);
-    promform("rmsEnergy3", Energy[3], 2);
-    promform("rmsEnergy4", Energy[4], 2);
-    promform("rmsEnergy5", Energy[5], 2);
-    promform("rmsEnergy6", Energy[6], 2);
-    promform("rmsEnergy7", Energy[7], 2);
-    promform("rmsEnergy8", Energy[8], 2);
+    promform("rmsEnergy1", Energy[1], 3);
+    promform("rmsEnergy2", Energy[2], 3);
+    promform("rmsEnergy3", Energy[3], 3);
+    promform("rmsEnergy4", Energy[4], 3);
+    promform("rmsEnergy5", Energy[5], 3);
+    promform("rmsEnergy6", Energy[6], 3);
+    promform("rmsEnergy7", Energy[7], 3);
+    promform("rmsEnergy8", Energy[8], 3);
 
     promform("rmsT11_kWh", T11_kWh[0], 3);
     promform("rmsT11_kWh75", T11_kWh[1], 3);
     promform("rmsT11_kWh10", T11_kWh[2], 3);
-    promform("rmsT11_kW", T11_kW, 3);
-
+    
 #endif
 #ifdef RMS1
 // costs
@@ -294,15 +294,16 @@ void handleNotFound() {
     server.send ( 200, "text/plain", charBuf );
     activity("gobk");
   }
-  else if (strncmp(userText,"/OTA",4)==0) {
-    uint32_t OTAstart=millis();
-    do {
-      // check for OTA
-      ArduinoOTA.handle();
-      delay(2000);
-    } while ( millis() - OTAstart < 10000);
-    strcpy(charBuf," resuming normal service ");
+  else if (strncmp(userText,"/pause",4)==0) {
+    strcpy(charBuf," stating 30s pause ");
     server.send ( 200, "text/plain", charBuf );
+    uint32_t pauseStart=millis();
+    do {
+      // check for OTA & FTP
+      ArduinoOTA.handle();
+      ftpSrv.handleFTP(FS_ID);
+      delay(1);
+    } while ( millis() - pauseStart < 30000);
   }
   else {
     strcpy(charBuf,userText);

@@ -25,9 +25,13 @@ void dailyEnergy() {
 #ifdef RMS1
   loads = incEnergy[1];     // total load (solar+T11) on dist panel
   solar = incEnergy[7];     // inverter incoming to dist panel
-  float spareSolar, factor = 1.0F;
+  float goodSolar, badSolar, spareSolar, factor = 1.0F;
   for ( uint8_t ps=0;ps<3;ps++) {                   // calculate the impact of 3 panel sizes
-    spareSolar = max(0.0F,(solar*factor-goodLoads)); 
+    solar = factor*incEnergy[7];                    // simulating panels of 5,7.5 and 10kW
+    badLoads = loads - goodLoads;                   // non-essential (big heat pumps)
+    goodSolar = max(0.0F,(solar-goodLoads)); 
+    badSolar = max(0.0F,(solar-badLoads));
+    spareSolar = max(0.0F,(solar-loads));
     T11_inc[ps] = 0.0F;
  
     for ( int i = 2;i<NUM_CCTS+1;i++ ) {
@@ -37,22 +41,21 @@ void dailyEnergy() {
       else if ( i == 7 ) {
         costEnergy[ps][i] += FIT * spareSolar;        // exported solar
       }
-      else if ( solar > loads ) {                     // all provided by solar
+      else if ( solar > goodLoads ) {              // all provided by solar
         costEnergy[ps][i] += FIT * incEnergy[i];
       }
-      else if ( solar == 0.0 ) {
+      else if ( solar == 0.0F ) {
         costEnergy[ps][i] += T11 * incEnergy[i];      // none provided by solar
         T11_inc[ps] += incEnergy[i];
       }
       else if ( goodLoads > 0.0F ) {
-        split = min(1.0F,solar/goodLoads);            // loads metered separately
+        split = min(1.0F,goodSolar/goodLoads);     // loads metered separately
         rate = FIT * split + T11 * (1.0F - split);    // (2,3,4,6,8) are essential
         costEnergy[ps][i] += rate * incEnergy[i];     // use first portion of solar
         T11_inc[ps] += incEnergy[i] * (1.0F - split); 
       }
-      badLoads = loads - goodLoads;                   // non-essential (big heat pumps)
       if (badLoads > 2.5E-4) {                        // remove noise & zero from calc
-        split = min(1.0F,spareSolar/badLoads);        // use last portion of solar
+        split = min(1.0F,badSolar/badLoads);        // use last portion of solar
         rate = FIT * split + T11 * (1.0 - split);
         costEnergy[ps][1] += rate * badLoads;
         T11_inc[ps] += badLoads * (1.0F - split); 
@@ -61,6 +64,7 @@ void dailyEnergy() {
     T11_kWh[ps] += T11_inc[ps];
     T11_kW = (T11_inc[0]/float(t_scan))*3600000.0F;
     factor += 0.5F;
+    FIT_kWh[ps] = max(0.0F,Energy[7]-Energy[1]);
   }
 #endif
 }
