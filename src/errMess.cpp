@@ -18,6 +18,7 @@ void diagMess(const char* mess) {
   fd.print(dateStamp());
   fd.print(" ");
   fd.print(timeStamp());
+  fd.print(" ");
   fd.println(mess);
   fd.close();
 }
