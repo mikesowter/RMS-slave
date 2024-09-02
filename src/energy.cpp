@@ -37,11 +37,11 @@ void dailyEnergy() {
     }
     else if ( solar > tier1loads ) {
       tier1solar = tier1loads;
-      tier2solar = solar - tier2loads;
+      tier2solar = solar - tier1loads;
       spareSolar = 0.0F;
     }
     else {
-      tier1solar = solar - tier1loads;
+      tier1solar = solar;
       tier2solar = 0.0F;
       spareSolar = 0.0F;
     }
