@@ -26,9 +26,9 @@ void setup(void) {
   // recover previous values from prometheus
   readPromDB();  
 #ifdef RMS1 
-  // init demand calcs
+  // init 30m demand calcs
   for ( uint8_t en5index=0;en5index<6;en5index++ ) {
-    en5min[en5index] = T11_kWh[0];
+    T11_5m_kWh[en5index] = T11_kWh[0];    // most recent value
   }
   peakPeriod = hour() >= 16 && hour() < 21;
 #endif

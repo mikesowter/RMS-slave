@@ -3,22 +3,22 @@
 
 
 
-float NOISE[] = {5,5,5,5,5,5,50,15,5};  // updated 20220725 to handle oven(6) noise
+float noise[] = {5,5,5,5,5,5,50,15,5};  // updated 20220725 to handle oven(6) noise
 
 // Energy sums are reset at midnight in minProc
 
 void dailyEnergy() {
 
 #ifdef RMS1
-  float tier1loads, tier2loads, split, rate, noise = 1.5E-6; // (5W for 1s)
+  float tier1loads, tier2loads, split, rate; 
   float tier1solar, tier2solar, spareSolar, factor = 1.0F;
 #endif
-  t_scan = millis() - t_lastData;
+  t_scan = millis() - t_lastData;                     // typically 900ms
   t_lastData = millis();
   tier1loads = 0.0F;
-  for ( int i = 1;i<NUM_CCTS+1;i++ ) {
-    if ( Wrms[i] < NOISE[i] ) Wrms[i] = 0.0;          // eliminate noise
-    incEnergy[i] = Wrms[i]*(float)t_scan/3.6e9;       // kWh units
+  for ( int i = 1;i<NUM_CCTS+1;i++ ) {                // power (W) to energy (kWh)
+    if ( Wrms[i] < noise[i] ) Wrms[i] = 0.0;          // eliminate noise
+    incEnergy[i] = Wrms[i]*(float)t_scan/3.6e9;       // Wms to kWh units
     Energy[i] += incEnergy[i];
 #ifdef RMS1
     if ( i!=1 && i!=5 && i!=7 ) tier1loads += incEnergy[i]; // loads 2,3,4,6,8
@@ -46,7 +46,7 @@ void dailyEnergy() {
       spareSolar = 0.0F;
     }
     T11_inc[ps] = 0.0F;
- 
+    // calculate tier1 costs
     for ( int i = 2;i<NUM_CCTS+1;i++ ) {
       if ( i == 5 && waterOn ) {
         costEnergy[ps][i] += T31 * incEnergy[5];      // hotwater tariff
@@ -57,30 +57,30 @@ void dailyEnergy() {
       else if ( solar > tier1loads ) {                // all provided by solar
         costEnergy[ps][i] += FIT * incEnergy[i];
       }
-      else if ( solar < noise ) {
+      else if ( solar == 0.0F ) {
         costEnergy[ps][i] += T11 * incEnergy[i];      // none provided by solar
         T11_inc[ps] += incEnergy[i];
       }
-      else if ( tier1loads > noise ) {
-        split = min(1.0F,tier1solar/tier1loads);      // loads metered separately
+      else if ( tier1loads > 0.0F ) {
+        split = tier1solar/tier1loads;                // loads metered separately
         rate = FIT * split + T11 * (1.0F - split);    // (2,3,4,6,8) are essential
-        costEnergy[ps][i] += rate * incEnergy[i];     // use first portion of solar
-        T11_inc[ps] += incEnergy[i] * (1.0F - split); 
-      }
-      if ( tier2loads > noise ) {                     // remove noise & zero from calc
-        split = min(1.0F,tier2solar/tier2loads);      // use second portion of solar
-        rate = FIT * split + T11 * (1.0 - split);
-        costEnergy[ps][1] += rate * tier2loads;
-        T11_inc[ps] += tier2loads * (1.0F - split); 
+        costEnergy[ps][i] += rate * tier1loads;       // use first portion of solar
+        T11_inc[ps] += tier1loads - tier1solar; 
       }
     }
+    // calculate tier2 costs
+    if ( tier2loads > 0.0F ) {                        // loads lumped together
+      split = tier2solar/tier2loads;                  // use second portion of solar
+      rate = FIT * split + T11 * (1.0F - split);
+      costEnergy[ps][1] += rate * tier2loads;
+      T11_inc[ps] += (tier2loads - tier2solar);
+    }
     T11_kWh[ps] += T11_inc[ps];
-    T11_kWh[ps] = max(0.0F,loads - solar);
-    FIT_kWh[ps] = max(0.0F,Energy[7]-Energy[1]);
-    factor += 0.5F;
+    FIT_kWh[ps] += spareSolar;
+    factor += 0.5F;                                   // next panel size emulation
   }
-  //T11_kW = (T11_inc[0]/float(t_scan))*3600000.0F;
-  T11_kW = max(0.0F,Wrms_min[1] - Wrms_min[7])/1000.0F;
+  // this is a power calc, not energy, for debugging purposes only
+  T11_kW = max(0.0F,Wrms_min[1] - Wrms_min[7]);
 #endif
 }
 

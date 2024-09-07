@@ -77,7 +77,7 @@ void waitForData() {
   dailyEnergy();
   yield(); 
 #ifdef RMS1
-  batteryEnergy();   // battery simulation only useful on original meter
+  batteryEnergy();   // battery simulation only on house dist panel
 #endif
   noDataYet = false;   
   digitalWrite(LED_PIN,1);

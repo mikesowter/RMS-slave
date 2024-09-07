@@ -36,10 +36,10 @@ void readPromDB() {
 
   char promName[20];
   for (uint8_t ps = 0;ps<3;ps++) {
-    strcpy(promName,root);
+  /*  strcpy(promName,root);
     strcat(promName,"ExcessP0");
     promName[po] = ps + '0';
-    T11_kWh[ps] = readPromItem(promName);
+    T11_Wh[ps] = readPromItem(promName);  */
 
     for (uint8_t bs = 0;bs<3;bs++) {
       strcpy(promName,root);

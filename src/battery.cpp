@@ -12,7 +12,7 @@ float battCap[] = {10.0F,20.0F,50.0F};
 float excessSolar[3], batt_savings[3][3];    // first index is panel size, 2nd is battery size
 float batt_tohouse[3][3], batt_charge[3][3], dump_togrid[3][3];
 
-extern float NOISE[];  // 20220725 for oven(6) 
+extern float noise[];  // 20220725 for oven(6) 
 
 void batteryEnergy() {
 

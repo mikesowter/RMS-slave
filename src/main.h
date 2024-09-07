@@ -125,7 +125,7 @@ float Vmax_n = 0.0, Vmax_p = 0.0;
 float loads, solar;
 float avSparekW;            // smoothed solar-loads
 float Vbat;
-float en5min[6], so5min[6], rms15Demand, rms30Demand, rms15Peak, rms30Peak;
+float T11_5m_kWh[6], so5min[6], rms15Demand, rms30Demand, rms15Peak, rms30Peak;
 float T11_kWh[3];           // daily sum from grid with each panel size
 float T11_inc[3];           // increment from grid
 float FIT_kWh[3];
