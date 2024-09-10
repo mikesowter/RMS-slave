@@ -36,6 +36,7 @@ void minProc() {
   storeData();                        // write day file every 15mins
   if ( oldHour == hour() ) return;
   oldHour = hour();
+  logon = true;
   if ( hour() == 21 ) {
     writePeak();
     peakPeriod = false;

@@ -58,6 +58,7 @@ volatile uint8_t watchDog = 0;
 bool SPIwait = true;     // wait for data in SPI slave loop?
 bool noDataYet = true;   // no data from RMS master yet?
 bool checkSumBad;
+bool logon;              // switch for tier energy logs
 bool waterOn, exporting, exporting7_5, exporting10, scanFail;
 bool T31charging, pwrOutage, peakPeriod;
 bool FTPcheck;
@@ -88,7 +89,7 @@ uint16_t i, oldYear, htmlLen, CstringPtr, syncDelay = 800;
 uint16_t localPort = 4210;          //  must match port assigned in "pulse"
 uint16_t loopCount = 0, missedCycle = 0;
 uint32_t t0, t1, t2, t3, startMillis, startSeconds, lastScan, startOutage;
-uint32_t t_lastData, t_scan, waiting, WWmin, WWmax, WDmin, WDmax;
+uint32_t t_lastData, t_scan, t_scan_max, waiting, WWmin, WWmax, WDmin, WDmax;
 uint32_t loopStart, loopTime, LTmin, LTmax, progLoopTime;
 uint32_t wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
 
@@ -130,7 +131,7 @@ float T11_kWh[3];           // daily sum from grid with each panel size
 float T11_inc[3];           // increment from grid
 float FIT_kWh[3];
 float FIT_inc[3];
-float T11_kW;
+float T11_W;
 
 
 

@@ -101,7 +101,7 @@ void handleMetrics() {
     promform("rmsPwr_max7", Wrms_max[7], 2);
     promform("rmsPwr_max8", Wrms_max[8], 2);
     
-    promform("rmsT11_kW", T11_kW, 3);
+    promform("rmsT11_kW", T11_W, 3);
     promform("rms15Peak", rms15Peak, 3);
     promform("rms30Peak", rms30Peak, 3);
     promform("rms15Demand", rms15Demand, 3);
@@ -185,7 +185,7 @@ void handleMetrics() {
     promform("rmsWaitWatchMin", (float)WWmin, 0);
     promform("rmsWaitWatchMax", (float)WWmax, 0);
     promform("rmsMissedCycles", (float)missedCycle, 0);
-    promform("rmsScanTime", (float)t_scan, 0);
+    promform("rmsScanTime", (float)t_scan_max, 0);
 #endif
 
   server.send ( 200, "text/plain", longStr );
@@ -203,6 +203,7 @@ void handleMetrics() {
   noDataYet = true;
   lastScan = millis();
   scanSec = second();
+  t_scan_max = 0UL;
   WWmin = 9999;
   WWmax = 0;
   LTmin = 9999;
