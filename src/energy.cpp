@@ -75,12 +75,12 @@ void dailyEnergy() {
   }
   // this is a power calc, not energy, for debugging purposes only
   T11_W = max(0.0F,Wrms_min[1] - Wrms_min[7]);
-  if ( T11_W > 1000.0F && logon ) {
+/*  if ( T11_W > 1000.0F && logon ) {
     sprintf(charBuf,"LD-%.6f T1-%.6f T2-%.6f SS-%.6f T11-%.6f ms-%d"
             ,loads,tier1loads,tier2loads,spareSolar,T11_W,t_scan);
     diagMess(charBuf);
     logon = false;
-  }  
+  }  */
 #endif
 }
 
