@@ -7,7 +7,8 @@ extern uint8_t gobackhrs;
 void promform(const char* pname,float lval, uint8_t res) {
   char fltStr[12];
   dtostrf((double)lval, 0, res, fltStr);
-  sprintf(charBuf,"\n# TYPE %s gauge\n%s %s",pname, pname, fltStr);
+//  sprintf(charBuf,"\n# TYPE %s gauge\n%s %s",pname, pname, fltStr);
+  sprintf(charBuf,"\n%s %s", pname, fltStr);
   strcat(longStr,charBuf);
 }
 
@@ -56,26 +57,26 @@ void handleMetrics() {
   if ( !pwrOutage && Wrms_min[1] != 9999.0F ) {
  #ifdef RMS2
  // power
-    promform("rms2Pwr_min1", Wrms_min[1], 2);
-    promform("rms2Pwr_min2", Wrms_min[2], 2);
-    promform("rms2Pwr_min3", Wrms_min[3], 2);
+ //   promform("rms2Pwr_min1", Wrms_min[1], 2);
+ //   promform("rms2Pwr_min2", Wrms_min[2], 2);
+ //   promform("rms2Pwr_min3", Wrms_min[3], 2);
     promform("rms2Pwr_min4", Wrms_min[4], 2);
     promform("rms2Pwr_min5", Wrms_min[5], 2);
     promform("rms2Pwr_min6", Wrms_min[6], 2);
     promform("rms2Pwr_min7", Wrms_min[7], 2);
 
-    promform("rms2Pwr_max1", Wrms_max[1], 2);
-    promform("rms2Pwr_max2", Wrms_max[2], 2);
-    promform("rms2Pwr_max3", Wrms_max[3], 2);
+//    promform("rms2Pwr_max1", Wrms_max[1], 2);
+//    promform("rms2Pwr_max2", Wrms_max[2], 2);
+//    promform("rms2Pwr_max3", Wrms_max[3], 2);
     promform("rms2Pwr_max4", Wrms_max[4], 2);
     promform("rms2Pwr_max5", Wrms_max[5], 2);
     promform("rms2Pwr_max6", Wrms_max[6], 2);
     promform("rms2Pwr_max7", Wrms_max[7], 2);
 
 // energy
-    promform("rms2Energy1", Energy[1], 2);
-    promform("rms2Energy2", Energy[2], 2);
-    promform("rms2Energy3", Energy[3], 2);
+//    promform("rms2Energy1", Energy[1], 2);
+//    promform("rms2Energy2", Energy[2], 2);
+//    promform("rms2Energy3", Energy[3], 2);
     promform("rms2Energy4", Energy[4], 2);
     promform("rms2Energy5", Energy[5], 2);
     promform("rms2Energy6", Energy[6], 2);

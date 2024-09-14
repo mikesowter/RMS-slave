@@ -84,8 +84,7 @@ void waitForData() {
 }
 
 bool unloadValues() {
-  Serial.println();
-  Serial.print(timeStamp());
+  Serial.printf("\n%s ",timeStamp());
   if ( MOSIdata[0] == 0xFF && MOSIdata[1] == 0xFF) {
     if ( !pwrOutage ) {
       pwrOutage = true;

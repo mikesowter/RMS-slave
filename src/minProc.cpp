@@ -27,8 +27,9 @@ void minProc() {
   if ( peakPeriod ) {
     if ( rms15Demand > rms15Peak ) rms15Peak = rms15Demand;
     if ( rms30Demand > rms30Peak ) rms30Peak = rms30Demand;
+    writeDemand();
   }
-  writeDemand();
+  
 #endif
   // check for new quarter hour
   if ( oldQtr == minute()/15 ) return;

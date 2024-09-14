@@ -11,13 +11,12 @@ float noise[] = {5,5,5,5,5,5,50,5,5};  // updated 20220725 to handle oven(6) noi
 void dailyEnergy() {
 
 #ifdef RMS1
-  float tier1loads, tier2loads, split, rate; 
+  float tier1loads = 0.0F, tier2loads, split, rate; 
   float tier1solar, tier2solar, spareSolar, factor = 1.0F;
 #endif
   t_scan = max( 895UL, millis()-t_lastData );         // typically 900ms
   if ( t_scan > t_scan_max ) t_scan_max = t_scan;
   t_lastData = millis();
-  tier1loads = 0.0F;
   for ( int i = 1;i<NUM_CCTS+1;i++ ) {                // power (W) to energy (kWh)
     if ( Wrms[i] < noise[i] ) Wrms[i] = 0.0;          // eliminate noise
     incEnergy[i] = Wrms[i]*(float)t_scan/3.6E9;       // Wms to kWh (~900/1000)*(1/1000)*(1/3600)
