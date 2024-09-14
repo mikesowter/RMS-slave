@@ -88,7 +88,7 @@ void writeDemand() {
   strcat(name,dateStamp());
   strcat(name,".csv");
   fh = LittleFS.open(name,"a+");
-  fh.printf("%s,%.3f,%.3f,%.3f\n",timeStamp(),T11_kWh[0],rms15Demand,rms30Demand);
+  fh.printf("%s,%.3f,%.0f,%.0f\n",timeStamp(),T11_kWh[0],rms15Demand,rms30Demand);
   fh.close();
   return;
 }

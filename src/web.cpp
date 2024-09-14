@@ -42,8 +42,8 @@ void handleMetrics() {
   promform("rms2Vmax", Vrms_max, 2);
   promform("rms2Vpmin_p", Vmin_p, 2);
   promform("rms2Vpmax_p", Vmax_p, 2);
-  promform("rms2Vpmin_n", Vmin_n, 2);
-  promform("rms2Vpmax_n", Vmax_n, 2);
+  promform("rms2Vnmin_n", Vmin_n, 2);
+  promform("rms2Vnmax_n", Vmax_n, 2);
   promform("rms2Freq", Freq, 3);
 #else
   promform("rmsVbattery", Vbat, 2);
