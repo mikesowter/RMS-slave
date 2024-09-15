@@ -86,8 +86,31 @@ void joinNet() {
   Serial.println(ssid);
   WiFi.config(ip, gateway, subnet, dns);
   WiFi.begin(ssid, pass);
+  t0 = millis() + 10000;
 
-  while (WiFi.status() != WL_CONNECTED) delay(100);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(100);
+    if ( millis() > t0 ) break;
+  }
+
+#ifdef RMS2
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.print("\n\nConnecting to ");
+    Serial.println(bkp_ssid);
+    WiFi.begin(bkp_ssid, bkp_pass);
+    t0 = millis() + 10000;
+
+    while (WiFi.status() != WL_CONNECTED) {
+      delay(100);
+      if ( millis() > t0 ) break;
+    }
+  }
+#endif
+
+  if (WiFi.status() != WL_CONNECTED) {
+    diagMess("failed to connect to either network");
+    return;
+  }
  
   Serial.println("\nlocal IP address: ");
   localIP = WiFi.localIP();
