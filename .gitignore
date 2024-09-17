@@ -3,6 +3,7 @@
 .gcc-flags.json
 .vscode
 src/secrets.h
+src/*.log
 src/logs
 output.map
 
