@@ -12,11 +12,10 @@ void minProc() {
   SPISlave.setStatus(now());
   if ( minute() == oldMin ) return;
   oldMin = minute();
+#ifdef RMS1
   if ( old5Min == minute()/5 ) return;
   old5Min = minute()/5;
-#ifdef RMS1
   // demand calcs every 5 minutes
-  if ( hour() == 16 ) peakPeriod = true;
   en5index = (minute()/5)%6;          // index into 6 x 5 min T11 daily energy readings
   en15index = (en5index+3)%6;         // index 15 min back
   T11_kWh_now = T11_kWh[0];
@@ -29,7 +28,6 @@ void minProc() {
     if ( rms30Demand > rms30Peak ) rms30Peak = rms30Demand;
     writeDemand();
   }
-  
 #endif
   // check for new quarter hour
   if ( oldQtr == minute()/15 ) return;
@@ -37,8 +35,9 @@ void minProc() {
   storeData();                        // write day file every 15mins
   if ( oldHour == hour() ) return;
   oldHour = hour();
-  logon = true;
-  if ( hour() == 21 ) {
+
+  if ( hour() == 16 ) peakPeriod = true;
+  else if ( hour() == 21 ) {
     writePeak();
     peakPeriod = false;
   }

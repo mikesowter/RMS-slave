@@ -134,13 +134,23 @@ bool unloadValues() {
       if ( Wrms[5] > 2000.0F ) waterOn = true;
       else waterOn = false;
       for (uint8_t q=NUM_CCTS+1 ; q<=MAX_CCTS ; q++) Wrms[q] = 0.0; // unused inputs
+    #else
+    // invert load on main isolator
+    w = -Wrms[7];
+    if (w < Wrms_min[3]) Wrms_min[3] = w;
+    if (w > Wrms_max[3]) Wrms_max[3] = w;
+    // add voltage min/max pos/neg
+    offset = 22;
+    v = unload2Bytes()/100.0;    // Vpp_max
+    Vmax_p = _max(Vmax_p,v);
+    v = unload2Bytes()/100.0;    // Vpp_min
     #endif
     offset = 26;
-    v = unload2Bytes()/100.0;    // Vpp_max
+    v = unload2Bytes()/100.0;    // Vnp_max
     Vmax_p = _max(Vmax_p,v);
     v = unload2Bytes()/100.0;    // Vnp_min
     Vmin_n = _min(Vmin_p,v);
-    Vbat = analogRead(A0) * 0.005835;
+    Vbat = analogRead(A0) * 0.006;
   }
   return true;
 }

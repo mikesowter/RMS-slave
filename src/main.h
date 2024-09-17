@@ -58,7 +58,6 @@ volatile uint8_t watchDog = 0;
 bool SPIwait = true;     // wait for data in SPI slave loop?
 bool noDataYet = true;   // no data from RMS master yet?
 bool checkSumBad;
-bool logon;              // switch for tier energy logs
 bool waterOn, exporting, exporting7_5, exporting10, scanFail;
 bool T31charging, pwrOutage, peakPeriod;
 bool FTPcheck;

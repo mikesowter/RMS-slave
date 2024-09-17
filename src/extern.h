@@ -57,7 +57,7 @@ extern File fh,fd,fe;
 extern Ticker secondTick;
 extern volatile uint8_t watchDog;
 extern IPAddress localIP,timeServerIP,fileServerIP;
-extern bool SPIwait, waterOn, peakPeriod, logon;
+extern bool SPIwait, waterOn, peakPeriod;
 extern bool checkSumBad;
 extern bool exporting, exporting7_5, exporting10, T31charging, pwrOutage;
 extern bool noDataYet;

@@ -40,10 +40,10 @@ void handleMetrics() {
   promform("rms2Volts", Vrms, 2);
   promform("rms2Vmin", Vrms_min, 2);
   promform("rms2Vmax", Vrms_max, 2);
-  promform("rms2Vpmin_p", Vmin_p, 2);
-  promform("rms2Vpmax_p", Vmax_p, 2);
-  promform("rms2Vnmin_n", Vmin_n, 2);
-  promform("rms2Vnmax_n", Vmax_n, 2);
+  promform("rms2Vmin_p", Vmin_p, 1);
+  promform("rms2Vmax_p", Vmax_p, 1);
+  promform("rms2Vmin_n", Vmin_n, 1);
+  promform("rms2Vmax_n", Vmax_n, 1);
   promform("rms2Freq", Freq, 3);
 #else
   promform("rmsVbattery", Vbat, 2);
@@ -59,7 +59,7 @@ void handleMetrics() {
  // power
  //   promform("rms2Pwr_min1", Wrms_min[1], 2);
  //   promform("rms2Pwr_min2", Wrms_min[2], 2);
- //   promform("rms2Pwr_min3", Wrms_min[3], 2);
+    promform("rms2Pwr_min3", Wrms_min[3], 2);
     promform("rms2Pwr_min4", Wrms_min[4], 2);
     promform("rms2Pwr_min5", Wrms_min[5], 2);
     promform("rms2Pwr_min6", Wrms_min[6], 2);
@@ -67,7 +67,7 @@ void handleMetrics() {
 
 //    promform("rms2Pwr_max1", Wrms_max[1], 2);
 //    promform("rms2Pwr_max2", Wrms_max[2], 2);
-//    promform("rms2Pwr_max3", Wrms_max[3], 2);
+    promform("rms2Pwr_max3", Wrms_max[3], 2);
     promform("rms2Pwr_max4", Wrms_max[4], 2);
     promform("rms2Pwr_max5", Wrms_max[5], 2);
     promform("rms2Pwr_max6", Wrms_max[6], 2);
@@ -76,7 +76,7 @@ void handleMetrics() {
 // energy
 //    promform("rms2Energy1", Energy[1], 2);
 //    promform("rms2Energy2", Energy[2], 2);
-//    promform("rms2Energy3", Energy[3], 2);
+    promform("rms2Energy3", Energy[3], 2);
     promform("rms2Energy4", Energy[4], 2);
     promform("rms2Energy5", Energy[5], 2);
     promform("rms2Energy6", Energy[6], 2);
@@ -173,20 +173,21 @@ void handleMetrics() {
   }
 
 #ifdef RMS2
-    // housekeeping
-    promform("rms2WfdTimeMin", (float)WFDmin, 0);
-    promform("rms2WfdTimeMax", (float)WFDmax, 0);
-    promform("rms2WaitWatchMin", (float)WWmin, 0);
-    promform("rms2WaitWatchMax", (float)WWmax, 0);
-    promform("rms2MissedCycles", (float)missedCycle, 0);
+  // housekeeping
+  promform("rms2WfdTimeMin", (float)WFDmin, 0);
+  promform("rms2WfdTimeMax", (float)WFDmax, 0);
+  promform("rms2WaitWatchMin", (float)WWmin, 0);
+  promform("rms2WaitWatchMax", (float)WWmax, 0);
+  promform("rms2MissedCycles", (float)missedCycle, 0);
+  promform("rms2ScanTime", (float)t_scan_max, 0);
 #else
-    // housekeeping
-    promform("rmsWfdTimeMin", (float)WFDmin, 0);
-    promform("rmsWfdTimeMax", (float)WFDmax, 0);
-    promform("rmsWaitWatchMin", (float)WWmin, 0);
-    promform("rmsWaitWatchMax", (float)WWmax, 0);
-    promform("rmsMissedCycles", (float)missedCycle, 0);
-    promform("rmsScanTime", (float)t_scan_max, 0);
+  // housekeeping
+  promform("rmsWfdTimeMin", (float)WFDmin, 0);
+  promform("rmsWfdTimeMax", (float)WFDmax, 0);
+  promform("rmsWaitWatchMin", (float)WWmin, 0);
+  promform("rmsWaitWatchMax", (float)WWmax, 0);
+  promform("rmsMissedCycles", (float)missedCycle, 0);
+  promform("rmsScanTime", (float)t_scan_max, 0);
 #endif
 
   server.send ( 200, "text/plain", longStr );
