@@ -265,11 +265,15 @@ void handleNotFound() {
     strcat(longStr,userText);
     strcat(longStr,"\r\r");
     fh = LittleFS.open(userText, "r");
-    if ( fh.size() > 2000 ) fd.seek(-2000,SeekEnd);
-    while (fh.available()) {
-      int k=fh.readBytesUntil('\r',charBuf,160);
-      charBuf[k]='\0';
-      strcat(longStr,charBuf);
+    if ( fh.size() > 5000 ) {
+      strcat(longStr,"file exceeds 5000 chars\r");
+    }
+    else {
+      while (fh.available()) {
+        int k=fh.readBytesUntil('\r',charBuf,160);
+        charBuf[k]='\0';
+        strcat(longStr,charBuf);
+      }
     }
     fh.close();
     server.send ( 200, "text/plain", longStr );

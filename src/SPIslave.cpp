@@ -41,7 +41,11 @@ void waitForData() {
   digitalWrite(LED_PIN,0);
   wfdPrev = wfdTime;
   wfdStart = millis();
+#ifdef RMS1
   watchWait(90);
+#else
+  watchWait(300);
+#endif
 
   do {
     SPISlave.begin();
@@ -136,7 +140,7 @@ bool unloadValues() {
       for (uint8_t q=NUM_CCTS+1 ; q<=MAX_CCTS ; q++) Wrms[q] = 0.0; // unused inputs
     #else
     // invert load on main isolator
-    w = -Wrms[7];
+    w = max(0.0F,-Wrms[7]);
     if (w < Wrms_min[3]) Wrms_min[3] = w;
     if (w > Wrms_max[3]) Wrms_max[3] = w;
     // add voltage min/max pos/neg

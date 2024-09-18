@@ -8,7 +8,7 @@ void readPromDB() {
   char unit[20];
   
 // read most recent rmsEnergy# values
-
+#ifdef RMS1
   for (int cct = 1; cct<9; cct++) {
     strcpy(unit,"rmsEnergy");
     int len = strlen(unit);
@@ -27,7 +27,15 @@ void readPromDB() {
       costEnergy[ps][cct] = readPromItem(unit);
     }
   }  
-
+#else
+  for (int cct = 3; cct<8; cct++) {
+    strcpy(unit,"rms2Energy");
+    int len = strlen(unit);
+    unit[len] = '0' + cct;
+    unit[len+1] = '\0';
+    Energy[cct] = readPromItem(unit);
+  } 
+#endif
 // read miscellaneous battery and solar values
 #ifdef RMS1
   char root[] = "rms";
