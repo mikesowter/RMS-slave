@@ -85,8 +85,8 @@ char* i2sh(uint8_t b) {
 // convert float fraction into an 6 char string (.)dddddd
 char* f2s6(float f) {
   byte ptr = 0;
-  uint32_t rank = 100000;         //six places right of dp
-  uint32_t right = (uint32_t)(1000000.0*f);
+  unsigned long rank = 100000;         //six places right of dp
+  unsigned long right = (unsigned long)(1000000.0*f);
   for ( uint8_t n=0; n<6; n++ ) {
     d8Str[ptr++] = right/rank +'0';
     right %= rank;

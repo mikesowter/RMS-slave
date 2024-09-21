@@ -3,11 +3,11 @@
 void sendNTPrequest(IPAddress& address);
 unsigned long getNTPreply();
 
-uint32_t getTime() {
+unsigned long getTime() {
 
   unsigned long year2050 = 2524575600UL;
   unsigned long year2020 = 1577804400UL;
-  uint32_t start = millis();
+  unsigned long start = millis();
 
   WiFi.hostByName("au.pool.ntp.org", timeServerIP);
 
@@ -21,7 +21,7 @@ uint32_t getTime() {
       while ( millis() % 1000UL != 0UL ) {};    // sync to ms clock
       return startSeconds+1;
     }
-    Serial.printf("\nNTP reply bad: %u",startSeconds);
+    Serial.printf("\nNTP reply bad: %lu",startSeconds);
   }
   return 0UL;
 }

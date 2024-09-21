@@ -40,7 +40,7 @@ void FtpServer::begin (String uname, String pword) {
   delay (10);
   dataServer.begin ();
   delay (10);
-  millisTimeOut = (uint32_t)FTP_TIME_OUT * 60 * 1000;
+  millisTimeOut = (unsigned long)FTP_TIME_OUT * 60 * 1000;
   millisDelay = 0;
   cmdStatus = 0;
   iniVariables ();
@@ -867,7 +867,7 @@ boolean FtpServer::doStore () {
 }
 
 void FtpServer::closeTransfer () {
-  uint32_t deltaT = (int32_t) (millis () - millisBeginTrans);
+  unsigned long deltaT = (int32_t) (millis () - millisBeginTrans);
   if (deltaT > 0 && bytesTransferred > 0) {
     client.println ("226-File successfully transferred");
     client.println ("226 " + String (deltaT) + " ms, " + String (bytesTransferred / deltaT) + " kbytes/s");

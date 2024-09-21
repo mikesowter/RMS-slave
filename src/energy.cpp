@@ -17,8 +17,10 @@ void dailyEnergy() {
   float tier1loads = 0.0F, tier2loads, split, rate; 
   float tier1solar, tier2solar, spareSolar, factor = 1.0F;
 #endif
-  t_scan = max( 400UL, millis()-t_lastData );         // typically 900ms for RMS1, 523ms for RMS2
+  t_scan = max( 500UL, millis()-t_lastData );         // typically 900ms for RMS1, 523ms for RMS2
+  t_scan = min( 1000UL, t_scan );
   if ( t_scan > t_scan_max ) t_scan_max = t_scan;
+  
   t_lastData = millis();
   for ( int i = 1;i<NUM_CCTS+1;i++ ) {                // power (W) to energy (kWh)
     if ( abs(Wrms[i]) < noise[i] ) Wrms[i] = 0.0;     // eliminate noise
@@ -28,6 +30,8 @@ void dailyEnergy() {
     if ( i!=1 && i!=5 && i!=7 ) tier1loads += incEnergy[i]; // loads 2,3,4,6,8
 #endif
   }
+  if ( incEnergy[3] > 0.0F ) T11_meter += incEnergy[3];
+  if ( incEnergy[7] > 0.0F ) FI_meter += incEnergy[7];
 #ifdef RMS1
   loads = incEnergy[1];     // total kWh (solar+T11) on dist panel
   // calculate the impact of 3 panel sizes

@@ -92,7 +92,7 @@ class FtpServer {
     uint16_t iCL;                       // pointer to cmdLine next incoming char
     int8_t   cmdStatus,                 // status of ftp command connexion
              transferStatus;            // status of ftp data transfer
-    uint32_t millisTimeOut,             // disconnect after 5 min of inactivity
+    unsigned long millisTimeOut,             // disconnect after 5 min of inactivity
              millisDelay,
              millisEndConnection,       // 
              millisBeginTrans,          // store time of beginning of a transaction

@@ -20,7 +20,7 @@ void setupSPIslave() {
 
   // status has been received from the master.
   // The status register is a special register that both the slave and the master can write to and read from.
-  SPISlave.onStatus([](uint32_t data) {
+  SPISlave.onStatus([](unsigned long data) {
   //  Serial.printf("Master status: %u\n", data);
   });
 

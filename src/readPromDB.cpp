@@ -35,6 +35,10 @@ void readPromDB() {
     unit[len+1] = '\0';
     Energy[cct] = readPromItem(unit);
   } 
+  strcpy(unit,"rms2T11_meter");
+  T11_meter = readPromItem(unit);
+  strcpy(unit,"rms2FI_meter");
+  FI_meter = readPromItem(unit);
 #endif
 // read miscellaneous battery and solar values
 #ifdef RMS1
@@ -102,7 +106,7 @@ float readPromItem(char* unit) {
   #include <ESP8266WiFi.h>
   WiFiClient client;
   uint16_t replyPtr, numPtr;
-  uint32_t t = now()-36000;   // back to zulu time
+  unsigned long t = now()-36000;   // back to zulu time
   t -= gobackhrs*3600;        // recover from long outage
 
   char host[] = "192.168.1.198";   // RPi-2 prometheus and influx server
@@ -113,7 +117,7 @@ float readPromItem(char* unit) {
   char Str4[] = "&end=";
   char Str5[12];
   dtostrf((double)t, 0, 0, Str5);
-  char Str6[] = "&step=60&timeout=10s HTTP/1.1\r\nHost: ";
+  char Str6[] = "&step=30&timeout=10s HTTP/1.1\r\nHost: ";
   char Str7[] = "\r\nConnection: close\r\n\r\n";
   char query[200];
   float value = 0.0;

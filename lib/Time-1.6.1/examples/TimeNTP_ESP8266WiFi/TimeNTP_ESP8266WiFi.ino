@@ -113,7 +113,7 @@ time_t getNtpTime()
   Serial.print(": ");
   Serial.println(ntpServerIP);
   sendNTPpacket(ntpServerIP);
-  uint32_t beginWait = millis();
+  unsigned long beginWait = millis();
   while (millis() - beginWait < 1500) {
     int size = Udp.parsePacket();
     if (size >= NTP_PACKET_SIZE) {

@@ -17,7 +17,7 @@ extern "C" {
 
 uint8_t init_OTA();
 uint8_t listDiags();
-uint32_t getTime();
+unsigned long getTime();
 void setupSPIslave();
 char* timeStamp();
 char* dateStamp();
@@ -35,7 +35,7 @@ void handleNotFound();
 void ISRwatchDog();
 void waitForData();
 void minProc();
-void watchWait(uint32_t);
+void watchWait(unsigned long);
 void joinNet();
 byte storeData();
 void dailyEnergy();
@@ -82,11 +82,11 @@ extern uint8_t MOSIdata[], MISOdata[];
 extern uint8_t oldMin, old5Min, oldQtr, oldHour, oldDay, oldMonth, offset;
 extern uint16_t i, oldYear, htmlLen, CstringPtr;
 extern uint16_t localPort, loopCount, missedCycle;   
-extern uint32_t t0, t1, t2, t3, startMillis, startSeconds, lastScan;
-extern uint32_t t_lastData, t_scan, t_scan_max, waiting, WWmin, WWmax, WDmin, WDmax;
-extern uint32_t loopStart, loopTime, LTmin, LTmax;
-extern uint32_t wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
-extern uint32_t waitStart, appStart;
+extern unsigned long t0, t1, t2, t3, startMillis, startSeconds, lastScan;
+extern unsigned long t_lastData, t_scan, t_scan_max, waiting, WWmin, WWmax, WDmin, WDmax;
+extern unsigned long loopStart, loopTime, LTmin, LTmax;
+extern unsigned long wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
+extern unsigned long waitStart, appStart;
 
 extern float Wrms[];					    // Sum of sampled V*I
 extern float Arms[];					    // root sum I^2

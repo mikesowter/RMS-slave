@@ -17,8 +17,8 @@ void minProc() {
   old5Min = minute()/5;
   // energy calcs every 5 minutes
   en_index = (minute()/5)%6;          // current index into 6 x 5 min energy readings
-  en5index = (en_index+1)%6;          // index 5 mins back
-  en15index = (en_index+3)%6;         // index 15 mins back
+  en5index = (en_index-1)%6;          // index 5 mins back
+  en15index = (en_index-3)%6;         // index 15 mins back
 #ifdef RMS1
   T11_kWh_now = T11_kWh[0];
   rms15Demand = (T11_kWh_now - T11_5m_kWh[en15index])*4000.0F;

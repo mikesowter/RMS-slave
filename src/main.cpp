@@ -25,13 +25,12 @@ void setup(void) {
   diagMess(charBuf); 				// only give detail
   // recover previous values from prometheus
   readPromDB();  
-#ifdef RMS1 
-  // init 30m demand calcs
+  // init energy barrel values
   for ( uint8_t en_index=0;en_index<6;en_index++ ) {
-    T11_5m_kWh[en_index] = T11_kWh[0];    // most recent value
+    T11_5m_kWh[en_index] = Energy[3];    // most recent value
+    FI_5m_kWh[en_index] = Energy[7];
   }
   peakPeriod = hour() >= 16 && hour() < 21;
-#endif
   // setup server
   server.on ( "/", handleRoot );
   server.on ( "/dir", handleDir );
@@ -59,7 +58,7 @@ void loop() {
 void sync2Master() {
   if ( wfdTime > 1500U ) {       // no cycle missed under 1500ms
     missedCycle++;
-    Serial.printf(" missed cycle: %u ",wfdTime);
+    Serial.printf(" missed cycle: %lu ",wfdTime);
   }
 }
 

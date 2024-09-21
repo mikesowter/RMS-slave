@@ -1,5 +1,5 @@
 #include "extern.h"
-uint32_t waitStart, appStart;
+unsigned long waitStart, appStart;
 
  
 void ISRwatchDog () {
@@ -16,10 +16,10 @@ void activity(const char* tag) {
   appStart = millis();
 }
 
-void watchWait(uint32_t timer) {
+void watchWait(unsigned long timer) {
   waitStart = millis();
   while ( millis()-waitStart < timer) {          // wait for timeout
-    uint32_t start = micros();    
+    unsigned long start = micros();    
     // check for hotwater query
     if ( udp.parsePacket() ) handleWater();      // 600us max
     appStart = millis();
@@ -37,7 +37,7 @@ void watchWait(uint32_t timer) {
     // reset watch dog
     watchDog = 0;
     // statistics
-    uint32_t ww = micros() - start;
+    unsigned long ww = micros() - start;
     if ( ww < WWmin) WWmin = ww;
     if ( ww > WWmax) WWmax = ww;
   }

@@ -37,7 +37,7 @@
 
 static tmElements_t tm;          // a cache of time elements
 static time_t cacheTime;   // the time the cache was updated
-static uint32_t syncInterval = 300;  // time sync will be attempted after this many seconds
+static unsigned long syncInterval = 300;  // time sync will be attempted after this many seconds
 
 void refreshCache(time_t t) {
   if (t != cacheTime) {
@@ -155,10 +155,10 @@ void breakTime(time_t timeInput, tmElements_t &tm){
 
   uint8_t year;
   uint8_t month, monthLength;
-  uint32_t time;
+  unsigned long time;
   unsigned long days;
 
-  time = (uint32_t)timeInput;
+  time = (unsigned long)timeInput;
   tm.Second = time % 60;
   time /= 60; // now it is minutes
   tm.Minute = time % 60;
@@ -207,7 +207,7 @@ time_t makeTime(const tmElements_t &tm){
 // previous version used full four digit year (or digits since 2000),i.e. 2009 was 2009 or 9
   
   int i;
-  uint32_t seconds;
+  unsigned long seconds;
 
   // seconds from 1970 till 1 jan 00:00:00 of the given year
   seconds= tm.Year*(SECS_PER_DAY * 365);
@@ -234,9 +234,9 @@ time_t makeTime(const tmElements_t &tm){
 /*=====================================================*/	
 /* Low level system time functions  */
 
-static uint32_t sysTime = 0;
-static uint32_t prevMillis = 0;
-static uint32_t nextSyncTime = 0;
+static unsigned long sysTime = 0;
+static unsigned long prevMillis = 0;
+static unsigned long nextSyncTime = 0;
 static timeStatus_t Status = timeNotSet;
 
 getExternalTime getTimePtr;  // pointer to external sync function
@@ -277,8 +277,8 @@ void setTime(time_t t) {
    sysUnsyncedTime = t;   // store the time of the first call to set a valid Time   
 #endif
 
-  sysTime = (uint32_t)t;  
-  nextSyncTime = (uint32_t)t + syncInterval;
+  sysTime = (unsigned long)t;  
+  nextSyncTime = (unsigned long)t + syncInterval;
   Status = timeSet;
   prevMillis = millis();  // restart counting from now (thanks to Korman for this fix)
 } 
@@ -316,6 +316,6 @@ void setSyncProvider( getExternalTime getTimeFunction){
 }
 
 void setSyncInterval(time_t interval){ // set the number of seconds between re-sync
-  syncInterval = (uint32_t)interval;
+  syncInterval = (unsigned long)interval;
   nextSyncTime = sysTime + syncInterval;
 }

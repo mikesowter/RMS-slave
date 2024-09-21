@@ -321,7 +321,7 @@ void handleNotFound() {
   else if (strncmp(userText,"/pause",4)==0) {
     strcpy(charBuf," stating 30s pause ");
     server.send ( 200, "text/plain", charBuf );
-    uint32_t pauseStart=millis();
+    unsigned long pauseStart=millis();
     do {
       // check for OTA & FTP
       ArduinoOTA.handle();

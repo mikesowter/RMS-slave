@@ -110,7 +110,7 @@ time_t getNtpTime()
     ether.ntpRequest(ether.hisip, remotePort);
   
     // Wait for reply
-    uint32_t beginWait = millis();
+    unsigned long beginWait = millis();
     while (millis() - beginWait < 1500) {
       word len = ether.packetReceive();
       ether.packetLoop(len);
