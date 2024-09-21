@@ -46,7 +46,7 @@ void updateBatteryFile();
 void setupTime();
 void calcCheckSum();
 void activity(const char* tag);
-void writeDemand();
+void writeImportExport();
 
 extern uint8_t gobackhrs;
 extern WiFiUDP udp;
@@ -60,7 +60,7 @@ extern IPAddress localIP,timeServerIP,fileServerIP;
 extern bool SPIwait, waterOn, peakPeriod;
 extern bool checkSumBad;
 extern bool exporting, exporting7_5, exporting10, T31charging, pwrOutage;
-extern bool noDataYet;
+extern bool noDataYet, dataTimeout;
 extern bool FTPcheck;
 extern ESP8266WebServer server;
 
@@ -90,7 +90,7 @@ extern uint32_t waitStart, appStart;
 
 extern float Wrms[];					    // Sum of sampled V*I
 extern float Arms[];					    // root sum I^2
-extern float Vrms,Vpp,Vnp;			        // root sum V^2, -Vp, +Vp
+extern float Vrms;			                // root sum V^2
 extern float Freq;
 extern float Vrms_min;
 extern float Vrms_max;
@@ -98,10 +98,12 @@ extern float Vmin_n, Vmin_p;
 extern float Vmax_n, Vmax_p;
 extern float Wrms_min[];		
 extern float Wrms_max[];	
-extern float Energy[];	
+extern float Energy[],E3,E7;	
 extern float incEnergy[], costEnergy[][9];
 extern float T11_W, T11_kWh[], T11_inc[], FIT_kWh[], FIT_inc[];
-extern float T11_5m_kWh[], so5min[], rms15Demand, rms30Demand, rms15Peak, rms30Peak;
+extern float T11_5m_kWh[], rms5Demand, rms15Demand, rms30Demand, rms15Peak, rms30Peak;
+extern float FI_5m_kWh[], FI_5m_kW, FI_15m_kW, FI_30m_kW;
+extern double T11_meter,FI_meter;
 extern float panelCap[];
 extern float BattCap[];
 extern float excessSolar[], batt_savings[3][3];    // first index is solar, 2nd is battery size

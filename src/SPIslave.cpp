@@ -4,7 +4,7 @@ float unload2Bytes();
 bool unloadValues();
 const float AMPS_CORRECTION_FACTOR = 1.021; // low currents < 4A on 20190922
 uint16_t checkSum;
-float v,w;
+float v,w,w3,w7;
 
 void setupSPIslave() {
   // data has been received from the master. len is always 32 bytes
@@ -44,7 +44,7 @@ void waitForData() {
 #ifdef RMS1
   watchWait(90);
 #else
-  watchWait(300);
+  watchWait(400);
 #endif
 
   do {
@@ -52,8 +52,9 @@ void waitForData() {
     SPIwait = true;
     while (SPIwait) watchWait(5);
     SPISlave.end(); 
-    if (millis() > wfdStart + 30000) {
-      errMess("wait for data 30s timeout");
+    if (!dataTimeout && millis() > wfdStart + 30000) {
+      errMess(" wait for data 30s timeout");
+      dataTimeout = true;
       break;  // for minProc
     }
     calcCheckSum();                 // ~350us
@@ -125,11 +126,11 @@ bool unloadValues() {
     Vrms_min = _min(Vrms_min,v);
     #endif
 
-    for (uint8_t p=1 ; p<=NUM_CCTS ; p++) { 
+    for (uint8_t p=1 ; p<NUM_CCTS ; p++) { 
       w = unload2Bytes();
       w = (int16_t) w;                                // convert unsigned to signed
     //if ( abs(w) < 5.0F ) w = 0.0F;                  // remove low end noise
-      Wrms[p] = 0.8*Wrms[p] + 0.2*w;                  // should do smooth over 5 scans
+      Wrms[p] = 0.5*Wrms[p] + 0.5*w;                  // should do smooth over 5 scans
       if (w < Wrms_min[p]) Wrms_min[p] = w;
       if (w > Wrms_max[p]) Wrms_max[p] = w;
     }
@@ -139,21 +140,45 @@ bool unloadValues() {
       else waterOn = false;
       for (uint8_t q=NUM_CCTS+1 ; q<=MAX_CCTS ; q++) Wrms[q] = 0.0; // unused inputs
     #else
-    // invert load on main isolator
-    w = max(0.0F,-Wrms[7]);
-    if (w < Wrms_min[3]) Wrms_min[3] = w;
-    if (w > Wrms_max[3]) Wrms_max[3] = w;
-    // add voltage min/max pos/neg
+    
+    // load on main isolator (cct7) if + = export, - = import
+    offset = 20;
+    w = unload2Bytes();
+    w = (int16_t) w; 
+    Wrms[7] = 0.45F*Wrms[7] + 0.55F*w;
+    w7 = max(0.0F,Wrms[7]);                         
+    if (w7 < Wrms_min[7]) Wrms_min[7] = w7;
+    if (w7 > Wrms_max[7]) Wrms_max[7] = w7;
+    w3 = max(0.0F,-Wrms[7]);
+    
+  /*  if ( w3 < 10.0F ) {
+      sprintf(charBuf,"Wrms[7]=%.0f W7:%.0f W3:%.0f",Wrms[7],w7,w3);
+      diagMess(charBuf);
+      delay(1000);
+    } */
+    if (w3 < Wrms_min[3]) Wrms_min[3] = w3;
+    if (w3 > Wrms_max[3]) Wrms_max[3] = w3;
+        
+    Wrms[7] = w7;
+    Wrms[3] = w3;
+
+    /* from RMS2 master:
+    load2Bytes(Vpp_max*100.0);
+    load2Bytes(Vpp_min*100.0);
+    load2Bytes(Vnp_max*100.0);
+    load2Bytes(Vnp_min*100.0);  */
+    
     offset = 22;
     v = unload2Bytes()/100.0;    // Vpp_max
     Vmax_p = _max(Vmax_p,v);
     v = unload2Bytes()/100.0;    // Vpp_min
+    Vmin_p = _min(Vmin_p,v);
     #endif
     offset = 26;
     v = unload2Bytes()/100.0;    // Vnp_max
-    Vmax_p = _max(Vmax_p,v);
+    Vmax_n = _max(Vmax_n,v);
     v = unload2Bytes()/100.0;    // Vnp_min
-    Vmin_n = _min(Vmin_p,v);
+    Vmin_n = _min(Vmin_n,v);
     Vbat = analogRead(A0) * 0.006;
   }
   return true;

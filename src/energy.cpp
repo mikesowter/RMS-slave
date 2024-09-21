@@ -2,8 +2,11 @@
 #include "defines.h"
 
 
-
-float noise[] = {5,5,5,5,5,5,50,5,5};  // updated 20220725 to handle oven(6) noise
+#ifdef RMS1
+float noise[] = {0,5,5,5,5,5,50,5,5};  // updated 20220725 to handle oven(6) noise
+#else
+float noise[] = {0,5,5,5,5,5,5,5}; 
+#endif
 
 // Energy sums are reset at midnight in minProc
 // all energy is expressed in kWh, so 1s increments are very small (>4E-6)
@@ -14,11 +17,11 @@ void dailyEnergy() {
   float tier1loads = 0.0F, tier2loads, split, rate; 
   float tier1solar, tier2solar, spareSolar, factor = 1.0F;
 #endif
-  t_scan = max( 400UL, millis()-t_lastData );         // typically 900ms
+  t_scan = max( 400UL, millis()-t_lastData );         // typically 900ms for RMS1, 523ms for RMS2
   if ( t_scan > t_scan_max ) t_scan_max = t_scan;
   t_lastData = millis();
   for ( int i = 1;i<NUM_CCTS+1;i++ ) {                // power (W) to energy (kWh)
-    if ( Wrms[i] < noise[i] ) Wrms[i] = 0.0;          // eliminate noise
+    if ( abs(Wrms[i]) < noise[i] ) Wrms[i] = 0.0;     // eliminate noise
     incEnergy[i] = Wrms[i]*(float)t_scan/3.6E9;       // Wms to kWh (~900/1000)*(1/1000)*(1/3600)
     Energy[i] += incEnergy[i];
 #ifdef RMS1

@@ -27,8 +27,8 @@ void setup(void) {
   readPromDB();  
 #ifdef RMS1 
   // init 30m demand calcs
-  for ( uint8_t en5index=0;en5index<6;en5index++ ) {
-    T11_5m_kWh[en5index] = T11_kWh[0];    // most recent value
+  for ( uint8_t en_index=0;en_index<6;en_index++ ) {
+    T11_5m_kWh[en_index] = T11_kWh[0];    // most recent value
   }
   peakPeriod = hour() >= 16 && hour() < 21;
 #endif

@@ -59,11 +59,11 @@ void handleMetrics() {
  // power
  //   promform("rms2Pwr_min1", Wrms_min[1], 2);
  //   promform("rms2Pwr_min2", Wrms_min[2], 2);
-    promform("rms2Pwr_min3", Wrms_min[3], 2);
-    promform("rms2Pwr_min4", Wrms_min[4], 2);
-    promform("rms2Pwr_min5", Wrms_min[5], 2);
-    promform("rms2Pwr_min6", Wrms_min[6], 2);
-    promform("rms2Pwr_min7", Wrms_min[7], 2);
+    promform("rms2Pwr_min3", Wrms[3], 2);
+    promform("rms2Pwr_min4", Wrms[4], 2);
+    promform("rms2Pwr_min5", Wrms[5], 2);
+    promform("rms2Pwr_min6", Wrms[6], 2);
+    promform("rms2Pwr_min7", Wrms[7], 2);
 
 //    promform("rms2Pwr_max1", Wrms_max[1], 2);
 //    promform("rms2Pwr_max2", Wrms_max[2], 2);
@@ -81,6 +81,20 @@ void handleMetrics() {
     promform("rms2Energy5", Energy[5], 2);
     promform("rms2Energy6", Energy[6], 2);
     promform("rms2Energy7", Energy[7], 2);
+    promform("rms2T11_meter",T11_meter,3);
+    promform("rms2FI_meter",FI_meter,3);
+
+// avg power import / export
+    promform("rms2_15Peak", rms15Peak, 3);
+    promform("rms2_30Peak", rms30Peak, 3);
+    promform("rms2_5Demand", rms5Demand, 3);
+    promform("rms2_15Demand", rms15Demand, 3);
+    promform("rms2_30Demand", rms30Demand, 3);
+    promform("rms2_5FeedIn", FI_5m_kW, 3);
+    promform("rms2_15FeedIn", FI_15m_kW, 3);
+    promform("rms2_30FeedIn", FI_30m_kW, 3);
+    promform("rms2Pwr_avg3",(Energy[3]-E3)/(float)(millis()-lastScan)*3.6E9,6);
+    promform("rms2Pwr_avg7",(Energy[7]-E7)/(float)(millis()-lastScan)*3.6E9,6);
 
 #else
 // power
@@ -203,6 +217,8 @@ void handleMetrics() {
     Wrms_max[i] = 0.0F;
   }
   noDataYet = true;
+  E3 = Energy[3];
+  E7 = Energy[7];
   lastScan = millis();
   scanSec = second();
   t_scan_max = 0UL;
@@ -313,6 +329,18 @@ void handleNotFound() {
       watchDog = 0;
       delay(1);
     } while ( millis() - pauseStart < 30000);
+  }
+  else if (strncmp(userText,"/update",7)==0) {
+    char* tok;
+    tok = strtok(userText,",");
+    tok = strtok(NULL,",");
+    T11_meter = atof(tok);
+    tok = strtok(NULL,",");
+    FI_meter = atof(tok);
+    sprintf(charBuf,"T11: %.3f, FI: %.3f\n",T11_meter,FI_meter);
+    diagMess(charBuf);  
+    strcpy(charBuf,"<!DOCTYPE html><html><head><HR>T11 and FI updated<HR></head></html>");
+    server.send ( 200, "text/html", charBuf );
   }
   else {
     strcpy(charBuf,userText);

@@ -1,8 +1,8 @@
 
 #include "extern.h"
 
-uint8_t en5index, en15index;
-float T11_kWh_now;
+uint8_t en_index, en5index, en15index;
+float T11_kWh_now, FI_kWh_now;
 void writePeak();
 
 // scheduled processing
@@ -12,30 +12,45 @@ void minProc() {
   SPISlave.setStatus(now());
   if ( minute() == oldMin ) return;
   oldMin = minute();
-#ifdef RMS1
+
   if ( old5Min == minute()/5 ) return;
   old5Min = minute()/5;
-  // demand calcs every 5 minutes
-  en5index = (minute()/5)%6;          // index into 6 x 5 min T11 daily energy readings
-  en15index = (en5index+3)%6;         // index 15 min back
+  // energy calcs every 5 minutes
+  en_index = (minute()/5)%6;          // current index into 6 x 5 min energy readings
+  en5index = (en_index+1)%6;          // index 5 mins back
+  en15index = (en_index+3)%6;         // index 15 mins back
+#ifdef RMS1
   T11_kWh_now = T11_kWh[0];
   rms15Demand = (T11_kWh_now - T11_5m_kWh[en15index])*4000.0F;
-  rms30Demand = (T11_kWh_now - T11_5m_kWh[en5index])*2000.0F;  
-  T11_5m_kWh[en5index] = T11_kWh_now;     // overwrite value from 30m ago
+  rms30Demand = (T11_kWh_now - T11_5m_kWh[en_index])*2000.0F;  
+  T11_5m_kWh[en_index] = T11_kWh_now;     // overwrite value from 30m ago
 
   if ( peakPeriod ) {
     if ( rms15Demand > rms15Peak ) rms15Peak = rms15Demand;
     if ( rms30Demand > rms30Peak ) rms30Peak = rms30Demand;
-    writeDemand();
+    writeImportExport();
   }
+#else
+  T11_kWh_now = Energy[3];
+  rms5Demand = (T11_kWh_now - T11_5m_kWh[en5index])*12000.0F;
+  rms15Demand = (T11_kWh_now - T11_5m_kWh[en15index])*4000.0F;
+  rms30Demand = (T11_kWh_now - T11_5m_kWh[en_index])*2000.0F;  
+  T11_5m_kWh[en_index] = T11_kWh_now;     // overwrite value from 30m ago
+  FI_kWh_now = Energy[7];
+  FI_5m_kW = (FI_kWh_now - FI_5m_kWh[en5index])*12000.0F;
+  FI_15m_kW = (FI_kWh_now - FI_5m_kWh[en15index])*4000.0F;
+  FI_30m_kW = (FI_kWh_now - FI_5m_kWh[en_index])*2000.0F;  
+  FI_5m_kWh[en_index] = FI_kWh_now;     // overwrite value from 30m ago
+  writeImportExport();
 #endif
+
   // check for new quarter hour
   if ( oldQtr == minute()/15 ) return;
   oldQtr = minute()/15;
   storeData();                        // write day file every 15mins
+  
   if ( oldHour == hour() ) return;
   oldHour = hour();
-
   if ( hour() == 16 ) peakPeriod = true;
   else if ( hour() == 21 ) {
     writePeak();
@@ -61,13 +76,14 @@ void minProc() {
     }
     T11_kWh[ps] = 0.0F;
   }
-  for ( uint8_t en5index=0;en5index<6;en5index++ ) {
-    T11_5m_kWh[en5index] = 0.0F;
-    so5min[en5index] = 0.0F;
+#endif
+  for ( uint8_t en_index=0;en_index<6;en_index++ ) {
+    T11_5m_kWh[en_index] = 0.0F;
+    FI_5m_kWh[en_index] = 0.0F;
   }
   rms15Peak = 0.0F;
   rms30Peak = 0.0F;
-#endif
+
   // reset daily energy sums at midnight
   for ( int i = 1; i<NUM_CCTS+1; i++ ) {
     Energy[i] = 0.0F;

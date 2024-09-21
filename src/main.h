@@ -41,7 +41,7 @@ void readPromDB();
 void setupFS();
 void sync2Master();
 void calcCheckSum();
-void writeDemand();
+void writeImportExport();
 
 String resetReason = "Restart caused by " + ESP.getResetReason();
 String resetDetail = ESP.getResetInfo();
@@ -57,6 +57,7 @@ volatile uint8_t watchDog = 0;
 
 bool SPIwait = true;     // wait for data in SPI slave loop?
 bool noDataYet = true;   // no data from RMS master yet?
+bool dataTimeout;        // 30s timeout exceeded.
 bool checkSumBad;
 bool waterOn, exporting, exporting7_5, exporting10, scanFail;
 bool T31charging, pwrOutage, peakPeriod;
@@ -103,8 +104,15 @@ float Wrms[MAX_CCTS+1];					// Sum of sampled V*I
     cct5 Wrms[6]  oven
     cct6 Wrms[7]  solar contribution
     cct7 Wrms[8]  lights    
-    */
-float Energy[NUM_CCTS+1];	
+
+    RMS2:
+    cct2 Wrms[3]  import power
+    cct3 Wrms[4]  garage aircon
+    cct4 Wrms[5]  garage power
+    cct5 Wrms[6]  garage lights
+    cct6 Wrms[7]  export power
+*/
+float Energy[NUM_CCTS+1],E3,E7;	
 float incEnergy[NUM_CCTS+1];
 float costEnergy[3][NUM_CCTS+1];   
 /*  RMS1
@@ -113,7 +121,7 @@ float costEnergy[3][NUM_CCTS+1];
     costEnergy[ps][7] is income from FIT
     costEnergy[ps][8] is cost of lights
 */
-float Wrms_min[NUM_CCTS+1];		    // in kW
+float Wrms_min[NUM_CCTS+1];		    // in Watts
 float Wrms_max[NUM_CCTS+1];	
 float Arms[NUM_CCTS+1];				// root sum I^2
 float Vrms, Vpk_min, Vpk_max;		// root sum V^2, -Vp, +Vp
@@ -125,7 +133,9 @@ float Vmax_n = 0.0, Vmax_p = 0.0;
 float loads, solar;
 float avSparekW;            // smoothed solar-loads
 float Vbat;
-float T11_5m_kWh[6], so5min[6], rms15Demand, rms30Demand, rms15Peak, rms30Peak;
+float T11_5m_kWh[6], rms5Demand, rms15Demand, rms30Demand, rms15Peak, rms30Peak;
+float FI_5m_kWh[6], FI_5m_kW, FI_15m_kW, FI_30m_kW;
+double T11_meter,FI_meter;
 float T11_kWh[3];           // daily sum from grid with each panel size
 float T11_inc[3];           // increment from grid
 float FIT_kWh[3];

@@ -33,9 +33,9 @@ void WriteQtr() {
   fh.print(",");
   fh.print(Vrms);
   fh.print(",");
-  fh.print(T11_kWh[0]);
+  fh.print(T11_meter);
   fh.print(",");
-  fh.println(FIT_kWh[0]);
+  fh.println(FI_meter);
   delay(10);
 }
 
@@ -88,13 +88,14 @@ void writePeak() {
   return;
 }
 
-void writeDemand() {
+void writeImportExport() {
   char name[20];
-  strcpy(name,"DEM");
+  strcpy(name,"IO");
   strcat(name,dateStamp());
   strcat(name,".csv");
   fh = LittleFS.open(name,"a+");
-  fh.printf("%s,%.3f,%.0f,%.0f\n",timeStamp(),T11_kWh[0],rms15Demand,rms30Demand);
+  fh.printf("%s,%.0f,%.0f,%.0f,%.0f,%.0f,%.0f\n",timeStamp(),
+            rms5Demand,rms15Demand,rms30Demand,FI_5m_kW,FI_15m_kW,FI_30m_kW);
   fh.close();
   return;
 }
