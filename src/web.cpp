@@ -93,13 +93,11 @@ void handleMetrics() {
     promform("rms2_5FeedIn", FI_5m_kW, 3);
     promform("rms2_15FeedIn", FI_15m_kW, 3);
     promform("rms2_30FeedIn", FI_30m_kW, 3);
-    float interval = (float)(millis()-lastScan)*3.6E9;
-    if ( interval == 0.0F ) diagMess("interval between scans is 0");
-    else {
-      promform("rms2Pwr_avg3",(Energy[3]-E3)/interval,6);
-      promform("rms2Pwr_avg7",(Energy[7]-E7)/interval,6);
-    }
-
+    float interval = (float)(millis()-lastScan);
+    float scanavg = (Energy[3]-E3)/interval*3.6E9;
+    if ( scanavg < 10000.0F ) promform("rms2Pwr_avg3",scanavg,3);
+    scanavg = (Energy[7]-E7)/interval*3.6E9;
+    if ( scanavg < 10000.0F ) promform("rms2Pwr_avg7",scanavg,3);
 #else
 // power
     promform("rmsPwr_min1", Wrms_min[1], 2);

@@ -129,8 +129,8 @@ bool unloadValues() {
     for (uint8_t p=1 ; p<NUM_CCTS ; p++) { 
       w = unload2Bytes();
       w = (int16_t) w;                                // convert unsigned to signed
-    //if ( abs(w) < 5.0F ) w = 0.0F;                  // remove low end noise
-      Wrms[p] = 0.5*Wrms[p] + 0.5*w;                  // should do smooth over 5 scans
+      if ( abs(w) > 10000.0F || abs(w) < 5.0F ) w = 0.0F;
+      Wrms[7] = 0.7F*Wrms[7] + 0.3F*w;                // should do smooth over 5 scans
       if (w < Wrms_min[p]) Wrms_min[p] = w;
       if (w > Wrms_max[p]) Wrms_max[p] = w;
     }
@@ -145,7 +145,8 @@ bool unloadValues() {
     offset = 20;
     w = unload2Bytes();
     w = (int16_t) w; 
-    Wrms[7] = 0.45F*Wrms[7] + 0.55F*w;
+    if ( abs(w) > 10000.0F || abs(w) < 5.0F ) w = 0.0F;
+    Wrms[7] = 0.7F*Wrms[7] + 0.3F*w;
     w7 = max(0.0F,Wrms[7]);                         
     if (w7 < Wrms_min[7]) Wrms_min[7] = w7;
     if (w7 > Wrms_max[7]) Wrms_max[7] = w7;
