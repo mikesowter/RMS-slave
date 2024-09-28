@@ -70,6 +70,7 @@ void checkScan() {
     }
     // rejoin local network if necessary
 	  if ( WiFi.status() != WL_CONNECTED ) joinNet();
+    if ( WiFi.status() != WL_CONNECTED ) ESP.restart();
   }
   else {
     if (scanFail) {

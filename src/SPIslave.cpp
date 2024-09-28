@@ -2,9 +2,8 @@
 
 float unload2Bytes();
 bool unloadValues();
-const float AMPS_CORRECTION_FACTOR = 1.021; // low currents < 4A on 20190922
 uint16_t checkSum;
-float v,w,w3,w7;
+float v,w,Wimp,Wexp;
 
 void setupSPIslave() {
   // data has been received from the master. len is always 32 bytes
@@ -147,21 +146,18 @@ bool unloadValues() {
     w = (int16_t) w; 
     if ( abs(w) > 10000.0F || abs(w) < 5.0F ) w = 0.0F;
     Wrms[7] = 0.7F*Wrms[7] + 0.3F*w;
-    w7 = max(0.0F,Wrms[7]);                         
-    if (w7 < Wrms_min[7]) Wrms_min[7] = w7;
-    if (w7 > Wrms_max[7]) Wrms_max[7] = w7;
-    w3 = max(0.0F,-Wrms[7]);
+    // temp export power correction factor 
+    Wexp = max(0.0F,1.5375F*Wrms[7]);                         
+    if (Wexp < Wrms_min[7]) Wrms_min[7] = Wexp;
+    if (Wexp > Wrms_max[7]) Wrms_max[7] = Wexp;
+    // temp import power correction factor 
+    Wimp = max(0.0F,-2.0F*Wrms[7]);
     
-  /*  if ( w3 < 10.0F ) {
-      sprintf(charBuf,"Wrms[7]=%.0f W7:%.0f W3:%.0f",Wrms[7],w7,w3);
-      diagMess(charBuf);
-      delay(1000);
-    } */
-    if (w3 < Wrms_min[3]) Wrms_min[3] = w3;
-    if (w3 > Wrms_max[3]) Wrms_max[3] = w3;
+    if (Wimp < Wrms_min[3]) Wrms_min[3] = Wimp;
+    if (Wimp > Wrms_max[3]) Wrms_max[3] = Wimp;
         
-    Wrms[7] = w7;
-    Wrms[3] = w3;
+    Wrms[7] = Wexp;
+    Wrms[3] = Wimp;
 
     /* from RMS2 master:
     load2Bytes(Vpp_max*100.0);

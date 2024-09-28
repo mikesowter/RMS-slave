@@ -41,7 +41,7 @@ void minProc() {
   FI_15m_kW = (FI_kWh_now - FI_5m_kWh[en15index])*4000.0F;
   FI_30m_kW = (FI_kWh_now - FI_5m_kWh[en_index])*2000.0F;  
   FI_5m_kWh[en_index] = FI_kWh_now;     // overwrite value from 30m ago
-  writeImportExport();
+  if ( peakPeriod ) writeImportExport();
 #endif
 
   // check for new quarter hour
