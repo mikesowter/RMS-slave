@@ -61,7 +61,7 @@ extern bool SPIwait, waterOn, peakPeriod;
 extern bool checkSumBad;
 extern bool exporting, exporting7_5, exporting10, T31charging, pwrOutage;
 extern bool noDataYet, dataTimeout;
-extern bool FTPcheck;
+extern bool FTPcheck, newArg;
 extern ESP8266WebServer server;
 
 extern char fileName[];

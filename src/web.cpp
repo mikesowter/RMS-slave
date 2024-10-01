@@ -7,7 +7,10 @@ extern uint8_t gobackhrs;
 void promform(const char* pname,float lval, uint8_t res) {
   char fltStr[12];
   dtostrf((double)lval, 0, res, fltStr);
-//  sprintf(charBuf,"\n# TYPE %s gauge\n%s %s",pname, pname, fltStr);
+  if ( newArg ) {
+    sprintf(charBuf,"\n# TYPE %s gauge\n%s %s",pname, pname, fltStr);
+    newArg = false;
+  }
   sprintf(charBuf,"\n%s %s", pname, fltStr);
   strcat(longStr,charBuf);
 }
@@ -196,6 +199,8 @@ void handleMetrics() {
   promform("rms2WaitWatchMax", (float)WWmax, 0);
   promform("rms2MissedCycles", (float)missedCycle, 0);
   promform("rms2ScanTime", (float)t_scan_max, 0);
+  newArg = true;
+  promform("rms2watchDog", (float)watchDog, 0);
 #else
   // housekeeping
   promform("rmsWfdTimeMin", (float)WFDmin, 0);

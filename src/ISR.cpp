@@ -5,7 +5,7 @@ unsigned long waitStart, appStart;
 void ISRwatchDog () {
   watchDog++;
   if (watchDog >= 20) {
-    errMess("watchDog 20s timeout");
+    errMess(" watchDog 20s timeout");
     ESP.restart();
   }
 }

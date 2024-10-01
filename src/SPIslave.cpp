@@ -145,14 +145,13 @@ bool unloadValues() {
     w = unload2Bytes();
     w = (int16_t) w; 
     if ( abs(w) > 10000.0F || abs(w) < 5.0F ) w = 0.0F;
-    Wrms[7] = 0.7F*Wrms[7] + 0.3F*w;
+    w = 0.7F*Wrms[7] + 0.3F*w;
     // temp export power correction factor 
-    Wexp = max(0.0F,1.5375F*Wrms[7]);                         
+    Wexp = max(0.0F,1.804F*w);                         
     if (Wexp < Wrms_min[7]) Wrms_min[7] = Wexp;
     if (Wexp > Wrms_max[7]) Wrms_max[7] = Wexp;
     // temp import power correction factor 
-    Wimp = max(0.0F,-2.0F*Wrms[7]);
-    
+    Wimp = max(0.0F,-1.804F*w);
     if (Wimp < Wrms_min[3]) Wrms_min[3] = Wimp;
     if (Wimp > Wrms_max[3]) Wrms_max[3] = Wimp;
         
