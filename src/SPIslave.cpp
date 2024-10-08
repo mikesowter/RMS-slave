@@ -140,7 +140,7 @@ bool unloadValues() {
       for (uint8_t q=NUM_CCTS+1 ; q<=MAX_CCTS ; q++) Wrms[q] = 0.0; // unused inputs
     #else
     
-    // load on main isolator (cct7) if + = export, - = import
+    /* load on main isolator (cct7) if + = export, - = import
     offset = 20;
     w = unload2Bytes();
     w = (int16_t) w; 
@@ -156,7 +156,7 @@ bool unloadValues() {
     if (Wimp > Wrms_max[3]) Wrms_max[3] = Wimp;
         
     Wrms[7] = Wexp;
-    Wrms[3] = Wimp;
+    Wrms[3] = Wimp; */
 
     /* from RMS2 master:
     load2Bytes(Vpp_max*100.0);
