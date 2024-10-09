@@ -27,8 +27,8 @@ void setup(void) {
   readPromDB();  
   // init energy barrel values
   for ( uint8_t en_index=0;en_index<6;en_index++ ) {
-    T11_5m_kWh[en_index] = Energy[3];    // most recent value
-    FI_5m_kWh[en_index] = Energy[7];
+    Imp_5m_kWh[en_index] = Imp_meter;    // most recent value
+  //  FI_5m_kWh[en_index] = Energy[7];
   }
   peakPeriod = hour() >= 16 && hour() < 21;
   // setup server

@@ -124,9 +124,11 @@ float costEnergy[3][NUM_CCTS+1];
 */
 float Wrms_min[NUM_CCTS+1];		    // in Watts
 float Wrms_max[NUM_CCTS+1];	
+float Wrms_avg[NUM_CCTS+1];	
+float Wimp, Wexp;
 float Arms[NUM_CCTS+1];				// root sum I^2
 float Vrms, Vpk_min, Vpk_max;		// root sum V^2, -Vp, +Vp
-float Freq;                         // grid frequency to 50.000
+float Freq = 50.0;                  // grid frequency to 50.01 res
 float Vrms_min = 500.0;             // max values between scans
 float Vrms_max = 0.0;
 float Vmin_n = 500.0, Vmin_p = 500.0;
@@ -134,9 +136,9 @@ float Vmax_n = 0.0, Vmax_p = 0.0;
 float loads, solar;
 float avSparekW;            // smoothed solar-loads
 float Vbat;
-float T11_5m_kWh[6], rms5Demand, rms15Demand, rms30Demand, rms15Peak, rms30Peak;
+float rms5Demand, rms15Demand, rms30Demand, rms15Peak, rms30Peak;
 float FI_5m_kWh[6], FI_5m_kW, FI_15m_kW, FI_30m_kW;
-double T11_meter,FI_meter;
+double Imp_meter,Exp_meter,Imp_5m_kWh[6];
 float T11_kWh[3];           // daily sum from grid with each panel size
 float T11_inc[3];           // increment from grid
 float FIT_kWh[3];

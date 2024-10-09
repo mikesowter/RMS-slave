@@ -2,7 +2,7 @@
 #include "extern.h"
 
 uint8_t en_index, en5index, en15index;
-float T11_kWh_now, FI_kWh_now;
+double Imp_kWh_now;
 void writePeak();
 
 // scheduled processing
@@ -20,10 +20,10 @@ void minProc() {
   en5index = (en_index+5)%6;          // index 5 mins back
   en15index = (en_index+3)%6;         // index 15 mins back
 #ifdef RMS1
-  T11_kWh_now = T11_kWh[0];
-  rms15Demand = (T11_kWh_now - T11_5m_kWh[en15index])*4000.0F;
-  rms30Demand = (T11_kWh_now - T11_5m_kWh[en_index])*2000.0F;  
-  T11_5m_kWh[en_index] = T11_kWh_now;     // overwrite value from 30m ago
+  Imp_kWh_now = T11_kWh[0];
+  rms15Demand = (Imp_kWh_now - Imp_5m_kWh[en15index])*4000.0F;
+  rms30Demand = (Imp_kWh_now - Imp_5m_kWh[en_index])*2000.0F;  
+  Imp_5m_kWh[en_index] = Imp_kWh_now;     // overwrite value from 30m ago
 
   if ( peakPeriod ) {
     if ( rms15Demand > rms15Peak ) rms15Peak = rms15Demand;
@@ -31,17 +31,17 @@ void minProc() {
     writeImportExport();
   }
 #else
-  T11_kWh_now = Energy[3];
-  rms5Demand = (T11_kWh_now - T11_5m_kWh[en5index])*12000.0F;
-  rms15Demand = (T11_kWh_now - T11_5m_kWh[en15index])*4000.0F;
-  rms30Demand = (T11_kWh_now - T11_5m_kWh[en_index])*2000.0F;  
-  T11_5m_kWh[en_index] = T11_kWh_now;     // overwrite value from 30m ago
-  FI_kWh_now = Energy[7];
+  Imp_kWh_now = Imp_meter;
+  rms5Demand = (Imp_kWh_now - Imp_5m_kWh[en5index])*12000.0F;
+  rms15Demand = (Imp_kWh_now - Imp_5m_kWh[en15index])*4000.0F;
+  rms30Demand = (Imp_kWh_now - Imp_5m_kWh[en_index])*2000.0F;  
+  Imp_5m_kWh[en_index] = Imp_kWh_now;     // overwrite value from 30m ago
+/*  FI_kWh_now = Energy[7];
   FI_5m_kW = (FI_kWh_now - FI_5m_kWh[en5index])*12000.0F;
   FI_15m_kW = (FI_kWh_now - FI_5m_kWh[en15index])*4000.0F;
   FI_30m_kW = (FI_kWh_now - FI_5m_kWh[en_index])*2000.0F;  
   FI_5m_kWh[en_index] = FI_kWh_now;     // overwrite value from 30m ago
-  if ( peakPeriod ) writeImportExport();
+  if ( peakPeriod ) writeImportExport();  */
 #endif
 
   // check for new quarter hour
@@ -77,10 +77,6 @@ void minProc() {
     T11_kWh[ps] = 0.0F;
   }
 #endif
-  for ( uint8_t en_index=0;en_index<6;en_index++ ) {
-    T11_5m_kWh[en_index] = 0.0F;
-    FI_5m_kWh[en_index] = 0.0F;
-  }
   rms15Peak = 0.0F;
   rms30Peak = 0.0F;
 

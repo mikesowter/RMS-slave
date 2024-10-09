@@ -33,9 +33,9 @@ void WriteQtr() {
   fh.print(",");
   fh.print(Vrms);
   fh.print(",");
-  fh.print(T11_meter);
+  fh.print(Imp_meter);
   fh.print(",");
-  fh.println(FI_meter);
+  fh.println(Exp_meter);
   delay(10);
 }
 

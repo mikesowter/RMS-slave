@@ -36,9 +36,9 @@ void readPromDB() {
     Energy[cct] = readPromItem(unit);
   } 
   strcpy(unit,"rms2T11_meter");
-  T11_meter = readPromItem(unit);
+  Imp_meter = readPromItem(unit);
   strcpy(unit,"rms2FI_meter");
-  FI_meter = readPromItem(unit);
+  Exp_meter = readPromItem(unit);
 #endif
 // read miscellaneous battery and solar values
 #ifdef RMS1

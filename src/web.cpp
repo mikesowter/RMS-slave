@@ -47,7 +47,7 @@ void handleMetrics() {
   promform("rms2Vmax_p", Vmax_p, 1);
   promform("rms2Vmin_n", Vmin_n, 1);
   promform("rms2Vmax_n", Vmax_n, 1);
-  promform("rms2Freq", Freq, 3);
+  if ( Freq > 45.0 ) promform("rms2Freq", Freq, 3);
 #else
   promform("rmsVbattery", Vbat, 2);
   promform("rmsWifiSignal", -WiFi.RSSI(), 0);
@@ -62,7 +62,7 @@ void handleMetrics() {
  // power
  //   promform("rms2Pwr_min1", Wrms_min[1], 2);
  //   promform("rms2Pwr_min2", Wrms_min[2], 2);
-    promform("rms2Pwr_min3", Wrms[3], 2);
+ //   promform("rms2Pwr_min3", Wrms[3], 2);
     promform("rms2Pwr_min4", Wrms[4], 2);
     promform("rms2Pwr_min5", Wrms[5], 2);
     promform("rms2Pwr_min6", Wrms[6], 2);
@@ -70,11 +70,16 @@ void handleMetrics() {
 
 //    promform("rms2Pwr_max1", Wrms_max[1], 2);
 //    promform("rms2Pwr_max2", Wrms_max[2], 2);
-    promform("rms2Pwr_max3", Wrms_max[3], 2);
+//    promform("rms2Pwr_max3", Wrms_max[3], 2);
     promform("rms2Pwr_max4", Wrms_max[4], 2);
     promform("rms2Pwr_max5", Wrms_max[5], 2);
     promform("rms2Pwr_max6", Wrms_max[6], 2);
     promform("rms2Pwr_max7", Wrms_max[7], 2);
+
+    promform("rms2Pwr_avg4", Wrms_avg[4], 2);
+    promform("rms2Pwr_avg5", Wrms_avg[5], 2);
+    promform("rms2Pwr_avg6", Wrms_avg[6], 2);
+    promform("rms2Pwr_avg7", Wrms_avg[7], 2);
 
 // energy
 //    promform("rms2Energy1", Energy[1], 2);
@@ -84,8 +89,8 @@ void handleMetrics() {
     promform("rms2Energy5", Energy[5], 2);
     promform("rms2Energy6", Energy[6], 2);
     promform("rms2Energy7", Energy[7], 2);
-    promform("rms2T11_meter",T11_meter,3);
-    promform("rms2FI_meter",FI_meter,3);
+    promform("rms2T11_meter",Imp_meter,3);
+    promform("rms2FI_meter",Exp_meter,3);
 
 // avg power import / export
     promform("rms2_15Peak", rms15Peak, 3);
@@ -221,7 +226,7 @@ void handleMetrics() {
   Vrms_max = 0.0F;
   for (int i=1;i<=NUM_CCTS;i++) {
     Wrms_min[i] = 9999.0F;
-    Wrms_max[i] = 0.0F;
+    Wrms_max[i] = -9999.0F;
   }
   noDataYet = true;
   E3 = Energy[3];   // store import energy value for next t_scan
@@ -341,10 +346,10 @@ void handleNotFound() {
     char* tok;
     tok = strtok(userText,",");
     tok = strtok(NULL,",");
-    T11_meter = atof(tok);
+    Imp_meter = atof(tok);
     tok = strtok(NULL,",");
-    FI_meter = atof(tok);
-    sprintf(charBuf,"T11: %.3f, FI: %.3f\n",T11_meter,FI_meter);
+    Exp_meter = atof(tok);
+    sprintf(charBuf,"T11: %.3f, FI: %.3f\n",Imp_meter,Exp_meter);
     diagMess(charBuf);  
     strcpy(charBuf,"<!DOCTYPE html><html><head><HR>T11 and FI updated<HR></head></html>");
     server.send ( 200, "text/html", charBuf );

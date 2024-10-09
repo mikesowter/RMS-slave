@@ -30,8 +30,8 @@ void dailyEnergy() {
     if ( i!=1 && i!=5 && i!=7 ) tier1loads += incEnergy[i]; // loads 2,3,4,6,8
 #endif
   }
-  if ( incEnergy[3] > 0.0F ) T11_meter += incEnergy[3];
-  if ( incEnergy[7] > 0.0F ) FI_meter += incEnergy[7];
+  Imp_meter += Wimp*(float)t_scan/3.6E9;
+  Exp_meter += Wexp*(float)t_scan/3.6E9;
 #ifdef RMS1
   loads = incEnergy[1];     // total kWh (solar+T11) on dist panel
   // calculate the impact of 3 panel sizes

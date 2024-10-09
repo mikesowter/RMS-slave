@@ -3,7 +3,8 @@
 float unload2Bytes();
 bool unloadValues();
 uint16_t checkSum;
-float v,w,Wimp,Wexp;
+float v,w;
+
 
 void setupSPIslave() {
   // data has been received from the master. len is always 32 bytes
@@ -116,7 +117,7 @@ bool unloadValues() {
     if ( checkSumBad ) return false;
     offset = 0;
 
-    Freq = unload2Bytes()/1000.0;
+    Freq = 0.8*Freq + 0.2*unload2Bytes()/1000.0;
     Vrms = unload2Bytes()/100.0; 
     #ifdef RMS2               
     v = unload2Bytes()/100.0;    
@@ -125,13 +126,14 @@ bool unloadValues() {
     Vrms_min = _min(Vrms_min,v);
     #endif
 
-    for (uint8_t p=1 ; p<NUM_CCTS ; p++) { 
+    for (uint8_t p=1 ; p<=NUM_CCTS ; p++) { 
       w = unload2Bytes();
       w = (int16_t) w;                                // convert unsigned to signed
       if ( abs(w) > 10000.0F || abs(w) < 5.0F ) w = 0.0F;
-      Wrms[7] = 0.7F*Wrms[7] + 0.3F*w;                // should do smooth over 5 scans
+      Wrms[p] = 0.7F*Wrms[p] + 0.3F*w;                // should do smooth over 5 scans
       if (w < Wrms_min[p]) Wrms_min[p] = w;
       if (w > Wrms_max[p]) Wrms_max[p] = w;
+      Wrms_avg[p] = 0.9*Wrms_avg[p] +0.1*w;
     }
     #ifdef RMS1
       avSparekW = 0.99*avSparekW + 0.01*(Wrms[7]-Wrms[1]);
@@ -139,31 +141,16 @@ bool unloadValues() {
       else waterOn = false;
       for (uint8_t q=NUM_CCTS+1 ; q<=MAX_CCTS ; q++) Wrms[q] = 0.0; // unused inputs
     #else
-    
-    /* load on main isolator (cct7) if + = export, - = import
-    offset = 20;
-    w = unload2Bytes();
-    w = (int16_t) w; 
-    if ( abs(w) > 10000.0F || abs(w) < 5.0F ) w = 0.0F;
-    w = 0.7F*Wrms[7] + 0.3F*w;
-    // temp export power correction factor 
-    Wexp = max(0.0F,1.804F*w);                         
+    w = Wrms_avg[7];
+    // load on main isolator (cct7) if + = export, - = import
+    Wexp = max(0.0F,w);              
     if (Wexp < Wrms_min[7]) Wrms_min[7] = Wexp;
     if (Wexp > Wrms_max[7]) Wrms_max[7] = Wexp;
     // temp import power correction factor 
-    Wimp = max(0.0F,-1.804F*w);
+    Wimp = max(0.0F,-w);
     if (Wimp < Wrms_min[3]) Wrms_min[3] = Wimp;
     if (Wimp > Wrms_max[3]) Wrms_max[3] = Wimp;
         
-    Wrms[7] = Wexp;
-    Wrms[3] = Wimp; */
-
-    /* from RMS2 master:
-    load2Bytes(Vpp_max*100.0);
-    load2Bytes(Vpp_min*100.0);
-    load2Bytes(Vnp_max*100.0);
-    load2Bytes(Vnp_min*100.0);  */
-    
     offset = 22;
     v = unload2Bytes()/100.0;    // Vpp_max
     Vmax_p = _max(Vmax_p,v);
