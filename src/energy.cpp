@@ -28,7 +28,7 @@ void dailyEnergy() {
     incEnergy[i] = Wrms[i] * Wms2kWh;   
     if ( i==7 ) {                                     // power flow on main isolator
       if ( Wrms[7] > 0.0F ) Energy[7] += incEnergy[7];  // Export energy on 7
-      else Energy[0] += incEnergy[0];                   // Import energy on 0
+      else Energy[0] -= incEnergy[7];                   // Import energy on 0
     }    
     else Energy[i] += incEnergy[i];
 #ifdef RMS1

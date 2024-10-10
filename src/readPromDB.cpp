@@ -28,8 +28,8 @@ void readPromDB() {
     }
   }  
 #else
-  for (int cct = 3; cct<8; cct++) {
-    if ( cct==3 ) cct=0;  // hiding import energy in RMS2Energy0
+  for (int cct = 0; cct<8; cct++) {
+    if ( cct>0 && cct<4 ) continue;  
     strcpy(unit,"rms2Energy");
     int len = strlen(unit);
     unit[len] = '0' + cct;

@@ -198,7 +198,6 @@ void handleMetrics() {
   promform("rms2WaitWatchMax", (float)WWmax, 0);
   promform("rms2MissedCycles", (float)missedCycle, 0);
   promform("rms2ScanTime", (float)t_scan_max, 0);
-  newArg = true;
   promform("rms2watchDog", (float)watchDog, 0);
 #else
   // housekeeping
