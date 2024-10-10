@@ -29,15 +29,16 @@ void readPromDB() {
   }  
 #else
   for (int cct = 3; cct<8; cct++) {
+    if ( cct==3 ) cct=0;  // hiding import energy in RMS2Energy0
     strcpy(unit,"rms2Energy");
     int len = strlen(unit);
     unit[len] = '0' + cct;
     unit[len+1] = '\0';
     Energy[cct] = readPromItem(unit);
   } 
-  strcpy(unit,"rms2T11_meter");
+  strcpy(unit,"rms2Imp_meter");
   Imp_meter = readPromItem(unit);
-  strcpy(unit,"rms2FI_meter");
+  strcpy(unit,"rms2Exp_meter");
   Exp_meter = readPromItem(unit);
 #endif
 // read miscellaneous battery and solar values

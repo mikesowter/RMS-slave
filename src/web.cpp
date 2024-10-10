@@ -82,30 +82,24 @@ void handleMetrics() {
     promform("rms2Pwr_avg7", Wrms_avg[7], 2);
 
 // energy
-//    promform("rms2Energy1", Energy[1], 2);
-//    promform("rms2Energy2", Energy[2], 2);
-    promform("rms2Energy3", Energy[3], 2);
-    promform("rms2Energy4", Energy[4], 2);
-    promform("rms2Energy5", Energy[5], 2);
-    promform("rms2Energy6", Energy[6], 2);
-    promform("rms2Energy7", Energy[7], 2);
-    promform("rms2T11_meter",Imp_meter,3);
-    promform("rms2FI_meter",Exp_meter,3);
+    promform("rms2Energy0", Energy[0], 3);
+    promform("rms2Energy4", Energy[4], 3);
+    promform("rms2Energy5", Energy[5], 3);
+    promform("rms2Energy6", Energy[6], 3);
+    promform("rms2Energy7", Energy[7], 3);
+    promform("rms2Imp_meter",Imp_meter,3);
+    promform("rms2Exp_meter",Exp_meter,3);
 
-// avg power import / export
+// interval power import / export
     promform("rms2_15Peak", rms15Peak, 3);
     promform("rms2_30Peak", rms30Peak, 3);
     promform("rms2_5Demand", rms5Demand, 3);
     promform("rms2_15Demand", rms15Demand, 3);
     promform("rms2_30Demand", rms30Demand, 3);
-    promform("rms2_5FeedIn", FI_5m_kW, 3);
-    promform("rms2_15FeedIn", FI_15m_kW, 3);
-    promform("rms2_30FeedIn", FI_30m_kW, 3);
-    float interval = (float)(millis()-lastScan);
-    float scanavg = (Energy[3]-E3)/interval*3.6E9;
-    if ( scanavg < 10000.0F ) promform("rms2Pwr_avg3",scanavg,3);
-    scanavg = (Energy[7]-E7)/interval*3.6E9;
-    if ( scanavg < 10000.0F ) promform("rms2Pwr_avg7",scanavg,3);
+//    promform("rms2_5FeedIn", FI_5m_kW, 3);
+//    promform("rms2_15FeedIn", FI_15m_kW, 3);
+//    promform("rms2_30FeedIn", FI_30m_kW, 3);
+    
 #else
 // power
     promform("rmsPwr_min1", Wrms_min[1], 2);

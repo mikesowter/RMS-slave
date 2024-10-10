@@ -144,13 +144,8 @@ bool unloadValues() {
     w = Wrms_avg[7];
     // load on main isolator (cct7) if + = export, - = import
     Wexp = max(0.0F,w);              
-    if (Wexp < Wrms_min[7]) Wrms_min[7] = Wexp;
-    if (Wexp > Wrms_max[7]) Wrms_max[7] = Wexp;
-    // temp import power correction factor 
     Wimp = max(0.0F,-w);
-    if (Wimp < Wrms_min[3]) Wrms_min[3] = Wimp;
-    if (Wimp > Wrms_max[3]) Wrms_max[3] = Wimp;
-        
+    
     offset = 22;
     v = unload2Bytes()/100.0;    // Vpp_max
     Vmax_p = _max(Vmax_p,v);

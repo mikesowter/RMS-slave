@@ -81,7 +81,7 @@ void minProc() {
   rms30Peak = 0.0F;
 
   // reset daily energy sums at midnight
-  for ( int i = 1; i<NUM_CCTS+1; i++ ) {
+  for ( int i = 0; i<NUM_CCTS+1; i++ ) {
     Energy[i] = 0.0F;
     costEnergy[0][i] = 0.0F;
     costEnergy[1][i] = 0.0F;
