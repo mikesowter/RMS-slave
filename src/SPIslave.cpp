@@ -130,7 +130,7 @@ bool unloadValues() {
       w = unload2Bytes();
       w = (int16_t) w;                         // convert unsigned to signed
       if ( abs(w) > 10000.0F || abs(w) < 5.0F ) w = 0.0F;
-      else w = 1.302*w;   
+      else w = w;   
       Wrms[p] = 0.7F*Wrms[p] + 0.3F*w;                // should do smooth over 5 scans
       if (w < Wrms_min[p]) Wrms_min[p] = w;
       if (w > Wrms_max[p]) Wrms_max[p] = w;

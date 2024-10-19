@@ -6,6 +6,12 @@ void ISRwatchDog () {
   watchDog++;
   if (watchDog >= 20) {
     errMess(" watchDog 20s timeout");
+    diagMess("resetting master");
+    digitalWrite(MASTER_RESET,0);
+    delay(10);
+    digitalWrite(MASTER_RESET,1);
+    delay(2000);
+    diagMess("resetting master didnt work");
     ESP.restart();
   }
 }
