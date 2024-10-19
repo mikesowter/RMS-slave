@@ -342,9 +342,9 @@ void handleNotFound() {
     Imp_meter = atof(tok);
     tok = strtok(NULL,",");
     Exp_meter = atof(tok);
-    sprintf(charBuf,"T11: %.3f, FI: %.3f\n",Imp_meter,Exp_meter);
+    sprintf(charBuf,"Tariff11: %.3f, FI: %.3f\n",Imp_meter,Exp_meter);
     diagMess(charBuf);  
-    strcpy(charBuf,"<!DOCTYPE html><html><head><HR>T11 and FI updated<HR></head></html>");
+    strcpy(charBuf,"<!DOCTYPE html><html><head><HR>Tariff11 and FI updated<HR></head></html>");
     server.send ( 200, "text/html", charBuf );
   }
   else {

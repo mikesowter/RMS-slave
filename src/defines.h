@@ -24,7 +24,7 @@
 #define MASTER_RESET D3
 #define LED_PIN D4
 #define T31 0.18172   // updated 20240701
-#define T11 0.2717    // updated 20240701
-#define FIT 0.08      // updated 20211128
-#define Dem 0.18546   // updated 20240701
+#define Tariff11 0.2717    // updated 20240701
+#define FeedInTariff 0.08      // updated 20211128
+#define DemandTariff 0.18546   // updated 20240701
 

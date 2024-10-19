@@ -36,6 +36,13 @@ void readPromDB() {
     unit[len+1] = '\0';
     Energy[cct] = readPromItem(unit);
   } 
+  for (int cct = 4; cct<8; cct++) {
+    strcpy(unit,"rms2Pwr_avg");
+    int len = strlen(unit);
+    unit[len] = '0' + cct;
+    unit[len+1] = '\0';
+    Energy[cct] = readPromItem(unit);
+  } 
   strcpy(unit,"rms2Imp_meter");
   Imp_meter = readPromItem(unit);
   strcpy(unit,"rms2Exp_meter");

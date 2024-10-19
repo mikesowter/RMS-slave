@@ -50,8 +50,8 @@ void batteryEnergy() {
           batt_charge[ps][bs] = battMin;
         }
       }
-      batt_savings[ps][bs] = batt_tohouse[ps][bs]*T11;                
-      batt_savings[ps][bs] += dump_togrid[ps][bs]*FIT-costEnergy[ps][7];  
+      batt_savings[ps][bs] = batt_tohouse[ps][bs]*Tariff11;                
+      batt_savings[ps][bs] += dump_togrid[ps][bs]*FeedInTariff-costEnergy[ps][7];  
     }
   }
 }

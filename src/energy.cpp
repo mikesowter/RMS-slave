@@ -38,7 +38,7 @@ void dailyEnergy() {
   Imp_meter += Wimp * Wms2kWh;
   Exp_meter += Wexp * Wms2kWh;
 #ifdef RMS1
-  loads = incEnergy[1];     // total kWh (solar+T11) on dist panel
+  loads = incEnergy[1];     // total kWh (solar+Tariff11) on dist panel
   // calculate the impact of 3 panel sizes
   for ( uint8_t ps=0;ps<3;ps++) {                      
     solar = factor*incEnergy[7];                       // simulating panels of 5,7.5 and 10kW
@@ -60,13 +60,13 @@ void dailyEnergy() {
     }
     // calculate tier1 costs
     split = tier1solar/tier1loads;  
-    rate = FIT * split + T11 * (1.0F - split);        // (2,3,4,6,8) are essential
+    rate = FeedInTariff * split + Tariff11 * (1.0F - split);        // (2,3,4,6,8) are essential
     for ( int i = 2;i<NUM_CCTS+1;i++ ) {
       if ( i == 5 && waterOn ) {
         costEnergy[ps][i] += T31 * incEnergy[5];      // hotwater tariff
       }
       else if ( i == 7 ) {
-        costEnergy[ps][7] += FIT * spareSolar;        // export unuseable solar
+        costEnergy[ps][7] += FeedInTariff * spareSolar;        // export unuseable solar
       }
       else {
         costEnergy[ps][i] += rate * incEnergy[i];     // use first portion of solar
@@ -76,7 +76,7 @@ void dailyEnergy() {
     // calculate tier2 costs
     if ( tier2loads > 4E-6 ) {                        // loads lumped together >5W
       split = tier2solar/tier2loads;                  // use second portion of solar
-      rate = FIT * split + T11 * (1.0F - split);
+      rate = FeedInTariff * split + Tariff11 * (1.0F - split);
       costEnergy[ps][1] += rate * tier2loads;         // cost of total load
       T11_inc[ps] += (tier2loads - tier2solar);
     }
