@@ -143,9 +143,9 @@ bool unloadValues() {
       for (uint8_t q=NUM_CCTS+1 ; q<=MAX_CCTS ; q++) Wrms[q] = 0.0; // unused inputs
     #else
     w = Wrms_avg[7];
-    // load on main isolator (cct7) if + = export, - = import
-    Wexp = max(0.0F,w);              
-    Wimp = max(0.0F,-w);
+    // load on main isolator (cct7) if - = export, + = import  changed 20/10/24
+    Wexp = max(0.0F,-w);              
+    Wimp = max(0.0F,w);
     
     offset = 22;
     v = unload2Bytes()/100.0;    // Vpp_max
