@@ -26,10 +26,7 @@ void setup(void) {
   // recover previous values from prometheus
   readPromDB();  
   // init energy barrel values
-  for ( uint8_t en_index=0;en_index<6;en_index++ ) {
-    Imp_5m_kWh[en_index] = Imp_meter;    // most recent value
-  //  FI_5m_kWh[en_index] = Energy[7];
-  }
+  fillBarrel();
   peakPeriod = hour() >= 16 && hour() < 21;
   // setup server
   server.on ( "/", handleRoot );

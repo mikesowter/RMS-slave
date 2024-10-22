@@ -38,6 +38,7 @@ void setupTime();
 void updateEnergyFile();
 void checkScan();
 void readPromDB();
+void fillBarrel();
 void setupFS();
 void sync2Master();
 void calcCheckSum();
