@@ -25,9 +25,6 @@ void setup(void) {
   diagMess(charBuf); 				// only give detail
   // recover previous values from prometheus
   readPromDB();  
-  // init energy barrel values
-  fillBarrel();
-  peakPeriod = hour() >= 16 && hour() < 21;
   // setup server
   server.on ( "/", handleRoot );
   server.on ( "/dir", handleDir );

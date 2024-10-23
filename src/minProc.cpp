@@ -4,6 +4,7 @@
 uint8_t en_index, en5index, en15index;
 double Imp_kWh_now;
 void writePeak();
+void fillBarrel();
 
 // scheduled processing
 
@@ -12,9 +13,12 @@ void minProc() {
   SPISlave.setStatus(now());
   if ( minute() == oldMin ) return;
   oldMin = minute();
-
   if ( old5Min == minute()/5 ) return;
   old5Min = minute()/5;
+  if ( Imp_5m_kWh[0] == 0.0F ) {      // init energy barrel values after restart
+    fillBarrel();
+    peakPeriod = hour() >= 16 && hour() < 21;
+  }
   // energy calcs every 5 minutes
   en_index = (minute()/5)%6;          // current index into 6 x 5 min energy readings
   en5index = (en_index+5)%6;          // index 5 mins back

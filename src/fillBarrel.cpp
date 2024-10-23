@@ -60,9 +60,9 @@ void fillBarrel() {
     if (replyPtr > 20) {
         char* tok; 
         tok = strstr(longStr,"values");
-        fh.printf("\n%s",tok++);
+        fh.printf("\n%s",tok);
         uint8_t en_index = (minute()/5)%6; 
-        for ( int i=21;i<132;i+=22 ) {
+        for ( int i=22;i<133;i+=22 ) {
             value = atof(tok+i);
             fh.printf(" %d: %0.3f",en_index,value);
             en_index = (en_index+1)%6; 
