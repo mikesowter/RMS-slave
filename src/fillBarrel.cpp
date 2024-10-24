@@ -62,8 +62,9 @@ void fillBarrel() {
         tok = strstr(longStr,"values");
         fh.printf("\n%s",tok);
         uint8_t en_index = (minute()/5)%6; 
-        for ( int i=22;i<133;i+=22 ) {
-            value = atof(tok+i);
+        for ( int i=0;i<6;i++ ) {
+            tok = strstr(tok+1,",\"");
+            value = atof(tok+2);
             fh.printf(" %d: %0.3f",en_index,value);
             en_index = (en_index+1)%6; 
             Imp_5m_kWh[en_index] = value;

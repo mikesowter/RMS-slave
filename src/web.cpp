@@ -147,7 +147,7 @@ void handleMetrics() {
         strcpy(promName,"rmsCost00");
         promName[7] = ps + '0';
         promName[8] = cct + '0';
-        promform(promName, costEnergy[ps][cct], 2);
+        promform(promName, costEnergy[ps][cct], 3);
       }
     }
 
@@ -168,7 +168,7 @@ void handleMetrics() {
         strcpy(promName,"rmsToGridP0B0");
         promName[10] = ps + '0';
         promName[12] = bs + '0';
-        promform(promName,dump_togrid[ps][bs],2);
+        promform(promName,dump_togrid[ps][bs],3);
       }
 
       for (uint8_t bs = 0;bs<3;bs++) {
