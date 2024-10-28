@@ -15,10 +15,6 @@ void minProc() {
   oldMin = minute();
   if ( old5Min == minute()/5 ) return;
   old5Min = minute()/5;
-  if ( Imp_5m_kWh[0] == 0.0F ) {      // init energy barrel values after restart
-    fillBarrel();
-    peakPeriod = hour() >= 16 && hour() < 21;
-  }
   // energy calcs every 5 minutes
   en_index = (minute()/5)%6;          // current index into 6 x 5 min energy readings
   en5index = (en_index+5)%6;          // index 5 mins back
@@ -35,37 +31,28 @@ void minProc() {
     writeImportExport();
   }
 #else
-  Imp_kWh_now = Imp_meter;
-  rms5Demand = (Imp_kWh_now - Imp_5m_kWh[en5index])*12000.0F;
-  rms15Demand = (Imp_kWh_now - Imp_5m_kWh[en15index])*4000.0F;
-  rms30Demand = (Imp_kWh_now - Imp_5m_kWh[en_index])*2000.0F;  
+  rms5Demand  = (Imp_meter - Imp_5m_kWh[en5index])*12000.0F;
+  rms15Demand = (Imp_meter - Imp_5m_kWh[en15index])*4000.0F;
+  rms30Demand = (Imp_meter - Imp_5m_kWh[en_index])*2000.0F;  
   if ( rms5Demand > 10000.0F || rms15Demand > 10000.0F || rms30Demand > 10000.0F ) {
-    sprintf(charBuf,"now:%.0f 0:%.0f 1:%.0f 2:%.0f 3:%.0f 4:%.0f 5:%.0f",Imp_meter,
+    sprintf(charBuf,"now:%.3f 0:%.3f 1:%.3f 2:%.3f 3:%.3f 4:%.3f 5:%.3f",Imp_meter,
               Imp_5m_kWh[0],Imp_5m_kWh[1],Imp_5m_kWh[2],Imp_5m_kWh[3],Imp_5m_kWh[4],Imp_5m_kWh[5]);
+    diagMess(charBuf);
     rms5Demand = 0.0F;
     rms15Demand = 0.0F;
     rms30Demand = 0.0F;         
-    diagMess(charBuf);
   }
-
-  Imp_5m_kWh[en_index] = Imp_kWh_now;     // overwrite value from 30m ago
-/*  FI_kWh_now = Energy[7];
-  FI_5m_kW = (FI_kWh_now - FI_5m_kWh[en5index])*12000.0F;
-  FI_15m_kW = (FI_kWh_now - FI_5m_kWh[en15index])*4000.0F;
-  FI_30m_kW = (FI_kWh_now - FI_5m_kWh[en_index])*2000.0F;  
-  FI_5m_kWh[en_index] = FI_kWh_now;     // overwrite value from 30m ago
-  if ( peakPeriod ) writeImportExport();  */
+  Imp_5m_kWh[en_index] = Imp_meter;     // overwrite value from 30m ago
 #endif
 
   // check for new quarter hour
   if ( oldQtr == minute()/15 ) return;
   oldQtr = minute()/15;
   storeData();                        // write day file every 15mins
-  
+  if ( hour() == 16 && oldQtr == 1 ) peakPeriod = true;
   if ( oldHour == hour() ) return;
   oldHour = hour();
-  if ( hour() == 16 ) peakPeriod = true;
-  else if ( hour() == 21 ) {
+  if ( hour() == 21 ) {
     writePeak();
     peakPeriod = false;
   }

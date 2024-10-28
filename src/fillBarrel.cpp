@@ -1,27 +1,26 @@
 #include <extern.h>
 #include <ESP8266WiFi.h>
-extern WiFiClient client;
+
 uint16_t replyPtr, numPtr;
 float value;
 
 void fillBarrel() {
-  char unit[20] = "rms2Imp_meter";
-  
 // read most recent meter values at 5min intervals
 
-// "GET /api/v1/query_range?query=rms2Imp_meter&start=ssssssssssssss&end=eeeeeeeeeeee
-//  &step=300&timeout=10s HTTP/1.1\r\nHost: "192.168.1.198"\r\nConnection: close\r\n\r\n"
-
-  unsigned long t = now()-36000;   // back to zulu time
-
-  char host[] = "192.168.1.198";   // RPi-2 prometheus and influx server
+  t1 = millis();
+  unsigned long t = now() - 36000;        // Zulu time used in database
+  unsigned long next = 300UL - t%300UL;   // when demand calc will next run 
+  Serial.printf("\nsecs to next 5min: %lu\n",next);
+  
+  char unit[20] = "rms2Imp_meter";
+  char host[] = "192.168.1.198";          // RPi-2 prometheus and influx server
   char Str1[] = "GET /api/v1/query_range?query=";
   char Str2[] = "&start=";   
   char Str3[12];
-  dtostrf((double)(t-1800), 0, 0, Str3);  // start 30m before now
+  dtostrf((double)(t-1800UL), 0, 0, Str3);  // start 30m before next run
   char Str4[] = "&end=";
   char Str5[12];
-  dtostrf((double)t, 0, 0, Str5);
+  dtostrf((double)(t-300UL), 0, 0, Str5);
   char Str6[] = "&step=300&timeout=10s HTTP/1.1\r\nHost: ";
   char Str7[] = "\r\nConnection: close\r\n\r\n";
   char query[200];
@@ -36,10 +35,11 @@ void fillBarrel() {
   strcat(query,host);
   strcat(query,Str7);
 
+  Serial.print(query);
+
   if (client.connect(host, 9090)) {
     client.write(query,strlen(query));
     replyPtr = 0;
-//    Serial.print(query);
     while (client.connected() || client.available()) {
       if (client.available()) {
         longStr[replyPtr++] = client.read();
@@ -60,8 +60,8 @@ void fillBarrel() {
     if (replyPtr > 20) {
         char* tok; 
         tok = strstr(longStr,"values");
-        fh.printf("\n%s",tok);
-        uint8_t en_index = (minute()/5)%6; 
+        fh.printf("\n%s %s ",dateStamp(),timeStamp());
+        uint8_t en_index = (minute()/5)%6;  // points to times 5 minutes ago
         for ( int i=0;i<6;i++ ) {
             tok = strstr(tok+1,",\"");
             value = atof(tok+2);
@@ -69,11 +69,14 @@ void fillBarrel() {
             en_index = (en_index+1)%6; 
             Imp_5m_kWh[en_index] = value;
         }
+        fh.printf("  import meter: %f\n",Imp_meter);
     }
+    else diagMess(" fillBarrel query failed");
     fh.close();
     client.stop();
     delay(1);
   }
+  Serial.printf("\nsecs elapsed for query %lu\n", millis()-t1);
 }
 
 

@@ -44,7 +44,7 @@ void waitForData() {
 #ifdef RMS1
   watchWait(90);
 #else
-  watchWait(400);
+  watchWait(300);
 #endif
 
   do {

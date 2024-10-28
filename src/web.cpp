@@ -197,7 +197,8 @@ void handleMetrics() {
   promform("rms2WaitWatchMin", (float)WWmin, 0);
   promform("rms2WaitWatchMax", (float)WWmax, 0);
   promform("rms2MissedCycles", (float)missedCycle, 0);
-  promform("rms2ScanTime", (float)t_scan_max, 0);
+  promform("rms2ScanTime_min", (float)t_scan_min, 0);
+  promform("rms2ScanTime_max", (float)t_scan_max, 0);
   promform("rms2watchDog", (float)watchDog, 0);
 #else
   // housekeeping
@@ -206,7 +207,8 @@ void handleMetrics() {
   promform("rmsWaitWatchMin", (float)WWmin, 0);
   promform("rmsWaitWatchMax", (float)WWmax, 0);
   promform("rmsMissedCycles", (float)missedCycle, 0);
-  promform("rmsScanTime", (float)t_scan_max, 0);
+  promform("rmsScanTime_min", (float)t_scan_min, 0);
+  promform("rmsScanTime_max", (float)t_scan_max, 0);
 #endif
 
   server.send ( 200, "text/plain", longStr );
@@ -222,11 +224,10 @@ void handleMetrics() {
     Wrms_max[i] = -9999.0F;
   }
   noDataYet = true;
-  E3 = Energy[3];   // store import energy value for next t_scan
-  E7 = Energy[7];   // store export energy ""
   lastScan = millis();
   scanSec = second();
   t_scan_max = 0UL;
+  t_scan_min = 9999UL;
   WWmin = 9999;
   WWmax = 0;
   LTmin = 9999;

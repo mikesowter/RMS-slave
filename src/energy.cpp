@@ -17,24 +17,29 @@ void dailyEnergy() {
   float tier1loads = 0.0F, tier2loads, split, rate; 
   float tier1solar, tier2solar, spareSolar, factor = 1.0F;
 #endif
-  t_scan = max( 500UL, millis()-t_lastData );         // typically 900ms for RMS1, 523ms for RMS2
+  t_scan = max( 400UL, millis()-t_lastData );         // typically 900ms for RMS1, 423ms for RMS2
   t_scan = min( 1000UL, t_scan );
-  if ( t_scan > t_scan_max ) t_scan_max = t_scan;     //              ms-s     W-kW     s-hr
+  if ( t_scan > t_scan_max ) t_scan_max = t_scan; 
+  if ( t_scan < t_scan_min ) t_scan_min = t_scan;     //              ms-s     W-kW     s-hr
   float Wms2kWh = (float)t_scan/3.6E9;                // Wms to kWh (1/1000)*(1/1000)*(1/3600)
   
   t_lastData = millis();
-  for ( int i = 1;i<NUM_CCTS+1;i++ ) {                // power (W) to energy (kWh)
+  for ( int i = 4;i<NUM_CCTS;i++ ) {                // power (W) to energy (kWh)
     if ( abs(Wrms[i]) < noise[i] ) Wrms[i] = 0.0;     // eliminate noise
+    if ( abs(Wrms[i]) > 10000.0F ) {
+      Wrms[i] = 0.0;
+      sprintf(charBuf,"excessive power reading on %d",i);
+      diagMess(charBuf);
+    }
     incEnergy[i] = Wrms[i] * Wms2kWh;   
-    if ( i==7 ) {                                     // power flow on main isolator
-      if ( Wrms[7] > 0.0F ) Energy[7] += incEnergy[7];  // Export energy on 7
-      else Energy[0] -= incEnergy[7];                   // Import energy on 0
-    }    
-    else Energy[i] += incEnergy[i];
+    if ( incEnergy[i] < 0.003F ) Energy[i] += incEnergy[i];  // 10000W*1000ms/3.6E9
 #ifdef RMS1
     if ( i!=1 && i!=5 && i!=7 ) tier1loads += incEnergy[i]; // loads 2,3,4,6,8
 #endif
   }
+  Energy[0] += Wimp * Wms2kWh;                    // Import energy on 0
+  Energy[7] += Wexp * Wms2kWh;                    // Export energy on 7
+      
   Imp_meter += Wimp * Wms2kWh;
   Exp_meter += Wexp * Wms2kWh;
 #ifdef RMS1

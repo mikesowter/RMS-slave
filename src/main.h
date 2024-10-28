@@ -91,7 +91,7 @@ uint16_t i, oldYear, htmlLen, CstringPtr, syncDelay = 800;
 uint16_t localPort = 4210;          //  must match port assigned in "pulse"
 uint16_t loopCount = 0, missedCycle = 0;
 unsigned long t0, t1, t2, t3, startMillis, startSeconds, lastScan, startOutage;
-unsigned long t_lastData, t_scan, t_scan_max, waiting, WWmin, WWmax, WDmin, WDmax;
+unsigned long t_lastData, t_scan, t_scan_max, t_scan_min = 9999UL, waiting, WWmin, WWmax, WDmin, WDmax;
 unsigned long loopStart, loopTime, LTmin, LTmax, progLoopTime;
 unsigned long wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
 
@@ -114,7 +114,7 @@ float Wrms[MAX_CCTS+1];					// Sum of sampled V*I
     cct5 Wrms[6]  garage lights
     cct6 Wrms[7]  export power
 */
-float Energy[NUM_CCTS+1],E3,E7;	
+float Energy[NUM_CCTS+1];	
 float incEnergy[NUM_CCTS+1];
 float costEnergy[3][NUM_CCTS+1];   
 /*  RMS1
