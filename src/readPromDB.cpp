@@ -29,7 +29,7 @@ void readPromDB() {
   }  
 #else
   for (int cct = 0; cct<8; cct++) {
-    if ( cct>0 && cct<4 ) continue;  
+    if ( cct == 1 ) cct = 4;          // jump ccts 1,2,3
     strcpy(unit,"rms2Energy");
     int len = strlen(unit);
     unit[len] = '0' + cct;
@@ -41,7 +41,7 @@ void readPromDB() {
     int len = strlen(unit);
     unit[len] = '0' + cct;
     unit[len+1] = '\0';
-    Energy[cct] = readPromItem(unit);
+    Wrms_avg[cct] = readPromItem(unit);
   } 
   strcpy(unit,"rms2Imp_meter");
   Imp_meter = readPromItem(unit);

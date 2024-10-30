@@ -69,7 +69,7 @@ void fillBarrel() {
             en_index = (en_index+1)%6; 
             Imp_5m_kWh[en_index] = value;
         }
-        fh.printf("  import meter: %f\n",Imp_meter);
+        fh.printf("  now: %0.3f",Imp_meter);
     }
     else diagMess(" fillBarrel query failed");
     fh.close();

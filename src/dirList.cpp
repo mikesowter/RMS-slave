@@ -11,7 +11,7 @@ void handleDir() {
 	strcat(longStr," bytes used:\n");
   Dir dir = LittleFS.openDir("/");
   while (dir.next()) {
-    dir.fileName().toCharArray(fileName, 14);
+    dir.fileName().toCharArray(fileName, 20);
     strcat(longStr,"\n");
     strcat(longStr,fileName);
     strcat(longStr,"\t");
@@ -28,7 +28,7 @@ void helpPage() {
   strcat(longStr,"<!DOCTYPE html><html><body><HR>");
   strcat(longStr,"Valid options include:");
   strcat(longStr,"<P>");
-  strcat(longStr,"8.3 filename");
+  strcat(longStr,"filename");
   strcat(longStr,"<P>");
   strcat(longStr,"deldiags");
   strcat(longStr,"<P>");
@@ -38,9 +38,7 @@ void helpPage() {
   strcat(longStr,"<P>");
   strcat(longStr,"dir");
   strcat(longStr,"<P>");
-  strcat(longStr,"goback24");
-  strcat(longStr,"<P>");
-  strcat(longStr,"goback48");
+  strcat(longStr,"goback-hh");
   strcat(longStr,"<P>");
   strcat(longStr,"metrics");
   strcat(longStr,"<P>");

@@ -128,7 +128,7 @@ bool unloadValues() {
 
     for (uint8_t p=1 ; p<=NUM_CCTS ; p++) { 
       w = unload2Bytes();
-      w = (int16_t) w;                         // convert unsigned to signed
+      w = 1.33F*(int16_t) w;                     // convert unsigned to signed and temp scale
       if ( abs(w) > 10000.0F || abs(w) < 5.0F ) w = 0.0F;
       Wrms[p] = 0.5F*w + 0.5F*Wrms[p];           // remove quantizing error             
       if (w < Wrms_min[p]) Wrms_min[p] = w;

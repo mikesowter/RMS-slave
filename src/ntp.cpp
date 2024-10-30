@@ -63,6 +63,7 @@ void setupTime() {
   setTime(getTime());
   setupSPIslave();      // and tell Master the time, one day he'll read it
   SPISlave.end();
+  t_lastData = millis();
   oldMin = minute();
   old5Min = minute()/5;
   oldQtr = oldMin/15;

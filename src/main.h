@@ -65,7 +65,7 @@ bool T31charging, pwrOutage, peakPeriod;
 bool FTPcheck;
 bool newArg;             // new parameter for database
 uint8_t gobackhrs = 0;     // get scan data from database?
-char fileName[] = "/XXXyymmdd.csv";
+char fileName[20];
 char todayName[] = "/XXXyymmdd.csv";
 char userText[30];
 char saveName[20];

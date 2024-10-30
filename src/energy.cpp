@@ -17,7 +17,7 @@ void dailyEnergy() {
   float tier1loads = 0.0F, tier2loads, split, rate; 
   float tier1solar, tier2solar, spareSolar, factor = 1.0F;
 #endif
-  t_scan = max( 400UL, millis()-t_lastData );         // typically 900ms for RMS1, 423ms for RMS2
+  t_scan = max( 300UL, millis()-t_lastData );         // typically 900ms for RMS1, 400ms for RMS2
   t_scan = min( 1000UL, t_scan );
   if ( t_scan > t_scan_max ) t_scan_max = t_scan; 
   if ( t_scan < t_scan_min ) t_scan_min = t_scan;     //              ms-s     W-kW     s-hr
@@ -26,13 +26,12 @@ void dailyEnergy() {
   t_lastData = millis();
   for ( int i = 4;i<NUM_CCTS;i++ ) {                // power (W) to energy (kWh)
     if ( abs(Wrms[i]) < noise[i] ) Wrms[i] = 0.0;     // eliminate noise
-    if ( abs(Wrms[i]) > 10000.0F ) {
-      Wrms[i] = 0.0;
-      sprintf(charBuf,"excessive power reading on %d",i);
+    incEnergy[i] = Wrms[i] * Wms2kWh;   
+    if ( abs(incEnergy[i]) < 0.003F ) Energy[i] += incEnergy[i];  // 10000W*1000ms/3.6E9
+    else {
+      sprintf(charBuf,"excess incEnergy[%d] of %.3f",i,incEnergy[i]);
       diagMess(charBuf);
     }
-    incEnergy[i] = Wrms[i] * Wms2kWh;   
-    if ( incEnergy[i] < 0.003F ) Energy[i] += incEnergy[i];  // 10000W*1000ms/3.6E9
 #ifdef RMS1
     if ( i!=1 && i!=5 && i!=7 ) tier1loads += incEnergy[i]; // loads 2,3,4,6,8
 #endif
