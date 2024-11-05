@@ -130,10 +130,11 @@ bool unloadValues() {
       w = unload2Bytes();
       w = 1.33F*(int16_t) w;                     // convert unsigned to signed and temp scale
       if ( abs(w) > 10000.0F || abs(w) < 5.0F ) w = 0.0F;
-      Wrms[p] = 0.5F*w + 0.5F*Wrms[p];           // remove quantizing error             
+      Wrms[p] = 0.5F*w + 0.5F*Wrms[p];           // remove half the quantizing error             
       if (w < Wrms_min[p]) Wrms_min[p] = w;
       if (w > Wrms_max[p]) Wrms_max[p] = w;
-      Wrms_avg[p] = 0.7F*Wrms_avg[p] + 0.3F*w;   // should do smooth over 10*0.5s scans
+      Wrms_avg[p] = 0.7F*Wrms_avg[p] + 0.3F*w;   // should do smooth over 12*0.4s scans
+    //  Wrms_avg[p] = smoothWatts(w,p,25);
     }
     #ifdef RMS1
       avSparekW = 0.99*avSparekW + 0.01*(Wrms[7]-Wrms[1]);

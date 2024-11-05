@@ -47,6 +47,7 @@ void setupTime();
 void calcCheckSum();
 void activity(const char* tag);
 void writeImportExport();
+float smoothWatts(float w, uint8_t cct, uint8_t d);
 
 extern uint8_t gobackhrs;
 extern WiFiUDP udp;
