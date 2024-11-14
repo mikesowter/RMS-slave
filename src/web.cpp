@@ -62,11 +62,11 @@ void handleMetrics() {
  // power
  //   promform("rms2Pwr_min1", Wrms_min[1], 2);
  //   promform("rms2Pwr_min2", Wrms_min[2], 2);
- //   promform("rms2Pwr_min3", Wrms[3], 2);
-    promform("rms2Pwr_min4", Wrms[4], 2);
-    promform("rms2Pwr_min5", Wrms[5], 2);
-    promform("rms2Pwr_min6", Wrms[6], 2);
-    promform("rms2Pwr_min7", Wrms[7], 2);
+ //   promform("rms2Pwr_min3", Wrms_min[3], 2);
+    promform("rms2Pwr_min4", Wrms_min[4], 2);
+    promform("rms2Pwr_min5", Wrms_min[5], 2);
+    promform("rms2Pwr_min6", Wrms_min[6], 2);
+    promform("rms2Pwr_min7", Wrms_min[7], 2);
 
 //    promform("rms2Pwr_max1", Wrms_max[1], 2);
 //    promform("rms2Pwr_max2", Wrms_max[2], 2);

@@ -62,18 +62,18 @@ void fillBarrel() {
     if (replyPtr > 65) {
         char* tok; 
         tok = strstr(longStr,"values");
-        fh = LittleFS.open("BarrelData.txt","a+");
-        fh.printf("\n%s %s ",dateStamp(),timeStamp());
-        uint8_t en_index = (minute()/5)%6;  // points to times 5 minutes ago
+//        fh = LittleFS.open("BarrelData.txt","a+");
+//        fh.printf("\n%s %s ",dateStamp(),timeStamp());
+        uint8_t en_index = (minute()/5)%6;    // points to times 5 minutes ago
         for ( int i=0;i<6;i++ ) {
             tok = strstr(tok+1,",\"");
             value = atof(tok+2);
-            fh.printf(" %d: %0.3f",en_index,value);
+//            fh.printf(" %d: %0.3f",en_index,value);
             en_index = (en_index+1)%6; 
             Imp_5m_kWh[en_index] = value;
         }
-        fh.printf("  now: %0.3f",Imp_meter);
-        fh.close();
+//       fh.printf("  now: %0.3f",Imp_meter);
+//       fh.close();
     }
     else {
       diagMess(" fillBarrel query failed");
@@ -83,7 +83,7 @@ void fillBarrel() {
     client.stop();
     delay(1);
   }
-  Serial.printf("\nsecs elapsed for query %lu\n", millis()-t1);
+  Serial.printf("\nmsecs elapsed for query %lu\n", millis()-t1);
 }
 
 

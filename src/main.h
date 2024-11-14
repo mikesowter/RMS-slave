@@ -76,7 +76,7 @@ char d2Str[] = "01";
 char d8Str[8];
 char fltStr[12];
 char longStr[LONG_STR_SIZE];  
-float smoothWatts(float w, uint8_t cct, uint8_t d);
+float avgWatts(float w, uint8_t cct, uint8_t d);
 IPAddress localIP, timeServerIP;
 IPAddress ip(192, 168, 1, IP4); 
 IPAddress gateway(192, 168, 1, 1);
@@ -128,7 +128,7 @@ float Wrms_min[NUM_CCTS+1];		    // in Watts
 float Wrms_max[NUM_CCTS+1];	
 float Wrms_avg[NUM_CCTS+1];	
 float Wimp, Wexp;
-float wattsBarrel[8][25];
+float wattsBarrel[8][8];
 float Arms[NUM_CCTS+1];				// root sum I^2
 float Vrms, Vpk_min, Vpk_max;		// root sum V^2, -Vp, +Vp
 float Freq = 50.0;                  // grid frequency to 50.01 res

@@ -126,17 +126,17 @@ bool unloadValues() {
     Vrms_min = _min(Vrms_min,v);
     #endif
 
-    for (uint8_t p=1 ; p<=NUM_CCTS ; p++) { 
+    for (uint8_t cct=1 ; cct<=NUM_CCTS ; cct++) {     // cct 0 is volts
       w = unload2Bytes();
-      w = 1.2F*(int16_t) w;                     // convert unsigned to signed and scale 18Nov
+      w = 1.2F*(int16_t) w;                     // convert unsigned to signed and scale 12Nov
       if ( abs(w) > 10000.0F || abs(w) < 5.0F ) w = 0.0F;
-      Wrms[p] = 0.5F*w + 0.5F*Wrms[p];           // remove half the quantizing error             
-      if (w < Wrms_min[p]) Wrms_min[p] = w;
-      if (w > Wrms_max[p]) Wrms_max[p] = w;
-    //  Wrms_avg[p] = 0.8F*Wrms_min[p] + 0.2F*Wrms_max[p];
-      Wrms_avg[p] = 0.4F*w + 0.6F*Wrms[p];         // should do smooth over 7*0.7s scans
-    //  Wrms_avg[p] = 0.7F*Wrms_avg[p] + 0.3F*w;   // should do smooth over 12*0.4s scans
-    //  Wrms_avg[p] = smoothWatts(w,p,25);
+      Wrms[cct] = 0.5F*w + 0.5F*Wrms[cct];           // remove half the quantizing error             
+      if (Wrms[cct] < Wrms_min[cct]) Wrms_min[cct] = Wrms[cct];
+      if (Wrms[cct] > Wrms_max[cct]) Wrms_max[cct] = Wrms[cct];
+
+    //  Wrms_avg[cct] = 0.4F*w + 0.6F*Wrms[cct];         // should do smooth over 7*0.7s scans
+    //  Wrms_avg[cct] = 0.3F*w + 0.7F*Wrms_avg[cct];     // should do smooth over 12*0.4s scans
+      Wrms_avg[cct] = avgWatts(w,cct,8);
     }
     #ifdef RMS1
       avSparekW = 0.99*avSparekW + 0.01*(Wrms[7]-Wrms[1]);
