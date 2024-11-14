@@ -44,7 +44,7 @@ void waitForData() {
 #ifdef RMS1
   watchWait(90);
 #else
-  watchWait(300);
+  watchWait(350);       // latest master cycle 700ms
 #endif
 
   do {
@@ -128,12 +128,14 @@ bool unloadValues() {
 
     for (uint8_t p=1 ; p<=NUM_CCTS ; p++) { 
       w = unload2Bytes();
-      w = 1.33F*(int16_t) w;                     // convert unsigned to signed and temp scale
+      w = 1.2F*(int16_t) w;                     // convert unsigned to signed and scale 18Nov
       if ( abs(w) > 10000.0F || abs(w) < 5.0F ) w = 0.0F;
       Wrms[p] = 0.5F*w + 0.5F*Wrms[p];           // remove half the quantizing error             
       if (w < Wrms_min[p]) Wrms_min[p] = w;
       if (w > Wrms_max[p]) Wrms_max[p] = w;
-      Wrms_avg[p] = 0.7F*Wrms_avg[p] + 0.3F*w;   // should do smooth over 12*0.4s scans
+    //  Wrms_avg[p] = 0.8F*Wrms_min[p] + 0.2F*Wrms_max[p];
+      Wrms_avg[p] = 0.4F*w + 0.6F*Wrms[p];         // should do smooth over 7*0.7s scans
+    //  Wrms_avg[p] = 0.7F*Wrms_avg[p] + 0.3F*w;   // should do smooth over 12*0.4s scans
     //  Wrms_avg[p] = smoothWatts(w,p,25);
     }
     #ifdef RMS1

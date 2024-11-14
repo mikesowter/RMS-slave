@@ -49,17 +49,20 @@ void fillBarrel() {
       }
     }
     longStr[replyPtr] = '\0';
-    fh = LittleFS.open("BarrelData.txt","a+");
+    Serial.println(longStr);
+    
 
 
 /*  typical reply:
 {"status":"success","data":{"resultType":"matrix","result":[{"metric":{"__name__":"rms2Imp_meter","instance":"192.168.1.62:80","job":"RMS2"},
 "values":[[1729492439,"51.363"],[1729492739,"51.419"],[1729493039,"51.475"],[1729493339,"51.605"],[1729493639,"51.788"],[1729493939,"51.967"]]}]}}
-*/
+    empty reply:
+{"status":"success","data":{"resultType":"matrix","result":[]}}       */
 
-    if (replyPtr > 20) {
+    if (replyPtr > 65) {
         char* tok; 
         tok = strstr(longStr,"values");
+        fh = LittleFS.open("BarrelData.txt","a+");
         fh.printf("\n%s %s ",dateStamp(),timeStamp());
         uint8_t en_index = (minute()/5)%6;  // points to times 5 minutes ago
         for ( int i=0;i<6;i++ ) {
@@ -70,9 +73,13 @@ void fillBarrel() {
             Imp_5m_kWh[en_index] = value;
         }
         fh.printf("  now: %0.3f",Imp_meter);
+        fh.close();
     }
-    else diagMess(" fillBarrel query failed");
-    fh.close();
+    else {
+      diagMess(" fillBarrel query failed");
+      Serial.println(" fillBarrel query failed");
+      for ( int i=0;i<6;i++ ) Imp_5m_kWh[i] = Imp_meter;
+    }
     client.stop();
     delay(1);
   }
