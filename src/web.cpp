@@ -27,6 +27,12 @@ void handleRoot() {
   strcat(longStr,f2s4(Energy[5]));
   strcat(longStr,"\nsolar_kWh ");
   strcat(longStr,f2s4(Energy[7]));
+
+  strcat(longStr,"\nrms2importW ");
+  strcat(longStr,f2s4(Wrms[2]));
+  strcat(longStr,"\nrms2exportW ");
+  strcat(longStr,f2s4(Wrms[1]));
+  
   strcat(longStr,"\nWifiSignal ");
   strcat(longStr,f2s2(-WiFi.RSSI()));
   server.send ( 200, "text/plain", longStr );
@@ -63,6 +69,9 @@ void handleMetrics() {
  //   promform("rms2Pwr_min1", Wrms_min[1], 2);
  //   promform("rms2Pwr_min2", Wrms_min[2], 2);
  //   promform("rms2Pwr_min3", Wrms_min[3], 2);
+    promform("rms2importW", Wrms[2], 2);
+    promform("rms2exportW", Wrms[1], 2);
+
     promform("rms2Pwr_min4", Wrms_min[4], 2);
     promform("rms2Pwr_min5", Wrms_min[5], 2);
     promform("rms2Pwr_min6", Wrms_min[6], 2);

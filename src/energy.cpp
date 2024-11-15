@@ -36,11 +36,11 @@ void dailyEnergy() {
     if ( i!=1 && i!=5 && i!=7 ) tier1loads += incEnergy[i]; // loads 2,3,4,6,8
 #endif
   }
-  Energy[0] += Wimp * Wms2kWh;                    // Import energy on 0
-  Energy[7] += Wexp * Wms2kWh;                    // Export energy on 7
+  Energy[0] += Wimp * Wms2kWh;                    // daily sum energy 
+  Energy[7] -= Wexp * Wms2kWh;                    // export defined as neg power flow
       
-  Imp_meter += Wimp * Wms2kWh;
-  Exp_meter += Wexp * Wms2kWh;
+  Imp_meter += Wimp * Wms2kWh;                    // energex meter
+  Exp_meter -= Wexp * Wms2kWh;
 #ifdef RMS1
   loads = incEnergy[1];     // total kWh (solar+Tariff11) on dist panel
   // calculate the impact of 3 panel sizes
