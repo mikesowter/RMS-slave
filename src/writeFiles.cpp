@@ -88,14 +88,13 @@ void writePeak() {
   return;
 }
 
-void writeImportExport() {
+void writeDemands() {
   char name[20];
-  strcpy(name,"IO");
+  strcpy(name,"DM");
   strcat(name,dateStamp());
   strcat(name,".csv");
   fh = LittleFS.open(name,"a+");
-  fh.printf("%s,%.0f,%.0f,%.0f,%.0f,%.0f,%.0f\n",timeStamp(),
-            rms5Demand,rms15Demand,rms30Demand,FI_5m_kW,FI_15m_kW,FI_30m_kW);
+  fh.printf("%s,%.0f,%.0f,%.0f\n",timeStamp(),rms5Demand,rms15Demand,rms30Demand);
   fh.close();
   return;
 }

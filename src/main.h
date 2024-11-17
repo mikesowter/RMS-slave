@@ -42,7 +42,7 @@ void fillBarrel();
 void setupFS();
 void sync2Master();
 void calcCheckSum();
-void writeImportExport();
+void writeDemands();
 
 String resetReason = "Restart caused by " + ESP.getResetReason();
 String resetDetail = ESP.getResetInfo();
@@ -63,6 +63,7 @@ bool checkSumBad;
 bool waterOn, exporting, exporting7_5, exporting10, scanFail;
 bool T31charging, pwrOutage, peakPeriod;
 bool FTPcheck;
+
 bool newArg;             // new parameter for database
 uint8_t gobackhrs = 0;     // get scan data from database?
 char fileName[20];
@@ -88,7 +89,7 @@ uint8_t wattsIndex;
 uint8_t buffer[BUFFER_SIZE];
 uint8_t oldMin, old5Min, oldQtr, oldHour, oldDay, oldMonth, offset;
 uint8_t scanSec, badSumCount = 0;
-uint16_t i, oldYear, htmlLen, CstringPtr, syncDelay = 800;
+uint16_t i, htmlLen, CstringPtr, syncDelay = 800;
 uint16_t localPort = 4210;          //  must match port assigned in "pulse"
 uint16_t loopCount = 0, missedCycle = 0;
 unsigned long t0, t1, t2, t3, startMillis, startSeconds, lastScan, startOutage;

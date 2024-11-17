@@ -46,7 +46,7 @@ void updateBatteryFile();
 void setupTime();
 void calcCheckSum();
 void activity(const char* tag);
-void writeImportExport();
+void writeDemands();
 float avgWatts(float w, uint8_t cct, uint8_t d);
 
 extern uint8_t gobackhrs;

@@ -25,11 +25,6 @@ void minProc() {
   rms30Demand = (Imp_kWh_now - Imp_5m_kWh[en_index])*2000.0F;  
   Imp_5m_kWh[en_index] = Imp_kWh_now;     // overwrite value from 30m ago
 
-  if ( peakPeriod ) {
-    if ( rms15Demand > rms15Peak ) rms15Peak = rms15Demand;
-    if ( rms30Demand > rms30Peak ) rms30Peak = rms30Demand;
-    writeImportExport();
-  }
 #else
   rms5Demand  = (Imp_meter - Imp_5m_kWh[en5index])*12000.0F;
   rms15Demand = (Imp_meter - Imp_5m_kWh[en15index])*4000.0F;
@@ -44,6 +39,11 @@ void minProc() {
   }
   Imp_5m_kWh[en_index] = Imp_meter;     // overwrite value from 30m ago
 #endif
+  if ( peakPeriod ) {
+    if ( rms15Demand > rms15Peak ) rms15Peak = rms15Demand;
+    if ( rms30Demand > rms30Peak ) rms30Peak = rms30Demand;
+    writeDemands();
+  }
 
   // check for new quarter hour
   if ( oldQtr == minute()/15 ) return;

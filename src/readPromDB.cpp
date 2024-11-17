@@ -47,6 +47,10 @@ void readPromDB() {
   Imp_meter = readPromItem(unit);
   strcpy(unit,"rms2Exp_meter");
   Exp_meter = readPromItem(unit);
+  strcpy(unit,"rms2_15Peak");
+  rms15Peak = readPromItem(unit);
+  strcpy(unit,"rms2_30Peak");
+  rms30Peak = readPromItem(unit);
 #endif
 // read miscellaneous battery and solar values
 #ifdef RMS1
