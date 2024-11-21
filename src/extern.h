@@ -82,7 +82,7 @@ extern uint8_t scanSec, badSumCount;
 extern uint8_t MOSIdata[], MISOdata[];
 extern uint8_t oldMin, old5Min, oldQtr, oldHour, oldDay, oldMonth, offset;
 extern uint16_t i, oldYear, htmlLen, CstringPtr;
-extern uint16_t localPort, loopCount, missedCycle;   
+extern uint16_t localPort, loopCount, missedCycle;  
 extern unsigned long t0, t1, t2, t3, startMillis, startSeconds, lastScan;
 extern unsigned long t_lastData, t_scan, t_scan_max, t_scan_min, waiting, WWmin, WWmax, WDmin, WDmax;
 extern unsigned long loopStart, loopTime, LTmin, LTmax;
@@ -113,4 +113,5 @@ extern float excessSolar[], batt_savings[3][3];    // first index is solar, 2nd 
 extern float batt_tohouse[3][3], batt_charge[3][3], dump_togrid[3][3];
 extern float loads, solar, avSparekW;
 extern float Vbat;
+extern float I7phase;
 

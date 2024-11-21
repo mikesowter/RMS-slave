@@ -89,7 +89,7 @@ uint8_t wattsIndex;
 uint8_t buffer[BUFFER_SIZE];
 uint8_t oldMin, old5Min, oldQtr, oldHour, oldDay, oldMonth, offset;
 uint8_t scanSec, badSumCount = 0;
-uint16_t i, htmlLen, CstringPtr, syncDelay = 800;
+uint16_t oldYear, i, htmlLen, CstringPtr, syncDelay = 800;
 uint16_t localPort = 4210;          //  must match port assigned in "pulse"
 uint16_t loopCount = 0, missedCycle = 0;
 unsigned long t0, t1, t2, t3, startMillis, startSeconds, lastScan, startOutage;
@@ -110,11 +110,11 @@ float Wrms[MAX_CCTS+1];					// Sum of sampled V*I
     cct7 Wrms[8]  lights    
 
     RMS2:
-    cct2 Wrms[3]  import power
-    cct3 Wrms[4]  garage aircon
-    cct4 Wrms[5]  garage power
-    cct5 Wrms[6]  garage lights
-    cct6 Wrms[7]  export power
+    cct3 Wrms[3]  cct7 phase
+    cct4 Wrms[4]  garage aircon
+    cct5 Wrms[5]  garage power
+    cct6 Wrms[6]  garage lights
+    cct7 Wrms[7]  export power
 */
 float Energy[NUM_CCTS+1];	
 float incEnergy[NUM_CCTS+1];
@@ -148,6 +148,7 @@ float T11_inc[3];           // increment from grid
 float FIT_kWh[3];
 float FIT_inc[3];
 float T11_W;
+float I7phase;
 
 
 

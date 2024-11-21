@@ -209,6 +209,8 @@ void handleMetrics() {
   promform("rms2ScanTime_min", (float)t_scan_min, 0);
   promform("rms2ScanTime_max", (float)t_scan_max, 0);
   promform("rms2watchDog", (float)watchDog, 0);
+  newArg = true;
+  promform("rms2I7phase",(float)I7phase,0);
 #else
   // housekeeping
   promform("rmsWfdTimeMin", (float)WFDmin, 0);
