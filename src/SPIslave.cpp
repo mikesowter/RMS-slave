@@ -146,9 +146,18 @@ bool unloadValues() {
     #else
     w = Wrms_avg[7];
     // load on main isolator (cct7) calc'd in master - changed 16/11/24
-    Wexp = Wrms[1]; 
-    Wimp = Wrms[2];  
+    // Wexp = Wrms[1]; 
+    // Wimp = Wrms[2];  
     I7phase = Wrms[3];           // phase added 21/11/24
+    if ( I7phase > 180.0F ) I7phase -= 360.0F;
+    if ( abs(I7phase) < 90 ) {   // import power
+      Wimp = abs(w);
+      Wexp = 0.0F;
+    }
+    else {                       // export power
+      Wexp = abs(w);
+      Wimp = 0.0F;
+    }
     
     offset = 22;
     v = unload2Bytes()/100.0;    // Vpp_max

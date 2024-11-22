@@ -8,7 +8,8 @@ void promform(const char* pname,float lval, uint8_t res) {
   char fltStr[12];
   dtostrf((double)lval, 0, res, fltStr);
   if ( newArg ) {
-    sprintf(charBuf,"\n# TYPE %s gauge\n%s %s",pname, pname, fltStr);
+    sprintf(charBuf,"\n# TYPE %s gauge",pname);
+    strcat(longStr,charBuf);
     newArg = false;
   }
   sprintf(charBuf,"\n%s %s", pname, fltStr);
