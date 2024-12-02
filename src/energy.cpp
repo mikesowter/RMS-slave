@@ -37,10 +37,10 @@ void dailyEnergy() {
 #endif
   }
   Energy[0] += Wimp * Wms2kWh;                    // daily sum energy 
-  Energy[7] += Wexp * Wms2kWh;                    // export defined as neg power flow
+  Energy[7] -= Wexp * Wms2kWh;                    // export defined as neg power flow
       
   Imp_meter += Wimp * Wms2kWh;                    // energex meter
-  Exp_meter += Wexp * Wms2kWh;
+  Exp_meter -= Wexp * Wms2kWh;
 #ifdef RMS1
   loads = incEnergy[1];     // total kWh (solar+Tariff11) on dist panel
   // calculate the impact of 3 panel sizes

@@ -30,9 +30,9 @@ void minProc() {
   rms15Demand = (Imp_meter - Imp_5m_kWh[en15index])*4000.0F;
   rms30Demand = (Imp_meter - Imp_5m_kWh[en_index])*2000.0F;  
   if ( rms5Demand > 10000.0F || rms15Demand > 10000.0F || rms30Demand > 10000.0F ) {
-    sprintf(charBuf,"now:%.3f 0:%.3f 1:%.3f 2:%.3f 3:%.3f 4:%.3f 5:%.3f",Imp_meter,
-              Imp_5m_kWh[0],Imp_5m_kWh[1],Imp_5m_kWh[2],Imp_5m_kWh[3],Imp_5m_kWh[4],Imp_5m_kWh[5]);
-    diagMess(charBuf);
+//    sprintf(charBuf,"now:%.3f 0:%.3f 1:%.3f 2:%.3f 3:%.3f 4:%.3f 5:%.3f",Imp_meter,
+//              Imp_5m_kWh[0],Imp_5m_kWh[1],Imp_5m_kWh[2],Imp_5m_kWh[3],Imp_5m_kWh[4],Imp_5m_kWh[5]);
+//   diagMess(charBuf);
     rms5Demand = 0.0F;
     rms15Demand = 0.0F;
     rms30Demand = 0.0F;         

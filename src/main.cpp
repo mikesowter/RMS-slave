@@ -25,7 +25,7 @@ void setup(void) {
   diagMess(charBuf); 				// only give detail
   // recover previous values from prometheus
   readPromDB();  
-  fillBarrel();
+  // fillBarrel();
   // check for peak
   peakPeriod = hour() >= 16 && hour() < 21;
   // setup server
