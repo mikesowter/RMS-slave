@@ -202,6 +202,7 @@ void handleMetrics() {
 
 #ifdef RMS2
   // housekeeping
+  if ( WFDmax > 0 ) {
   promform("rms2WfdTimeMin", (float)WFDmin, 0);
   promform("rms2WfdTimeMax", (float)WFDmax, 0);
   promform("rms2WaitWatchMin", (float)WWmin, 0);
@@ -210,8 +211,8 @@ void handleMetrics() {
   promform("rms2ScanTime_min", (float)t_scan_min, 0);
   promform("rms2ScanTime_max", (float)t_scan_max, 0);
   promform("rms2watchDog", (float)watchDog, 0);
-  newArg = true;
   promform("rms2I7phase",(float)I7phase,0);
+  }
 #else
   // housekeeping
   promform("rmsWfdTimeMin", (float)WFDmin, 0);
