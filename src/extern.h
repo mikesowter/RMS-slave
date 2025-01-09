@@ -90,7 +90,7 @@ extern unsigned long wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
 extern unsigned long waitStart, appStart;
 
 extern float Wrms[];					    // Sum of sampled V*I
-extern float Arms[];					    // root sum I^2
+extern float Irms;					    // root sum I^2
 extern float Vrms;			                // root sum V^2
 extern float Freq;
 extern float Vrms_min;

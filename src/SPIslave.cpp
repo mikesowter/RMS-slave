@@ -132,7 +132,7 @@ bool unloadValues() {
       if ( abs(w) > 10000.0F || abs(w) < 5.0F ) w = 0.0F;
       Wrms[cct] = 0.5F*w + 0.5F*Wrms[cct];           // remove half the quantizing error   
 
-      if ( cct == 7 ) Wrms[7] = 1.055*Wrms[7] - 40.0F; // best guess 11/12/24
+      if ( cct == 7 ) Wrms[7] = 1.056*Wrms[7] - 45.0F; // best guess 18/12/24 was 1.057, -45
       if (Wrms[cct] < Wrms_min[cct]) Wrms_min[cct] = Wrms[cct];
       if (Wrms[cct] > Wrms_max[cct]) Wrms_max[cct] = Wrms[cct];
       Wrms_avg[cct] = avgWatts(Wrms[cct],cct,8);

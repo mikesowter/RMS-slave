@@ -26,12 +26,10 @@ void watchWait(unsigned long timer) {
   waitStart = millis();
   while ( millis()-waitStart < timer) {          // wait for timeout
     unsigned long start = micros();    
-    // check for hotwater query
-    if ( udp.parsePacket() ) handleWater();      // 600us max
     appStart = millis();
     // check for web requests
     server.handleClient();                       // 16ms for metrics
-    activity("SVR");
+    activity("WEB");
     // check for OTA
     ArduinoOTA.handle();
     activity("OTA");
