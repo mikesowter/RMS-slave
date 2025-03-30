@@ -344,7 +344,7 @@ void handleNotFound() {
     do {
       // check for OTA & FTP
       ArduinoOTA.handle();
-      ftpSrv.handleFTP(FS_ID);
+      ftpSrv.handleFTP();
       watchDog = 0;
       delay(1);
     } while ( millis() - pauseStart < 30000);

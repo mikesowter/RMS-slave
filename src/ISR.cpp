@@ -35,7 +35,7 @@ void watchWait(unsigned long timer) {
     activity("OTA");
     // check for FTP request
     FTPcheck = true;
-	  ftpSrv.handleFTP(FS_ID);   // 300ms minimum
+	  ftpSrv.handleFTP();   // 300ms minimum
     FTPcheck = false;                  
     activity("FTP");
     // reset watch dog
