@@ -48,7 +48,7 @@ void updateEnergyFile() {
   // write daily energy sums
   fh.printf("\n%02d/%02d/%4d",day(),month(),year());
 #ifdef RMS1
-  for ( int i=1; i<NUM_CCTS+1; i++ ) {
+  for ( int i=FIRST_CCT; i<NUM_CCTS+1; i++ ) {
     fh.printf(",%.2f",Energy[i]);
     fh.printf(",$%.2f",costEnergy[0][i]);
     fh.printf(",$%.2f",costEnergy[1][i]);

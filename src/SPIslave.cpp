@@ -103,7 +103,7 @@ bool unloadValues() {
     Vmax_n = 0.0;      
     Vmin_p = 0.0;      
     Vmax_p = 0.0; 
-    for (int i=1;i<=NUM_CCTS;i++) {
+    for (int i=FIRST_CCT;i<=NUM_CCTS;i++) {
       Wrms_min[i] = 0.0F;
       Wrms_max[i] = 0.0F;
     }
@@ -126,19 +126,32 @@ bool unloadValues() {
     Vrms_min = _min(Vrms_min,v);
     #endif
 
-    for (uint8_t cct=1 ; cct<=NUM_CCTS ; cct++) {     // cct 0 is volts
+    for (uint8_t cct=FIRST_CCT ; cct<=NUM_CCTS ; cct++) {     // cct 0 is volts
       w = unload2Bytes();
-      w = 1.2F*(int16_t) w;                     // convert unsigned to signed and scale 12Nov
+      w = (int16_t) w;    // convert unsigned to signed 
+    #ifdef RMS2 
+      w = 1.2F * w;       // and scale here temp 12Nov       
+    #endif
       if ( abs(w) > 10000.0F || abs(w) < 5.0F ) w = 0.0F;
       Wrms[cct] = 0.5F*w + 0.5F*Wrms[cct];           // remove half the quantizing error   
-
+    #ifdef RMS2
       if ( cct == 7 ) Wrms[7] = 1.056*Wrms[7] - 45.0F; // best guess 18/12/24 was 1.057, -45
+    #endif
       if (Wrms[cct] < Wrms_min[cct]) Wrms_min[cct] = Wrms[cct];
       if (Wrms[cct] > Wrms_max[cct]) Wrms_max[cct] = Wrms[cct];
       Wrms_avg[cct] = avgWatts(Wrms[cct],cct,8);
     }
     #ifdef RMS1
-      avSparekW = 0.99*avSparekW + 0.01*(Wrms[7]-Wrms[1]);
+      float SparekW = Wrms[7]-Wrms[1];
+      avSparekW = 0.99*avSparekW + 0.01*SparekW;
+      if ( SparekW > 0.0F ) {
+        Wimp = 0.0;
+        Wexp = SparekW;
+      }
+      else {
+        Wimp = -SparekW;
+        Wexp = 0.0;
+      }
       if ( Wrms[5] > 2000.0F ) waterOn = true;
       else waterOn = false;
       for (uint8_t q=NUM_CCTS+1 ; q<=MAX_CCTS ; q++) Wrms[q] = 0.0; // unused inputs

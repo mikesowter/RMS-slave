@@ -232,7 +232,7 @@ void handleMetrics() {
   Vmax_p = 0.0F;
   Vrms_min = 500.0F;
   Vrms_max = 0.0F;
-  for (int i=1;i<=NUM_CCTS;i++) {
+  for (int i=FIRST_CCT;i<=NUM_CCTS;i++) {
     Wrms_min[i] = 9999.0F;
     Wrms_max[i] = -9999.0F;
   }

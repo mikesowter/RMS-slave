@@ -4,6 +4,8 @@
 
 #ifdef RMS1
 float noise[] = {0,5,5,5,5,5,50,5,5};  // updated 20220725 to handle oven(6) noise
+float tier1loads = 0.0F, tier2loads, split, rate; 
+float tier1solar, tier2solar, spareSolar, factor;
 #else
 float noise[] = {0,5,5,5,5,5,5,5}; 
 #endif
@@ -13,10 +15,6 @@ float noise[] = {0,5,5,5,5,5,5,5};
 
 void dailyEnergy() {
 
-#ifdef RMS1
-  float tier1loads = 0.0F, tier2loads, split, rate; 
-  float tier1solar, tier2solar, spareSolar, factor = 1.0F;
-#endif
   t_scan = max( 300UL, millis()-t_lastData );         // typically 900ms for RMS1, 400ms for RMS2
   t_scan = min( 1000UL, t_scan );
   if ( t_scan > t_scan_max ) t_scan_max = t_scan; 
@@ -24,7 +22,7 @@ void dailyEnergy() {
   float Wms2kWh = (float)t_scan/3.6E9;                // Wms to kWh (1/1000)*(1/1000)*(1/3600)
   
   t_lastData = millis();
-  for ( int i = 4;i<NUM_CCTS;i++ ) {                // power (W) to energy (kWh)
+  for ( int i = FIRST_CCT;i<NUM_CCTS;i++ ) {                  // power (W) to energy (kWh)
     if ( abs(Wrms[i]) < noise[i] ) Wrms[i] = 0.0;     // eliminate noise
     incEnergy[i] = Wrms[i] * Wms2kWh;   
     if ( abs(incEnergy[i]) < 0.003F ) Energy[i] += incEnergy[i];  // 10000W*1000ms/3.6E9
@@ -44,6 +42,7 @@ void dailyEnergy() {
 #ifdef RMS1
   loads = incEnergy[1];     // total kWh (solar+Tariff11) on dist panel
   // calculate the impact of 3 panel sizes
+  factor = 1.0F;
   for ( uint8_t ps=0;ps<3;ps++) {                      
     solar = factor*incEnergy[7];                       // simulating panels of 5,7.5 and 10kW
     tier2loads = loads - tier1loads;                   // non-essential (e.g. big heat pumps)
