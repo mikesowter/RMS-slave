@@ -1,4 +1,5 @@
 #include <extern.h>
+extern bool barrelFail;
 #include <ESP8266WiFi.h>
 
 uint16_t replyPtr, numPtr;
@@ -11,8 +12,11 @@ void fillBarrel() {
   unsigned long t = now() - 36000;        // Zulu time used in database
   unsigned long next = 300UL - t%300UL;   // when demand calc will next run 
   Serial.printf("\nsecs to next 5min: %lu\n",next);
-  
+#ifdef RMS1
+  char unit[20] = "rmsT11_kW";
+#else
   char unit[20] = "rms2Imp_meter";
+#endif
   char host[] = "192.168.1.198";          // RPi-2 prometheus and influx server
   char Str1[] = "GET /api/v1/query_range?query=";
   char Str2[] = "&start=";   
@@ -49,42 +53,37 @@ void fillBarrel() {
       }
     }
     longStr[replyPtr] = '\0';
-    Serial.println(longStr);
-    
-
-
+    Serial.println(replyPtr);
+  
 /*  typical reply:
 {"status":"success","data":{"resultType":"matrix","result":[{"metric":{"__name__":"rms2Imp_meter","instance":"192.168.1.62:80","job":"RMS2"},
 "values":[[1729492439,"51.363"],[1729492739,"51.419"],[1729493039,"51.475"],[1729493339,"51.605"],[1729493639,"51.788"],[1729493939,"51.967"]]}]}}
     empty reply:
 {"status":"success","data":{"resultType":"matrix","result":[]}}       */
 
-    if (replyPtr > 65) {
-        char* tok; 
-        tok = strstr(longStr,"values");
-//        fh = LittleFS.open("BarrelData.txt","a+");
-//        fh.printf("\n%s %s ",dateStamp(),timeStamp());
-        uint8_t en_index = (minute()/5)%6;    // points to times 5 minutes ago
-        for ( int i=0;i<6;i++ ) {
-            tok = strstr(tok+1,",\"");
-            value = atof(tok+2);
-//            fh.printf(" %d: %0.3f",en_index,value);
-            en_index = (en_index+1)%6; 
-            Imp_5m_kWh[en_index] = value;
-        }
-//       fh.printf("  now: %0.3f",Imp_meter);
-//       fh.close();
+    if (replyPtr > 200) {
+      barrelFail = false;
+      char* tok; 
+      tok = strstr(longStr,"values");
+      uint8_t en_index = (minute()/5)%6;    // points to times 5 minutes ago
+      for ( int i=0;i<6;i++ ) {
+          tok = strstr(tok+1,",\"");
+          value = atof(tok+2);
+          en_index = (en_index+1)%6; 
+          Imp_5m_kWh[en_index] = value;
+      }
     }
     else {
       diagMess(" fillBarrel query failed");
-      Serial.println(" fillBarrel query failed");
-      for ( int i=0;i<6;i++ ) Imp_5m_kWh[i] = Imp_meter;
+      diagMess(query);
+      diagMess(longStr);
+      barrelFail = true;
     }
     client.stop();
     delay(1);
   }
   Serial.printf("\nmsecs elapsed for query %lu\n", millis()-t1);
-}
+}  
 
 
   

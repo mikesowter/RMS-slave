@@ -16,7 +16,7 @@ float noise[] = {0,5,5,5,5,5,5,5};
 void dailyEnergy() {
 
   t_scan = max( 300UL, millis()-t_lastData );         // typically 900ms for RMS1, 400ms for RMS2
-  t_scan = min( 1000UL, t_scan );
+  // t_scan = min( 1000UL, t_scan );
   if ( t_scan > t_scan_max ) t_scan_max = t_scan; 
   if ( t_scan < t_scan_min ) t_scan_min = t_scan;     //              ms-s     W-kW     s-hr
   float Wms2kWh = (float)t_scan/3.6E9;                // Wms to kWh (1/1000)*(1/1000)*(1/3600)
@@ -34,11 +34,13 @@ void dailyEnergy() {
     if ( i!=1 && i!=5 && i!=7 ) tier1loads += incEnergy[i]; // loads 2,3,4,6,8
 #endif
   }
+#ifdef RMS2
   Energy[0] += Wimp * Wms2kWh;                    // daily sum energy 
   Energy[7] += Wexp * Wms2kWh;                    // export defined as neg power flow
       
   Imp_meter += Wimp * Wms2kWh;                    // energex meter
   Exp_meter += Wexp * Wms2kWh;
+#endif
 #ifdef RMS1
   loads = incEnergy[1];     // total kWh (solar+Tariff11) on dist panel
   // calculate the impact of 3 panel sizes
@@ -83,13 +85,14 @@ void dailyEnergy() {
       costEnergy[ps][1] += rate * tier2loads;         // cost of total load
       T11_inc[ps] += (tier2loads - tier2solar);
     }
-    T11_kWh[ps] += T11_inc[ps];
+  //  T11_kWh[ps] += T11_inc[ps];
     FIT_kWh[ps] += spareSolar;
     factor += 0.5F;                                   // next panel size emulation
   }
   // this is a power calc, not energy, for debugging purposes only
   T11_W = max(0.0F,Wrms_min[1] - Wrms_min[7]);
-
+  float T11_kWh_inc = T11_W * Wms2kWh;
+  T11_kWh[0] += T11_kWh_inc;
 #endif
 }
 

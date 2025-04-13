@@ -63,6 +63,7 @@ bool checkSumBad;
 bool waterOn, exporting, exporting7_5, exporting10, scanFail;
 bool T31charging, pwrOutage, peakPeriod;
 bool FTPcheck;
+bool barrelFail;
 
 bool newArg;             // new parameter for database
 uint8_t gobackhrs = 0;     // get scan data from database?

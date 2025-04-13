@@ -1,5 +1,6 @@
 
 #include "extern.h"
+extern bool barrelFail;
 
 uint8_t en_index, en5index, en15index;
 double Imp_kWh_now;
@@ -21,11 +22,19 @@ void minProc() {
   en15index = (en_index+3)%6;         // index 15 mins back
 #ifdef RMS1
   Imp_kWh_now = T11_kWh[0];
+  if ( barrelFail ) {
+    for ( int i=0;i<6;i++ ) Imp_5m_kWh[i] = Imp_kWh_now;
+    barrelFail = false;
+  }
   rms15Demand = (Imp_kWh_now - Imp_5m_kWh[en15index])*4000.0F;
   rms30Demand = (Imp_kWh_now - Imp_5m_kWh[en_index])*2000.0F;  
   Imp_5m_kWh[en_index] = Imp_kWh_now;     // overwrite value from 30m ago
 
 #else
+  if ( barrelFail ) {
+    for ( int i=0;i<6;i++ ) Imp_5m_kWh[i] = Imp_meter;
+    barrelFail = false;
+  }
   rms5Demand  = (Imp_meter - Imp_5m_kWh[en5index])*12000.0F;
   rms15Demand = (Imp_meter - Imp_5m_kWh[en15index])*4000.0F;
   rms30Demand = (Imp_meter - Imp_5m_kWh[en_index])*2000.0F;  
