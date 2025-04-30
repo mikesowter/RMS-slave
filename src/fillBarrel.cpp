@@ -61,7 +61,7 @@ void fillBarrel() {
     empty reply:
 {"status":"success","data":{"resultType":"matrix","result":[]}}       */
 
-    if (replyPtr > 200) {
+    if (replyPtr > 400) {
       barrelFail = false;
       char* tok; 
       tok = strstr(longStr,"values");

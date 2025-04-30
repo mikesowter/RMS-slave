@@ -117,31 +117,31 @@ bool unloadValues() {
     if ( checkSumBad ) return false;
     offset = 0;
 
-    Freq = 0.8*Freq + 0.2*unload2Bytes()/1000.0;
+    Freq = 0.8*Freq + 0.2*unload2Bytes()/500.0;
     Vrms = unload2Bytes()/100.0; 
-    #ifdef RMS2               
+  #ifdef RMS2               
     v = unload2Bytes()/100.0;    
     Vrms_max = _max(Vrms_max,v);
     v = unload2Bytes()/100.0;    
     Vrms_min = _min(Vrms_min,v);
-    #endif
+  #endif
 
-    for (uint8_t cct=FIRST_CCT ; cct<=NUM_CCTS ; cct++) {     // cct 0 is volts
+    for (uint8_t cct=1 ; cct<=NUM_CCTS ; cct++) {     // cct 0 is volts
       w = unload2Bytes();
       w = (int16_t) w;    // convert unsigned to signed 
-    #ifdef RMS2 
+  #ifdef RMS2 
       w = 1.2F * w;       // and scale here temp 12Nov       
-    #endif
+  #endif
       if ( abs(w) > 10000.0F || abs(w) < 5.0F ) w = 0.0F;
       Wrms[cct] = 0.5F*w + 0.5F*Wrms[cct];           // remove half the quantizing error   
-    #ifdef RMS2
+  #ifdef RMS2
       if ( cct == 7 ) Wrms[7] = 1.056*Wrms[7] - 45.0F; // best guess 18/12/24 was 1.057, -45
-    #endif
+  #endif
       if (Wrms[cct] < Wrms_min[cct]) Wrms_min[cct] = Wrms[cct];
       if (Wrms[cct] > Wrms_max[cct]) Wrms_max[cct] = Wrms[cct];
       Wrms_avg[cct] = avgWatts(Wrms[cct],cct,8);
     }
-    #ifdef RMS1
+  #ifdef RMS1
       float SparekW = Wrms[7]-Wrms[1];
       avSparekW = 0.99*avSparekW + 0.01*SparekW;
       if ( SparekW > 0.0F ) {
@@ -155,7 +155,7 @@ bool unloadValues() {
       if ( Wrms[5] > 2000.0F ) waterOn = true;
       else waterOn = false;
       for (uint8_t q=NUM_CCTS+1 ; q<=MAX_CCTS ; q++) Wrms[q] = 0.0; // unused inputs
-    #else
+  #else
     
     if ( Wrms_avg[7] > 0.0F ) {   // import power
       Wimp = Wrms_avg[7];
@@ -165,27 +165,16 @@ bool unloadValues() {
       Wexp = -Wrms_avg[7];
       Wimp = 0.0F;
     }
-  /*  load on main isolator (cct7) calc'd in master - changed 16/11/24
-    Wexp = Wrms[1]; 
-    Wimp = Wrms[2];  */
+
     I7phase = Wrms[3];             // phase added 21/11/24
     if ( I7phase > 180.0F ) I7phase -= 360.0F;
   
-  /*  if ( abs(I7phase) < 90 ) {   // import power
-      Wimp = abs(w);
-      Wexp = 0.0F;
-    }
-    else {                       // export power
-      Wexp = abs(w);
-      Wimp = 0.0F;
-    }   */
-    
     offset = 22;
     v = unload2Bytes()/100.0;    // Vpp_max
     Vmax_p = _max(Vmax_p,v);
     v = unload2Bytes()/100.0;    // Vpp_min
     Vmin_p = _min(Vmin_p,v);
-    #endif
+  #endif
     offset = 26;
     v = unload2Bytes()/100.0;    // Vnp_max
     Vmax_n = _max(Vmax_n,v);

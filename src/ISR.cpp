@@ -18,7 +18,7 @@ void ISRwatchDog () {
 
 void activity(const char* tag) {
   int ms = millis() - appStart;
-  if ( millis() - appStart > 1 ) Serial.printf("%s %dms ",tag,ms);
+  if ( millis() - appStart > 2 ) Serial.printf("%s %dms ",tag,ms);
   appStart = millis();
 }
 
@@ -28,8 +28,8 @@ void watchWait(unsigned long timer) {
     unsigned long start = micros();    
     appStart = millis();
     // check for web requests
-    server.handleClient();                       // 16ms for metrics
-    activity("WEB");
+    server.handleClient();                       // 11ms for metrics
+    // activity("WEB");
     // check for OTA
     ArduinoOTA.handle();
     activity("OTA");

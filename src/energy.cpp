@@ -85,11 +85,11 @@ void dailyEnergy() {
       costEnergy[ps][1] += rate * tier2loads;         // cost of total load
       T11_inc[ps] += (tier2loads - tier2solar);
     }
-  //  T11_kWh[ps] += T11_inc[ps];
+    if ( ps > 0 ) T11_kWh[ps] += T11_inc[ps];
     FIT_kWh[ps] += spareSolar;
     factor += 0.5F;                                   // next panel size emulation
   }
-  // this is a power calc, not energy, for debugging purposes only
+  // this is a new simple calc for T11 energy with existing solar
   T11_W = max(0.0F,Wrms_min[1] - Wrms_min[7]);
   float T11_kWh_inc = T11_W * Wms2kWh;
   T11_kWh[0] += T11_kWh_inc;

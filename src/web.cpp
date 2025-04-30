@@ -54,7 +54,7 @@ void handleMetrics() {
   promform("rms2Vmax_p", Vmax_p, 1);
   promform("rms2Vmin_n", Vmin_n, 1);
   promform("rms2Vmax_n", Vmax_n, 1);
-  if ( Freq > 45.0 ) promform("rms2Freq", Freq, 3);
+  if ( Freq > 45.0 && Freq < 52.0 ) promform("rms2Freq", Freq, 3);
 #else
   promform("rmsVbattery", Vbat, 2);
   promform("rmsWifiSignal", -WiFi.RSSI(), 0);
