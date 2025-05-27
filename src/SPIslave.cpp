@@ -42,7 +42,7 @@ void waitForData() {
   wfdPrev = wfdTime;
   wfdStart = millis();
 #ifdef RMS1
-  watchWait(90);
+  watchWait(60);
 #else
   watchWait(350);       // latest master cycle 700ms
 #endif
@@ -50,7 +50,7 @@ void waitForData() {
   do {
     SPISlave.begin();
     SPIwait = true;
-    while (SPIwait) watchWait(5);
+    while (SPIwait) watchWait(10);
     SPISlave.end(); 
     if (!dataTimeout && millis() > wfdStart + 30000) {
       errMess(" wait for data 30s timeout");
@@ -117,9 +117,10 @@ bool unloadValues() {
     if ( checkSumBad ) return false;
     offset = 0;
 
-    Freq = 0.8*Freq + 0.2*unload2Bytes()/500.0;
+    Freq = 0.8*Freq + 0.2*unload2Bytes()/1000.0;
     Vrms = unload2Bytes()/100.0; 
-  #ifdef RMS2               
+  #ifdef RMS2       
+    Freq *= 2.0;
     v = unload2Bytes()/100.0;    
     Vrms_max = _max(Vrms_max,v);
     v = unload2Bytes()/100.0;    
