@@ -1,7 +1,7 @@
 #include "extern.h"
 char promName[15];
 extern float T11_kWh[], T11_inc[];
-extern float batt_tohouse[3][3], dump_togrid[3][3], batt_charge[3][3];
+extern float batt_tohouse[3][3], solar_togrid[3][3], batt_charge[3][3];
 extern uint8_t gobackhrs;
 
 void promform(const char* pname,float lval, uint8_t res) {
@@ -178,7 +178,7 @@ void handleMetrics() {
         strcpy(promName,"rmsToGridP0B0");
         promName[10] = ps + '0';
         promName[12] = bs + '0';
-        promform(promName,dump_togrid[ps][bs],3);
+        promform(promName,solar_togrid[ps][bs],3);
       }
 
       for (uint8_t bs = 0;bs<3;bs++) {
@@ -356,9 +356,9 @@ void handleNotFound() {
     Imp_meter = atof(tok);
     tok = strtok(NULL,",");
     Exp_meter = atof(tok);
-    sprintf(charBuf,"Tariff11: %.3f, FI: %.3f\n",Imp_meter,Exp_meter);
+    sprintf(charBuf,"T11_high: %.3f, FI: %.3f\n",Imp_meter,Exp_meter);
     diagMess(charBuf);  
-    strcpy(charBuf,"<!DOCTYPE html><html><head><HR>Tariff11 and FI updated<HR></head></html>");
+    strcpy(charBuf,"<!DOCTYPE html><html><head><HR>T11_high and FI updated<HR></head></html>");
     server.send ( 200, "text/html", charBuf );
   }
   else {

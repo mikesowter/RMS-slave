@@ -8,9 +8,9 @@ minute by minute basis, and hence the cost of ownership of the offgrid configura
 #include "defines.h"
 
 float panelCap[] = {5.0F,7.5F,10.0F};
-float battCap[] = {10.0F,20.0F,50.0F};
+float battCap[] = {16.0F,24.0F,32.0F};
 float excessSolar[3], batt_savings[3][3];    // first index is panel size, 2nd is battery size
-float batt_tohouse[3][3], batt_charge[3][3], dump_togrid[3][3];
+float batt_tohouse[3][3], batt_charge[3][3], solar_togrid[3][3], batt_togrid[3][3];
 
 extern float noise[];  // 20220725 for oven(6) 
 
@@ -28,12 +28,12 @@ void batteryEnergy() {
         if (batt_charge[ps][bs] < battCap[bs]) {
           batt_charge[ps][bs] += excessSolar[ps];   // add to battery
           if ( batt_charge[ps][bs] > battCap[bs]) {
-            dump_togrid[ps][bs] += (batt_charge[ps][bs] - battCap[bs]);
+            solar_togrid[ps][bs] += (batt_charge[ps][bs] - battCap[bs]);
             batt_charge[ps][bs] = battCap[bs];
           }
         }
         else {
-          dump_togrid[ps][bs] += excessSolar[ps];   // dump to grid
+          solar_togrid[ps][bs] += excessSolar[ps];   // dump to grid
         }
       }
       else {                                          // -ive is discharging
@@ -50,8 +50,8 @@ void batteryEnergy() {
           batt_charge[ps][bs] = battMin;
         }
       }
-      batt_savings[ps][bs] = batt_tohouse[ps][bs]*Tariff11;                
-      batt_savings[ps][bs] += dump_togrid[ps][bs]*FeedInTariff-costEnergy[ps][7];  
+      batt_savings[ps][bs] = batt_tohouse[ps][bs]*T11_high;                
+      batt_savings[ps][bs] += solar_togrid[ps][bs]*FeedInTariff-costEnergy[ps][7];  
     }
   }
 }

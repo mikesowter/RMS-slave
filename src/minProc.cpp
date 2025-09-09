@@ -80,7 +80,7 @@ void minProc() {
     // then through battery size (bs)
     for (uint8_t bs = 0;bs<3;bs++) {
       batt_tohouse[ps][bs] = 0.0F;
-      dump_togrid[ps][bs] = 0.0F;   
+      solar_togrid[ps][bs] = 0.0F;   
       batt_savings[ps][bs] = 0.0F;
     }
     T11_kWh[ps] = 0.0F;

@@ -5,7 +5,7 @@
 #ifdef RMS1
     #define NUM_CCTS 8
     #define MAX_CCTS 11
-    #define CODEVERSION "\nRMS1 slave 20250409"
+    #define CODEVERSION "\nRMS1 slave 20250909"
     #define IP4 56
     #define FIRST_CCT 1
 #endif
@@ -26,7 +26,9 @@
 #define MASTER_RESET D3
 #define LED_PIN D4
 #define T31 0.17754             // updated 20250421
-#define Tariff11 0.26455        // updated 20250421
+#define T11_high 0.4107         // updated 20250909
+#define T11_med 0.3093          // updated 20250909
+#define T11_low 0.2640          // updated 20250909
 #define FeedInTariff 0.04       // updated 20250301
 #define DemandTariff 0.18546    // updated 20240701
 

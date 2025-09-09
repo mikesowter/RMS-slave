@@ -65,13 +65,20 @@ void dailyEnergy() {
     }
     // calculate tier1 costs
     split = tier1solar/tier1loads;  
-    rate = FeedInTariff * split + Tariff11 * (1.0F - split);        // (2,3,4,6,8) are essential
+    bool weekend = ( weekday() == 1 || weekday() == 7 );
+    if ( !weekend && hour() >= 16 && hour() < 20 )       // 4pm to 9pm weekdays
+      rate = FeedInTariff * split + T11_high * (1.0F - split);       // (2,3,4,6,8) are essential
+    else if ( hour() >= 7 && hour() < 22 )               // 7am to 10pm
+      rate = FeedInTariff * split + T11_med * (1.0F - split);         
+    else
+      rate = FeedInTariff * split + T11_low * (1.0F - split);       
+
     for ( int i = 2;i<NUM_CCTS+1;i++ ) {
       if ( i == 5 && waterOn ) {
         costEnergy[ps][i] += T31 * incEnergy[5];      // hotwater tariff
       }
       else if ( i == 7 ) {
-        costEnergy[ps][7] += FeedInTariff * spareSolar;        // export unuseable solar
+        costEnergy[ps][7] += FeedInTariff * spareSolar;   // export unuseable solar
       }
       else {
         costEnergy[ps][i] += rate * incEnergy[i];     // use first portion of solar
@@ -81,7 +88,7 @@ void dailyEnergy() {
     // calculate tier2 costs
     if ( tier2loads > 4E-6 ) {                        // loads lumped together >5W
       split = tier2solar/tier2loads;                  // use second portion of solar
-      rate = FeedInTariff * split + Tariff11 * (1.0F - split);
+      rate = FeedInTariff * split + T11_high * (1.0F - split);
       costEnergy[ps][1] += rate * tier2loads;         // cost of total load
       T11_inc[ps] += (tier2loads - tier2solar);
     }

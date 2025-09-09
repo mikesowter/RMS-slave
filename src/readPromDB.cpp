@@ -86,7 +86,7 @@ void readPromDB() {
       strcat(promName,"ToGridP0B0");
       promName[po] = ps + '0';
       promName[bo] = bs + '0';
-      dump_togrid[ps][bs] = readPromItem(promName);
+      solar_togrid[ps][bs] = readPromItem(promName);
     }
 
     for (uint8_t bs = 0;bs<3;bs++) {
