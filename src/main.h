@@ -133,13 +133,13 @@ float Wimp, Wexp;
 float wattsBarrel[8][8];
 float Arms[NUM_CCTS+1];				// root sum I^2
 float Vrms, Vpk_min, Vpk_max;		// root sum V^2, -Vp, +Vp
-float Freq = 50.0;                  // grid frequency to 50.01 res
-float Vrms_min = 500.0;             // max values between scans
-float Vrms_max = 0.0;
-float Vmin_n = 500.0, Vmin_p = 500.0;
-float Vmax_n = 0.0, Vmax_p = 0.0;
+float Freq = 50.0F;                  // grid frequency to 50.01 res
+float Vrms_min = 500.0F;             // max values between scans
+float Vrms_max = 0.0F;
+float Vmin_n = 500.0F, Vmin_p = 500.0F;
+float Vmax_n = 0.0F, Vmax_p = 0.0F;
 float loads, solar;
-float avSparekW;            // smoothed solar-loads
+float avSparekW = 0.0F;            // smoothed solar surplus
 float Vbat;
 float rms5Demand, rms15Demand, rms30Demand, rms15Peak, rms30Peak;
 float FI_5m_kWh[6], FI_5m_kW, FI_15m_kW, FI_30m_kW;

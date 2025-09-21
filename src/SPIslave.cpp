@@ -144,7 +144,8 @@ bool unloadValues() {
     }
   #ifdef RMS1
       float SparekW = Wrms[7]-Wrms[1];
-      avSparekW = 0.99*avSparekW + 0.01*SparekW;
+      if ( avSparekW == 0.0F ) avSparekW = SparekW;
+      else avSparekW = 0.998*avSparekW + 0.002*SparekW;
       if ( SparekW > 0.0F ) {
         Wimp = 0.0;
         Wexp = SparekW;
