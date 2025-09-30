@@ -29,6 +29,8 @@
 #define T11_high 0.4107         // updated 20250909
 #define T11_med 0.3093          // updated 20250909
 #define T11_low 0.2640          // updated 20250909
-#define FeedInTariff 0.04       // updated 20250301
-#define DemandTariff 0.18546    // updated 20240701
+#define FIT_high 0.241          // updated 20250929
+#define FIT_med 0.103           // updated 20250929
+#define FIT_low 0.033           // updated 20250929
+#define DemandTariff 0.0        // to be removed
 

@@ -4,7 +4,7 @@
 
 #ifdef RMS1
 float noise[] = {0,5,5,5,5,5,50,5,5};  // updated 20220725 to handle oven(6) noise
-float tier1loads = 0.0F, tier2loads, split, rate; 
+float tier1loads = 0.0F, tier2loads, split, rate, T11_rate, FIT_rate; 
 float tier1solar, tier2solar, spareSolar, factor;
 #else
 float noise[] = {0,5,5,5,5,5,5,5}; 
@@ -31,7 +31,7 @@ void dailyEnergy() {
       diagMess(charBuf);
     }
 #ifdef RMS1
-    if ( i!=1 && i!=5 && i!=7 ) tier1loads += incEnergy[i]; // loads 2,3,4,6,8
+    if ( i!=1 && i!=5 && i!=7 ) tier1loads += incEnergy[i]; // loads 2,3,4,6,8 (CCTS, oven & lights)
 #endif
   }
 #ifdef RMS2
@@ -51,34 +51,40 @@ void dailyEnergy() {
     if ( solar > loads ) {
       tier1solar = tier1loads;
       tier2solar = tier2loads;
-      spareSolar = solar - loads;
     }
     else if ( solar > tier1loads ) {
       tier1solar = tier1loads;
       tier2solar = solar - tier1loads;
-      spareSolar = 0.0F;
     }
     else {
       tier1solar = solar;
       tier2solar = 0.0F;
-      spareSolar = 0.0F;
     }
+    spareSolar = solar - loads;
     // calculate tier1 costs
     split = tier1solar/tier1loads;  
     bool weekend = ( weekday() == 1 || weekday() == 7 );
-    if ( !weekend && hour() >= 16 && hour() < 20 )       // 4pm to 9pm weekdays
-      rate = FeedInTariff * split + T11_high * (1.0F - split);       // (2,3,4,6,8) are essential
-    else if ( hour() >= 7 && hour() < 22 )               // 7am to 10pm
-      rate = FeedInTariff * split + T11_med * (1.0F - split);         
-    else
-      rate = FeedInTariff * split + T11_low * (1.0F - split);       
+    if ( !weekend && hour() >= 16 && hour() < 20 ) {      // 4pm to 8pm weekdays
+      T11_rate = T11_high;
+      FIT_rate = FIT_high;     
+    } 
+    else if ( hour() >= 7 && hour() < 22 ) {              // 7am to 10pm
+      T11_rate = T11_med;     
+      FIT_rate = FIT_low;   
+    } 
+    else  {                                               // 10pm to 7am
+      T11_rate = T11_low;
+      FIT_rate = FIT_med;
+    }
+
+    rate = FIT_rate * split + T11_rate * (1.0F - split);       
 
     for ( int i = 2;i<NUM_CCTS+1;i++ ) {
       if ( i == 5 && waterOn ) {
         costEnergy[ps][i] += T31 * incEnergy[5];      // hotwater tariff
       }
       else if ( i == 7 ) {
-        costEnergy[ps][7] += FeedInTariff * spareSolar;   // export unuseable solar
+        costEnergy[ps][7] += FIT_rate * max(0.0F,spareSolar);   // export unuseable solar (if any)
       }
       else {
         costEnergy[ps][i] += rate * incEnergy[i];     // use first portion of solar
@@ -88,12 +94,12 @@ void dailyEnergy() {
     // calculate tier2 costs
     if ( tier2loads > 4E-6 ) {                        // loads lumped together >5W
       split = tier2solar/tier2loads;                  // use second portion of solar
-      rate = FeedInTariff * split + T11_high * (1.0F - split);
+      rate = FIT_rate * split + T11_rate * (1.0F - split);   
       costEnergy[ps][1] += rate * tier2loads;         // cost of total load
       T11_inc[ps] += (tier2loads - tier2solar);
     }
-    if ( ps > 0 ) T11_kWh[ps] += T11_inc[ps];
-    FIT_kWh[ps] += spareSolar;
+    if ( ps > 0 ) T11_kWh[ps] += T11_inc[ps];         // see below for ps=0
+    FIT_kWh[ps] +=  max(0.0F,spareSolar);
     factor += 0.5F;                                   // next panel size emulation
   }
   // this is a new simple calc for T11 energy with existing solar

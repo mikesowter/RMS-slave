@@ -123,7 +123,7 @@ float costEnergy[3][NUM_CCTS+1];
 /*  RMS1
     costEnergy[ps][1] is cost of unmetered (tier2loads) in $
     costEnergy[ps][2-6] is cost of Wrms[2-6]
-    costEnergy[ps][7] is income from FeedInTariff
+    costEnergy[ps][7] is income from FIT_rate
     costEnergy[ps][8] is cost of lights
 */
 float Wrms_min[NUM_CCTS+1];		    // in Watts
