@@ -25,9 +25,9 @@ void setup(void) {
   diagMess(charBuf); 				// only give detail
   // recover previous values from prometheus
   readPromDB();  
-  fillBarrel();          // issue when no data available for last 30m
+//  fillBarrel();          // only required for demand analysis
   // check for peak
-  peakPeriod = hour() >= 16 && hour() < 21;
+  peakPeriod = hour() >= 16 && hour() < 20;
   // setup server
   server.on ( "/", handleRoot );
   server.on ( "/dir", handleDir );

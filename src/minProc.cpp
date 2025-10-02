@@ -5,7 +5,7 @@ extern bool barrelFail;
 uint8_t en_index, en5index, en15index;
 double Imp_kWh_now;
 void writePeak();
-void fillBarrel();
+// void fillBarrel();
 
 // scheduled processing
 
@@ -14,6 +14,9 @@ void minProc() {
   SPISlave.setStatus(now());
   if ( minute() == oldMin ) return;
   oldMin = minute();
+
+  /*  all removed 20241002 as demand analysis not required
+
   if ( old5Min == minute()/5 ) return;
   old5Min = minute()/5;
   // energy calcs every 5 minutes
@@ -52,7 +55,7 @@ void minProc() {
     if ( rms15Demand > rms15Peak ) rms15Peak = rms15Demand;
     if ( rms30Demand > rms30Peak ) rms30Peak = rms30Demand;
     writeDemands();
-  }
+  }     */
 
   // check for new quarter hour
   if ( oldQtr == minute()/15 ) return;
@@ -86,8 +89,8 @@ void minProc() {
     T11_kWh[ps] = 0.0F;
   }
 #endif
-  rms15Peak = 0.0F;
-  rms30Peak = 0.0F;
+//  rms15Peak = 0.0F;     removed 20241002 as demand analysis not required
+//  rms30Peak = 0.0F;
 
   // reset daily energy sums at midnight
   for ( int i = 0; i<NUM_CCTS+1; i++ ) {

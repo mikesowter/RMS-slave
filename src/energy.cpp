@@ -42,12 +42,12 @@ void dailyEnergy() {
   Exp_meter += Wexp * Wms2kWh;
 #endif
 #ifdef RMS1
-  loads = incEnergy[1];     // total kWh (solar+Tariff11) on dist panel
+  loads = incEnergy[1];                           // total inc kWh (solar+Tariff11) on dist panel
   // calculate the impact of 3 panel sizes
-  factor = 1.0F;
+  factor = 1.0F;                                  // simulating panels of 5,7.5 and 10kW
   for ( uint8_t ps=0;ps<3;ps++) {                      
-    solar = factor*incEnergy[7];                       // simulating panels of 5,7.5 and 10kW
-    tier2loads = loads - tier1loads;                   // non-essential (e.g. big heat pumps)
+    solar = factor*incEnergy[7];                  // solar inc kWh (over the last scan period t_scan around 880ms) 
+    tier2loads = loads - tier1loads;              // non-essential (e.g. big heat pumps)
     if ( solar > loads ) {
       tier1solar = tier1loads;
       tier2solar = tier2loads;
@@ -60,21 +60,21 @@ void dailyEnergy() {
       tier1solar = solar;
       tier2solar = 0.0F;
     }
-    spareSolar = solar - loads;
+    spareSolar = solar - loads;                   // inc kWh, +ive if excess solar after loads 
     // calculate tier1 costs
     split = tier1solar/tier1loads;  
     bool weekend = ( weekday() == 1 || weekday() == 7 );
-    if ( !weekend && hour() >= 16 && hour() < 20 ) {      // 4pm to 8pm weekdays
+    if ( !weekend && hour() >= 16 && hour() < 20 ) {      // peak is 4pm to 8pm weekdays
       T11_rate = T11_high;
-      FIT_rate = FIT_high;     
+      FIT_rate = FIT_peak;                                // FIT_rate is only used in battery simulation of wholesale market
     } 
-    else if ( hour() >= 7 && hour() < 22 ) {              // 7am to 10pm
+    else if ( hour() >= 7 && hour() < 22 ) {              // day is 7am to 10pm
       T11_rate = T11_med;     
-      FIT_rate = FIT_low;   
+      FIT_rate = FIT_day;   
     } 
-    else  {                                               // 10pm to 7am
+    else  {                                               // night is 10pm to 7am
       T11_rate = T11_low;
-      FIT_rate = FIT_med;
+      FIT_rate = FIT_night;
     }
 
     rate = FIT_rate * split + T11_rate * (1.0F - split);       
@@ -100,6 +100,7 @@ void dailyEnergy() {
     }
     if ( ps > 0 ) T11_kWh[ps] += T11_inc[ps];         // see below for ps=0
     FIT_kWh[ps] +=  max(0.0F,spareSolar);
+    
     factor += 0.5F;                                   // next panel size emulation
   }
   // this is a new simple calc for T11 energy with existing solar

@@ -32,25 +32,28 @@ void batteryEnergy() {
       if (excessSolar[ps] > 0.0) {           
     // +ive is charging
         if (batt_charge[ps][bs] < battCap[bs]) {
-          batt_charge[ps][bs] += excessSolar[ps];   // add to battery
+          batt_charge[ps][bs] += excessSolar[ps];             // add to battery
+          batt_savings[ps][bs] -= excessSolar[ps]*FIT_rate;                      //value of energy into battery (is a loss)
           if ( batt_charge[ps][bs] > battCap[bs]) {
             solar_togrid[ps][bs] += (batt_charge[ps][bs] - battCap[bs]);
             batt_charge[ps][bs] = battCap[bs];
           }
         }
         else {
-          solar_togrid[ps][bs] += excessSolar[ps];   // dump to grid
+          solar_togrid[ps][bs] += excessSolar[ps];            // dump to grid
+          batt_savings[ps][bs] += solar_togrid[ps][bs]*FIT_rate;                //value of solar energy to grid
         }
       }
 
       else {                                          
     // ive is discharging
         float battMin = battCap[bs]/50.0F;
-        if (batt_charge[ps][bs] > battMin) {          // battery > 2% batcap
+        if (batt_charge[ps][bs] > battMin) {           // battery > 2% batcap
           batt_charge[ps][bs] += excessSolar[ps];
-          if ( batt_charge[ps][bs] < battMin) {       // marginally too low now
+          batt_savings[ps][bs] -= solar_togrid[ps][bs]*FIT_rate;                //value of battery energy to grid
+          if ( batt_charge[ps][bs] < battMin) {        // marginally too low now
             batt_tohouse[ps][bs] += (batt_charge[ps][bs] - battMin); 
-            batt_charge[ps][bs] = battMin;              // battery at minimum
+            batt_charge[ps][bs] = battMin;             // battery at minimum charge
           }
           else batt_tohouse[ps][bs] -= min(0.0F,excessSolar[ps]); 
         }
@@ -58,8 +61,7 @@ void batteryEnergy() {
           batt_charge[ps][bs] = battMin;
         }
       }
-      batt_savings[ps][bs] = batt_tohouse[ps][bs]*T11_rate;                
-      batt_savings[ps][bs] += solar_togrid[ps][bs]*FIT_rate-costEnergy[ps][7];  
+    batt_savings[ps][bs] += batt_tohouse[ps][bs]*T11_rate;                       //value of battery energy to house
     }
   }
 }

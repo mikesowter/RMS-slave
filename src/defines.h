@@ -5,7 +5,7 @@
 #ifdef RMS1
     #define NUM_CCTS 8
     #define MAX_CCTS 11
-    #define CODEVERSION "\nRMS1 slave 20250909"
+    #define CODEVERSION "\nRMS1 slave 20251002"
     #define IP4 56
     #define FIRST_CCT 1
 #endif
@@ -29,8 +29,8 @@
 #define T11_high 0.4107         // updated 20250909
 #define T11_med 0.3093          // updated 20250909
 #define T11_low 0.2640          // updated 20250909
-#define FIT_high 0.241          // updated 20250929
-#define FIT_med 0.103           // updated 20250929
-#define FIT_low 0.033           // updated 20250929
+#define FIT_peak 0.241          // updated 20250929
+#define FIT_night 0.103         // updated 20250929
+#define FIT_day 0.033           // updated 20250929
 #define DemandTariff 0.0        // to be removed
 
