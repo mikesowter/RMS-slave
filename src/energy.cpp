@@ -42,11 +42,11 @@ void dailyEnergy() {
   Exp_meter += Wexp * Wms2kWh;
 #endif
 #ifdef RMS1
-  loads = incEnergy[1];                           // total inc kWh (solar+Tariff11) on dist panel
+  loads = incEnergy[1];                           // total inc kWh (solar+Tariff11) load on dist panel
   // calculate the impact of 3 panel sizes
   factor = 1.0F;                                  // simulating panels of 5,7.5 and 10kW
   for ( uint8_t ps=0;ps<3;ps++) {                      
-    solar = factor*incEnergy[7];                  // solar inc kWh (over the last scan period t_scan around 880ms) 
+    solar = factor*incEnergy[7];                  // solar inc kWh (over the last scan period t_scan ) 
     tier2loads = loads - tier1loads;              // non-essential (e.g. big heat pumps)
     if ( solar > loads ) {
       tier1solar = tier1loads;

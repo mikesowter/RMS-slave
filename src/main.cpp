@@ -1,5 +1,5 @@
- /* RMS slave offloads any async behaviour from RMS master
-which has a 104us capture loop which can't be interrupted */
+ /* RMS slave offloads any async behaviour from RMS masters 1&2
+which have a fixed duty loop which can't be interrupted */
 
 #include <main.h>
 
@@ -50,7 +50,7 @@ void loop() {
   checkScan();
   // synchronise with master
   sync2Master();
-  }
+}
 
 void sync2Master() {
   if ( wfdTime > 1500U ) {       // no cycle missed under 1500ms

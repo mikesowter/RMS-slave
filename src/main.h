@@ -126,28 +126,28 @@ float costEnergy[3][NUM_CCTS+1];
     costEnergy[ps][7] is income from FIT_rate
     costEnergy[ps][8] is cost of lights
 */
-float Wrms_min[NUM_CCTS+1];		    // in Watts
+float Wrms_min[NUM_CCTS+1];		        // in Watts
 float Wrms_max[NUM_CCTS+1];	
 float Wrms_avg[NUM_CCTS+1];	
 float Wimp, Wexp;
 float wattsBarrel[8][8];
-float Arms[NUM_CCTS+1];				// root sum I^2
-float Vrms, Vpk_min, Vpk_max;		// root sum V^2, -Vp, +Vp
-float Freq = 50.0F;                  // grid frequency to 50.01 res
-float Vrms_min = 500.0F;             // max values between scans
+float Arms[NUM_CCTS+1];				    // root sum I^2
+float Vrms, Vpk_min, Vpk_max;		    // root sum V^2, -Vp, +Vp
+float Freq = 50.0F;                     // grid frequency to 50.01 res
+float Vrms_min = 500.0F;                // max values between scans
 float Vrms_max = 0.0F;
 float Vmin_n = 500.0F, Vmin_p = 500.0F;
 float Vmax_n = 0.0F, Vmax_p = 0.0F;
 float loads, solar;
-float avSparekW = 0.0F;            // smoothed solar surplus
+float avSparekW = 0.0F;                 // smoothed solar surplus
 float Vbat;
 float rms5Demand, rms15Demand, rms30Demand, rms15Peak, rms30Peak;
 float FI_5m_kWh[6], FI_5m_kW, FI_15m_kW, FI_30m_kW;
 double Imp_meter,Exp_meter,Imp_5m_kWh[6];
 float T11_kWh[3];           // daily sum from grid with each panel size
-float T11_inc[3];           // increment from grid
-float FIT_kWh[3];
-float FIT_inc[3];
+float T11_inc[3];           // kwH increment from grid
+float FIT_kWh[3];           // daily sum to grid with each panel size
+float FIT_inc[3];           // kwH increment to grid
 float T11_W;
 float I7phase;
 
