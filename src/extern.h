@@ -110,7 +110,7 @@ extern double Imp_meter,Exp_meter;
 extern float panelCap[];
 extern float BattCap[];
 extern float excessSolar[], batt_savings[3][3];    // first index is solar, 2nd is battery size
-extern float batt_tohouse[3][3], batt_charge[3][3], solar_togrid[3][3];
+extern float batt_tohouse[3][3], batt_togrid[3][3], batt_charge[3][3], solar_togrid[3][3];
 extern float loads, solar, avSparekW;
 extern float Vbat;
 extern float I7phase;

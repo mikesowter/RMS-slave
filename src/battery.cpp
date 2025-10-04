@@ -27,19 +27,19 @@ void batteryEnergy() {
   float kWms2kWh = (float)t_scan/3.6E6;                         // kWms to kWh (1/1000)*(1/3600)
   if ( hour() >= 16 && hour() < 20 ) sell2grid = 2.0*kWms2kWh;  // 2kW for t_scan ms
 
-  excessSolar[0] = solar-loads-sell2grid;  
-  excessSolar[1] = 1.5F*solar-loads-sell2grid; 
-  excessSolar[2] = 2.0F*solar-loads-sell2grid;
+  excessSolar[0] = solar-loads;             // excess solar[ps] after house loads in kWh 
+  excessSolar[1] = 1.5F*solar-loads; 
+  excessSolar[2] = 2.0F*solar-loads;
 
 // first iterate through panels size (ps)
   for (uint8_t ps = 0;ps<3;ps++) {
   // then through battery size (bs)
     for (uint8_t bs = 0;bs<3;bs++) {
-      if (excessSolar[ps] > 0.0) {           
+      if (excessSolar[ps] > sell2grid) {           
     // +ive is charging battery or solar is exporting to grid  ***********************************************************************
         if (batt_charge[ps][bs] < battCap[bs]) {
           batt_charge[ps][bs] += excessSolar[ps];             // add to battery
-          batt_savings[ps][bs] -= excessSolar[ps]*FIT_rate;                     //value of energy into battery (is a loss)
+          batt_savings[ps][bs] -= excessSolar[ps]*FIT_rate;                  //value of energy into battery (is a loss)
           // battery overflows just now
           if ( batt_charge[ps][bs] > battCap[bs]) {
             solar_togrid[ps][bs] += (batt_charge[ps][bs] - battCap[bs]);
@@ -48,27 +48,33 @@ void batteryEnergy() {
         }
         else {    // battery was full
           solar_togrid[ps][bs] += excessSolar[ps];            // dump all to grid
-          batt_savings[ps][bs] += excessSolar[ps] * FIT_rate;                //value of solar energy to grid
+          batt_savings[ps][bs] += excessSolar[ps] * FIT_rate;                // value of solar energy to grid
         }
       }
 
       else {                                          
-    // -ive is discharging battery to house or exporting to grid  ***********************************************************************
-        float battMin = battCap[bs]/50.0F;
-        if (batt_charge[ps][bs] > battMin) {           // battery > 2% batcap
-          batt_charge[ps][bs] += excessSolar[ps];
-          batt_savings[ps][bs] -= solar_togrid[ps][bs]*FIT_rate;                //value of battery energy to grid
-          if ( batt_charge[ps][bs] < battMin) {        // marginally too low now
-            batt_tohouse[ps][bs] += (batt_charge[ps][bs] - battMin); 
-            batt_savings[ps][bs] -= batt_tohouse[ps][bs] * FIT_rate; 
-            batt_charge[ps][bs] = battMin;             // battery at minimum charge
+    // -ive excessSolar is discharging battery to house and/or to grid  ***********************************************************************
+        if (batt_charge[ps][bs] > battCap[bs]/50.0F) {             // battery > 2% batcap
+          if ( sell2grid > 0.0F ) {
+            if ( sell2grid > -excessSolar[ps] ) {        // still some grid energy supplied by solar
+              solar_togrid[ps][bs] += sell2grid + excessSolar[ps];          // amount of solar to grid
+              batt_togrid[ps][bs] += sell2grid - solar_togrid[ps][bs];      // amount of battery discharge to grid
+              batt_charge[ps][bs] -= batt_togrid[ps][bs];                   // discharging battery
+            }
+            else {                                       // all grid energy supplied by battery  
+              batt_togrid[ps][bs] += sell2grid;
+              batt_charge[ps][bs] -= sell2grid;               
+            }
+          batt_savings[ps][bs] += solar_togrid[ps][bs]*FIT_rate;            // value of solar energy to grid
+          batt_savings[ps][bs] += batt_togrid[ps][bs]*FIT_rate;             // value of battery energy to grid
+          }  
+          else {   // no energy sold to grid, discharge battery to house
+            batt_tohouse[ps][bs] -= excessSolar[ps];                       // all battery discharge to house
+            batt_savings[ps][bs] -= excessSolar[ps]*FIT_rate;              // value of battery energy to house
+            batt_charge[ps][bs] += excessSolar[ps]; ;    
           }
-          else batt_tohouse[ps][bs] -= min(0.0F,excessSolar[ps]); 
         }
-        else {    // not enough battery
-          batt_charge[ps][bs] = battMin;
-        }
-      }     // end charging/discharging
+      }   
     }    // end battery size loop
   }   // end panel size loop
 }

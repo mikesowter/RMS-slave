@@ -183,6 +183,13 @@ void handleMetrics() {
       }
 
       for (uint8_t bs = 0;bs<3;bs++) {
+        strcpy(promName,"rmsBatToGrdP0B0");
+        promName[12] = ps + '0';
+        promName[14] = bs + '0';
+        promform(promName,batt_togrid[ps][bs],2);
+      }
+
+      for (uint8_t bs = 0;bs<3;bs++) {
         strcpy(promName,"rmsToHousP0B0");
         promName[10] = ps + '0';
         promName[12] = bs + '0';

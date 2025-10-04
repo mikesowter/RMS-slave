@@ -58,7 +58,7 @@ void readPromDB() {
   uint8_t po = 10;
   uint8_t bo = 12;
 
-  char promName[20];
+  char promName[25];
   for (uint8_t ps = 0;ps<3;ps++) {
   /*  strcpy(promName,root);
     strcat(promName,"ExcessP0");
