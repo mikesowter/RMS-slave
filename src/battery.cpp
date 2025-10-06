@@ -24,7 +24,7 @@ void batteryEnergy() {
 
 // sell 2kW to grid between 4pm and 8pm
   float sell2grid = 0.0F;
-  float kWms2kWh = (float)t_scan/3.6E6;                         // kWms to kWh (1/1000)*(1/3600)
+  float kWms2kWh = (float)t_scan/3.6E9;                         // kWms to kWh (1/1000)*(1/3600)
   if ( hour() >= 16 && hour() < 20 ) sell2grid = 2.0*kWms2kWh;  // 2kW for t_scan ms
 
   excessSolar[0] = solar-loads;             // excess solar[ps] after house loads in kWh 
@@ -59,12 +59,12 @@ void batteryEnergy() {
             if ( sell2grid > -excessSolar[ps] ) {        // still some grid energy supplied by solar
               float solarShare = sell2grid + excessSolar[ps];     // portion of solar in sell2grid quantity
               solar_togrid[ps][bs] += solarShare;                 // amount of solar sent to grid
-              batt_togrid[ps][bs] += sell2grid - solarShare;      // amount of battery sent to grid
-              batt_charge[ps][bs] -= sell2grid - solarShare;      // discharging battery
+              batt_togrid[ps][bs] += (sell2grid - solarShare);      // amount of battery sent to grid
+              batt_charge[ps][bs] -= (sell2grid - solarShare);      // discharging battery
             }
             else {                                       // all grid energy supplied by battery  
               batt_togrid[ps][bs] += sell2grid;
-              batt_charge[ps][bs] -= sell2grid;               
+              batt_charge[ps][bs] += sell2grid;               
             }
           batt_savings[ps][bs] += solar_togrid[ps][bs]*FIT_rate;            // value of solar energy to grid
           batt_savings[ps][bs] += batt_togrid[ps][bs]*FIT_rate;             // value of battery energy to grid
@@ -74,9 +74,9 @@ void batteryEnergy() {
             batt_savings[ps][bs] -= excessSolar[ps]*FIT_rate;              // value of battery energy to house
             batt_charge[ps][bs] += excessSolar[ps]; ;    
           }
-        }
-      }   
-    }    // end battery size loop
+        }   // end battery > 2% batcap
+      }   // end discharging battery 
+    }   // end battery size loop
   }   // end panel size loop
 }
 
