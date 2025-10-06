@@ -15,8 +15,8 @@ float noise[] = {0,5,5,5,5,5,5,5};
 
 void dailyEnergy() {
 
-  t_scan = max( 300UL, millis()-t_lastData );         // typically 900ms for RMS1, 400ms for RMS2
-  // t_scan = min( 1000UL, t_scan );
+  t_scan = millis()-t_lastData;         // typically 900ms for RMS1, 400ms for RMS2
+ 
   if ( t_scan > t_scan_max ) t_scan_max = t_scan; 
   if ( t_scan < t_scan_min ) t_scan_min = t_scan;     //              ms-s     W-kW     s-hr
   float Wms2kWh = (float)t_scan/3.6E9;                // Wms to kWh (1/1000)*(1/1000)*(1/3600)

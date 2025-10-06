@@ -39,7 +39,7 @@ void batteryEnergy() {
     // +ive is charging battery or solar is exporting to grid  ***********************************************************************
         if (batt_charge[ps][bs] < battCap[bs]) {
           batt_charge[ps][bs] += excessSolar[ps];             // add to battery
-          batt_savings[ps][bs] -= excessSolar[ps]*FIT_rate;                  //value of energy into battery (is a loss)
+          batt_savings[ps][bs] += excessSolar[ps]*FIT_rate;                  //value of energy into battery (is a loss)
           // battery overflows just now
           if ( batt_charge[ps][bs] > battCap[bs]) {
             solar_togrid[ps][bs] += (batt_charge[ps][bs] - battCap[bs]);
@@ -57,9 +57,10 @@ void batteryEnergy() {
         if (batt_charge[ps][bs] > battCap[bs]/50.0F) {             // battery > 2% batcap
           if ( sell2grid > 0.0F ) {
             if ( sell2grid > -excessSolar[ps] ) {        // still some grid energy supplied by solar
-              solar_togrid[ps][bs] += sell2grid + excessSolar[ps];          // amount of solar to grid
-              batt_togrid[ps][bs] += sell2grid - solar_togrid[ps][bs];      // amount of battery discharge to grid
-              batt_charge[ps][bs] -= batt_togrid[ps][bs];                   // discharging battery
+              float solarShare = sell2grid + excessSolar[ps];     // portion of solar in sell2grid quantity
+              solar_togrid[ps][bs] += solarShare;                 // amount of solar sent to grid
+              batt_togrid[ps][bs] += sell2grid - solarShare;      // amount of battery sent to grid
+              batt_charge[ps][bs] -= sell2grid - solarShare;      // discharging battery
             }
             else {                                       // all grid energy supplied by battery  
               batt_togrid[ps][bs] += sell2grid;
