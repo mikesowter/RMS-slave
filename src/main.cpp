@@ -13,7 +13,7 @@ void setup(void) {
   joinNet();
   // start OTA
   init_OTA();
-  delay(1000);
+  watchWait(2000);
   // setup FTP server
 	ftpSrv.begin("mike","iron");
   // set time related

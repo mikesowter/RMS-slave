@@ -1,6 +1,6 @@
 #include "extern.h"
 #include "defines.h"
-
+extern unsigned long t_scanSum;
 
 #ifdef RMS1
 float noise[] = {0,5,5,5,5,5,50,5,5};  // updated 20220725 to handle oven(6) noise
@@ -15,13 +15,15 @@ float noise[] = {0,5,5,5,5,5,5,5};
 
 void dailyEnergy() {
 
-  t_scan = millis()-t_lastData;         // typically 900ms for RMS1, 400ms for RMS2
+  t_scan = micros()-t_lastData;         // typically 900ms for RMS1, 400ms for RMS2
+  t_lastData = micros();
+  t_scanSum += t_scan;                  // check every 5 mins
  
   if ( t_scan > t_scan_max ) t_scan_max = t_scan; 
   if ( t_scan < t_scan_min ) t_scan_min = t_scan;     //              ms-s     W-kW     s-hr
-  float Wms2kWh = (float)t_scan/3.6E9;                // Wms to kWh (1/1000)*(1/1000)*(1/3600)
+  float Wms2kWh = (float)t_scan/3.6E12;                // Wms to kWh (1/1000)*(1/1000)*(1/3600)
   
-  t_lastData = millis();
+
   for ( int i = FIRST_CCT;i<NUM_CCTS;i++ ) {                  // power (W) to energy (kWh)
     if ( abs(Wrms[i]) < noise[i] ) Wrms[i] = 0.0;     // eliminate noise
     incEnergy[i] = Wrms[i] * Wms2kWh;   
@@ -60,7 +62,7 @@ void dailyEnergy() {
       tier1solar = solar;
       tier2solar = 0.0F;
     }
-    spareSolar = solar - loads;                   // inc kWh, +ive if excess solar after loads 
+    spareSolar = solar - loads;                           // inc kWh, +ive if excess solar after loads 
     // calculate tier1 costs
     split = tier1solar/tier1loads;  
     bool weekend = ( weekday() == 1 || weekday() == 7 );

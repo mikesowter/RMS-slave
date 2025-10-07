@@ -94,7 +94,7 @@ uint16_t oldYear, i, htmlLen, CstringPtr, syncDelay = 800;
 uint16_t localPort = 4210;          //  must match port assigned in "pulse"
 uint16_t loopCount = 0, missedCycle = 0;
 unsigned long t0, t1, t2, t3, startMillis, startSeconds, lastScan, startOutage;
-unsigned long t_lastData, t_scan, t_scan_max, t_scan_min = 9999UL, waiting, WWmin, WWmax, WDmin, WDmax;
+unsigned long t_lastData, t_scan, t_scan_max, t_scan_min = 9999UL, t_scanSum, waiting, WWmin, WWmax, WDmin, WDmax;
 unsigned long loopStart, loopTime, LTmin, LTmax, progLoopTime;
 unsigned long wfdStart, wfdTime, wfdPrev, WFDmin, WFDmax;
 

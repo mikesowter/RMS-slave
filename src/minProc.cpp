@@ -3,6 +3,7 @@
 extern bool barrelFail;
 
 uint8_t en_index, en5index, en15index;
+extern unsigned long t_scanSum;
 double Imp_kWh_now;
 void writePeak();
 // void fillBarrel();
@@ -14,12 +15,14 @@ void minProc() {
   SPISlave.setStatus(now());
   if ( minute() == oldMin ) return;
   oldMin = minute();
-
-  /*  all removed 20241002 as demand analysis not required
-
   if ( old5Min == minute()/5 ) return;
   old5Min = minute()/5;
-  // energy calcs every 5 minutes
+  sprintf(charBuf,"t_scanSum: %lu",t_scanSum);
+  diagMess(charBuf);
+  t_scanSum = 0UL;
+
+  /*  all removed 20241002 as demand analysis not required
+  energy calcs every 5 minutes
   en_index = (minute()/5)%6;          // current index into 6 x 5 min energy readings
   en5index = (en_index+5)%6;          // index 5 mins back
   en15index = (en_index+3)%6;         // index 15 mins back
