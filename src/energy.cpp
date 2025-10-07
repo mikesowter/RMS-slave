@@ -1,6 +1,5 @@
 #include "extern.h"
 #include "defines.h"
-extern unsigned long t_scanSum;
 
 #ifdef RMS1
 float noise[] = {0,5,5,5,5,5,50,5,5};  // updated 20220725 to handle oven(6) noise
@@ -17,7 +16,6 @@ void dailyEnergy() {
 
   t_scan = micros()-t_lastData;         // typically 900ms for RMS1, 400ms for RMS2
   t_lastData = micros();
-  t_scanSum += t_scan;                  // check every 5 mins
  
   if ( t_scan > t_scan_max ) t_scan_max = t_scan; 
   if ( t_scan < t_scan_min ) t_scan_min = t_scan;     //              ms-s     W-kW     s-hr

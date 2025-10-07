@@ -31,6 +31,8 @@ uint8_t init_OTA() {
 
   ArduinoOTA.begin();
   Serial.println("OTA Ready");
+  // check for OTA at reboot
+  ArduinoOTA.handle();
 
   return 1;
 }

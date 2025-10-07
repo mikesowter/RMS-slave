@@ -24,7 +24,7 @@ void batteryEnergy() {
 
 // sell 2kW to grid between 4pm and 8pm
   float sell2grid = 0.0F;
-  float kWus2kWh = (float)t_scan/3.6E9;                         // kWus to kWh (1/1000)*(1/3600)
+  float kWus2kWh = (float)t_scan/3.6E9;                         // kWus to kWh (1/E6)*(1/3600)
   if ( hour() >= 16 && hour() < 20 ) sell2grid = 2.0*kWus2kWh;  // 2kW for t_scan us
 
   excessSolar[0] = solar-loads;             // excess solar[ps] after house loads in kWh 
@@ -36,7 +36,7 @@ void batteryEnergy() {
   // then through battery size (bs)
     for (uint8_t bs = 0;bs<3;bs++) {
       if (excessSolar[ps] > sell2grid) {           
-    // +ive is charging battery or solar is exporting to grid  ***********************************************************************
+    // +ive is charging battery or exporting to grid  ***********************************************************************
         if (batt_charge[ps][bs] < battCap[bs]) {
           batt_charge[ps][bs] += excessSolar[ps];             // add to battery
           batt_savings[ps][bs] -= excessSolar[ps]*FIT_rate;                  //value of energy into battery (is a loss)
@@ -50,24 +50,21 @@ void batteryEnergy() {
           solar_togrid[ps][bs] += excessSolar[ps];            // dump all to grid
           batt_savings[ps][bs] += excessSolar[ps] * FIT_rate;                // value of solar energy to grid
         }
+      }  // end charging battery
+      else if (excessSolar[ps] > 0.0F) {               // still some grid energy supplied by solar
+        solar_togrid[ps][bs] += excessSolar[ps];                   // amount of solar sent to grid
+        batt_togrid[ps][bs] += (sell2grid - excessSolar[ps]);      // amount of battery sent to grid
+        batt_charge[ps][bs] -= (sell2grid - excessSolar[ps]);      // discharging battery
       }
-
-      else {                                          
+      else {                 
     // -ive excessSolar is discharging battery to house and/or to grid  ***********************************************************************
         if (batt_charge[ps][bs] > battCap[bs]/50.0F) {             // battery > 2% batcap
           if ( sell2grid > 0.0F ) {
-            if ( sell2grid > -excessSolar[ps] ) {        // still some grid energy supplied by solar
-              float solarShare = sell2grid + excessSolar[ps];     // portion of solar in sell2grid quantity
-              solar_togrid[ps][bs] += solarShare;                 // amount of solar sent to grid
-              batt_togrid[ps][bs] += (sell2grid - solarShare);      // amount of battery sent to grid
-              batt_charge[ps][bs] -= (sell2grid - solarShare);      // discharging battery
-            }
-            else {                                       // all grid energy supplied by battery  
-              batt_togrid[ps][bs] += sell2grid;
-              batt_charge[ps][bs] += sell2grid;               
-            }
-            batt_savings[ps][bs] += sell2grid*FIT_rate;             // value of battery energy to grid
-          }  
+        // all grid energy supplied by battery  
+            batt_togrid[ps][bs] += sell2grid;
+            batt_charge[ps][bs] -= sell2grid; 
+            batt_savings[ps][bs] += sell2grid*FIT_rate;             // value of battery energy to grid              
+          }
           else {   // no energy sold to grid, discharge battery to house
             batt_tohouse[ps][bs] -= excessSolar[ps];                       // all battery discharge to house
             batt_savings[ps][bs] -= excessSolar[ps]*FIT_rate;              // value of battery energy to house
