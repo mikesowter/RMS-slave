@@ -88,7 +88,7 @@ IPAddress dns(192, 168, 1, 1);
 uint8_t MOSIdata[32], MISOdata[32];
 uint8_t wattsIndex;
 uint8_t buffer[BUFFER_SIZE];
-uint8_t oldMin, old5Min, oldQtr, oldHour, oldDay, oldMonth, offset;
+uint8_t oldSec, oldMin, old5Min, oldQtr, oldHour, oldDay, oldMonth, offset;
 uint8_t scanSec, badSumCount = 0;
 uint16_t oldYear, i, htmlLen, CstringPtr, syncDelay = 800;
 uint16_t localPort = 4210;          //  must match port assigned in "pulse"

@@ -64,6 +64,17 @@ void updateEnergyFile() {
 }
 
 void updateBatteryFile() {
+  if (!LittleFS.exists("/Battery.csv")) {
+    fh = LittleFS.open("/Battery.csv", "w");
+    if (!fh) {
+      diagMess("Battery.csv failed to create");
+      return;
+    }
+    fh.printf("Date,Panel Size,Batt Size,Charge (kWh),To House (kWh),To Grid (kWh),Savings ($),");
+    fh.printf("Panel Size,Batt Size,Charge (kWh),To House (kWh),To Grid (kWh),Savings ($),");
+    fh.printf("Panel Size,Batt Size,Charge (kWh),To House (kWh),To Grid (kWh),Savings ($),\n");
+    fh.close();
+  }
   fh = LittleFS.open("/Battery.csv", "a");
   if (!fh) {
     diagMess("Battery.csv failed to open");
@@ -71,11 +82,12 @@ void updateBatteryFile() {
   }
   // write daily battery simulation results
   fh.printf("\n");
+  fh.printf("%02d/%02d/%4d,",day(),month(),year());
   for (uint8_t ps = 0;ps<3;ps++) {
-    fh.printf("%02d/%02d/%4d,",day(),month(),year());
+    fh.printf(" PS%d,",ps);
     for (uint8_t bs = 0;bs<3;bs++) {
-      fh.printf("%.2f,%.2f,%.2f,%.2f,",
-             batt_charge[ps][bs], batt_tohouse[ps][bs], solar_togrid[ps][bs], batt_savings[ps][bs]); 
+      fh.printf(" BS%d,%.2f,%.2f,%.2f,%.2f,",
+             bs,batt_charge[ps][bs], batt_tohouse[ps][bs], solar_togrid[ps][bs], batt_savings[ps][bs]); 
     }
   }
   fh.close();
