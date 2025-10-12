@@ -18,15 +18,15 @@ void dailyEnergy() {
   t_lastData = micros();
  
   if ( t_scan > t_scan_max ) t_scan_max = t_scan; 
-  if ( t_scan < t_scan_min ) t_scan_min = t_scan;     //              ms-s     W-kW     s-hr
-  float Wms2kWh = (float)t_scan/3.6E12;                // Wms to kWh (1/1000)*(1/1000)*(1/3600)
+  if ( t_scan < t_scan_min ) t_scan_min = t_scan;     //             us-s   W-kW   s-hr
+  float Wms2kWh = (float)t_scan/3.6E12;                // Wus to kWh (E-6)*(E-3)*(1/3600)
   
 
-  for ( int i = FIRST_CCT;i<NUM_CCTS;i++ ) {                  // power (W) to energy (kWh)
+  for ( int i = FIRST_CCT;i<NUM_CCTS;i++ ) {               
     if ( abs(Wrms[i]) < noise[i] ) Wrms[i] = 0.0;     // eliminate noise
     incEnergy[i] = Wrms[i] * Wms2kWh;   
-    if ( abs(incEnergy[i]) < 0.003F ) {
-      Energy[i] += incEnergy[i];  // 10000W*1000ms/3.6E9
+    if ( abs(incEnergy[i]) < 0.003F ) {               // check for excessive energy calcs
+      Energy[i] += incEnergy[i];  
 #ifdef RMS1
       if ( i!=1 && i!=5 && i!=7 ) tier1loads += incEnergy[i]; // loads 2,3,4,6,8 (CCTS, oven & lights)
 #endif

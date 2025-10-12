@@ -44,6 +44,7 @@ void batteryEnergy() {
           solar_togrid[ps][bs] += max(0.0F,excessSolar[ps]);             // amount of solar sent to grid
           batt_togrid[ps][bs] += sell2grid - excessSolar[ps];            // amount of battery sent to grid
           batt_tohouse[ps][bs] += loads;                                 // amount of battery sent to house
+          batt_charge[ps][bs] -= (sell2grid - excessSolar[ps] + loads);
           batt_savings[ps][bs] += (sell2grid - excessSolar[ps] + loads)*FIT_rate;
         }
       }
