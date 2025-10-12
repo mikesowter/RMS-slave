@@ -61,8 +61,9 @@ unsigned long getNTPreply(){
 void setupTime() {
   // Set epoch and timers
   oldSec = second();
+  t3 = millis();
   setTime(getTime());
-  sprintf(charBuf," Clock error %ds",oldSec-second());
+  sprintf(charBuf," Took %lums  Clock error %ds",millis()-t3,oldSec-second());
   diagMess(charBuf);
   SPISlave.begin();
   setupSPIslave();      // and tell Master the time, one day he'll read it

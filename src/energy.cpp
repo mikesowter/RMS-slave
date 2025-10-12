@@ -25,10 +25,12 @@ void dailyEnergy() {
   for ( int i = FIRST_CCT;i<NUM_CCTS;i++ ) {                  // power (W) to energy (kWh)
     if ( abs(Wrms[i]) < noise[i] ) Wrms[i] = 0.0;     // eliminate noise
     incEnergy[i] = Wrms[i] * Wms2kWh;   
-    if ( abs(incEnergy[i]) < 0.003F ) Energy[i] += incEnergy[i];  // 10000W*1000ms/3.6E9
+    if ( abs(incEnergy[i]) < 0.003F ) {
+      Energy[i] += incEnergy[i];  // 10000W*1000ms/3.6E9
 #ifdef RMS1
-    if ( i!=1 && i!=5 && i!=7 ) tier1loads += incEnergy[i]; // loads 2,3,4,6,8 (CCTS, oven & lights)
+      if ( i!=1 && i!=5 && i!=7 ) tier1loads += incEnergy[i]; // loads 2,3,4,6,8 (CCTS, oven & lights)
 #endif
+    }
   }
 #ifdef RMS2
   Energy[0] += Wimp * Wms2kWh;                    // daily sum energy 
