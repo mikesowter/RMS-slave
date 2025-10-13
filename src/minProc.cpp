@@ -98,4 +98,5 @@ void minProc() {
   }
   // update time at 00:00:00
   setupTime();
+  t_lastData = micros();    // avoid energy bump at midnight
 }  

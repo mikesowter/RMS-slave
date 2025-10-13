@@ -63,7 +63,7 @@ void setupTime() {
   oldSec = second();
   t3 = millis();
   setTime(getTime());
-  sprintf(charBuf," Took %lums  Clock error %ds",millis()-t3,oldSec-second());
+  sprintf(charBuf," NTP took %lums,  Clock error %ds",millis()-t3,oldSec-second());
   diagMess(charBuf);
   SPISlave.begin();
   setupSPIslave();      // and tell Master the time, one day he'll read it
