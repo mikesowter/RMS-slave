@@ -51,7 +51,7 @@ void minProc() {
   if ( peakPeriod ) {
     if ( rms15Demand > rms15Peak ) rms15Peak = rms15Demand;
     if ( rms30Demand > rms30Peak ) rms30Peak = rms30Demand;
-    writeDemands();
+    write5mEnergy();
   }     */
 
   // check for new quarter hour
@@ -69,7 +69,7 @@ void minProc() {
   // check for end of day
   if ( day() == oldDay ) return;
   // write days energy totals
-  updateEnergyFile();
+  write24hEnergy();
 #ifdef RMS1
   // battery simulation totals
   updateBatteryFile();

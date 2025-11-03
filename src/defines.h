@@ -1,6 +1,6 @@
 // a single location for defining variations between implementations of the RMS hardware
 
-#define RMS1
+#define RMS2
 
 #ifdef RMS1
     #define NUM_CCTS 8
@@ -12,7 +12,7 @@
 #ifdef RMS2
     #define NUM_CCTS 7
     #define MAX_CCTS 7
-    #define CODEVERSION "\nRMS2 slave 20250416"
+    #define CODEVERSION "\nRMS2 slave 20251102"
     #define IP4 62
     #define FIRST_CCT 4
 #endif

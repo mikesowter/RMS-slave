@@ -10,8 +10,8 @@ time_t myTimeCallback() {
 
 void setupFS () {
   
-//  if (!LittleFS.format()) Serial.println("LittleFS.format failed");
-//  else Serial.println("LittleFS formatted");
+ // if (!LittleFS.format()) Serial.println("LittleFS.format failed");
+ // else Serial.println("LittleFS formatted");
 
   if ( !LittleFS.begin() ) {
       Serial.println("LittleFS.begin failed");

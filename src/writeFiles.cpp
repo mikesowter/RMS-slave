@@ -39,7 +39,7 @@ void WriteQtr() {
   delay(10);
 }
 
-void updateEnergyFile() {
+void write24hEnergy() {
   fh = LittleFS.open("/Energy.csv", "a");
   if (!fh) {
     diagMess("Energy.csv failed to open");
@@ -93,20 +93,19 @@ void updateBatteryFile() {
   fh.close();
 }
 
-void writePeak() {
-  fh = LittleFS.open("PeakDemand.csv","a+");
-  fh.printf("%s,%.0f,%.0f\n",dateStamp(),rms15Peak,rms30Peak);
-  fh.close();
-  return;
-}
-
-void writeDemands() {
+/*
+void write5mEnergy() {
   char name[20];
-  strcpy(name,"DM");
+  strcpy(name,"E5m");
   strcat(name,dateStamp());
   strcat(name,".csv");
+  Imp_5inc = Imp_meter - Imp_old;     // 5 minute incremental imported energy kWh
+  Exp_5inc = Exp_meter - Exp_old;
   fh = LittleFS.open(name,"a+");
-  fh.printf("%s,%.0f,%.0f,%.0f\n",timeStamp(),rms5Demand,rms15Demand,rms30Demand);
+  fh.printf("%02d:%02d,%.3f,%.3f\n",hour(),minute(),1000.0F*Imp_5inc, 1000.0F*Exp_5inc);
+  Imp_old = Imp_meter;
+  Exp_old = Exp_meter;
   fh.close();
   return;
 }
+  */

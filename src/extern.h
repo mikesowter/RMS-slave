@@ -41,12 +41,12 @@ byte storeData();
 void dailyEnergy();
 void batteryEnergy();
 void readPromDB();
-void updateEnergyFile();
+void write24hEnergy();
 void updateBatteryFile();
 void setupTime();
 void calcCheckSum();
 void activity(const char* tag);
-void writeDemands();
+// void write5mEnergy();
 float avgWatts(float w, uint8_t cct, uint8_t d);
 
 extern uint8_t gobackhrs;

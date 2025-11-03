@@ -35,14 +35,14 @@ void minProc();
 void watchWait(unsigned long);
 void joinNet();
 void setupTime();
-void updateEnergyFile();
+void write24hEnergy();
 void checkScan();
 void readPromDB();
 // void fillBarrel();
 void setupFS();
 void sync2Master();
 void calcCheckSum();
-void writeDemands();
+// void write5mEnergy();
 
 String resetReason = "Restart caused by " + ESP.getResetReason();
 String resetDetail = ESP.getResetInfo();
