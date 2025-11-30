@@ -1,6 +1,6 @@
 // a single location for defining variations between implementations of the RMS hardware
 
-#define RMS2
+#define RMS1
 
 #ifdef RMS1
     #define NUM_CCTS 8

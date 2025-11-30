@@ -130,14 +130,19 @@ bool unloadValues() {
     for (uint8_t cct=1 ; cct<=NUM_CCTS ; cct++) {     // cct 0 is volts
       w = unload2Bytes();
       w = (int16_t) w;    // convert unsigned to signed 
+
+// correction factors for RMS1 and RMS2 circuits  
+
+  #ifdef RMS1
+      w = 0.8F * w;       // and scale here temp 30 Nov 25 
+  #endif
   #ifdef RMS2 
       w = 1.2F * w;       // and scale here temp 12Nov       
+      if ( cct == 7 ) w = 1.056 * w - 45.0F;    // best guess 18/12/24 
   #endif
+
       if ( abs(w) > 10000.0F || abs(w) < 5.0F ) w = 0.0F;
       Wrms[cct] = 0.5F*w + 0.5F*Wrms[cct];           // remove half the quantizing error   
-  #ifdef RMS2
-      if ( cct == 7 ) Wrms[7] = 1.056*Wrms[7] - 45.0F; // best guess 18/12/24 was 1.057, -45
-  #endif
       if (Wrms[cct] < Wrms_min[cct]) Wrms_min[cct] = Wrms[cct];
       if (Wrms[cct] > Wrms_max[cct]) Wrms_max[cct] = Wrms[cct];
       Wrms_avg[cct] = avgWatts(Wrms[cct],cct,8);
