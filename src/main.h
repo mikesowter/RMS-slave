@@ -150,6 +150,7 @@ float FIT_kWh[3];           // daily sum to grid with each panel size
 float FIT_inc[3];           // kwH increment to grid
 float T11_W;
 float I7phase;
+float spotPrice;
 
 
 

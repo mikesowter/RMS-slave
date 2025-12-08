@@ -14,6 +14,7 @@ float batt_tohouse[3][3], batt_charge[3][3], solar_togrid[3][3], batt_togrid[3][
 
 extern float noise[];  // 20220725 for oven(6) 
 extern float FIT_rate, T11_rate;
+extern float spotPrice;
 
 void batteryEnergy() {
 
@@ -22,10 +23,10 @@ void batteryEnergy() {
 // all power flows are in kW, energy in kWh, unlike the rest of the code
 
 
-// sell 2kW to grid between 4pm and 8pm
+// sell 2kW to grid if spot price > threshold
   float sell2grid = 0.0F;
   float kWus2kWh = (float)t_scan/3.6E9;                         // kWus to kWh (1/E6)*(1/3600)
-  if ( hour() >= 16 && hour() < 20 ) sell2grid = 2.0*kWus2kWh;  // 2kW for t_scan us
+  if ( spotPrice > 100.0F ) sell2grid = 2.0*kWus2kWh;           // 2kW for t_scan us
 
   excessSolar[0] = solar-loads;             // excess solar[ps] after house loads in kWh 
   excessSolar[1] = 1.5F*solar-loads; 
@@ -35,7 +36,8 @@ void batteryEnergy() {
   for (uint8_t ps = 0;ps<3;ps++) {
   // then through battery size (bs)
     for (uint8_t bs = 0;bs<3;bs++) {
-      if ( sell2grid > 0.0F ) {                         // selling to grid, do not charge battery
+      bool spareCap = ( batt_charge[ps][bs] > battCap[bs]/4.0F );   // at least 25% charge available
+      if ( sell2grid > 0.0F && spareCap) {                          // selling to grid, do not charge battery
         if ( excessSolar[ps] > sell2grid ) {
           solar_togrid[ps][bs] += excessSolar[ps];                      // amount of solar sent to grid
           batt_savings[ps][bs] += excessSolar[ps]*FIT_rate;             // value of solar energy to grid  
