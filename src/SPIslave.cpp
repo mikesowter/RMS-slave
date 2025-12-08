@@ -131,14 +131,11 @@ bool unloadValues() {
       w = unload2Bytes();
       w = (int16_t) w;    // convert unsigned to signed 
 
-// correction factors for RMS1 and RMS2 circuits  
+// correction factors for RMS2 circuit 7 (house import/export)  to align with energy meter
 
-  #ifdef RMS1
-      w = 0.8F * w;       // and scale here temp 30 Nov 25 
-  #endif
   #ifdef RMS2 
       w = 1.2F * w;       // and scale here temp 12Nov       
-      if ( cct == 7 ) w = 1.056 * w - 45.0F;    // best guess 18/12/24 
+//      if ( cct == 7 ) w = 1.056 * w - 45.0F;    // best guess 18/12/24 
   #endif
 
       if ( abs(w) > 10000.0F || abs(w) < 5.0F ) w = 0.0F;
@@ -150,7 +147,7 @@ bool unloadValues() {
   #ifdef RMS1
       float SparekW = Wrms[7]-Wrms[1];
       if ( avSparekW == 0.0F ) avSparekW = SparekW;
-      else avSparekW = 0.998*avSparekW + 0.002*SparekW;
+      else avSparekW = 0.995*avSparekW + 0.005*SparekW;   // shorten time constant
       if ( SparekW > 0.0F ) {
         Wimp = 0.0;
         Wexp = SparekW;
