@@ -37,41 +37,43 @@ void batteryEnergy() {
   for (uint8_t ps = 0;ps<3;ps++) {
   // then through battery size (bs)
     for (uint8_t bs = 0;bs<3;bs++) {
-      sell2grid = 0.0F;
-      if ( spotPrice > 100.0F ) sell2grid = battCap[bs]/8.0F*kWus2kWh;  // 2->4kW for t_scan us
+      if ( spotPrice > 100.0F ) sell2grid = battCap[bs]/8.0F*kWus2kWh;  // C/8 rate for t_scan us
+      else sell2grid = 0.0F;
       spareCap = ( batt_charge[ps][bs] > battCap[bs]/4.0F );            // at least 25% charge available?
+
       if ( sell2grid > 0.0F && spareCap) {                              // selling to grid, do not charge battery
         if ( excessSolar[ps] > sell2grid ) {
           solar_togrid[ps][bs] += excessSolar[ps];                      // amount of solar sent to grid
-          batt_savings[ps][bs] += excessSolar[ps]*spotPrice_kWh;        // value of solar energy to grid  
+          batt_savings[ps][bs] += excessSolar[ps] * spotPrice_kWh;        // value of solar energy to grid  
         }
         else {
           solar_togrid[ps][bs] += max(0.0F,excessSolar[ps]);             // amount of solar sent to grid
-          batt_togrid[ps][bs] += sell2grid - excessSolar[ps];            // amount of battery sent to grid
+          float fromBatt = max(0.0F,sell2grid - excessSolar[ps]);
+          batt_togrid[ps][bs] += fromBatt;                               // amount of battery sent to grid
           batt_tohouse[ps][bs] += loads;                                 // amount of battery sent to house
-          batt_charge[ps][bs] -= (sell2grid - excessSolar[ps] + loads);
-          batt_savings[ps][bs] += (sell2grid - excessSolar[ps] + loads)*spotPrice_kWh; // value of energy from battery
+          batt_charge[ps][bs] -= fromBatt + loads;
+          batt_savings[ps][bs] += (fromBatt + loads) * amberPrice;       // value of energy from battery
         }
       }
-      else {    // not selling to grid
+      else {    // not selling to grid FROM BATTERY
         if ( excessSolar[ps] > 0.0F ) {                       // charge battery if possible
           if (batt_charge[ps][bs] > battCap[bs]) {            // battery full
             solar_togrid[ps][bs] += excessSolar[ps];          // send solar to grid
           }
           else if ( spotPrice_kWh < .02F) {                   // battery not full and energy cheap
             batt_charge[ps][bs] += excessSolar[ps];           // add to battery
-            batt_savings[ps][bs] -= excessSolar[ps]*spotPrice_kWh;   // value of energy into battery (is a loss)
+            batt_savings[ps][bs] -= excessSolar[ps] * spotPrice_kWh;   // value of energy into battery (is a loss)
           }
           else {                                              // battery not full but energy expensive
             solar_togrid[ps][bs] += excessSolar[ps];          // send solar to grid
-            batt_savings[ps][bs] -= excessSolar[ps]*spotPrice_kWh;   // value of energy
+            batt_savings[ps][bs] -= excessSolar[ps] * spotPrice_kWh;   // value of energy
           }
         }
         else {      // no solar
-          if (batt_charge[ps][bs] > battCap[bs]/50.0F) {          // discharge battery if possible
-            batt_charge[ps][bs] += excessSolar[ps];               // take from battery
+          if (batt_charge[ps][bs] > battCap[bs]/50.0F) {       // discharge battery if possible
+            batt_charge[ps][bs] += excessSolar[ps];            // take from battery
             batt_tohouse[ps][bs] -= excessSolar[ps];              
-            batt_savings[ps][bs] -= excessSolar[ps]*amberPrice;   // value of energy from battery
+            batt_savings[ps][bs] -= excessSolar[ps] * amberPrice;   // value of energy from battery
           }
         }   // end solar available
       }   // end selling to grid
