@@ -1,8 +1,9 @@
 
 #include "extern.h"
-extern float spotPrice;
+extern float spotPrice, amberPrice;
 float readPromItem(char* unit);
 char AEMOSpotPrice[] = "AEMOSpotPrice";
+char AEMOamberImpCost[] = "AEMOamberImpCost";
 
 uint8_t en_index, en5index, en15index;
 double Imp_kWh_now;
@@ -16,12 +17,13 @@ void minProc() {
   SPISlave.setStatus(now());
   if ( minute() == oldMin ) return;
   oldMin = minute();
+  spotPrice = readPromItem(AEMOSpotPrice);
+  amberPrice = readPromItem(AEMOamberImpCost);
 
   // check for new 5 minute period
   if ( old5Min == minute()/5 ) return;
   old5Min = minute()/5;
-  spotPrice = readPromItem(AEMOSpotPrice);
-  
+    
   // check for new quarter hour
   if ( oldQtr == minute()/15 ) return;
   oldQtr = minute()/15;

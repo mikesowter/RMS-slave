@@ -91,6 +91,14 @@ void readPromDB() {
 
     for (uint8_t bs = 0;bs<3;bs++) {
       strcpy(promName,root);
+      strcat(promName,"BatToGrdP0B0");
+      promName[po+2] = ps + '0';
+      promName[bo+2] = bs + '0';
+      batt_togrid[ps][bs] = readPromItem(promName);
+    }
+
+    for (uint8_t bs = 0;bs<3;bs++) {
+      strcpy(promName,root);
       strcat(promName,"SavingP0B0");
       promName[po] = ps + '0';
       promName[bo] = bs + '0';
