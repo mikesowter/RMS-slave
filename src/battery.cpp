@@ -19,13 +19,16 @@ float excessSolar[3], batt_savings[3][3];    // first index is panel size, 2nd i
 float batt_tohouse[3][3], batt_charge[3][3], solar_togrid[3][3], batt_togrid[3][3];
 float sell2grid;
 float micros2hrs = (float)t_scan/3.6E9;                       // (1/E6)*(1/3600)
+uint8_t dawnByMonth[12] = {5,6,6,7,7,8,8,7,7,6,6,5};            // approximate dawn hour by month
+uint8_t firstLight = dawnByMonth[month()-1];
+
 
 extern float noise[];  // 20220725 for oven(6) 
 extern float FIT_rate, T11_rate;
 extern float spotPrice, amberPrice;
 
 bool decideToSell(float battLevel);
-bool decideToBuy(float battLevel, float battCapacity);
+float buy(float battLevel, float battCapacity);
 
 void batteryEnergy() {
 // general caution - this is a simulation of battery behaviour only
@@ -44,14 +47,9 @@ void batteryEnergy() {
   for (uint8_t ps = 0;ps<3;ps++) {
   // then through battery size (bs)
     for (uint8_t bs = 0;bs<3;bs++) {
-      if ( decideToSell(batt_charge[ps][bs]) ) sell2grid = (battCap[bs]/8.0F);  // C/8 rate for 1 hour
-      else sell2grid = 0.0F;
-      spareCap = ( batt_charge[ps][bs] > 8.0F );                        // at least 8kWh charge available?
-
-      if ( sell2grid > 0.0F && spareCap) {                              // selling to grid, do not charge battery
+      if ( decideToSell( batt_charge[ps][bs] )) {                      // selling to grid, do not charge battery
         if ( excessSolar[ps] > sell2grid ) {    // all from solar
           solar_togrid[ps][bs] += excessSolar[ps];                      // amount of solar sent to grid
-          batt_savings[ps][bs] += excessSolar[ps] * spotPrice_kWh;      // value of solar energy to grid  
         }
         else {                                  // some from battery  
           solar_togrid[ps][bs] += max(0.0F,excessSolar[ps]);             // amount of solar sent to grid
@@ -68,13 +66,15 @@ void batteryEnergy() {
           if (batt_charge[ps][bs] > battCap[bs]) {            // battery full
             solar_togrid[ps][bs] += excessSolar[ps];          // send solar to grid
           }
-          else if ( decideToBuy(batt_charge[ps][bs],battCap[bs])) {     // based on price, charge and time of day
+          else {     
             batt_charge[ps][bs] += excessSolar[ps];           // add to battery
             batt_savings[ps][bs] -= excessSolar[ps] * spotPrice_kWh;   // value of energy into battery (is a loss)
           }
-          else {                                              // battery not full but energy expensive
-            solar_togrid[ps][bs] += excessSolar[ps];          // send solar to grid
-          }
+          float buyFromGrid = buy(batt_charge[ps][bs],battCap[bs]);       // based on price, charge and time of day   
+          if ( buy > 0.0F ) {
+            batt_charge[ps][bs] += buyFromGrid;                       // add to battery
+            batt_savings[ps][bs] -= buyFromGrid * amberPrice_kWh;      // value of energy into battery (is a loss) 
+          }                                      // battery not full but energy expensive
         }
         else {      // no solar, all from battery if available
           if (batt_charge[ps][bs] > battCap[bs]/50.0F) {       // discharge battery to 2% capacity
@@ -92,24 +92,25 @@ bool decideToSell(float battLevel) {
   // decide whether to sell to grid based on battery level and time of day
 
   // first priority is to have enough battery for the night
-  uint8_t dawnByMonth[12] = {5,6,6,7,7,8,8,7,7,6,6,5};            // approximate dawn hour by month
-  uint8_t firstLight = dawnByMonth[month()-1];
-//  uint8_t hrsOfDark = firstLight*2;                               // approx hours of darkness
   if ( hour() < firstLight || hour() > (24 - firstLight) ) {      // if night time
     uint8_t hrsToDawn = (24 - hour() + firstLight) % 24;
     if ( battLevel < 0.7F * hrsToDawn ) return false;             // do not sell if battery will not last till dawn
   }
   // second priority is how much to sell during peak spot prices
-  sell2grid = min(5.0F,(spotPrice-120.0F)/100.0F*micros2hrs);     // up to 5kW depending on spot price
-  if ( sell2grid > 0.0F ) return true;                            // only sell if spot price > 12c/kWh 
+  sell2grid = min(5.0F,(spotPrice-120.0F)/100.0F*micros2hrs);     // up to 5kW depending on price 12c-62c/kWh
+  if ( sell2grid > 0.0F ) return true;      
+  sell2grid = 0.0F;                      
   return false;
 }
 
-bool decideToBuy(float battLevel, float battCapacity) {
-  // decide whether to buy or keep solar for battery based on battery level and time of day
-  if ( battLevel >= battCapacity ) return false;           // do not buy if battery full
-  uint8_t hr = hour();
-  if ( hr >= 10 && hr <= 15 ) return false;                // do not buy during daytime
-  if ( spotPrice < 50.0F ) return true;                    // buy if spot price < 5c/kWh
-  return false;
-} 
+float buy(float battLevel, float battCapacity) {
+  // decide whether to buy based on battery level and time of day
+  uint8_t hrsFromDawn = hour() - firstLight;
+  uint8_t hrsInDay = 24 - 2*firstLight;
+  if ( hour() >= firstLight && hour() <= (24 - firstLight) ) {            // if daytime
+    if ( battCapacity/battLevel < hrsFromDawn/hrsInDay ) {                // buy if battery will not fill by dusk
+      return max(0.0F,min(5.0F,(50.0F-amberPrice)/10.0F*micros2hrs));     // up to 5kW depending on price 
+    }
+  else return 0.0F;
+  }              
+}
