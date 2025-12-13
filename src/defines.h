@@ -5,7 +5,7 @@
 #ifdef RMS1
     #define NUM_CCTS 8
     #define MAX_CCTS 11
-    #define CODEVERSION "\nRMS1 slave 20251208"
+    #define CODEVERSION "\nRMS1 slave 20251214"
     #define IP4 56
     #define FIRST_CCT 1
 #endif

@@ -98,9 +98,9 @@ bool decideToSell(float battLevel) {
     if ( battLevel < 0.7F * hrsToDawn ) return false;             // do not sell if battery will not last till dawn
   }
   // second priority is how much to sell during peak spot prices
-  sellGridRate = max(0.0F,min(5.0F,(spotPrice-120.0F)/100.0F));  // up to 5kW depending on price 12c-62c/kWh
-  sell2grid = sellGridRate*micros2hrs;                           // power * time = energy in kWh
-  if ( sell2grid > 0.0F ) return true;      
+  sellGridRate = max(0.0F,min(5.0F,spotPrice/100.0F));            // up to 5kW depending on price 20c-100c/kWh
+  sell2grid = sellGridRate*micros2hrs;                            // power * time = energy in kWh
+  if ( sellGridRate > 2.0F ) return true;      
   sell2grid = 0.0F;                      
   return false;
 }
