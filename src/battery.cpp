@@ -21,10 +21,11 @@ float sell2grid;
 float micros2hrs = (float)t_scan/3.6E9;                       // (1/E6)*(1/3600)
 uint8_t dawnByMonth[12] = {5,6,6,7,7,8,8,7,7,6,6,5};            // approximate dawn hour by month
 uint8_t firstLight = dawnByMonth[month()-1];
+float sellGridRate;    // kW rate of selling to grid depending on spot price
+float buyGridRate;     // kW rate of buying from grid depending on state of battery
 
 
 extern float noise[];  // 20220725 for oven(6) 
-extern float FIT_rate, T11_rate;
 extern float spotPrice, amberPrice;
 
 bool decideToSell(float battLevel);
@@ -37,7 +38,6 @@ void batteryEnergy() {
 
 
   float spotPrice_kWh = spotPrice/1000.0F;                      // $/MWh to $/kWh
-  bool spareCap;
 
   excessSolar[0] = solar-loads;             // excess solar[ps] after house loads in kWh 
   excessSolar[1] = 1.5F*solar-loads; 
@@ -51,9 +51,10 @@ void batteryEnergy() {
         if ( excessSolar[ps] > sell2grid ) {    // all from solar
           solar_togrid[ps][bs] += excessSolar[ps];                      // amount of solar sent to grid
         }
-        else {                                  // some from battery  
-          solar_togrid[ps][bs] += max(0.0F,excessSolar[ps]);             // amount of solar sent to grid
-          float fromBatt = max(0.0F,sell2grid - excessSolar[ps]);
+        else {                                  // some from battery
+          float fromSolar = max(0.0F,excessSolar[ps]);  
+          solar_togrid[ps][bs] += fromSolar;                             // amount of solar sent to grid
+          float fromBatt = max(0.0F,sell2grid - fromSolar);
           batt_togrid[ps][bs] += fromBatt;                               // amount of battery sent to grid
           batt_tohouse[ps][bs] += loads;                                 // amount of battery sent to house
           batt_charge[ps][bs] -= fromBatt + loads;
@@ -70,11 +71,11 @@ void batteryEnergy() {
             batt_charge[ps][bs] += excessSolar[ps];           // add to battery
             batt_savings[ps][bs] -= excessSolar[ps] * spotPrice_kWh;   // value of energy into battery (is a loss)
           }
-          float buyFromGrid = buy(batt_charge[ps][bs],battCap[bs]);       // based on price, charge and time of day   
-          if ( buy > 0.0F ) {
-            batt_charge[ps][bs] += buyFromGrid;                       // add to battery
-            batt_savings[ps][bs] -= buyFromGrid * amberPrice_kWh;      // value of energy into battery (is a loss) 
-          }                                      // battery not full but energy expensive
+          float buyFromGrid = buy(batt_charge[ps][bs],battCap[bs]);    // based on price, charge and time of day   
+          if ( buyFromGrid > 0.0F ) {
+            batt_charge[ps][bs] += buyFromGrid;                        // add to battery
+            batt_savings[ps][bs] -= buyFromGrid * amberPrice;          // value of energy into battery (is a loss) 
+          }                                     
         }
         else {      // no solar, all from battery if available
           if (batt_charge[ps][bs] > battCap[bs]/50.0F) {       // discharge battery to 2% capacity
@@ -97,7 +98,8 @@ bool decideToSell(float battLevel) {
     if ( battLevel < 0.7F * hrsToDawn ) return false;             // do not sell if battery will not last till dawn
   }
   // second priority is how much to sell during peak spot prices
-  sell2grid = min(5.0F,(spotPrice-120.0F)/100.0F*micros2hrs);     // up to 5kW depending on price 12c-62c/kWh
+  sellGridRate = max(0.0F,min(5.0F,(spotPrice-120.0F)/100.0F));  // up to 5kW depending on price 12c-62c/kWh
+  sell2grid = sellGridRate*micros2hrs;                           // power * time = energy in kWh
   if ( sell2grid > 0.0F ) return true;      
   sell2grid = 0.0F;                      
   return false;
@@ -109,8 +111,9 @@ float buy(float battLevel, float battCapacity) {
   uint8_t hrsInDay = 24 - 2*firstLight;
   if ( hour() >= firstLight && hour() <= (24 - firstLight) ) {            // if daytime
     if ( battCapacity/battLevel < hrsFromDawn/hrsInDay ) {                // buy if battery will not fill by dusk
-      return max(0.0F,min(5.0F,(50.0F-amberPrice)/10.0F*micros2hrs));     // up to 5kW depending on price 
+      buyGridRate = max(0.0F,min(5.0F,(50.0F-spotPrice)/10.0F));          // up to 5kW rate depending on price
+      return buyGridRate * micros2hrs;                                    // power * time = energy in kWh
     }
-  else return 0.0F;
-  }              
+  }       
+  return 0.0F;       
 }

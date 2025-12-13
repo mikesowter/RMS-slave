@@ -3,6 +3,10 @@ char promName[25];
 extern float T11_kWh[], T11_inc[];
 extern float batt_tohouse[3][3], solar_togrid[3][3], batt_charge[3][3];
 extern uint8_t gobackhrs;
+extern float sell2grid;
+extern float excessSolar[];
+extern float sellGridRate;    // kW rate of selling to grid depending on spot price
+extern float buyGridRate;     // kW rate of buying from grid depending on state of battery
 
 void promform(const char* pname,float lval, uint8_t res) {
   char fltStr[12];
@@ -149,6 +153,8 @@ void handleMetrics() {
     promform("rmsT11_kWh", T11_kWh[0], 3);
     promform("rmsT11_kWh75", T11_kWh[1], 3);
     promform("rmsT11_kWh10", T11_kWh[2], 3);
+    promform("rmsSelGridRate", sellGridRate, 3);
+    promform("rmsBuyGridRate", buyGridRate, 3);
     
 #endif
 #ifdef RMS1
