@@ -18,7 +18,7 @@ float battCap[] = {16.0F,24.0F,32.0F};
 float excessSolar[3], batt_savings[3][3];    // first index is panel size, 2nd is battery size
 float batt_tohouse[3][3], batt_charge[3][3], solar_togrid[3][3], batt_togrid[3][3];
 float sell2grid;
-float micros2hrs = (float)t_scan/3.6E9;                       // (1/E6)*(1/3600)
+float micros2hrs = 1/3.6E9;                                       // (1/E6)*(1/3600)
 uint8_t dawnByMonth[12] = {5,6,6,7,7,8,8,7,7,6,6,5};            // approximate dawn hour by month
 uint8_t firstLight = dawnByMonth[month()-1];
 float sellGridRate;    // kW rate of selling to grid depending on spot price
@@ -29,7 +29,7 @@ extern float noise[];  // 20220725 for oven(6)
 extern float spotPrice, amberPrice;
 
 bool decideToSell(float battLevel);
-float buy(float battLevel, float battCapacity);
+float howMuchToBuy(float battLevel, float battCapacity);
 
 void batteryEnergy() {
 // general caution - this is a simulation of battery behaviour only
@@ -71,7 +71,7 @@ void batteryEnergy() {
             batt_charge[ps][bs] += excessSolar[ps];           // add to battery
             batt_savings[ps][bs] -= excessSolar[ps] * spotPrice_kWh;   // value of energy into battery (is a loss)
           }
-          float buyFromGrid = buy(batt_charge[ps][bs],battCap[bs]);    // based on price, charge and time of day   
+          float buyFromGrid = howMuchToBuy(batt_charge[ps][bs],battCap[bs]);    // based on price, charge and time of day   
           if ( buyFromGrid > 0.0F ) {
             batt_charge[ps][bs] += buyFromGrid;                        // add to battery
             batt_savings[ps][bs] -= buyFromGrid * amberPrice;          // value of energy into battery (is a loss) 
@@ -95,25 +95,30 @@ bool decideToSell(float battLevel) {
   // first priority is to have enough battery for the night
   if ( hour() < firstLight || hour() > (24 - firstLight) ) {      // if night time
     uint8_t hrsToDawn = (24 - hour() + firstLight) % 24;
-    if ( battLevel < 0.7F * hrsToDawn ) return false;             // do not sell if battery will not last till dawn
+    if ( battLevel < 700.0F * hrsToDawn ) return false;           // only sell if battery will last till dawn
   }
   // second priority is how much to sell during peak spot prices
-  sellGridRate = max(0.0F,min(5.0F,spotPrice/100.0F));            // up to 5kW depending on price 20c-100c/kWh
-  sell2grid = sellGridRate*micros2hrs;                            // power * time = energy in kWh
-  if ( sellGridRate > 2.0F ) return true;      
+  sellGridRate = max(0.0F,min(5000.0F,spotPrice*10.0F));          // up to 5kW depending on price 20c-100c/kWh
+  sell2grid = sellGridRate * micros2hrs * t_scan;                 // power * time = energy in Wh
+  if ( sellGridRate > 2000.0F ) return true;    
+  sellGridRate = 0.0F;  
   sell2grid = 0.0F;                      
   return false;
 }
 
-float buy(float battLevel, float battCapacity) {
-  // decide whether to buy based on battery level and time of day
+float howMuchToBuy(float battLevel, float battCapacity) {
+  // buy based on price, battery level vs hours of day left to charge
+  // have not allowed for panic buying after 2pm (yet)
   uint8_t hrsFromDawn = hour() - firstLight;
   uint8_t hrsInDay = 24 - 2*firstLight;
   if ( hour() >= firstLight && hour() <= (24 - firstLight) ) {            // if daytime
     if ( battCapacity/battLevel < hrsFromDawn/hrsInDay ) {                // buy if battery will not fill by dusk
-      buyGridRate = max(0.0F,min(5.0F,(50.0F-spotPrice)/10.0F));          // up to 5kW rate depending on price
-      return buyGridRate * micros2hrs;                                    // power * time = energy in kWh
+      buyGridRate = max(0.0F,min(5.0F,5.0F-amberPrice))*1000;             // up to 5kW rate depending on price
+  // to do: interface to grid input to battery charger
+      return buyGridRate * micros2hrs * t_scan;                           // power * time = energy in Wh
     }
   }       
+  buyGridRate = 0.0F;                  
+  // to do: interface to grid input to battery charger
   return 0.0F;       
 }
