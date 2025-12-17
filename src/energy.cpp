@@ -5,6 +5,7 @@
 float noise[] = {0,5,5,5,5,5,50,5,5};  // updated 20220725 to handle oven(6) noise
 float tier1loads = 0.0F, tier2loads, split, rate, T11_rate, FIT_rate; 
 float tier1solar, tier2solar, spareSolar, factor;
+float usSum;
 #else
 float noise[] = {0,5,5,5,5,5,5,5}; 
 #endif
@@ -19,12 +20,12 @@ void dailyEnergy() {
  
   if ( t_scan > t_scan_max ) t_scan_max = t_scan; 
   if ( t_scan < t_scan_min ) t_scan_min = t_scan;     //             us-s   W-kW   s-hr
-  float Wms2kWh = (float)t_scan/3.6E12;                // Wus to kWh (E-6)*(E-3)*(1/3600)
+  float Wus2kWh = (float)t_scan/3.6E12;                // Wus to kWh (E-6)*(E-3)*(1/3600)
   
 
   for ( int i = FIRST_CCT;i<NUM_CCTS;i++ ) {               
     if ( abs(Wrms[i]) < noise[i] ) Wrms[i] = 0.0;     // eliminate noise
-    incEnergy[i] = Wrms[i] * Wms2kWh;   
+    incEnergy[i] = Wrms[i] * Wus2kWh;   
     if ( abs(incEnergy[i]) < 0.003F ) {               // check for excessive energy calcs
       Energy[i] += incEnergy[i];  
 #ifdef RMS1
@@ -33,11 +34,11 @@ void dailyEnergy() {
     }
   }
 #ifdef RMS2
-  Energy[0] += Wimp * Wms2kWh;                    // daily sum energy 
-  Energy[7] += Wexp * Wms2kWh;                    // export defined as neg power flow
+  Energy[0] += Wimp * Wus2kWh;                    // daily sum energy 
+  Energy[7] += Wexp * Wus2kWh;                    // export defined as neg power flow
       
-  Imp_meter += Wimp * Wms2kWh;                    // energex meter
-  Exp_meter += Wexp * Wms2kWh;
+  Imp_meter += Wimp * Wus2kWh;                    // energex meter
+  Exp_meter += Wexp * Wus2kWh;
 #endif
 #ifdef RMS1
   loads = incEnergy[1];                           // total inc kWh (solar+Tariff11) load on dist panel
@@ -103,7 +104,7 @@ void dailyEnergy() {
   }
   // this is a new simple calc for T11 energy with existing solar
   T11_W = max(0.0F,Wrms_min[1] - Wrms_min[7]);
-  float T11_kWh_inc = T11_W * Wms2kWh;
+  float T11_kWh_inc = T11_W * Wus2kWh;
   T11_kWh[0] += T11_kWh_inc;
 #endif
 }
