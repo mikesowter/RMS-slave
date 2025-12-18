@@ -78,7 +78,7 @@ void batteryEnergy() {
           }                                     
         }
         else {      // no solar, all from battery if available
-          if (batt_charge[ps][bs] > battCap[bs]/50.0F) {       // discharge battery to 2% capacity
+          if (batt_charge[ps][bs] > battCap[bs]*0.05F) {       // discharge battery to 5% capacity
             batt_charge[ps][bs] += excessSolar[ps];            // take from battery (excess is negative)
             batt_tohouse[ps][bs] -= excessSolar[ps];              
             batt_savings[ps][bs] -= excessSolar[ps] * amberPrice;   // money saved
