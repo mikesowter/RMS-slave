@@ -3,7 +3,7 @@ char promName[25];
 extern float T11_kWh[], T11_inc[];
 extern float batt_tohouse[3][3], solar_togrid[3][3], batt_charge[3][3];
 extern uint8_t gobackhrs;
-extern float sell2grid;
+extern float sellToGrid, buyFromGrid;
 extern float excessSolar[];
 extern float sellGridRate;    // kW rate of selling to grid depending on spot price
 extern float buyGridRate;     // kW rate of buying from grid depending on state of battery
