@@ -44,14 +44,16 @@ void batteryEnergy() {
   for (uint8_t ps = 0;ps<3;ps++) {
   // then through battery size (bs)
     for (uint8_t bs = 0;bs<3;bs++) {
-      if ( decideToSell( batt_charge[ps][bs] )) {                      // selling to grid, do not charge battery
-        if ( excessSolar[ps] > sellToGrid ) {    // all from solar
+      if ( decideToSell( batt_charge[ps][bs] )) {             
+    // selling to grid, do not charge battery
+        if ( excessSolar[ps] > sellToGrid ) {                           // all from solar
           solar_togrid[ps][bs] += excessSolar[ps];                      // amount of solar sent to grid
         }
-        else {                                  // some from battery
+        else {                                                          // some from battery
           float fromSolar = max(0.0F,excessSolar[ps]);  
-          solar_togrid[ps][bs] += fromSolar;                             // amount of solar sent to grid
+          solar_togrid[ps][bs] += fromSolar;                            // amount of solar sent to grid
           float fromBatt = max(0.0F,sellToGrid - fromSolar);
+        // todo: interface to grid output from battery inverter
           batt_togrid[ps][bs] += fromBatt;                               // amount of battery sent to grid
           batt_tohouse[ps][bs] += loads;                                 // amount of battery sent to house
           batt_charge[ps][bs] -= fromBatt + loads;
@@ -59,25 +61,26 @@ void batteryEnergy() {
           batt_savings[ps][bs] += fromBatt * spotPrice_kWh;              // money earned
         }
       }
-      else {    // not selling to grid for price reasons
-        if ( excessSolar[ps] > 0.0F ) {                       // charge battery if possible
-          if (batt_charge[ps][bs] > battCap[bs]) {            // battery full
-            solar_togrid[ps][bs] += excessSolar[ps];          // send solar to grid
+    // not selling to grid for price reasons
+      else {    
+        if ( excessSolar[ps] > 0.0F ) {                                   // charge battery if possible
+          if (batt_charge[ps][bs] > battCap[bs]) {                        // battery full
+            solar_togrid[ps][bs] += excessSolar[ps];                      // send solar to grid
           }
           else {     
-            batt_charge[ps][bs] += excessSolar[ps];           // add to battery
-            batt_savings[ps][bs] -= excessSolar[ps] * spotPrice_kWh;   // value of energy into battery (is a loss)
+            batt_charge[ps][bs] += excessSolar[ps];                       // add to battery
+            batt_savings[ps][bs] -= excessSolar[ps] * spotPrice_kWh;      // value of energy into battery (is a loss)
           }
           if ( decideToBuy(batt_charge[ps][bs],battCap[bs]) ) {
-            batt_charge[ps][bs] += buyFromGrid;                        // add to battery
-            batt_savings[ps][bs] -= buyFromGrid * amberPrice;          // value of energy into battery (is a loss) 
+            batt_charge[ps][bs] += buyFromGrid;                           // add to battery
+            batt_savings[ps][bs] -= buyFromGrid * amberPrice;             // value of energy into battery (is a loss) 
           }                                     
         }
-        else {      // no solar, all from battery if available
-          if (batt_charge[ps][bs] > battCap[bs]*0.05F) {       // discharge battery to 5% capacity
-            batt_charge[ps][bs] += excessSolar[ps];            // take from battery (excess is negative)
+        else {      // no excess solar, all from battery, if available
+          if (batt_charge[ps][bs] > battCap[bs]*0.05F) {                  // discharge battery to 5% capacity
+            batt_charge[ps][bs] += excessSolar[ps];                       // take from battery (excess is negative)
             batt_tohouse[ps][bs] -= excessSolar[ps];              
-            batt_savings[ps][bs] -= excessSolar[ps] * amberPrice;   // money saved
+            batt_savings[ps][bs] -= excessSolar[ps] * amberPrice;         // money saved
           }
         }   // end solar available
       }   // end selling to grid
