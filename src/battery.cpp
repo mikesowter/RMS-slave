@@ -22,7 +22,7 @@ float sellGridRate;    // kW rate of selling to grid depending on spot price
 float buyGridRate;     // kW rate of buying from grid depending on state of battery
 
 
-extern float noise[];  // 20220725 for oven(6) 
+extern float noise[];  // current noise levels on each house circuit
 extern float spotPrice, amberPrice;
 
 bool decideToSell(float battLevel);
@@ -50,15 +50,16 @@ void batteryEnergy() {
           solar_togrid[ps][bs] += excessSolar[ps];                      // amount of solar sent to grid
         }
         else {                                                          // some from battery
-          float fromSolar = max(0.0F,excessSolar[ps]);  
-          solar_togrid[ps][bs] += fromSolar;                            // amount of solar sent to grid
-          float fromBatt = max(0.0F,sellToGrid - fromSolar);
-        // todo: interface to grid output from battery inverter
-          batt_togrid[ps][bs] += fromBatt;                               // amount of battery sent to grid
+          float S2Ginc = max(0.0F,excessSolar[ps]);  
+          solar_togrid[ps][bs] += S2Ginc;                               // amount of solar sent to grid
+          float B2Ginc = max(0.0F,sellToGrid - S2Ginc);
+          batt_charge[ps][bs] -= B2Ginc;
+          batt_savings[ps][bs] += B2Ginc * spotPrice_kWh;                // money earned
+          batt_togrid[ps][bs] += B2Ginc;                                 // amount of battery sent to grid
+        // todo: interface to grid output of battery inverter
           batt_tohouse[ps][bs] += loads;                                 // amount of battery sent to house
-          batt_charge[ps][bs] -= fromBatt + loads;
+          batt_charge[ps][bs] -= loads;
           batt_savings[ps][bs] += loads * amberPrice;                    // money saved
-          batt_savings[ps][bs] += fromBatt * spotPrice_kWh;              // money earned
         }
       }
     // not selling to grid for price reasons
@@ -92,7 +93,7 @@ bool decideToSell(float battLevel) {
   // decide whether to sell to grid based on battery level and time of day
   // first priority is to handle very high spot prices
   if ( spotPrice > 1000.0F) {                                     // over $1.00/kWh  ($10000/MWh)
-    sellGridRate = 10000.0F;                                      // sell at 10kW rate (if possible)
+    sellGridRate = 10.0F;                                         // sell at 10kW rate (if possible)
     sellToGrid = sellGridRate * micros2hrs * t_scan;              // power * time = energy in Wh
     return true;
   }
@@ -103,9 +104,9 @@ bool decideToSell(float battLevel) {
     if ( battLevel < 700.0F * hrsToDawn ) return false;           // only sell if battery will last till dawn
   }
   // third priority is how much to sell during normal high spot prices
-  sellGridRate = max(0.0F,min(5000.0F,spotPrice*10.0F));          // up to 5kW depending on price 20c-100c/kWh
-  sellToGrid = sellGridRate * micros2hrs * t_scan;                 // power * time = energy in Wh
-  if ( sellGridRate > 2000.0F ) return true;    
+  sellGridRate = max(0.0F,min(5.0F,spotPrice/100.0F));            // up to 5kW depending on price 20c-100c/kWh
+  sellToGrid = sellGridRate * micros2hrs * t_scan;                // power * time = energy in Wh
+  if ( sellGridRate > 2.0F ) return true;    
   sellGridRate = 0.0F;  
   sellToGrid = 0.0F;                      
   return false;
@@ -115,15 +116,15 @@ bool decideToBuy(float battLevel, float battCapacity) {
   // buy based on price, battery level vs hours of day left to charge
   
   uint8_t hrsFromDawn = hour() - firstPVkW;
-  uint8_t hrsInDay = 24 - 2*firstPVkW;
+  uint8_t hrsInDay = 23 - 2*firstPVkW;
   if ( hour() >= firstPVkW && hour() <= (24 - firstPVkW) ) {            // if daytime
   // buy if battery will not reach say 16kWh by dusk
     if ( battCapacity/16.0F < hrsFromDawn/hrsInDay ) {                
-      buyGridRate = max(0.0F,min(5.0F,5.0F-amberPrice))*1000;             // up to 5kW rate depending on price
+      buyGridRate = max(0.0F,min(5.0F,5.0F-amberPrice));                // up to 5kW rate depending on price
     }
   // allow for panic buying after 2pm 
     else if ( battLevel < 8.0F && hour() >= 14 ) {                        
-      buyGridRate = max(0.0F,min(5.0F,20.0F-amberPrice))*1000;            // up to 5kW rate depending on price
+      buyGridRate = max(0.0F,min(5.0F,20.0F-amberPrice));                // up to 5kW rate depending on price
     } 
   // to do: interface to grid input to battery charger
     buyFromGrid = buyGridRate * micros2hrs * t_scan;                      // power * time = energy in Wh

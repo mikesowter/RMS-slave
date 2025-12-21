@@ -41,7 +41,7 @@ void dailyEnergy() {
   Exp_meter += Wexp * Wus2kWh;
 #endif
 #ifdef RMS1
-  loads = incEnergy[1];                           // total inc kWh (solar+Tariff11) load on dist panel
+  loads = max(0.0F,incEnergy[1]);                 // total inc kWh (solar+Tariff11) load on dist panel
   // calculate the impact of 3 panel sizes
   factor = 1.0F;                                  // simulating panels of 5,7.5 and 10kW
   for ( uint8_t ps=0;ps<3;ps++) {                      
