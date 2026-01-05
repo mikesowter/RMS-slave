@@ -142,7 +142,7 @@ bool unloadValues() {
       Wrms[cct] = 0.5F*w + 0.5F*Wrms[cct];           // remove half the quantizing error   
       if (Wrms[cct] < Wrms_min[cct]) Wrms_min[cct] = Wrms[cct];
       if (Wrms[cct] > Wrms_max[cct]) Wrms_max[cct] = Wrms[cct];
-      Wrms_avg[cct] = avgWatts(Wrms[cct],cct,8);
+      Wrms_avg[cct] = avgWatts(Wrms[cct],cct,7);
     }
   #ifdef RMS1
       float SparekW = Wrms[7]-Wrms[1];

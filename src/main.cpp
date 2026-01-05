@@ -66,7 +66,10 @@ void checkScan() {
     }
     // rejoin local network if necessary
 	  if ( WiFi.status() != WL_CONNECTED ) joinNet();
-    if ( WiFi.status() != WL_CONNECTED ) ESP.restart();
+    if ( WiFi.status() != WL_CONNECTED ) {
+      diagMess("failed to reconnect to WiFi");
+      ESP.restart();
+    }
   }
   else {
     if (scanFail) {
@@ -82,7 +85,7 @@ void joinNet() {
   Serial.println(ssid);
   WiFi.config(ip, gateway, subnet, dns);
   WiFi.begin(ssid, pass);
-  t0 = millis() + 10000;
+  t0 = millis() + 5000;
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(100);
@@ -94,7 +97,7 @@ void joinNet() {
     Serial.print("\n\nConnecting to ");
     Serial.println(bkp_ssid);
     WiFi.begin(bkp_ssid, bkp_pass);
-    t0 = millis() + 10000;
+    t0 = millis() + 5000;
 
     while (WiFi.status() != WL_CONNECTED) {
       delay(100);

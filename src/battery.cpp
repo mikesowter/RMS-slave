@@ -126,6 +126,7 @@ bool decideToBuy(float battLevel, float battCapacity) {
     else if ( battLevel < 8.0F && hour() >= 14 ) {                        
       buyGridRate = max(0.0F,min(5.0F,20.0F-amberPrice));                // up to 5kW rate depending on price
     } 
+    else buyGridRate = 0.0F;
   // to do: interface to grid input to battery charger
     buyFromGrid = buyGridRate * micros2hrs * t_scan;                      // power * time = energy in Wh
     if (buyFromGrid > 0.0F) return true;

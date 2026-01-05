@@ -1,6 +1,6 @@
 // a single location for defining variations between implementations of the RMS hardware
 
-#define RMS1
+#define RMS2   
 
 #ifdef RMS1
     #define NUM_CCTS 8
@@ -12,7 +12,7 @@
 #ifdef RMS2
     #define NUM_CCTS 7
     #define MAX_CCTS 7
-    #define CODEVERSION "\nRMS2 slave 20251206"
+    #define CODEVERSION "\nRMS2 slave 20251224"
     #define IP4 62
     #define FIRST_CCT 4
 #endif
@@ -25,10 +25,10 @@
 #define LONG_STR_SIZE 10000
 #define MASTER_RESET D3
 #define LED_PIN D4
-#define T31 0.17754             // updated 20250421
-#define T11_high 0.4107         // updated 20250909
-#define T11_med 0.3093          // updated 20250909
-#define T11_low 0.2640          // updated 20250909
+#define T31 0.15323             // updated 20251224
+#define T11_high 0.38445        // updated 20251224
+#define T11_med 0.28952         // updated 20251224
+#define T11_low 0.24706         // updated 20251224
 #define FIT_peak 0.241          // updated 20250929
 #define FIT_night 0.103         // updated 20250929
 #define FIT_day 0.033           // updated 20250929

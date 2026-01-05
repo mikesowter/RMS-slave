@@ -4,14 +4,12 @@ unsigned long waitStart, appStart;
  
 void ISRwatchDog () {
   watchDog++;
-  if (watchDog >= 20) {
-    errMess(" watchDog 20s timeout");
+  if (watchDog >= 5) {
+    errMess(" watchDog 5s timeout");
     diagMess("resetting master");
     digitalWrite(MASTER_RESET,0);
     delay(10);
     digitalWrite(MASTER_RESET,1);
-    delay(2000);
-    diagMess("resetting master didnt work");
     ESP.restart();
   }
 }
@@ -29,7 +27,7 @@ void watchWait(unsigned long timer) {
     appStart = millis();
     // check for web requests
     server.handleClient();                       // 11ms for metrics
-    // activity("WEB");
+    activity("WEB");
     // check for OTA
     ArduinoOTA.handle();
     activity("OTA");
